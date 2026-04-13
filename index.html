@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bryan Goh — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0c0f;
+      --surface: #111418;
+      --surface2: #181d22;
+      --border: #1e262f;
+      --border2: #263040;
+      --text: #d4dde8;
+      --muted: #5a7080;
+      --accent: #3a8fc4;
+      --accent2: #c4823a;
+      --accent3: #5ec48a;
+      --accent4: #c45e5e;
+      --glow: rgba(58, 143, 196, 0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- GRID NOISE OVERLAY --- */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, var(--border) 39px, var(--border) 40px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* --- LAYOUT --- */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- HEADER --- */
+    header {
+      padding: 72px 0 48px;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .header-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s ease forwards;
+    }
+
+    .header-tag::before {
+      content: '> ';
+      color: var(--accent3);
+    }
+
+    h1 {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #eaf2f8;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .tagline {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.3s ease forwards;
+    }
+
+    .tagline strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      margin-top: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s ease forwards;
+    }
+
+    .contact-row a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .contact-row a:hover { color: var(--accent); }
+    .contact-row a svg { opacity: 0.6; }
+
+    /* --- SECTION HEADER --- */
+    .section {
+      padding: 56px 0 0;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border2);
+    }
+
+    /* --- PROJECT CARDS --- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    @media (max-width: 640px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover {
+      border-color: var(--border2);
+      box-shadow: 0 0 32px var(--glow), 0 4px 24px rgba(0,0,0,0.4);
+      transform: translateY(-2px);
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+    }
+
+    .card-status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 2px 7px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .status-live { color: var(--accent3); background: rgba(94,196,138,0.08); border: 1px solid rgba(94,196,138,0.2); }
+    .status-static { color: var(--muted); background: rgba(90,112,128,0.1); border: 1px solid rgba(90,112,128,0.2); }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #eaf2f8;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 2px;
+      background: var(--surface2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      letter-spacing: 0.04em;
+    }
+
+    .card-links {
+      display: flex;
+      gap: 14px;
+    }
+
+    .card-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .card-link:hover { color: #7bc5e8; }
+    .card-link.secondary { color: var(--muted); }
+    .card-link.secondary:hover { color: var(--text); }
+
+    /* --- FULL-WIDTH FEATURED CARD --- */
+    .card-featured {
+      grid-column: 1 / -1;
+    }
+
+    .card-featured .card-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) {
+      .card-featured .card-inner { grid-template-columns: 1fr; }
+    }
+
+    .card-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .stat-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 10px 16px;
+      text-align: right;
+    }
+    .stat-box .stat-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 19px;
+      font-weight: 500;
+      color: var(--accent3);
+    }
+    .stat-box .stat-key {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 22px;
+    }
+
+    .about-block-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .about-block p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .skill-pill {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      letter-spacing: 0.03em;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      margin-top: 72px;
+      padding: 28px 0 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-sig {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .footer-sig span { color: var(--accent3); }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* --- ANIMATIONS --- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- TERMINAL CURSOR --- */
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: var(--accent);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* --- DIVIDER --- */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border2) 20%, var(--border2) 80%, transparent);
+      margin: 40px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-tag">portfolio.init — singapore</div>
+    <h1>Bryan Goh<span>.</span></h1>
+    <p class="tagline">
+      <strong>Programme Manager &amp; Ecosystem Builder.</strong>
+      Blockchain, emerging tech, and data — from Tezos smart contracts and SEA hackathons
+      to real-time geopolitical market trackers. Building with code and conviction.
+    </p>
+    <div class="contact-row">
+      <a href="https://github.com/gohjhb92" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        github.com/gohjhb92
+      </a>
+      <a href="https://www.linkedin.com/in/bryan-goh92" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/bryan-goh92
+      </a>
+      <a href="mailto:gohjhbcem@gmail.com">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        gohjhbcem@gmail.com
+      </a>
+    </div>
+  </header>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-label">Projects</div>
+
+    <div class="projects-grid">
+
+      <!-- FEATURED: Iran War Tracker -->
+      <div class="card card-featured" style="--card-accent: #c45e5e;">
+        <div class="card-inner">
+          <div>
+            <div class="card-header">
+              <div class="card-icon">🌐</div>
+              <span class="card-status status-live">⬤ Live</span>
+            </div>
+            <div class="card-title">Iran-War Portfolio Tracker</div>
+            <div class="card-desc">
+              Real-time dashboard tracking assets tied to the 2026 US-Israel vs Iran conflict thesis —
+              energy, defense, tankers, LNG, gold, and tail-risk hedges. Auto-updates via GitHub Actions
+              (Mon–Fri after US market close). Toggle war status between ESCALATING / CEASEFIRE / DE-ESCALATING
+              to model regime shifts. Performance charted since thesis start on 2026-04-13.
+            </div>
+            <div class="card-tags">
+              <span class="tag">Python</span>
+              <span class="tag">HTML / Chart.js</span>
+              <span class="tag">yfinance</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">GitHub Pages</span>
+              <span class="tag">Macro / Geopolitics</span>
+            </div>
+            <div class="card-links">
+              <a class="card-link" href="https://gohjhb92.github.io/Iran-War/" target="_blank" rel="noopener">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live Dashboard
+              </a>
+              <a class="card-link secondary" href="https://github.com/gohjhb92/Iran-War" target="_blank" rel="noopener">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                Source
+              </a>
+            </div>
+          </div>
+          <div class="card-meta-col">
+            <div class="stat-box">
+              <div class="stat-val">17+</div>
+              <div class="stat-key">Assets Tracked</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val">Auto</div>
+              <div class="stat-key">Daily Updates</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio Tracker -->
+      <div class="card" style="--card-accent: #3a8fc4;">
+        <div class="card-header">
+          <div class="card-icon">📊</div>
+          <span class="card-status status-static">Static</span>
+        </div>
+        <div class="card-title">Portfolio Tracker</div>
+        <div class="card-desc">
+          A lightweight, client-side investment portfolio tracker built in vanilla JS.
+          No backend required — runs entirely in the browser.
+        </div>
+        <div class="card-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">CSS</span>
+          <span class="tag">HTML</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link secondary" href="https://github.com/gohjhb92/portfolio-tracker" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            Source
+          </a>
+        </div>
+      </div>
+
+      <!-- Rimland Thesis -->
+      <div class="card" style="--card-accent: #c4823a;">
+        <div class="card-header">
+          <div class="card-icon">🗺️</div>
+          <span class="card-status status-static">Analysis</span>
+        </div>
+        <div class="card-title">Rimland Thesis</div>
+        <div class="card-desc">
+          Geopolitical investment thesis exploring Mackinder&#x2019;s Rimland theory applied to
+          contemporary great-power competition and market positioning.
+        </div>
+        <div class="card-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">Geopolitics</span>
+          <span class="tag">Macro</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link" href="https://gohjhb92.github.io/rimland-thesis/" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View Thesis
+          </a>
+          <a class="card-link secondary" href="https://github.com/gohjhb92/rimland-thesis" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            Source
+          </a>
+        </div>
+      </div>
+
+      <!-- Food Supply Shock -->
+      <div class="card" style="--card-accent: #5ec48a;">
+        <div class="card-header">
+          <div class="card-icon">🌾</div>
+          <span class="card-status status-static">Analysis</span>
+        </div>
+        <div class="card-title">Food Supply Shock</div>
+        <div class="card-desc">
+          Analysis of food supply disruption risk in the context of Middle East conflict
+          and Strait of Hormuz closure scenarios affecting agricultural commodity chains.
+        </div>
+        <div class="card-tags">
+          <span class="tag">Macro</span>
+          <span class="tag">Commodities</span>
+          <span class="tag">Geopolitics</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link secondary" href="https://github.com/gohjhb92/food-supply-shock" target="_blank" rel="noopener">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            Source
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT / BACKGROUND -->
+  <section class="section" id="about">
+    <div class="section-label">Background</div>
+
+    <div class="about-grid">
+      <div class="about-block">
+        <div class="about-block-title">Professional</div>
+        <p>
+          5+ years across blockchain ecosystems, programme management, and developer relations.
+          Built the Tezos developer ecosystem across Southeast Asia at TZ APAC — managing
+          grant portfolios, running hackathons, onboarding 15–20 startups annually.
+          Earlier career spans cybersecurity at Deloitte (MAS engagement) and research engineering at NUS.
+        </p>
+      </div>
+      <div class="about-block">
+        <div class="about-block-title">Currently</div>
+        <p>
+          Completing SMU Academy SCTP &#x2014; Advanced Certificate in Generative AI for Business
+          Growth and Innovation (May–Aug 2026). Building personal projects at the intersection
+          of macro analysis, geopolitics, and data tools.
+        </p>
+      </div>
+      <div class="about-block" style="grid-column: 1 / -1;">
+        <div class="about-block-title">Skills</div>
+        <div class="skill-list">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">HTML / CSS</span>
+          <span class="skill-pill">SmartPy</span>
+          <span class="skill-pill">Solidity</span>
+          <span class="skill-pill">GitHub Actions</span>
+          <span class="skill-pill">Claude / ChatGPT</span>
+          <span class="skill-pill">n8n / Make / Zapier</span>
+          <span class="skill-pill">Grant Programme Management</span>
+          <span class="skill-pill">Ecosystem Growth</span>
+          <span class="skill-pill">DeFi / NFT / Web3</span>
+          <span class="skill-pill">Macro Analysis</span>
+          <span class="skill-pill">Technical Writing</span>
+          <span class="skill-pill">Data Visualisation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-sig">
+      <span>gohjhb92</span> · Singapore · 2026
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/gohjhb92" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/bryan-goh92" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:gohjhbcem@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Intersection Observer for scroll animations
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
