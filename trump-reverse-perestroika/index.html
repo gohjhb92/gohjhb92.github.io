@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reverse Perestroika — Trump's Economic Statecraft Thesis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:      #0d0f12;
+      --surface: #12161b;
+      --surface2:#181e25;
+      --border:  #1e2730;
+      --border2: #28343f;
+      --text:    #c8d4dc;
+      --dim:     #6a8090;
+      --red:     #c0392b;
+      --red2:    #e74c3c;
+      --amber:   #d4830a;
+      --green:   #27a060;
+      --blue:    #2980b9;
+      --white:   #edf2f5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── SCANLINES ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.04) 2px,
+        rgba(0,0,0,0.04) 4px
+      );
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      border-bottom: 1px solid var(--red);
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .topbar-right {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      padding: 52px 0 44px;
+      border-bottom: 1px solid var(--border2);
+      position: relative;
+    }
+
+    .classification-stamp {
+      display: inline-block;
+      border: 2px solid var(--red);
+      color: var(--red);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      margin-bottom: 28px;
+    }
+
+    .masthead h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(38px, 6.5vw, 72px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .masthead h1 .highlight {
+      color: var(--red2);
+    }
+
+    .masthead-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(16px, 2.4vw, 22px);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 28px;
+    }
+
+    .author-line {
+      font-size: 13px;
+      color: var(--dim);
+      letter-spacing: 0.06em;
+    }
+
+    .author-line strong {
+      color: var(--text);
+    }
+
+    /* ── SUMMARY BOX ── */
+    .summary {
+      border-left: 3px solid var(--red);
+      background: var(--surface);
+      padding: 22px 26px;
+      margin: 36px 0;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .summary strong { color: var(--white); }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 22px 26px;
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .toc-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc ol {
+      padding-left: 20px;
+      columns: 2;
+      column-gap: 28px;
+    }
+
+    @media (max-width: 540px) {
+      .toc ol { columns: 1; }
+    }
+
+    .toc li {
+      margin-bottom: 6px;
+      break-inside: avoid;
+    }
+
+    .toc a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .toc a:hover { color: var(--white); }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-of-type { border-bottom: none; }
+
+    .sec-header {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .sec-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(22px, 3.2vw, 32px);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin: 28px 0 10px;
+    }
+
+    p {
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--white); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      float: right;
+      width: 40%;
+      margin: 4px 0 22px 28px;
+      padding: 16px 18px;
+      border-top: 2px solid var(--red);
+      border-bottom: 1px solid var(--border2);
+      clear: right;
+    }
+
+    @media (max-width: 580px) {
+      .callout { float: none; width: 100%; margin: 20px 0; }
+    }
+
+    .callout-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .callout-source {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── DATA GRID ── */
+    .data-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    @media (max-width: 560px) {
+      .data-grid { grid-template-columns: 1fr; }
+    }
+
+    .data-cell {
+      background: var(--surface);
+      padding: 16px 18px;
+    }
+
+    .data-cell-full {
+      grid-column: 1 / -1;
+    }
+
+    .data-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 6px;
+    }
+
+    .data-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .data-desc {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── FRAMEWORK TABLE ── */
+    .f-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 24px 0;
+    }
+
+    .f-table thead th {
+      background: var(--red);
+      color: var(--white);
+      padding: 8px 12px;
+      text-align: left;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .f-table tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .f-table tbody tr:hover { background: var(--surface); }
+
+    .f-table tbody td {
+      padding: 10px 12px;
+      vertical-align: top;
+      color: var(--text);
+    }
+
+    .f-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+    .badge-in  { background: rgba(39,160,96,0.15); color: var(--green); border: 1px solid rgba(39,160,96,0.3); }
+    .badge-out { background: rgba(192,57,43,0.15); color: var(--red2); border: 1px solid rgba(192,57,43,0.3); }
+    .badge-risk{ background: rgba(212,131,10,0.15); color: var(--amber); border: 1px solid rgba(212,131,10,0.3); }
+
+    /* ── PILLARS ── */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) {
+      .pillars { grid-template-columns: 1fr; }
+    }
+
+    .pillar {
+      background: var(--surface);
+      padding: 20px;
+    }
+
+    .pillar-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--border2);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .pillar-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red2);
+      margin-bottom: 8px;
+    }
+
+    .pillar p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--dim);
+      margin: 0;
+    }
+
+    /* ── BLOC MAP ── */
+    .bloc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 560px) {
+      .bloc-grid { grid-template-columns: 1fr; }
+    }
+
+    .bloc-card {
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      background: var(--surface);
+    }
+
+    .bloc-card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .bloc-card.in .bloc-card-title  { color: var(--green); }
+    .bloc-card.out .bloc-card-title { color: var(--red2); }
+
+    .bloc-list {
+      list-style: none;
+      padding: 0;
+    }
+    .bloc-list li {
+      font-size: 13.5px;
+      color: var(--text);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+    .bloc-list li:last-child { border-bottom: none; }
+    .bloc-list li::before { font-size: 10px; flex-shrink: 0; }
+    .bloc-card.in  .bloc-list li::before { content: '▲'; color: var(--green); }
+    .bloc-card.out .bloc-list li::before { content: '▼'; color: var(--red2); }
+
+    /* ── RISK MATRIX ── */
+    .risk-row {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      align-items: start;
+    }
+
+    @media (max-width: 580px) {
+      .risk-row { grid-template-columns: 1fr; gap: 6px; }
+    }
+
+    .risk-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .risk-desc {
+      font-size: 13.5px;
+      color: var(--dim);
+      padding: 0 16px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 580px) {
+      .risk-desc { padding: 0; }
+    }
+
+    /* ── VERDICT BOX ── */
+    .verdict {
+      background: var(--surface);
+      border: 1px solid var(--red);
+      padding: 28px 30px;
+      margin-top: 32px;
+      position: relative;
+    }
+
+    .verdict::before {
+      content: 'VERDICT';
+      position: absolute;
+      top: -1px;
+      left: 20px;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      padding: 2px 10px;
+    }
+
+    .verdict p {
+      font-size: 15.5px;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 28px 0 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .footer-sig {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--red2); }
+
+    .disclaimer {
+      font-size: 11.5px;
+      color: var(--dim);
+      font-style: italic;
+      line-height: 1.6;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      margin-top: 8px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">Milkshakes Pod — Macro Thesis Series</div>
+    <div class="topbar-right">Source: Rabobank / Michael Every &nbsp;·&nbsp; April 2026</div>
+  </div>
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="classification-stamp">Macro Thesis</div>
+    <h1>Trump's<br><span class="highlight">Reverse</span><br>Perestroika</h1>
+    <div class="masthead-sub">From Financialisation to Statecraft — How America is Rewiring Capitalism</div>
+    <div class="author-line">
+      Based on: <strong>Michael Every, Senior Global Strategist, Rabobank</strong> &nbsp;·&nbsp;
+      "President Trumpachev / Gor-rump" &nbsp;·&nbsp; 2025–2026
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <strong>In his second term, Donald Trump is not merely changing economic policy — he is attempting a structural transformation of American capitalism itself.</strong> Rabobank's Michael Every frames this as <strong>Reverse Perestroika</strong>: where Gorbachev tried to open and liberalise a command economy (and failed, destroying the USSR), Trump is doing the opposite — imposing strategic direction, capital controls, and national-security logic onto a previously free-market system. The risk of failure is equally systemic. The world is being sorted into two blocs. And every country, every investor, every institution must now choose a side.
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <ol>
+      <li><a href="#analogy">The Perestroika Analogy</a></li>
+      <li><a href="#nss">The NSS: Economic Security = National Security</a></li>
+      <li><a href="#pillars">Seven Pillars of Reverse Perestroika</a></li>
+      <li><a href="#warpact">The American Warsaw Pact</a></li>
+      <li><a href="#capital">Capital Controls and the $7.7trn FDI Gambit</a></li>
+      <li><a href="#fed">Subverting the Fed</a></li>
+      <li><a href="#stablecoins">Stablecoins as Geopolitical Weapon</a></li>
+      <li><a href="#markets">Guiding Markets by Force</a></li>
+      <li><a href="#implications">Investment Implications</a></li>
+      <li><a href="#failure">What Failure Looks Like</a></li>
+      <li><a href="#verdict">Verdict</a></li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" id="analogy">
+    <div class="sec-header">
+      <span class="sec-num">01 —</span>
+      <h2>The Perestroika Analogy</h2>
+    </div>
+
+    <div class="callout">
+      <div class="callout-text">"Gorbachev tried to open a command economy. Trump is closing an open one. Both are structural transformations. Both carry systemic risk of failure."</div>
+      <div class="callout-source">— Michael Every, Rabobank</div>
+    </div>
+
+    <p>Mikhail Gorbachev's <em>perestroika</em> (restructuring) was an attempt to liberalise the Soviet command economy — to introduce market mechanisms, openness, and decentralisation into a system built on central planning. It failed catastrophically. The USSR did not reform; it disintegrated.</p>
+
+    <p>Michael Every's thesis is that Trump is attempting the <strong>exact inverse</strong>. Where Gorbachev tried to inject markets into a command system, Trump is injecting state command into a market system. <strong>Reverse perestroika</strong> means taking an economy built on financialisation, consumption, and free capital flows — and restructuring it around capital investment, military production, and national security imperatives.</p>
+
+    <p>The Soviet parallel is not just rhetorical. Every notes that the Soviet system had genuine strengths as a model for capital accumulation and military production — exactly the goals Trump is now pursuing. The USSR built heavy industry, maintained defence capabilities, and directed resources toward strategic ends with brutal efficiency. It failed because it could not also deliver consumer goods and individual freedom. Trump's version does not need to resolve that contradiction in the same way — but it faces its own version: <strong>you cannot fully control capitalism.</strong></p>
+
+    <p>The critical question Every poses is not whether Trump wants to do this — the evidence is overwhelming that he does — but whether a democratic, market-based society with entrenched financial interests, an independent judiciary, and global capital markets can actually be restructured by executive will alone.</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" id="nss">
+    <div class="sec-header">
+      <span class="sec-num">02 —</span>
+      <h2>The NSS: Economic Security = National Security</h2>
+    </div>
+
+    <p>The intellectual foundation of Trump's reverse perestroika is the 2025 <strong>US National Security Strategy (NSS)</strong>. Its central claim, stated explicitly, is that <strong>economic security is national security</strong> — and that all US economic policy will henceforth be guided by this principle.</p>
+
+    <p>This is a radical break. For the past 30 years, US economic policy operated under the assumption that free markets, free trade, and open capital flows were ends in themselves — good for America because they were good for global prosperity. The NSS rejects this entirely. Markets are now instruments of national power, not values to be upheld.</p>
+
+    <p>The NSS asks a question that free-market economists have never needed to answer: <strong>"What is GDP for?"</strong> The answer it gives is not "consumer welfare" or "shareholder returns." It is: to ensure America remains the world's strongest, richest, and most powerful country for decades to come. GDP is a tool of national survival — nothing more.</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-label">NATO Defence Target by 2035</div>
+        <div class="data-value">5%</div>
+        <div class="data-desc">of GDP; 3.5% core military. Burden-shifting from US to allies is a structural feature, not a negotiating tactic.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-label">Pentagon Budget Increase Proposed (2027)</div>
+        <div class="data-value">$500bn</div>
+        <div class="data-desc">Plus $175bn+ for Golden Dome missile defence. Defence spending is a non-negotiable fiscal priority.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-label">FDI Pledged by Trade Partners (2025 deals)</div>
+        <div class="data-value">$7.7trn</div>
+        <div class="data-desc">Countries paying back past US trade surpluses via capital deployment into the US productive economy.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-label">US Assets Held by Foreigners</div>
+        <div class="data-value">$57.2trn</div>
+        <div class="data-desc">77% of US GDP in external creditor exposure. A structural vulnerability reverse perestroika must manage or weaponise.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" id="pillars">
+    <div class="sec-header">
+      <span class="sec-num">03 —</span>
+      <h2>Seven Pillars of Reverse Perestroika</h2>
+    </div>
+
+    <p>Every maps out what he calls <strong>"Capitalism with a national-security face"</strong> — a coherent, if radical, architecture across seven interlocking domains. None of these is random policy. Together they form a system:</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">NSS Fusion</div>
+        <p>Economic policy and national security policy are merged. Every tariff, subsidy, and regulation serves a geopolitical goal, not a purely economic one.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Treasury-Centric System</div>
+        <p>The Fed is subordinated to the Treasury and the NSS — at minimum ideologically aligned, at maximum operationally directed. Interest rates, QE, and YCC all become tools of statecraft.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Neo-Mercantilist Trade</div>
+        <p>Tariffs, non-tariff barriers, and export controls are the primary instruments of alliance management. Access to the US market is the price of geopolitical alignment.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title">Fragmented Dollar System</div>
+        <p>Dollar stablecoins and Bitcoin are used to extend dollar hegemony in a fragmented world — bypassing formal institutions while maintaining US monetary influence.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">05</div>
+        <div class="pillar-title">Warsaw Pact 2.0</div>
+        <p>A closed bloc of ideologically and economically aligned economies — a new kind of alliance built on supply chain integration and shared security architecture, not democratic values.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">06</div>
+        <div class="pillar-title">Capital Controls</div>
+        <p>Both on outflows (preventing US capital from funding adversaries) and inflows (directing foreign capital into productive rather than financial assets).</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">07</div>
+        <div class="pillar-title">Guided Markets</div>
+        <p>Free markets are "guided" away from financialisation toward productive investment. Price controls, deregulation, executive arm-twisting, and sector mandates are all in play.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section" id="warpact">
+    <div class="sec-header">
+      <span class="sec-num">04 —</span>
+      <h2>The American Warsaw Pact</h2>
+    </div>
+
+    <p>The most provocative structural concept in Every's analysis is what he calls the <strong>American Warsaw Pact</strong>. The original Warsaw Pact was a Soviet-led military alliance of Eastern Bloc nations — integrated, ideologically conformant, economically linked to Moscow's industrial model. Every argues Trump is building a functional equivalent centred on Washington.</p>
+
+    <p>The mechanism: countries that accept the terms of the US security umbrella and align economically with the US receive access to US markets at lower tariff rates, integration into US-anchored supply chains, and defence guarantees. Those that do not are excluded — facing high tariffs, supply chain isolation, and no security guarantee.</p>
+
+    <p>The NSS is explicit: <em>"The choice all countries should face is whether they want to live in an American-led world of sovereign countries and free economies or in a parallel one in which they are influenced by countries on the other side of the world."</em></p>
+
+    <div class="bloc-grid">
+      <div class="bloc-card in">
+        <div class="bloc-card-title">In the Pact — Benefits</div>
+        <ul class="bloc-list">
+          <li>Lower US tariff rates on market access</li>
+          <li>Inclusion in upstream-to-downstream supply chains</li>
+          <li>US defence umbrella and security guarantees</li>
+          <li>Access to US capital and technology</li>
+          <li>FDI flows into US productive economy in return</li>
+          <li>Development model support from US</li>
+        </ul>
+      </div>
+      <div class="bloc-card out">
+        <div class="bloc-card-title">Out of the Pact — Costs</div>
+        <ul class="bloc-list">
+          <li>Significantly higher US tariffs on all exports</li>
+          <li>Exclusion from integrated geopolitical supply chains</li>
+          <li>No US security umbrella</li>
+          <li>Export controls on advanced US technology</li>
+          <li>Frozen out of dollar-denominated financial system</li>
+          <li>Pushed toward China's parallel system</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The vision, Every notes, is not unlike how the US views its relationship with commodity-producing nations more broadly: <strong>the US wants cheap commodities, but also wants their producers to move up the industrial value chain — if, and only if, they remain ideologically aligned.</strong> This is a new kind of development economics imposed from Washington rather than the IMF or World Bank.</p>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section" id="capital">
+    <div class="sec-header">
+      <span class="sec-num">05 —</span>
+      <h2>Capital Controls and the $7.7trn FDI Gambit</h2>
+    </div>
+
+    <div class="callout">
+      <div class="callout-text">"Reverse perestroika logically requires capital to be restricted from flowing where it's not useful to the national strategy — and compelled to flow in directions which are."</div>
+      <div class="callout-source">— Michael Every, Rabobank PDF</div>
+    </div>
+
+    <p>One of Every's most structurally important observations is that reverse perestroika is incompatible with free capital flows. You cannot redirect an economy toward national-security goals if capital can freely flee to wherever returns are highest. The logic of the system therefore demands capital controls — both on outflows and inflows.</p>
+
+    <p>On inflows: as part of 2025 trade deals struck for US market access, Trump has secured pledged FDI totalling <strong>$7.7 trillion from trade partners</strong>. Every frames this starkly — the US is demanding that countries with persistent trade surpluses against America recycle that surplus back into the US productive economy as the price of continued market access. Past surpluses must be ploughed back. The security umbrella is the quid pro quo.</p>
+
+    <p>On outflows: the administration has already signalled that US capital should not fund adversaries or even unfriendly competitors. Export controls on advanced technology are one dimension. But Every anticipates the logic extending further — to restrictions on US institutional capital investing in Chinese or adversary-aligned assets.</p>
+
+    <h3>The Triffin Dilemma Problem</h3>
+    <p>Every identifies a deep structural tension at the heart of this programme. The <strong>Triffin Dilemma</strong> holds that the US dollar's reserve currency status requires the US to run trade deficits — the world needs dollars, so the US must export them via a deficit. Reverse perestroika wants to eliminate that deficit. But if the US eliminates its trade deficit, it also reduces the global supply of dollar liquidity. Foreign demand for Treasuries falls. The dollar's global role is weakened. Trump is trying to have both — a strong dollar and a manufacturing surplus — and Every is sceptical this contradiction can be sustained.</p>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section" id="fed">
+    <div class="sec-header">
+      <span class="sec-num">06 —</span>
+      <h2>Subverting the Fed — Treasury Dominance</h2>
+    </div>
+
+    <p>A central requirement of reverse perestroika is that the Federal Reserve ceases to operate as an independent price-stability institution and becomes an instrument of the national strategy. Every is explicit: <strong>reverse perestroika logically requires Treasury control of the Fed</strong>, or at minimum ideological alignment behind the NSS.</p>
+
+    <p>This goes far beyond arguments about the appropriate level of interest rates. The full toolkit — inflation targeting, QE, Yield Curve Control, capital controls, swap lines, and stablecoins — must all be subordinated to the statecraft agenda. An independent central bank focused on 2% inflation is structurally incompatible with a government trying to inflate away debt, direct credit creation, and maintain artificially low borrowing costs for strategic sectors.</p>
+
+    <p>The parallel with Napier's national capitalism framework is direct here: both identify the same structural shift — central bank independence is theatre while governments reclaim monetary sovereignty. The difference is that in Every's frame, this is being done aggressively and openly by a single administration, not gradually across decades of democratic drift.</p>
+
+    <table class="f-table">
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Old Purpose (Independent Fed)</th>
+          <th>New Purpose (Reverse Perestroika)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Interest Rates</td>
+          <td>Control inflation / employment</td>
+          <td>Fund government debt at below-inflation cost</td>
+        </tr>
+        <tr>
+          <td>QE / Asset Purchases</td>
+          <td>Support financial conditions in recession</td>
+          <td>Cap bond yields; support strategic sectors</td>
+        </tr>
+        <tr>
+          <td>Yield Curve Control</td>
+          <td>Emergency recession tool (Japan precedent)</td>
+          <td>Structural tool for fiscal dominance</td>
+        </tr>
+        <tr>
+          <td>Swap Lines</td>
+          <td>Global dollar liquidity in crises</td>
+          <td>Geopolitical reward for allied countries only</td>
+        </tr>
+        <tr>
+          <td>Stablecoins / CBDC</td>
+          <td>Payments innovation (nascent)</td>
+          <td>Dollar hegemony extension and capital direction</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section" id="stablecoins">
+    <div class="sec-header">
+      <span class="sec-num">07 —</span>
+      <h2>Stablecoins as Geopolitical Weapon</h2>
+    </div>
+
+    <p>One of Every's most original observations is his analysis of <strong>dollar stablecoins as a tool of reverse perestroika</strong>. The mechanism is elegant and underappreciated by most market participants.</p>
+
+    <p>When a foreign firm holds a dollar stablecoin, the US stablecoin issuer receives that country's foreign exchange, sells it to the relevant central bank for dollars, and sends those dollars to the US Treasury. The foreign entity holds a dollar-denominated claim. The US Treasury receives funding. <strong>The net effect: the US extends dollar hegemony into jurisdictions that might otherwise be drifting toward yuan or alternative payment systems — without requiring those countries to formally join a dollar bloc.</strong></p>
+
+    <p>In a world where the formal dollar system (SWIFT, correspondent banking, Fed swap lines) is being weaponised and restricted to geopolitical allies, stablecoins offer a parallel, semi-permissioned dollar network that extends US monetary influence to countries in the grey zone — not fully inside the Warsaw Pact, but not willing to fully defect to a Chinese-led alternative either.</p>
+
+    <p>Combined with Bitcoin as a reserve asset (Every notes Trump's stated interest in a strategic Bitcoin fund), this creates what Every calls a <strong>"fragmented dollar system"</strong> — multiple dollar-denominated or dollar-adjacent instruments serving different geopolitical relationships, rather than a single unified Bretton-Woods-style architecture.</p>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="section" id="markets">
+    <div class="sec-header">
+      <span class="sec-num">08 —</span>
+      <h2>Guiding Markets by Force</h2>
+    </div>
+
+    <p>Every catalogues an already-substantial list of market interventions that are not random populism but logical components of reverse perestroika. Each one moves capital or behaviour away from financialisation and toward productive or strategic ends:</p>
+
+    <table class="f-table">
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Sector Targeted</th>
+          <th>Strategic Goal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Capped buybacks, dividends, executive pay</td>
+          <td>Defence firms</td>
+          <td>Force productive reinvestment over financial returns</td>
+        </tr>
+        <tr>
+          <td>Attacked meat-packing industry</td>
+          <td>Food / Agriculture</td>
+          <td>Reduce consumer price extraction by oligopolies</td>
+        </tr>
+        <tr>
+          <td>Banned Wall Street buying single-family homes</td>
+          <td>Real Estate / Finance</td>
+          <td>Redirect capital from financialised assets to productive use</td>
+        </tr>
+        <tr>
+          <td>10% credit card interest rate cap</td>
+          <td>Consumer Finance</td>
+          <td>Reduce debt burden on working-class base; price control</td>
+        </tr>
+        <tr>
+          <td>AI firms must "pay their own way" on electricity</td>
+          <td>Technology / Energy</td>
+          <td>Prevent socialisation of AI infrastructure costs</td>
+        </tr>
+        <tr>
+          <td>FTC blocking M&A that raises cost of living</td>
+          <td>Broad corporate sector</td>
+          <td>Anti-monopoly as anti-inflation statecraft</td>
+        </tr>
+        <tr>
+          <td>State stakes in AI via Genesis Mission</td>
+          <td>AI / Technology</td>
+          <td>Leverage private capital via state coordination for national AI goals</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Every notes what the <em>Financial Times</em> observed: <strong>"MAGA has gone Maoist" — corporate America reels as Trump turns</strong>. The label is hyperbolic but the observation is structurally accurate: a right-wing government is directing private sector behaviour through a combination of jawboning, regulation, executive orders, and implied threat — precisely the toolkit of a statecraft-driven system rather than a free-market one.</p>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="section" id="implications">
+    <div class="sec-header">
+      <span class="sec-num">09 —</span>
+      <h2>Investment Implications</h2>
+    </div>
+
+    <p>Every's framework has direct and uncomfortable implications for standard portfolio construction. A world of reverse perestroika is not a cyclical rotation — it is a structural regime change. Assets priced for a globalised, financialised, free-capital-flow world face a sustained headwind:</p>
+
+    <div class="bloc-grid">
+      <div class="bloc-card in">
+        <div class="bloc-card-title">Structural Tailwinds</div>
+        <ul class="bloc-list">
+          <li>US defence and military-industrial complex</li>
+          <li>Domestic US manufacturing & reindustrialisation</li>
+          <li>Energy infrastructure and energy security plays</li>
+          <li>Raw materials / critical minerals in aligned nations</li>
+          <li>Dollar stablecoin issuers and infrastructure</li>
+          <li>AI and tech with explicit national-security contracts</li>
+          <li>Mid-cap US value (less foreign-capital dependent)</li>
+          <li>Gold — monetary uncertainty hedge</li>
+        </ul>
+      </div>
+      <div class="bloc-card out">
+        <div class="bloc-card-title">Structural Headwinds</div>
+        <ul class="bloc-list">
+          <li>US mega-cap tech reliant on global supply chains</li>
+          <li>Long-duration US Treasuries (fiscal dominance risk)</li>
+          <li>Chinese and adversary-aligned equities</li>
+          <li>Global consumer multinationals exposed to tariff friction</li>
+          <li>Financial sector reliant on M&A / buyback flows</li>
+          <li>Assets dependent on continued foreign capital inflows</li>
+          <li>Emerging markets outside the Warsaw Pact alignment</li>
+          <li>Real estate investment funds (Wall Street ban risk)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>The Foreign Repatriation Risk</h3>
+    <p>As Every notes, with <strong>$57.2 trillion in US assets held by foreigners</strong> and 77% of US GDP reliant on external creditors, reverse perestroika introduces a structural paradox. The programme needs foreign capital to keep flowing in — as FDI and Treasury demand — while simultaneously reducing the trade deficits that historically provided the mechanism for that capital to accumulate abroad in the first place. If geopolitical allies are pushed to repatriate capital to fund their own defence buildups (NATO's 5% target, EU's own reverse perestroika), US asset prices face a structural foreign seller — regardless of domestic fundamentals.</p>
+  </div>
+
+  <!-- SECTION 10 -->
+  <div class="section" id="failure">
+    <div class="sec-header">
+      <span class="sec-num">10 —</span>
+      <h2>What Failure Looks Like</h2>
+    </div>
+
+    <p>Every is clear-eyed that the risk of failure is significant — and draws the Soviet parallel explicitly. Gorbachev's perestroika did not produce a reformed USSR; it produced an uncontrollable cascade of systemic breakdown. Every warns the same structural logic applies in reverse:</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <div class="data-label">Risk 1</div>
+        <div class="data-value" style="font-size:18px; color: var(--red2);">Market Revolt</div>
+        <div class="data-desc">Bond vigilantes and equity markets reject fiscal dominance. Capital flight accelerates. Dollar credibility collapses faster than the new system can be built.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-label">Risk 2</div>
+        <div class="data-value" style="font-size:18px; color: var(--red2);">AI Bubble Bursts</div>
+        <div class="data-desc">The AI investment thesis underpinning much of the productivity assumption collapses. Growth expectations fall. The fiscal arithmetic worsens dramatically.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-label">Risk 3</div>
+        <div class="data-value" style="font-size:18px; color: var(--red2);">Ally Defection</div>
+        <div class="data-desc">Europe refuses to play ball — builds strategic autonomy and imposes reciprocal tariffs. The Warsaw Pact fails to cohere. The US fights a two-front economic war.</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-label">Risk 4</div>
+        <div class="data-value" style="font-size:18px; color: var(--red2);">Institutional Rot</div>
+        <div class="data-desc">Fed independence is fatally compromised. Institutional trust in US rule of law erodes. Dollar reserve currency status declines structurally, not cyclically.</div>
+      </div>
+    </div>
+
+    <p>Every's sobering conclusion: <strong>"If reverse perestroika fails early there may be short-term relief for markets. However, as Russia found out, there isn't any easy way to sustainably return to the status quo ante once a critical threshold has been passed within a system: things could also end with a bang — the longer and harder this all goes on."</strong></p>
+
+    <p>In the economy and geopolitics that would mean: sustained inflation, damage to institutional integrity, and a trust deficit that takes decades to rebuild. The USSR took 70+ years to accumulate the internal contradictions that perestroika unleashed. The US system is more resilient — but the direction of travel, if reverse perestroika proceeds unchecked, is not obviously better.</p>
+  </div>
+
+  <!-- SECTION 11: VERDICT -->
+  <div class="section" id="verdict">
+    <div class="sec-header">
+      <span class="sec-num">11 —</span>
+      <h2>Verdict</h2>
+    </div>
+
+    <div class="verdict">
+      <p>Michael Every's reverse perestroika framework is the most analytically coherent explanation available for what the Trump administration is actually doing — as opposed to the chaotic, transactional, and personality-driven narrative most media offers. Every shows that the apparent randomness has internal logic: every tariff, every market intervention, every institutional pressure point is a component of a deliberate structural transformation from a consumption-and-financialisation economy toward a capital-investment-and-military-production economy.</p>
+      <p>The critical distinction from Napier's National Capitalism thesis — which describes a similar transition across the entire developed world over 15–20 years — is pace and agency. Napier's is a slow, demographic and debt-driven structural drift. Every's is a conscious, aggressive, top-down restructuring being attempted within a single four-year term. That makes it both more dramatic and more fragile. Napier's world arrives whether or not anyone chooses it. Every's depends entirely on whether Trump can outrun the contradiction between statecraft and market forces before the markets win.</p>
+      <p><strong>For investors, the two theses are complementary, not competing.</strong> Napier tells you the destination — a world of national capitalism and financial repression. Every tells you the acceleration mechanism — an administration that is actively building that world right now, faster than anyone expected, using tools no peacetime US government has ever deployed at this scale. Own the things that benefit from both: real assets, defence, energy, domestic industry, gold. Avoid the things that rely on the world that is being deliberately dismantled.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-sig">Milkshakes Pod — Research &amp; Thesis Series · 2026</div>
+    <div class="footer-links">
+      <a href="https://gohjhb92.github.io">← Portfolio</a>
+      <a href="https://gohjhb92.github.io/Iran-War/">Iran-War Tracker</a>
+      <a href="https://gohjhb92.github.io/rimland-thesis/">Rimland Thesis</a>
+      <a href="https://gohjhb92.github.io/napier-thesis/">Napier Thesis</a>
+      <a href="https://github.com/gohjhb92">GitHub</a>
+    </div>
+    <div class="disclaimer">
+      Based on publicly available research by Michael Every, Senior Global Strategist at Rabobank, including "President Trumpachev / Gor-rump: Trump's Reverse Perestroika" (2025–2026). This document is for informational and educational purposes only and does not constitute financial advice. All investments carry risk. Nothing herein should be construed as a recommendation to buy or sell any security.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
