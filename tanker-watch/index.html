@@ -121,16 +121,9 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 
 /* ── LAYOUT ── */
 .app { display: flex; flex-direction: column; height: 100vh; }
-.map-row { flex: 1; display: flex; overflow: hidden; position: relative; }
+.map-row { flex: 1; position: relative; overflow: hidden; }
 
-/* ── MAP IFRAME ── */
-.map-wrap {
-  flex: 1;
-  position: relative;
-  min-width: 0;
-  min-height: 0;
-}
-
+/* ── MAP IFRAME — fills the entire map-row ── */
 #aisMap {
   position: absolute;
   inset: 0;
@@ -140,15 +133,19 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
   display: block;
 }
 
-/* ── SIDEBAR ── */
+/* ── SIDEBAR — overlaid on top right of map ── */
 .sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 220px;
-  flex-shrink: 0;
-  background: var(--surface);
+  bottom: 0;
+  background: var(--panel);
   border-left: 1px solid var(--border2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  z-index: 10;
 }
 
 .sidebar-section {
@@ -306,10 +303,8 @@ body::after {
   <!-- MAIN ROW -->
   <div class="map-row">
 
-    <!-- MAP -->
-    <div class="map-wrap">
-      <iframe id="aisMap" src="" allowfullscreen></iframe>
-    </div>
+    <!-- MAP fills entire map-row -->
+    <iframe id="aisMap" src="" allowfullscreen></iframe>
 
     <!-- SIDEBAR -->
     <div class="sidebar">
@@ -444,7 +439,7 @@ let curZone = 'hormuz';
 
 function buildUrl(zone) {
   const z = ZONES[zone];
-  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lng=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false`;
+  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lon=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false`;
 }
 
 function updateMap() {
