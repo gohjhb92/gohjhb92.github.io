@@ -295,12 +295,6 @@ body::after {
 
     <!-- Vessel type filter -->
     <div class="btn-group">
-      <button class="tbtn filter-btn active" onclick="setFilter('all',this)">ALL TANKERS</button>
-      <button class="tbtn filter-btn" onclick="setFilter('crude',this)">CRUDE OIL</button>
-      <button class="tbtn filter-btn" onclick="setFilter('lng',this)">LNG</button>
-      <button class="tbtn filter-btn" onclick="setFilter('cargo',this)">CARGO</button>
-    </div>
-
     <div class="sep"></div>
 
     <!-- Zone jump -->
@@ -315,6 +309,11 @@ body::after {
     </div>
 
     <div class="spacer"></div>
+
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--dim);display:flex;align-items:center;gap:6px;margin-right:14px;">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      FILTER BY VESSEL TYPE → USE PANEL INSIDE MAP
+    </div>
 
     <div class="live-badge">
       <div class="live-dot"></div>
