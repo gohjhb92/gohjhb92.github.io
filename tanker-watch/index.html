@@ -459,18 +459,17 @@ const ZONES = {
   global:        { lat: 20.0,  lng: 48.0,  zoom: 3  }, // Global overview
 };
 
-// VesselFinder shiptype URL param values
-// 0 = All, 4 = Tanker, 3 = Cargo/Container
-const VTYPES = { all: '', tankers: '4', cargo: '3' };
+// MarineTraffic vtypes: '' = all, '8' = tanker, '7' = cargo
+const VTYPES = { all: '', tankers: '8', cargo: '7' };
 
 let curZone   = 'hormuz';
 let curFilter = 'all';
 
 function buildUrl(zone, filter) {
   const z = ZONES[zone];
-  const t = VTYPES[filter];
-  const typeParam = t ? `&shiptype=${t}` : '';
-  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lng=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false${typeParam}`;
+  const v = VTYPES[filter];
+  // MarineTraffic official embed — vtypes filter actually works
+  return `https://www.marinetraffic.com/en/ais/embed/zoom:${z.zoom}/centery:${z.lat}/centerx:${z.lng}/maptype:4/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:${v}/showmenu:/remember:false`;
 }
 
 function updateMap() {
