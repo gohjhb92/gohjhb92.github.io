@@ -295,21 +295,22 @@ body::after {
 
     <!-- Vessel type filter -->
     <div class="btn-group">
-      <button class="tbtn active" onclick="setFilter('all',this)">ALL VESSELS</button>
-      <button class="tbtn" onclick="setFilter('tankers',this)">TANKERS</button>
-      <button class="tbtn" onclick="setFilter('cargo',this)">CARGO</button>
+      <button class="tbtn filter-btn active" onclick="setFilter('all',this)">ALL VESSELS</button>
+      <button class="tbtn filter-btn" onclick="setFilter('tankers',this)">TANKERS</button>
+      <button class="tbtn filter-btn" onclick="setFilter('cargo',this)">CARGO</button>
     </div>
 
     <div class="sep"></div>
 
     <!-- Zone jump -->
     <div class="btn-group">
-      <button class="tbtn zone-active" onclick="jumpTo('hormuz',this)">HORMUZ</button>
-      <button class="tbtn" onclick="jumpTo('redsea',this)">RED SEA</button>
-      <button class="tbtn" onclick="jumpTo('arabiansea',this)">ARABIAN SEA</button>
-      <button class="tbtn" onclick="jumpTo('mediterranean',this)">MED</button>
-      <button class="tbtn" onclick="jumpTo('malacca',this)">MALACCA</button>
-      <button class="tbtn" onclick="jumpTo('global',this)">GLOBAL</button>
+      <button class="tbtn zone-btn zone-active" onclick="jumpTo('hormuz',this)">HORMUZ</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('redsea',this)">RED SEA</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('persian',this)">PERSIAN GULF</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('arabiansea',this)">ARABIAN SEA</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('mediterranean',this)">MED</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('malacca',this)">MALACCA</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('global',this)">GLOBAL</button>
     </div>
 
     <div class="spacer"></div>
@@ -447,18 +448,20 @@ function cycleWar() {
 }
 renderWar();
 
-// ── ZONES ───────────────────────────────────────────────────────────────────
+// ── ZONES — precise centroids for each strait/sea ───────────────────────────
 const ZONES = {
-  hormuz:        { lat: 26.0,  lng: 56.5,  zoom: 7  },
-  redsea:        { lat: 18.5,  lng: 38.5,  zoom: 6  },
-  arabiansea:    { lat: 15.0,  lng: 65.0,  zoom: 5  },
-  mediterranean: { lat: 36.0,  lng: 18.0,  zoom: 5  },
-  malacca:       { lat:  3.5,  lng: 103.5, zoom: 7  },
-  global:        { lat: 20.0,  lng: 50.0,  zoom: 3  },
+  hormuz:        { lat: 26.6,  lng: 56.2,  zoom: 9  }, // Strait of Hormuz — narrow passage
+  redsea:        { lat: 20.5,  lng: 37.8,  zoom: 6  }, // Red Sea — full length
+  persian:       { lat: 27.0,  lng: 51.5,  zoom: 7  }, // Persian Gulf
+  arabiansea:    { lat: 13.5,  lng: 57.0,  zoom: 5  }, // Arabian Sea + Gulf of Aden
+  mediterranean: { lat: 36.2,  lng: 18.5,  zoom: 5  }, // Mediterranean + Suez approach
+  malacca:       { lat:  2.8,  lng: 102.8, zoom: 8  }, // Malacca Strait — narrow
+  global:        { lat: 20.0,  lng: 48.0,  zoom: 3  }, // Global overview
 };
 
-// VesselFinder vessel type codes
-const VTYPES = { all: 0, tankers: 1, cargo: 3 };
+// VesselFinder shiptype URL param values
+// 0 = All, 4 = Tanker, 3 = Cargo/Container
+const VTYPES = { all: '', tankers: '4', cargo: '3' };
 
 let curZone   = 'hormuz';
 let curFilter = 'all';
@@ -466,8 +469,8 @@ let curFilter = 'all';
 function buildUrl(zone, filter) {
   const z = ZONES[zone];
   const t = VTYPES[filter];
-  // VesselFinder free AIS embed — no API key required
-  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lng=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false&fleet_name=false&type=${t}`;
+  const typeParam = t ? `&shiptype=${t}` : '';
+  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lng=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false${typeParam}`;
 }
 
 function updateMap() {
@@ -480,14 +483,14 @@ function updateMap() {
 
 function jumpTo(zone, btn) {
   curZone = zone;
-  document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('zone-active'));
+  document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('zone-active'));
   btn.classList.add('zone-active');
   updateMap();
 }
 
 function setFilter(filter, btn) {
   curFilter = filter;
-  document.querySelectorAll('.btn-group:first-of-type .tbtn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   updateMap();
 }
