@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TANKER WATCH — Iran Crisis OSINT</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --bg:      #080b0e;
+  --surface: #0d1117;
+  --panel:   rgba(8,11,14,0.92);
+  --border:  #1a2530;
+  --border2: #243040;
+  --text:    #a8bcc8;
+  --dim:     #445560;
+  --white:   #ddeef5;
+  --green:   #00e676;
+  --amber:   #ffab00;
+  --red:     #ff1744;
+  --blue:    #29b6f6;
+  --mono:    'IBM Plex Mono', monospace;
+  --sans:    'IBM Plex Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--mono); }
+
+/* ── TOP BAR ── */
+.topbar {
+  height: 44px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 12px;
+  flex-shrink: 0;
+  z-index: 100;
+  position: relative;
+}
+
+.brand {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  padding-right: 16px;
+  border-right: 1px solid var(--border2);
+  margin-right: 12px;
+  white-space: nowrap;
+}
+
+.war-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  padding: 3px 9px;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 14px;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+.war-toggle:hover { border-color: var(--border2); opacity: 0.85; }
+
+.war-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.war-label { color: var(--white); font-weight: 500; }
+
+.sep { width: 1px; height: 22px; background: var(--border2); margin: 0 10px; flex-shrink: 0; }
+
+.btn-group { display: flex; gap: 4px; }
+
+.tbtn {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  padding: 3px 9px;
+  border-radius: 2px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--dim);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tbtn:hover { color: var(--text); border-color: var(--text); }
+.tbtn.active { background: var(--red); color: #fff; border-color: var(--red); }
+.tbtn.zone-active { background: var(--blue); color: #000; border-color: var(--blue); }
+
+.spacer { flex: 1; }
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--green);
+}
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── LAYOUT ── */
+.app { display: flex; flex-direction: column; height: 100vh; }
+.map-row { flex: 1; display: flex; overflow: hidden; position: relative; }
+
+/* ── MAP IFRAME ── */
+.map-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#aisMap {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.map-loading {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--dim);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.map-loading.show { opacity: 1; pointer-events: all; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-left: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.sidebar-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-title {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 10px;
+}
+
+/* ── RISK ZONES ── */
+.risk-zone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.risk-zone:last-child { border-bottom: none; }
+
+.rz-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.rz-dot.high   { background: var(--red);   box-shadow: 0 0 5px var(--red); }
+.rz-dot.medium { background: var(--amber); box-shadow: 0 0 5px var(--amber); }
+.rz-dot.low    { background: var(--green); box-shadow: 0 0 5px var(--green); }
+
+.rz-name { color: var(--text); flex: 1; }
+.rz-level {
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+}
+.rz-level.high   { color: var(--red); }
+.rz-level.medium { color: var(--amber); }
+.rz-level.low    { color: var(--green); }
+
+/* ── INTEL FEED ── */
+.intel-list { display: flex; flex-direction: column; gap: 8px; }
+
+.intel-item {
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--dim);
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--border2);
+  border-radius: 1px;
+}
+.intel-item.high { border-left-color: var(--red); }
+.intel-item.med  { border-left-color: var(--amber); }
+.intel-date {
+  font-size: 8.5px;
+  color: var(--dim);
+  margin-bottom: 2px;
+  opacity: 0.7;
+}
+
+/* ── LEGEND ── */
+.legend {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9.5px;
+  color: var(--dim);
+  margin-bottom: 5px;
+}
+.legend-row:last-child { margin-bottom: 0; }
+.leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── BOTTOM BAR ── */
+.bottom-bar {
+  height: 28px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 20px;
+  flex-shrink: 0;
+}
+.bottom-bar span {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+.bottom-bar .ts { color: var(--dim); opacity: 0.6; }
+.bottom-bar .credit { margin-left: auto; opacity: 0.5; }
+
+/* ── SCANLINES ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+
+    <div class="brand">🛢 TANKER WATCH</div>
+
+    <div class="war-toggle" id="warToggle" onclick="cycleWar()">
+      <div class="war-dot" id="warDot"></div>
+      <span style="color:var(--dim);font-size:9px;letter-spacing:0.1em;">IRAN WAR STATUS</span>
+      <span class="war-label" id="warLabel">ESCALATING</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- Vessel type filter -->
+    <div class="btn-group">
+      <button class="tbtn active" onclick="setFilter('all',this)">ALL VESSELS</button>
+      <button class="tbtn" onclick="setFilter('tankers',this)">TANKERS</button>
+      <button class="tbtn" onclick="setFilter('cargo',this)">CARGO</button>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- Zone jump -->
+    <div class="btn-group">
+      <button class="tbtn zone-active" onclick="jumpTo('hormuz',this)">HORMUZ</button>
+      <button class="tbtn" onclick="jumpTo('redsea',this)">RED SEA</button>
+      <button class="tbtn" onclick="jumpTo('arabiansea',this)">ARABIAN SEA</button>
+      <button class="tbtn" onclick="jumpTo('mediterranean',this)">MED</button>
+      <button class="tbtn" onclick="jumpTo('malacca',this)">MALACCA</button>
+      <button class="tbtn" onclick="jumpTo('global',this)">GLOBAL</button>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      LIVE AIS
+    </div>
+
+  </div>
+
+  <!-- MAIN ROW -->
+  <div class="map-row">
+
+    <!-- MAP -->
+    <div class="map-wrap">
+      <div class="map-loading show" id="mapLoader">LOADING AIS DATA...</div>
+      <iframe id="aisMap" src="" allowfullscreen></iframe>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- Risk Zones -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">Risk Zones</div>
+        <div class="risk-zone">
+          <div class="rz-dot high"></div>
+          <span class="rz-name">Strait of Hormuz</span>
+          <span class="rz-level high">HIGH</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot high"></div>
+          <span class="rz-name">Red Sea / Houthi</span>
+          <span class="rz-level high">HIGH</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot high"></div>
+          <span class="rz-name">Gulf of Aden</span>
+          <span class="rz-level high">HIGH</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot medium"></div>
+          <span class="rz-name">Persian Gulf</span>
+          <span class="rz-level medium">CAUTION</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot medium"></div>
+          <span class="rz-name">Gulf of Oman</span>
+          <span class="rz-level medium">CAUTION</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot medium"></div>
+          <span class="rz-name">Suez Approach</span>
+          <span class="rz-level medium">CAUTION</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot low"></div>
+          <span class="rz-name">Arabian Sea</span>
+          <span class="rz-level low">CLEAR</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot low"></div>
+          <span class="rz-name">Mediterranean</span>
+          <span class="rz-level low">CLEAR</span>
+        </div>
+      </div>
+
+      <!-- Intel Feed -->
+      <div class="sidebar-section" style="flex:1;overflow-y:auto;">
+        <div class="sidebar-title">Threat Intel</div>
+        <div class="intel-list">
+          <div class="intel-item high">
+            <div class="intel-date">APR 2026</div>
+            Hormuz transit disrupted — Iranian naval exercises ongoing. Tanker diversions via Cape of Good Hope reported.
+          </div>
+          <div class="intel-item high">
+            <div class="intel-date">MAR 2026</div>
+            Houthi drone attacks resume in Red Sea. Multiple vessels rerouting around African cape.
+          </div>
+          <div class="intel-item med">
+            <div class="intel-date">MAR 2026</div>
+            Insurance war-risk premiums for Persian Gulf transit up 3× since conflict onset on 28 Feb 2026.
+          </div>
+          <div class="intel-item med">
+            <div class="intel-date">FEB 2026</div>
+            US-Israel strikes on Iranian nuclear facilities trigger closure threat at Strait of Hormuz.
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="sidebar-title" style="margin-bottom:8px;">Vessel Types</div>
+        <div class="legend-row"><div class="leg-dot" style="background:#e57373"></div>Tanker</div>
+        <div class="legend-row"><div class="leg-dot" style="background:#64b5f6"></div>Cargo</div>
+        <div class="legend-row"><div class="leg-dot" style="background:#81c784"></div>Other</div>
+        <div class="legend-row" style="margin-top:6px;"><div class="leg-dot" style="background:var(--red)"></div>High Risk Zone</div>
+        <div class="legend-row"><div class="leg-dot" style="background:var(--amber)"></div>Caution Zone</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <span id="timestamp" class="ts">UTC: —</span>
+    <span>AIS coverage: global · 11 shipping lanes monitored</span>
+    <span class="credit">Live data via VesselFinder · No API key required</span>
+  </div>
+
+</div>
+
+<script>
+// ── WAR STATUS ──────────────────────────────────────────────────────────────
+const WAR_STATES = [
+  { label: 'ESCALATING',    color: '#ff1744' },
+  { label: 'CEASEFIRE',     color: '#00e676' },
+  { label: 'DE-ESCALATING', color: '#29b6f6' },
+];
+let warIdx = parseInt(localStorage.getItem('tankerWatchWar') || '0');
+
+function renderWar() {
+  const s = WAR_STATES[warIdx];
+  document.getElementById('warLabel').textContent = s.label;
+  document.getElementById('warDot').style.background = s.color;
+  document.getElementById('warDot').style.boxShadow = `0 0 7px ${s.color}`;
+  document.getElementById('warToggle').style.borderColor = s.color + '50';
+}
+
+function cycleWar() {
+  warIdx = (warIdx + 1) % WAR_STATES.length;
+  localStorage.setItem('tankerWatchWar', warIdx);
+  renderWar();
+}
+renderWar();
+
+// ── ZONES ───────────────────────────────────────────────────────────────────
+const ZONES = {
+  hormuz:        { lat: 26.0,  lng: 56.5,  zoom: 7  },
+  redsea:        { lat: 18.5,  lng: 38.5,  zoom: 6  },
+  arabiansea:    { lat: 15.0,  lng: 65.0,  zoom: 5  },
+  mediterranean: { lat: 36.0,  lng: 18.0,  zoom: 5  },
+  malacca:       { lat:  3.5,  lng: 103.5, zoom: 7  },
+  global:        { lat: 20.0,  lng: 50.0,  zoom: 3  },
+};
+
+// VesselFinder vessel type codes
+const VTYPES = { all: 0, tankers: 1, cargo: 3 };
+
+let curZone   = 'hormuz';
+let curFilter = 'all';
+
+function buildUrl(zone, filter) {
+  const z = ZONES[zone];
+  const t = VTYPES[filter];
+  // VesselFinder free AIS embed — no API key required
+  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lng=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false&fleet_name=false&type=${t}`;
+}
+
+function updateMap() {
+  const frame  = document.getElementById('aisMap');
+  const loader = document.getElementById('mapLoader');
+  loader.classList.add('show');
+  frame.src = buildUrl(curZone, curFilter);
+  frame.onload = () => loader.classList.remove('show');
+}
+
+function jumpTo(zone, btn) {
+  curZone = zone;
+  document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('zone-active'));
+  btn.classList.add('zone-active');
+  updateMap();
+}
+
+function setFilter(filter, btn) {
+  curFilter = filter;
+  document.querySelectorAll('.btn-group:first-of-type .tbtn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateMap();
+}
+
+// ── CLOCK ───────────────────────────────────────────────────────────────────
+function tick() {
+  const now = new Date();
+  document.getElementById('timestamp').textContent =
+    'UTC: ' + now.toISOString().replace('T', ' ').split('.')[0];
+}
+tick();
+setInterval(tick, 1000);
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+updateMap();
+</script>
+</body>
+</html>
