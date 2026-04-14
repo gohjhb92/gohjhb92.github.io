@@ -310,11 +310,6 @@ body::after {
 
     <div class="spacer"></div>
 
-    <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--dim);display:flex;align-items:center;gap:6px;margin-right:14px;">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      FILTER BY VESSEL TYPE → USE PANEL INSIDE MAP
-    </div>
-
     <div class="live-badge">
       <div class="live-dot"></div>
       LIVE AIS
@@ -459,17 +454,6 @@ const ZONES = {
   global:        { lat: 20.0,  lng: 48.0,  zoom: 3  }, // Global overview
 };
 
-// MarineTraffic vtypes — AIS vessel type codes
-// 8        = all tankers (MarineTraffic tanker category)
-// 80,81,82 = crude oil / hazardous tankers (AIS sub-codes)
-// 84       = LNG / liquefied gas carriers
-// 7        = cargo / dry bulk / container
-const VTYPES = {
-  all:    '8',         // all tankers (default view — this tracker is tanker-focused)
-  crude:  '80,81,82',  // crude oil + product + chemical tankers
-  lng:    '84',        // LNG, LPG, gas carriers
-  cargo:  '7',         // cargo, dry bulk, container
-};
 
 let curZone   = 'hormuz';
 let curFilter = 'all';
@@ -495,12 +479,6 @@ function jumpTo(zone, btn) {
   updateMap();
 }
 
-function setFilter(filter, btn) {
-  curFilter = filter;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  updateMap();
-}
 
 // ── CLOCK ───────────────────────────────────────────────────────────────────
 function tick() {
