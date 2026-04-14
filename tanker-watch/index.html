@@ -295,10 +295,9 @@ body::after {
 
     <!-- Vessel type filter -->
     <div class="btn-group">
-      <button class="tbtn filter-btn active" onclick="setFilter('all',this)">ALL VESSELS</button>
-      <button class="tbtn filter-btn" onclick="setFilter('oil',this)">CRUDE OIL</button>
-      <button class="tbtn filter-btn" onclick="setFilter('tankers',this)">ALL TANKERS</button>
-      <button class="tbtn filter-btn" onclick="setFilter('lng',this)">LNG / GAS</button>
+      <button class="tbtn filter-btn active" onclick="setFilter('all',this)">ALL TANKERS</button>
+      <button class="tbtn filter-btn" onclick="setFilter('crude',this)">CRUDE OIL</button>
+      <button class="tbtn filter-btn" onclick="setFilter('lng',this)">LNG</button>
       <button class="tbtn filter-btn" onclick="setFilter('cargo',this)">CARGO</button>
     </div>
 
@@ -461,18 +460,16 @@ const ZONES = {
   global:        { lat: 20.0,  lng: 48.0,  zoom: 3  }, // Global overview
 };
 
-// MarineTraffic vtypes — AIS vessel type category codes
-// 8  = all tankers (broad)
-// 80 = crude oil tanker (specific)
-// 84 = LNG / gas carrier
-// 7  = cargo / dry bulk
-// 35 = military / naval
+// MarineTraffic vtypes — AIS vessel type codes
+// 8        = all tankers (MarineTraffic tanker category)
+// 80,81,82 = crude oil / hazardous tankers (AIS sub-codes)
+// 84       = LNG / liquefied gas carriers
+// 7        = cargo / dry bulk / container
 const VTYPES = {
-  all:      '',    // all vessels
-  oil:      '80',  // crude oil tankers (AIS type 80)
-  tankers:  '8',   // all tanker types (80-89 family)
-  lng:      '84',  // LNG / gas carriers
-  cargo:    '7',   // cargo / dry bulk
+  all:    '8',         // all tankers (default view — this tracker is tanker-focused)
+  crude:  '80,81,82',  // crude oil + product + chemical tankers
+  lng:    '84',        // LNG, LPG, gas carriers
+  cargo:  '7',         // cargo, dry bulk, container
 };
 
 let curZone   = 'hormuz';
