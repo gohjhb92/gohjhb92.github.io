@@ -296,7 +296,9 @@ body::after {
     <!-- Vessel type filter -->
     <div class="btn-group">
       <button class="tbtn filter-btn active" onclick="setFilter('all',this)">ALL VESSELS</button>
-      <button class="tbtn filter-btn" onclick="setFilter('tankers',this)">TANKERS</button>
+      <button class="tbtn filter-btn" onclick="setFilter('oil',this)">CRUDE OIL</button>
+      <button class="tbtn filter-btn" onclick="setFilter('tankers',this)">ALL TANKERS</button>
+      <button class="tbtn filter-btn" onclick="setFilter('lng',this)">LNG / GAS</button>
       <button class="tbtn filter-btn" onclick="setFilter('cargo',this)">CARGO</button>
     </div>
 
@@ -459,8 +461,19 @@ const ZONES = {
   global:        { lat: 20.0,  lng: 48.0,  zoom: 3  }, // Global overview
 };
 
-// MarineTraffic vtypes: '' = all, '8' = tanker, '7' = cargo
-const VTYPES = { all: '', tankers: '8', cargo: '7' };
+// MarineTraffic vtypes — AIS vessel type category codes
+// 8  = all tankers (broad)
+// 80 = crude oil tanker (specific)
+// 84 = LNG / gas carrier
+// 7  = cargo / dry bulk
+// 35 = military / naval
+const VTYPES = {
+  all:      '',    // all vessels
+  oil:      '80',  // crude oil tankers (AIS type 80)
+  tankers:  '8',   // all tanker types (80-89 family)
+  lng:      '84',  // LNG / gas carriers
+  cargo:    '7',   // cargo / dry bulk
+};
 
 let curZone   = 'hormuz';
 let curFilter = 'all';
@@ -468,7 +481,6 @@ let curFilter = 'all';
 function buildUrl(zone, filter) {
   const z = ZONES[zone];
   const v = VTYPES[filter];
-  // MarineTraffic official embed — vtypes filter actually works
   return `https://www.marinetraffic.com/en/ais/embed/zoom:${z.zoom}/centery:${z.lat}/centerx:${z.lng}/maptype:4/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:${v}/showmenu:/remember:false`;
 }
 
