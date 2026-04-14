@@ -4,14 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>TANKER WATCH — Iran Crisis OSINT</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
 <style>
 :root {
   --bg:      #080b0e;
   --surface: #0d1117;
-  --panel:   rgba(10,13,18,0.94);
+  --panel:   rgba(8,11,14,0.92);
   --border:  #1a2530;
   --border2: #243040;
   --text:    #a8bcc8;
@@ -22,436 +21,469 @@
   --red:     #ff1744;
   --blue:    #29b6f6;
   --mono:    'IBM Plex Mono', monospace;
+  --sans:    'IBM Plex Sans', sans-serif;
 }
-*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-html,body { height:100%; overflow:hidden; background:var(--bg); color:var(--text); font-family:var(--mono); }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: var(--mono); }
 
 /* ── TOP BAR ── */
 .topbar {
-  position: fixed; top:0; left:0; right:0; height:44px; z-index:1000;
-  background: var(--panel);
+  height: 44px;
+  background: var(--surface);
   border-bottom: 1px solid var(--border2);
-  display: flex; align-items: center; padding: 0 12px; gap: 0;
-  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 12px;
+  flex-shrink: 0;
+  z-index: 100;
+  position: relative;
 }
-.brand { font-size:13px; font-weight:600; letter-spacing:0.12em; color:var(--white); padding-right:16px; border-right:1px solid var(--border2); margin-right:12px; white-space:nowrap; }
-.war-toggle { display:flex; align-items:center; gap:7px; font-size:9.5px; letter-spacing:0.12em; border:1px solid var(--border2); border-radius:2px; padding:3px 9px; cursor:pointer; user-select:none; margin-right:14px; transition:border-color 0.2s; white-space:nowrap; }
-.war-dot { width:7px; height:7px; border-radius:50%; background:var(--red); flex-shrink:0; }
-.war-label { color:var(--white); font-weight:500; }
-.sep { width:1px; height:22px; background:var(--border2); margin:0 10px; flex-shrink:0; }
-.btn-group { display:flex; gap:4px; }
-.zbtn { font-family:var(--mono); font-size:9.5px; letter-spacing:0.1em; padding:3px 9px; border-radius:2px; border:1px solid var(--border2); background:transparent; color:var(--dim); cursor:pointer; transition:all 0.15s; white-space:nowrap; }
-.zbtn:hover { color:var(--text); border-color:var(--text); }
-.zbtn.active { background:var(--blue); color:#000; border-color:var(--blue); }
-.spacer { flex:1; }
-.live-badge { display:flex; align-items:center; gap:6px; font-size:9.5px; letter-spacing:0.12em; color:var(--green); margin-right:10px; }
-.live-dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
 
-/* ── MAP ── */
-#map { position:fixed; inset:0; top:44px; bottom:28px; z-index:1; }
+.brand {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--white);
+  padding-right: 16px;
+  border-right: 1px solid var(--border2);
+  margin-right: 12px;
+  white-space: nowrap;
+}
+
+.war-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  padding: 3px 9px;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 14px;
+  transition: border-color 0.2s;
+  white-space: nowrap;
+}
+.war-toggle:hover { border-color: var(--border2); opacity: 0.85; }
+
+.war-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  flex-shrink: 0;
+  box-shadow: 0 0 6px currentColor;
+}
+
+.war-label { color: var(--white); font-weight: 500; }
+
+.sep { width: 1px; height: 22px; background: var(--border2); margin: 0 10px; flex-shrink: 0; }
+
+.btn-group { display: flex; gap: 4px; }
+
+.tbtn {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  padding: 3px 9px;
+  border-radius: 2px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--dim);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tbtn:hover { color: var(--text); border-color: var(--text); }
+.tbtn.active { background: var(--red); color: #fff; border-color: var(--red); }
+.tbtn.zone-active { background: var(--blue); color: #000; border-color: var(--blue); }
+
+.spacer { flex: 1; }
+
+.live-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: var(--green);
+}
+.live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── LAYOUT ── */
+.app { display: flex; flex-direction: column; height: 100vh; }
+.map-row { flex: 1; display: flex; overflow: hidden; position: relative; }
+
+/* ── MAP IFRAME ── */
+.map-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#aisMap {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.map-loading {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--dim);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.map-loading.show { opacity: 1; pointer-events: all; }
 
 /* ── SIDEBAR ── */
 .sidebar {
-  position:fixed; top:44px; right:0; bottom:28px; width:220px; z-index:100;
-  background:var(--panel); border-left:1px solid var(--border2);
-  display:flex; flex-direction:column; overflow:hidden;
-  backdrop-filter:blur(6px);
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-left: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-.sidebar-section { padding:12px; border-bottom:1px solid var(--border); }
-.sidebar-title { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--dim); margin-bottom:10px; }
-.risk-zone { display:flex; align-items:center; gap:8px; padding:5px 0; border-bottom:1px solid var(--border); font-size:10px; }
-.risk-zone:last-child { border-bottom:none; }
-.rz-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
-.rz-dot.high   { background:var(--red);   box-shadow:0 0 5px var(--red); }
-.rz-dot.medium { background:var(--amber); box-shadow:0 0 5px var(--amber); }
-.rz-dot.low    { background:var(--green); box-shadow:0 0 5px var(--green); }
-.rz-name { color:var(--text); flex:1; }
-.rz-level { font-size:8.5px; letter-spacing:0.08em; }
-.rz-level.high   { color:var(--red); }
-.rz-level.medium { color:var(--amber); }
-.rz-level.low    { color:var(--green); }
-.intel-list { display:flex; flex-direction:column; gap:8px; }
-.intel-item { font-size:10px; line-height:1.5; color:var(--dim); padding:6px 8px; border:1px solid var(--border); border-left:2px solid var(--border2); border-radius:1px; }
-.intel-item.high { border-left-color:var(--red); }
-.intel-item.med  { border-left-color:var(--amber); }
-.intel-date { font-size:8.5px; color:var(--dim); margin-bottom:2px; opacity:0.7; }
-.legend { padding:10px 12px; border-top:1px solid var(--border); margin-top:auto; }
-.legend-row { display:flex; align-items:center; gap:7px; font-size:9.5px; color:var(--dim); margin-bottom:5px; }
-.legend-row:last-child { margin-bottom:0; }
-.leg-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
 
-/* ── API MODAL ── */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:2000; display:flex; align-items:center; justify-content:center; }
-.modal-overlay.hidden { display:none; }
-.modal { background:var(--surface); border:1px solid var(--border2); border-radius:4px; padding:32px; max-width:440px; width:90%; }
-.modal-tag { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; }
-.modal-title { font-size:18px; font-weight:600; color:var(--white); margin-bottom:10px; }
-.modal-desc { font-size:12px; color:var(--dim); line-height:1.7; margin-bottom:20px; }
-.modal-desc a { color:var(--blue); }
-.modal-steps { margin-bottom:20px; display:flex; flex-direction:column; gap:8px; }
-.modal-step { font-size:11px; color:var(--dim); display:flex; gap:10px; }
-.modal-step-num { color:var(--blue); font-weight:600; flex-shrink:0; }
-.modal-input-row { display:flex; gap:8px; margin-bottom:10px; }
-.modal-input { flex:1; background:var(--bg); border:1px solid var(--border2); border-radius:2px; padding:8px 10px; font-family:var(--mono); font-size:11px; color:var(--white); outline:none; }
-.modal-input:focus { border-color:var(--blue); }
-.modal-btn { background:var(--blue); color:#000; border:none; border-radius:2px; padding:8px 16px; font-family:var(--mono); font-size:11px; font-weight:600; cursor:pointer; white-space:nowrap; }
-.modal-btn:hover { opacity:0.85; }
-.modal-note { font-size:10px; color:var(--dim); opacity:0.7; }
+.sidebar-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+}
 
-/* ── VESSEL POPUP ── */
-.leaflet-popup-content-wrapper { background:var(--surface); border:1px solid var(--border2); border-radius:3px; color:var(--text); font-family:var(--mono); font-size:11px; box-shadow:0 4px 20px rgba(0,0,0,0.6); }
-.leaflet-popup-tip { background:var(--surface); }
-.leaflet-popup-content { margin:12px 16px; line-height:1.8; }
-.popup-title { font-size:12px; font-weight:600; color:var(--white); margin-bottom:6px; }
-.popup-row { display:flex; justify-content:space-between; gap:16px; }
-.popup-key { color:var(--dim); }
-.popup-val { color:var(--text); }
+.sidebar-title {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 10px;
+}
+
+/* ── RISK ZONES ── */
+.risk-zone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+.risk-zone:last-child { border-bottom: none; }
+
+.rz-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.rz-dot.high   { background: var(--red);   box-shadow: 0 0 5px var(--red); }
+.rz-dot.medium { background: var(--amber); box-shadow: 0 0 5px var(--amber); }
+.rz-dot.low    { background: var(--green); box-shadow: 0 0 5px var(--green); }
+
+.rz-name { color: var(--text); flex: 1; }
+.rz-level {
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+}
+.rz-level.high   { color: var(--red); }
+.rz-level.medium { color: var(--amber); }
+.rz-level.low    { color: var(--green); }
+
+/* ── INTEL FEED ── */
+.intel-list { display: flex; flex-direction: column; gap: 8px; }
+
+.intel-item {
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--dim);
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--border2);
+  border-radius: 1px;
+}
+.intel-item.high { border-left-color: var(--red); }
+.intel-item.med  { border-left-color: var(--amber); }
+.intel-date {
+  font-size: 8.5px;
+  color: var(--dim);
+  margin-bottom: 2px;
+  opacity: 0.7;
+}
+
+/* ── LEGEND ── */
+.legend {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9.5px;
+  color: var(--dim);
+  margin-bottom: 5px;
+}
+.legend-row:last-child { margin-bottom: 0; }
+.leg-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
 /* ── BOTTOM BAR ── */
 .bottom-bar {
-  position:fixed; bottom:0; left:0; right:0; height:28px; z-index:1000;
-  background:var(--panel); border-top:1px solid var(--border);
-  display:flex; align-items:center; padding:0 12px; gap:20px;
-  backdrop-filter:blur(6px);
+  height: 28px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 20px;
+  flex-shrink: 0;
 }
-.bottom-bar span { font-size:9px; letter-spacing:0.1em; color:var(--dim); }
-.bottom-bar .credit { margin-left:auto; opacity:0.5; }
+.bottom-bar span {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+}
+.bottom-bar .ts { color: var(--dim); opacity: 0.6; }
+.bottom-bar .credit { margin-left: auto; opacity: 0.5; }
 
-/* leaflet overrides */
-.leaflet-control-attribution { background:rgba(8,11,14,0.7) !important; color:var(--dim) !important; font-size:9px !important; }
-.leaflet-control-attribution a { color:var(--dim) !important; }
-.leaflet-bar a { background:var(--surface) !important; color:var(--text) !important; border-color:var(--border2) !important; }
-.leaflet-bar a:hover { background:var(--border2) !important; }
-
-/* scanlines */
-body::after { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px); pointer-events:none; z-index:9999; }
+/* ── SCANLINES ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="brand">🛢 TANKER WATCH</div>
-  <div class="war-toggle" id="warToggle" onclick="cycleWar()">
-    <div class="war-dot" id="warDot"></div>
-    <span style="color:var(--dim);font-size:9px;">IRAN WAR STATUS</span>
-    <span class="war-label" id="warLabel">ESCALATING</span>
-  </div>
-  <div class="sep"></div>
-  <div class="btn-group">
-    <button class="zbtn active" onclick="jumpTo('hormuz',this)">HORMUZ</button>
-    <button class="zbtn" onclick="jumpTo('redsea',this)">RED SEA</button>
-    <button class="zbtn" onclick="jumpTo('persian',this)">PERSIAN GULF</button>
-    <button class="zbtn" onclick="jumpTo('arabiansea',this)">ARABIAN SEA</button>
-    <button class="zbtn" onclick="jumpTo('med',this)">MED</button>
-    <button class="zbtn" onclick="jumpTo('malacca',this)">MALACCA</button>
-    <button class="zbtn" onclick="jumpTo('global',this)">GLOBAL</button>
-  </div>
-  <div class="spacer"></div>
-  <div class="live-badge">
-    <div class="live-dot" id="liveDot" style="background:var(--amber)"></div>
-    <span id="liveLabel" style="color:var(--amber)">CONNECTING...</span>
-  </div>
-</div>
+<div class="app">
 
-<!-- MAP -->
-<div id="map"></div>
+  <!-- TOP BAR -->
+  <div class="topbar">
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="sidebar-section">
-    <div class="sidebar-title">Risk Zones</div>
-    <div class="risk-zone"><div class="rz-dot high"></div><span class="rz-name">Strait of Hormuz</span><span class="rz-level high">HIGH</span></div>
-    <div class="risk-zone"><div class="rz-dot high"></div><span class="rz-name">Red Sea / Houthi</span><span class="rz-level high">HIGH</span></div>
-    <div class="risk-zone"><div class="rz-dot high"></div><span class="rz-name">Gulf of Aden</span><span class="rz-level high">HIGH</span></div>
-    <div class="risk-zone"><div class="rz-dot medium"></div><span class="rz-name">Persian Gulf</span><span class="rz-level medium">CAUTION</span></div>
-    <div class="risk-zone"><div class="rz-dot medium"></div><span class="rz-name">Gulf of Oman</span><span class="rz-level medium">CAUTION</span></div>
-    <div class="risk-zone"><div class="rz-dot medium"></div><span class="rz-name">Suez Approach</span><span class="rz-level medium">CAUTION</span></div>
-    <div class="risk-zone"><div class="rz-dot low"></div><span class="rz-name">Arabian Sea</span><span class="rz-level low">CLEAR</span></div>
+    <div class="brand">🛢 TANKER WATCH</div>
+
+    <div class="war-toggle" id="warToggle" onclick="cycleWar()">
+      <div class="war-dot" id="warDot"></div>
+      <span style="color:var(--dim);font-size:9px;letter-spacing:0.1em;">IRAN WAR STATUS</span>
+      <span class="war-label" id="warLabel">ESCALATING</span>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- Zone jump -->
+    <div class="btn-group">
+      <button class="tbtn zone-btn zone-active" onclick="jumpTo('hormuz',this)">HORMUZ</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('redsea',this)">RED SEA</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('persian',this)">PERSIAN GULF</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('arabiansea',this)">ARABIAN SEA</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('mediterranean',this)">MED</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('malacca',this)">MALACCA</button>
+      <button class="tbtn zone-btn" onclick="jumpTo('global',this)">GLOBAL</button>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      LIVE AIS
+    </div>
+
   </div>
-  <div class="sidebar-section" style="flex:1;overflow-y:auto;">
-    <div class="sidebar-title">Threat Intel</div>
-    <div class="intel-list">
-      <div class="intel-item high"><div class="intel-date">APR 2026</div>Hormuz transit disrupted — Iranian naval exercises. Tanker diversions via Cape of Good Hope reported.</div>
-      <div class="intel-item high"><div class="intel-date">MAR 2026</div>Houthi drone attacks resume in Red Sea. Multiple vessels rerouting around African cape.</div>
-      <div class="intel-item med"><div class="intel-date">MAR 2026</div>War-risk premiums for Persian Gulf transit up 3× since conflict onset 28 Feb 2026.</div>
-      <div class="intel-item med"><div class="intel-date">FEB 2026</div>US-Israel strikes on Iranian nuclear facilities trigger Hormuz closure threat.</div>
+
+  <!-- MAIN ROW -->
+  <div class="map-row">
+
+    <!-- MAP -->
+    <div class="map-wrap">
+      <div class="map-loading show" id="mapLoader">LOADING AIS DATA...</div>
+      <iframe id="aisMap" src="" allowfullscreen></iframe>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- Risk Zones -->
+      <div class="sidebar-section">
+        <div class="sidebar-title">Risk Zones</div>
+        <div class="risk-zone">
+          <div class="rz-dot high"></div>
+          <span class="rz-name">Strait of Hormuz</span>
+          <span class="rz-level high">HIGH</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot high"></div>
+          <span class="rz-name">Red Sea / Houthi</span>
+          <span class="rz-level high">HIGH</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot high"></div>
+          <span class="rz-name">Gulf of Aden</span>
+          <span class="rz-level high">HIGH</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot medium"></div>
+          <span class="rz-name">Persian Gulf</span>
+          <span class="rz-level medium">CAUTION</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot medium"></div>
+          <span class="rz-name">Gulf of Oman</span>
+          <span class="rz-level medium">CAUTION</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot medium"></div>
+          <span class="rz-name">Suez Approach</span>
+          <span class="rz-level medium">CAUTION</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot low"></div>
+          <span class="rz-name">Arabian Sea</span>
+          <span class="rz-level low">CLEAR</span>
+        </div>
+        <div class="risk-zone">
+          <div class="rz-dot low"></div>
+          <span class="rz-name">Mediterranean</span>
+          <span class="rz-level low">CLEAR</span>
+        </div>
+      </div>
+
+      <!-- Intel Feed -->
+      <div class="sidebar-section" style="flex:1;overflow-y:auto;">
+        <div class="sidebar-title">Threat Intel</div>
+        <div class="intel-list">
+          <div class="intel-item high">
+            <div class="intel-date">APR 2026</div>
+            Hormuz transit disrupted — Iranian naval exercises ongoing. Tanker diversions via Cape of Good Hope reported.
+          </div>
+          <div class="intel-item high">
+            <div class="intel-date">MAR 2026</div>
+            Houthi drone attacks resume in Red Sea. Multiple vessels rerouting around African cape.
+          </div>
+          <div class="intel-item med">
+            <div class="intel-date">MAR 2026</div>
+            Insurance war-risk premiums for Persian Gulf transit up 3× since conflict onset on 28 Feb 2026.
+          </div>
+          <div class="intel-item med">
+            <div class="intel-date">FEB 2026</div>
+            US-Israel strikes on Iranian nuclear facilities trigger closure threat at Strait of Hormuz.
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="sidebar-title" style="margin-bottom:8px;">Vessel Types</div>
+        <div class="legend-row"><div class="leg-dot" style="background:#e57373"></div>Tanker</div>
+        <div class="legend-row"><div class="leg-dot" style="background:#64b5f6"></div>Cargo</div>
+        <div class="legend-row"><div class="leg-dot" style="background:#81c784"></div>Other</div>
+        <div class="legend-row" style="margin-top:6px;"><div class="leg-dot" style="background:var(--red)"></div>High Risk Zone</div>
+        <div class="legend-row"><div class="leg-dot" style="background:var(--amber)"></div>Caution Zone</div>
+      </div>
+
     </div>
   </div>
-  <div class="legend">
-    <div class="sidebar-title" style="margin-bottom:8px;">Legend</div>
-    <div class="legend-row"><div class="leg-dot" style="background:#ff1744"></div>High Risk Zone</div>
-    <div class="legend-row"><div class="leg-dot" style="background:#ffab00"></div>Caution Zone</div>
-    <div class="legend-row"><div class="leg-dot" style="background:#00e676"></div>Clear / Safe</div>
-    <div class="legend-row" style="margin-top:6px;"><div class="leg-dot" style="background:#e57373"></div>Tanker</div>
-    <div class="legend-row"><div class="leg-dot" style="background:#64b5f6"></div>Cargo</div>
-    <div class="legend-row"><div class="leg-dot" style="background:#b0bec5"></div>Other</div>
-  </div>
-</div>
 
-<!-- API KEY MODAL -->
-<div class="modal-overlay" id="apiModal">
-  <div class="modal">
-    <div class="modal-tag">Setup Required</div>
-    <div class="modal-title">TANKER WATCH</div>
-    <div class="modal-desc">Live AIS vessel positions are streamed from <a href="https://aisstream.io" target="_blank">aisstream.io</a> — a free real-time maritime data service. You need a free API key to connect.</div>
-    <div class="modal-steps">
-      <div class="modal-step"><span class="modal-step-num">01</span>Go to <a href="https://aisstream.io" target="_blank" style="color:var(--blue)">aisstream.io</a> and sign in via GitHub</div>
-      <div class="modal-step"><span class="modal-step-num">02</span>Go to Your Account → API Keys → Create API Key</div>
-      <div class="modal-step"><span class="modal-step-num">03</span>Paste it below and click Connect</div>
-    </div>
-    <div class="modal-input-row">
-      <input class="modal-input" id="apiKeyInput" type="text" placeholder="Paste your aisstream.io API key..."/>
-      <button class="modal-btn" onclick="connectWithKey()">Connect</button>
-    </div>
-    <div class="modal-note">Key is stored in your browser locally. Free tier supported.</div>
+  <!-- BOTTOM BAR -->
+  <div class="bottom-bar">
+    <span id="timestamp" class="ts">UTC: —</span>
+    <span>AIS coverage: global · 11 shipping lanes monitored</span>
+    <span class="credit">Live data via VesselFinder · No API key required</span>
   </div>
-</div>
 
-<!-- BOTTOM BAR -->
-<div class="bottom-bar">
-  <span id="timestamp">UTC: —</span>
-  <span id="vesselCount">VESSELS: 0</span>
-  <span>AIS coverage: global · 11 shipping lanes</span>
-  <span class="credit">Live data: aisstream.io</span>
 </div>
 
 <script>
 // ── WAR STATUS ──────────────────────────────────────────────────────────────
 const WAR_STATES = [
-  { label:'ESCALATING',    color:'#ff1744' },
-  { label:'CEASEFIRE',     color:'#00e676' },
-  { label:'DE-ESCALATING', color:'#29b6f6' },
+  { label: 'ESCALATING',    color: '#ff1744' },
+  { label: 'CEASEFIRE',     color: '#00e676' },
+  { label: 'DE-ESCALATING', color: '#29b6f6' },
 ];
-let warIdx = parseInt(localStorage.getItem('twWar') || '0');
+let warIdx = parseInt(localStorage.getItem('tankerWatchWar') || '0');
+
 function renderWar() {
   const s = WAR_STATES[warIdx];
   document.getElementById('warLabel').textContent = s.label;
-  document.getElementById('warDot').style.cssText = `background:${s.color};box-shadow:0 0 7px ${s.color}`;
+  document.getElementById('warDot').style.background = s.color;
+  document.getElementById('warDot').style.boxShadow = `0 0 7px ${s.color}`;
   document.getElementById('warToggle').style.borderColor = s.color + '50';
 }
+
 function cycleWar() {
-  warIdx = (warIdx+1) % WAR_STATES.length;
-  localStorage.setItem('twWar', warIdx);
+  warIdx = (warIdx + 1) % WAR_STATES.length;
+  localStorage.setItem('tankerWatchWar', warIdx);
   renderWar();
 }
 renderWar();
 
-// ── MAP ──────────────────────────────────────────────────────────────────────
-const map = L.map('map', { center:[25,57], zoom:6, zoomControl:true });
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution:'&copy; CartoDB | AIS: aisstream.io',
-  subdomains:'abcd', maxZoom:18
-}).addTo(map);
-
-// ── ZONES ────────────────────────────────────────────────────────────────────
+// ── ZONES — precise centroids for each strait/sea ───────────────────────────
 const ZONES = {
-  hormuz:     { c:[26.5,56.3], z:9  },
-  redsea:     { c:[20.0,37.8], z:6  },
-  persian:    { c:[27.0,51.5], z:7  },
-  arabiansea: { c:[13.5,57.0], z:5  },
-  med:        { c:[36.2,18.5], z:5  },
-  malacca:    { c:[ 2.8,102.8],z:8  },
-  global:     { c:[20.0,55.0], z:4  },
+  hormuz:        { lat: 26.6,  lng: 56.2,  zoom: 9  }, // Strait of Hormuz — narrow passage
+  redsea:        { lat: 20.5,  lng: 37.8,  zoom: 6  }, // Red Sea — full length
+  persian:       { lat: 27.0,  lng: 51.5,  zoom: 7  }, // Persian Gulf
+  arabiansea:    { lat: 13.5,  lng: 57.0,  zoom: 5  }, // Arabian Sea + Gulf of Aden
+  mediterranean: { lat: 36.2,  lng: 18.5,  zoom: 5  }, // Mediterranean + Suez approach
+  malacca:       { lat:  2.8,  lng: 102.8, zoom: 8  }, // Malacca Strait — narrow
+  global:        { lat: 20.0,  lng: 48.0,  zoom: 3  }, // Global overview
 };
-function jumpTo(zone, btn) {
+
+// MarineTraffic vtypes — AIS vessel type category codes
+let curZone = 'hormuz';
+
+function buildUrl(zone) {
   const z = ZONES[zone];
-  map.flyTo(z.c, z.z, { duration:1.2 });
-  document.querySelectorAll('.zbtn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  return `https://www.marinetraffic.com/en/ais/embed/zoom:${z.zoom}/centery:${z.lat}/centerx:${z.lng}/maptype:4/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false`;
 }
 
-// ── RISK ZONE POLYGONS ───────────────────────────────────────────────────────
-const zoneStyle = {
-  high:   { color:'#ff1744', fillColor:'#ff1744', fillOpacity:0.08, weight:1.5, dashArray:'6 4' },
-  medium: { color:'#ffab00', fillColor:'#ffab00', fillOpacity:0.06, weight:1,   dashArray:'4 4' },
-};
-const RISK_ZONES = [
-  { name:'Strait of Hormuz',    bounds:[[24.0,55.5],[27.5,58.5]], level:'high'   },
-  { name:'Persian Gulf',        bounds:[[22.0,47.5],[30.5,57.0]], level:'medium' },
-  { name:'Gulf of Oman',        bounds:[[20.0,57.0],[26.5,65.0]], level:'medium' },
-  { name:'Red Sea / Houthi Zone',bounds:[[11.5,32.0],[30.0,44.5]],level:'high'   },
-  { name:'Gulf of Aden',        bounds:[[10.0,42.5],[14.0,53.0]], level:'high'   },
-  { name:'Suez Approach',       bounds:[[29.0,31.5],[32.5,34.0]], level:'medium' },
-];
-RISK_ZONES.forEach(z => {
-  const [[s,w],[n,e]] = z.bounds;
-  L.rectangle([[s,w],[n,e]], zoneStyle[z.level])
-    .bindTooltip(z.name, { className:'', sticky:true })
-    .addTo(map);
-});
-
-// ── VESSELS ──────────────────────────────────────────────────────────────────
-const vessels = {};
-
-function riskLevel(lat, lon) {
-  for (const z of RISK_ZONES) {
-    const [[s,w],[n,e]] = z.bounds;
-    if (lat>=s && lat<=n && lon>=w && lon<=e) return z.level;
-  }
-  return 'low';
+function updateMap() {
+  const frame  = document.getElementById('aisMap');
+  const loader = document.getElementById('mapLoader');
+  loader.classList.add('show');
+  frame.src = buildUrl(curZone);
+  frame.onload = () => loader.classList.remove('show');
 }
 
-function vesselColor(type, lat, lon) {
-  const risk = riskLevel(lat, lon);
-  if (risk === 'high')   return '#ff1744';
-  if (risk === 'medium') return '#ffab00';
-  const t = parseInt(type);
-  if (t >= 80 && t <= 89) return '#e57373';
-  if (t >= 70 && t <= 79) return '#64b5f6';
-  return '#b0bec5';
+function jumpTo(zone, btn) {
+  curZone = zone;
+  document.querySelectorAll('.zone-btn').forEach(b => b.classList.remove('zone-active'));
+  btn.classList.add('zone-active');
+  updateMap();
 }
 
-function makeIcon(color, heading) {
-  const r = heading || 0;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20">
-    <polygon points="8,0 14,18 8,14 2,18" fill="${color}" opacity="0.9" transform="rotate(${r},8,10)"/>
-  </svg>`;
-  return L.divIcon({
-    html: svg, className:'', iconSize:[16,20], iconAnchor:[8,10]
-  });
-}
-
-function processPositionReport(msg) {
-  const m = msg.Message?.PositionReport;
-  const meta = msg.MetaData;
-  if (!m || !meta) return;
-  const mmsi = meta.MMSI;
-  const lat  = m.Latitude;
-  const lon  = m.Longitude;
-  const hdg  = m.TrueHeading || m.CourseOverGround || 0;
-  const spd  = m.SpeedOverGround;
-  if (!lat || !lon || lat===0) return;
-
-  const color = vesselColor(vessels[mmsi]?.type || 0, lat, lon);
-  const icon  = makeIcon(color, hdg);
-
-  if (vessels[mmsi]?.marker) {
-    vessels[mmsi].marker.setLatLng([lat, lon]).setIcon(icon);
-  } else {
-    const marker = L.marker([lat, lon], { icon })
-      .bindPopup('', { maxWidth:220 })
-      .addTo(map);
-    marker.on('click', () => {
-      const v = vessels[mmsi];
-      marker.setPopupContent(`
-        <div class="popup-title">${v.name || 'Unknown Vessel'}</div>
-        <div class="popup-row"><span class="popup-key">MMSI</span><span class="popup-val">${mmsi}</span></div>
-        <div class="popup-row"><span class="popup-key">Speed</span><span class="popup-val">${spd?.toFixed(1) || '—'} kn</span></div>
-        <div class="popup-row"><span class="popup-key">Heading</span><span class="popup-val">${Math.round(hdg)}°</span></div>
-        <div class="popup-row"><span class="popup-key">Risk</span><span class="popup-val" style="color:${color}">${riskLevel(lat,lon).toUpperCase()}</span></div>
-        <div class="popup-row"><span class="popup-key">Position</span><span class="popup-val">${lat.toFixed(3)}, ${lon.toFixed(3)}</span></div>
-      `);
-    });
-    vessels[mmsi] = { marker, name:'', type:0, lastSeen:Date.now() };
-  }
-  vessels[mmsi].lat = lat;
-  vessels[mmsi].lon = lon;
-  vessels[mmsi].lastSeen = Date.now();
-  updateVesselCount();
-}
-
-function processShipStaticData(msg) {
-  const m = msg.Message?.ShipStaticData;
-  const meta = msg.MetaData;
-  if (!m || !meta) return;
-  const mmsi = meta.MMSI;
-  if (vessels[mmsi]) {
-    vessels[mmsi].name = m.Name?.trim() || '';
-    vessels[mmsi].type = m.Type || 0;
-  }
-}
-
-function updateVesselCount() {
-  document.getElementById('vesselCount').textContent = `VESSELS: ${Object.keys(vessels).length}`;
-}
-
-// ── WEBSOCKET ────────────────────────────────────────────────────────────────
-const BOUNDING_BOXES = [
-  [[20.0,47.5],[32.0,66.0]],
-  [[10.0,30.0],[32.0,50.0]],
-  [[ 0.0,55.0],[25.0,80.0]],
-  [[-35.0,10.0],[15.0,55.0]],
-  [[35.0,-10.0],[55.0,40.0]],
-  [[ 0.0,95.0],[12.0,112.0]],
-];
-
-let ws = null, reconnTimer = null;
-
-function setStatus(status) {
-  const dot   = document.getElementById('liveDot');
-  const label = document.getElementById('liveLabel');
-  const colors = { connected:'#00e676', connecting:'#ffab00', disconnected:'#ff1744' };
-  const c = colors[status] || colors.disconnected;
-  dot.style.background   = c;
-  label.style.color      = c;
-  label.textContent      = status.toUpperCase();
-}
-
-function connectAIS(key) {
-  if (ws) { ws.close(); ws = null; }
-  if (reconnTimer) { clearTimeout(reconnTimer); reconnTimer = null; }
-  setStatus('connecting');
-  ws = new WebSocket('wss://stream.aisstream.io/v0/stream');
-  ws.onopen = () => {
-    setStatus('connected');
-    ws.send(JSON.stringify({ APIKey:key, BoundingBoxes:BOUNDING_BOXES, FilterMessageTypes:['PositionReport','ShipStaticData'] }));
-  };
-  ws.onmessage = e => {
-    try {
-      const msg = JSON.parse(e.data);
-      if (msg.MessageType === 'PositionReport')  processPositionReport(msg);
-      if (msg.MessageType === 'ShipStaticData')  processShipStaticData(msg);
-    } catch(_) {}
-  };
-  ws.onerror  = ()  => setStatus('disconnected');
-  ws.onclose  = ()  => {
-    setStatus('disconnected');
-    reconnTimer = setTimeout(() => {
-      const k = localStorage.getItem('twApiKey');
-      if (k) connectAIS(k);
-    }, 8000);
-  };
-}
-
-function connectWithKey() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key) return;
-  localStorage.setItem('twApiKey', key);
-  document.getElementById('apiModal').classList.add('hidden');
-  connectAIS(key);
-}
-
-// Enter key support
-document.getElementById('apiKeyInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') connectWithKey();
-});
-
-// Auto-connect if key saved
-const savedKey = localStorage.getItem('twApiKey');
-if (savedKey) {
-  document.getElementById('apiModal').classList.add('hidden');
-  connectAIS(savedKey);
-}
-
-// Stale vessel cleanup
-setInterval(() => {
-  const cutoff = Date.now() - 20 * 60 * 1000;
-  Object.keys(vessels).forEach(mmsi => {
-    if (vessels[mmsi].lastSeen < cutoff) {
-      if (vessels[mmsi].marker) map.removeLayer(vessels[mmsi].marker);
-      delete vessels[mmsi];
-    }
-  });
-  updateVesselCount();
-}, 60000);
-
-// ── CLOCK ────────────────────────────────────────────────────────────────────
-setInterval(() => {
+// ── CLOCK ───────────────────────────────────────────────────────────────────
+function tick() {
+  const now = new Date();
   document.getElementById('timestamp').textContent =
-    'UTC: ' + new Date().toISOString().replace('T',' ').split('.')[0];
-}, 1000);
+    'UTC: ' + now.toISOString().replace('T', ' ').split('.')[0];
+}
+tick();
+setInterval(tick, 1000);
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+updateMap();
 </script>
 </body>
 </html>
