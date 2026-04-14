@@ -127,32 +127,18 @@ html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(-
 .map-wrap {
   flex: 1;
   position: relative;
-  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
 }
 
 #aisMap {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: none;
   display: block;
 }
-
-.map-loading {
-  position: absolute;
-  inset: 0;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: var(--dim);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-  z-index: 10;
-}
-.map-loading.show { opacity: 1; pointer-events: all; }
 
 /* ── SIDEBAR ── */
 .sidebar {
@@ -322,7 +308,6 @@ body::after {
 
     <!-- MAP -->
     <div class="map-wrap">
-      <div class="map-loading show" id="mapLoader">LOADING AIS DATA...</div>
       <iframe id="aisMap" src="" allowfullscreen></iframe>
     </div>
 
@@ -463,11 +448,7 @@ function buildUrl(zone) {
 }
 
 function updateMap() {
-  const frame  = document.getElementById('aisMap');
-  const loader = document.getElementById('mapLoader');
-  loader.classList.add('show');
-  frame.src = buildUrl(curZone);
-  frame.onload = () => loader.classList.remove('show');
+  document.getElementById('aisMap').src = buildUrl(curZone);
 }
 
 function jumpTo(zone, btn) {
