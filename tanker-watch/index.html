@@ -455,20 +455,18 @@ const ZONES = {
 };
 
 
-let curZone   = 'hormuz';
-let curFilter = 'all';
+let curZone = 'hormuz';
 
-function buildUrl(zone, filter) {
+function buildUrl(zone) {
   const z = ZONES[zone];
-  const v = VTYPES[filter];
-  return `https://www.marinetraffic.com/en/ais/embed/zoom:${z.zoom}/centery:${z.lat}/centerx:${z.lng}/maptype:4/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:${v}/showmenu:/remember:false`;
+  return `https://www.vesselfinder.com/aismap?lat=${z.lat}&lng=${z.lng}&zoom=${z.zoom}&names=false&mmsi=0&track=false&fleet=false`;
 }
 
 function updateMap() {
   const frame  = document.getElementById('aisMap');
   const loader = document.getElementById('mapLoader');
   loader.classList.add('show');
-  frame.src = buildUrl(curZone, curFilter);
+  frame.src = buildUrl(curZone);
   frame.onload = () => loader.classList.remove('show');
 }
 
