@@ -579,6 +579,23 @@
       margin-top: 8px;
       width: 100%;
     }
+
+    /* ── MOBILE (375px) ── */
+    @media (max-width: 420px) {
+      .page { padding: 0 14px; }
+      .topbar { flex-direction: column; align-items: flex-start; gap: 6px; padding: 10px 0; }
+      .masthead { padding: 32px 0 28px; }
+      .masthead h1 { font-size: 34px; }
+      .masthead-sub { font-size: 13px; }
+      .summary { padding: 16px 18px; }
+      .toc ol { columns: 1; }
+      .callout { float: none; width: 100%; margin: 0 0 20px 0; }
+      .data-grid { grid-template-columns: 1fr; }
+      .framework-grid { grid-template-columns: 1fr; }
+      .implication-grid { grid-template-columns: 1fr; }
+      .section { padding: 32px 0 0; }
+      footer { flex-direction: column; gap: 8px; }
+    }
   </style>
 </head>
 <body>

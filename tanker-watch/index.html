@@ -274,6 +274,23 @@ body::after {
   pointer-events: none;
   z-index: 9999;
 }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  html, body { overflow: auto; height: auto; }
+  .app { height: auto; min-height: 100vh; }
+  .topbar { height: auto; min-height: 44px; flex-wrap: wrap; padding: 8px 10px; gap: 6px; }
+  .brand { font-size: 11px; padding-right: 10px; margin-right: 6px; }
+  .war-toggle, .sep, .btn-group, .filter-row { display: none; }
+  .spacer { display: none; }
+  .map-row { flex-direction: column; height: auto; overflow: visible; }
+  .map-wrap { height: 55vw; min-height: 240px; max-height: 360px; flex: none; }
+  .sidebar { width: 100%; height: auto; flex-shrink: 1; overflow-y: visible; border-left: none; border-top: 1px solid var(--border2); flex-direction: row; flex-wrap: wrap; }
+  .sidebar-section { flex: 1; min-width: 140px; max-height: none; overflow-y: visible; padding: 10px 12px; }
+  .sidebar-title { font-size: 9px; }
+  .rz-item, .intel-item { padding: 6px 0; }
+  .leg-row { flex-wrap: wrap; padding: 8px 10px; gap: 6px; }
+}
 </style>
 </head>
 <body>

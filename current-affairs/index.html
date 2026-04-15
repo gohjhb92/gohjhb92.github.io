@@ -374,6 +374,24 @@
       transition: color 0.2s;
     }
     .footer-right a:hover { color: var(--white); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 480px) {
+    .page { padding: 0 14px 60px; }
+    .topbar { flex-wrap: wrap; gap: 8px; }
+    .masthead { padding: 28px 0 22px; }
+    .masthead h1 { font-size: 26px; line-height: 1.0; }
+    .masthead-sub { font-size: 11px; }
+    .meta-line { font-size: 12px; }
+    .intro-box { padding: 14px 16px; margin: 20px 0 30px; font-size: 14px; }
+    .cards { grid-template-columns: 1fr; gap: 12px; }
+    .card-body { padding: 18px 16px 14px; }
+    .card-title { font-size: 18px; }
+    .card-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .themes { padding: 16px 18px; }
+    .themes-grid { grid-template-columns: 1fr; gap: 10px; }
+    .page-footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
   </style>
 </head>
 <body>

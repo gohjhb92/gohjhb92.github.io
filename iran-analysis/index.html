@@ -416,6 +416,25 @@
       transition: color 0.2s;
     }
     .footer-right a:hover { color: var(--white); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 480px) {
+    .page { padding: 0 14px 60px; }
+    .topbar { flex-wrap: wrap; gap: 8px; }
+    .masthead { padding: 28px 0 22px; }
+    .masthead h1 { font-size: 26px; }
+    .masthead-sub { font-size: 11px; }
+    .masthead-meta { flex-wrap: wrap; gap: 8px; }
+    .intel-box { padding: 14px 16px; margin: 20px 0 28px; }
+    .cards { grid-template-columns: 1fr; gap: 12px; }
+    .card-title { font-size: 14px; }
+    .card-body { padding: 14px 14px 12px; }
+    .card-footer { padding: 10px 14px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .log-box { padding: 14px 16px; }
+    .log-entry { flex-direction: column; gap: 2px; }
+    .log-time { font-size: 9px; }
+    .page-footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
   </style>
 </head>
 <body>
