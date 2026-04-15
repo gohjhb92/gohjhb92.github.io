@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iran War Analysis — Bryan Goh</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:      #080b0e;
+      --surface: #0d1117;
+      --surface2:#111820;
+      --border:  #1a2530;
+      --border2: #243040;
+      --text:    #a8bcc8;
+      --dim:     #445560;
+      --white:   #ddeef5;
+      --green:   #00e676;
+      --amber:   #ffab00;
+      --red:     #ff1744;
+      --blue:    #29b6f6;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'IBM Plex Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── GRID OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(26,37,48,0.5) 39px, rgba(26,37,48,0.5) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(26,37,48,0.5) 39px, rgba(26,37,48,0.5) 40px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      height: 44px;
+      border-bottom: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .topbar-brand {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--white);
+      white-space: nowrap;
+    }
+
+    .topbar-brand span {
+      color: var(--red);
+    }
+
+    .topbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .topbar-nav a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .topbar-nav a:hover { color: var(--text); }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      border: 1px solid rgba(255,23,68,0.3);
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      box-shadow: 0 0 6px var(--red);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      padding: 44px 0 36px;
+      border-bottom: 1px solid var(--border2);
+    }
+
+    .masthead-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 18px;
+    }
+
+    .masthead-eyebrow span { color: var(--red); }
+
+    .masthead h1 {
+      font-family: var(--mono);
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .masthead h1 .accent { color: var(--red); }
+
+    .masthead-sub {
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--dim);
+      margin-bottom: 22px;
+    }
+
+    .masthead-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .meta-chip {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      border: 1px solid var(--border2);
+      padding: 3px 10px;
+    }
+
+    .meta-chip span { color: var(--text); }
+
+    /* ── INTEL SUMMARY ── */
+    .intel-box {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--red);
+      padding: 20px 24px;
+      margin: 32px 0 40px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .intel-box-label {
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    .intel-box p { color: var(--text); }
+    .intel-box strong { color: var(--white); }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border2);
+    }
+
+    .section-count {
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      color: var(--dim);
+    }
+
+    /* ── PROJECT CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 620px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: var(--blue);
+      background: var(--surface2);
+    }
+
+    .card.placeholder {
+      opacity: 0.55;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .card-header {
+      padding: 14px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-type {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .card-status {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border: 1px solid;
+    }
+
+    .card-status.live   { color: var(--green);  border-color: rgba(0,230,118,0.3); }
+    .card-status.soon   { color: var(--amber);  border-color: rgba(255,171,0,0.3); }
+
+    .card-body {
+      padding: 18px 18px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--dim);
+      margin-bottom: 14px;
+    }
+
+    .card-desc {
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .card-footer {
+      padding: 12px 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 1px solid var(--border2);
+      padding: 2px 6px;
+    }
+
+    .card-link {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      transition: color 0.2s;
+    }
+
+    .card:hover .card-link { color: var(--white); }
+
+    .placeholder-note {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--amber);
+    }
+
+    /* ── OSINT LOG ── */
+    .log-box {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 20px 24px;
+      margin-bottom: 48px;
+      font-size: 12px;
+    }
+
+    .log-label {
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .log-entry {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 8px;
+      align-items: flex-start;
+    }
+
+    .log-time {
+      color: var(--dim);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .log-msg { color: var(--text); }
+    .log-msg .hi { color: var(--white); }
+    .log-msg .ok { color: var(--green); }
+    .log-msg .warn { color: var(--amber); }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      border-top: 1px solid var(--border2);
+      padding: 18px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-left {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--dim);
+    }
+
+    .footer-right a {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-right a:hover { color: var(--white); }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="topbar-brand">BRYAN GOH &mdash; <span>ANALYSIS HUB</span></div>
+      <div class="topbar-nav">
+        <div class="status-pill">
+          <div class="status-dot"></div>
+          MONITORING
+        </div>
+        <a href="https://gohjhb92.github.io/">&#8592; Portfolio</a>
+      </div>
+    </div>
+
+    <!-- MASTHEAD -->
+    <div class="masthead">
+      <div class="masthead-eyebrow">Independent Research &nbsp;/&nbsp; <span>Iran Conflict</span> &nbsp;/&nbsp; OSINT &amp; Analysis</div>
+      <h1>Iran <span class="accent">War</span> Analysis</h1>
+      <div class="masthead-sub">// open-source intelligence &middot; geopolitical research &middot; data tools</div>
+      <div class="masthead-meta">
+        <div class="meta-chip">Author: <span>Bryan Goh</span></div>
+        <div class="meta-chip">Region: <span>Middle East / Gulf</span></div>
+        <div class="meta-chip">Updated: <span>2025</span></div>
+      </div>
+    </div>
+
+    <!-- INTEL SUMMARY -->
+    <div class="intel-box">
+      <div class="intel-box-label">// mission brief</div>
+      <p>
+        <strong>Independent open-source research</strong> tracking the Iran conflict through maritime intelligence, geopolitical analysis, and data-driven tooling. This hub aggregates OSINT dashboards, thesis writing, and experimental trackers built to monitor economic and strategic developments around the Iranian crisis.
+      </p>
+    </div>
+
+    <!-- PROJECT CARDS -->
+    <div class="section-header">
+      <div class="section-label">// active projects</div>
+      <div class="section-rule"></div>
+      <div class="section-count">4 modules</div>
+    </div>
+
+    <div class="cards">
+
+      <!-- TANKER WATCH -->
+      <a class="card" href="https://gohjhb92.github.io/tanker-watch/">
+        <div class="card-header">
+          <div class="card-type">OSINT Dashboard</div>
+          <div class="card-status live">&#9679; Live</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Tanker Watch</div>
+          <div class="card-subtitle">// Iran Crisis Maritime OSINT</div>
+          <div class="card-desc">
+            Real-time maritime tracking dashboard monitoring tanker movements, sanctions evasion routes, and shipping activity in the Gulf. Aggregates AIS data and open-source intelligence on Iranian oil exports.
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="tag">AIS Data</span>
+            <span class="tag">Maritime</span>
+            <span class="tag">Sanctions</span>
+            <span class="tag">OSINT</span>
+          </div>
+          <div class="card-link">Open &rarr;</div>
+        </div>
+      </a>
+
+      <!-- IRAN WAR THESIS -->
+      <div class="card placeholder">
+        <div class="card-header">
+          <div class="card-type">Thesis / Essay</div>
+          <div class="card-status soon">&#9675; Coming Soon</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Iran Conflict Thesis</div>
+          <div class="card-subtitle">// strategic &amp; narrative analysis</div>
+          <div class="card-desc">
+            Written analysis synthesising geopolitical developments, military posturing, and narrative framing around the Iran conflict. Explores how media, state communication, and OSINT shape public understanding of the crisis.
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="tag">Geopolitics</span>
+            <span class="tag">Research</span>
+            <span class="tag">Commentary</span>
+          </div>
+          <div class="placeholder-note">Link pending</div>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO TRACKER -->
+      <div class="card placeholder">
+        <div class="card-header">
+          <div class="card-type">Data Tool</div>
+          <div class="card-status soon">&#9675; Coming Soon</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Portfolio Tracker</div>
+          <div class="card-subtitle">// personal finance dashboard</div>
+          <div class="card-desc">
+            Personal investment and portfolio tracking tool. Monitors asset allocation, performance metrics, and market exposure across positions relevant to geopolitical risk themes.
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="tag">Finance</span>
+            <span class="tag">Data</span>
+            <span class="tag">Dashboard</span>
+          </div>
+          <div class="placeholder-note">Link pending</div>
+        </div>
+      </div>
+
+      <!-- FOOD TRACKER -->
+      <div class="card placeholder">
+        <div class="card-header">
+          <div class="card-type">Data Tool</div>
+          <div class="card-status soon">&#9675; Coming Soon</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Food Tracker</div>
+          <div class="card-subtitle">// nutrition &amp; health logging</div>
+          <div class="card-desc">
+            Personal nutrition and food tracking application. Built as an experimental data tool combining habit tracking with simple analytics for daily dietary logging.
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="tag">Health</span>
+            <span class="tag">Data</span>
+            <span class="tag">Personal</span>
+          </div>
+          <div class="placeholder-note">Link pending</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LOG -->
+    <div class="section-header">
+      <div class="section-label">// system log</div>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="log-box">
+      <div class="log-label">Activity Log</div>
+      <div class="log-entry">
+        <div class="log-time">2025-04-15</div>
+        <div class="log-msg"><span class="ok">[OK]</span> Hub page initialised &mdash; <span class="hi">4 modules registered</span></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">2025-04-15</div>
+        <div class="log-msg"><span class="ok">[LIVE]</span> Tanker Watch dashboard active &mdash; <span class="hi">AIS feed online</span></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">2025-04-15</div>
+        <div class="log-msg"><span class="warn">[PENDING]</span> Iran Conflict Thesis &mdash; <span class="hi">awaiting publication URL</span></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">2025-04-15</div>
+        <div class="log-msg"><span class="warn">[PENDING]</span> Portfolio Tracker &mdash; <span class="hi">awaiting deployment</span></div>
+      </div>
+      <div class="log-entry">
+        <div class="log-time">2025-04-15</div>
+        <div class="log-msg"><span class="warn">[PENDING]</span> Food Tracker &mdash; <span class="hi">awaiting deployment</span></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="page-footer">
+      <div class="footer-left">Bryan Goh &mdash; Independent Research &mdash; All analysis is personal</div>
+      <div class="footer-right"><a href="https://gohjhb92.github.io/">&#8592; Back to Portfolio</a></div>
+    </div>
+
+  </div>
+</body>
+</html>
