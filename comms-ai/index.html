@@ -54,6 +54,18 @@ h1 em{color:var(--accent);font-style:normal;font-weight:500}
 .model-note{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:8px}
 .model-note span{color:var(--muted)}
 
+.key-panel{background:var(--surface);border:1px solid var(--accent-border);border-radius:12px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.key-panel .key-label{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.key-panel .key-input-wrap{flex:1;min-width:220px;position:relative}
+.key-panel input{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 36px 9px 12px;font-size:13px;font-family:var(--mono);color:var(--text);outline:none;transition:border-color .15s}
+.key-panel input:focus{border-color:var(--accent-border)}
+.key-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:11px;font-family:var(--mono);padding:2px 4px}
+.key-toggle:hover{color:var(--text)}
+.key-note{font-size:11px;color:var(--muted);font-family:var(--mono);flex-basis:100%;margin-top:2px}
+.key-note a{color:var(--accent);text-decoration:none}
+.key-note a:hover{text-decoration:underline}
+.no-key-msg{display:none;font-size:12px;color:#f87171;font-family:var(--mono);margin-top:6px}
+
 .out-wrap{margin-top:16px;border:1px solid var(--border);border-radius:12px;overflow:hidden;animation:fadeUp .25s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .out-head{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
@@ -78,6 +90,16 @@ h1 em{color:var(--accent);font-style:normal;font-weight:500}
   <h1>Comms<em>AI</em></h1>
   <p class="sub">AI-powered stakeholder communications drafter. Generate emails, outreach plans, and social copy — tailored to your organisation and context.</p>
 </header>
+
+<div class="key-panel">
+  <span class="key-label">🔑 Anthropic API Key</span>
+  <div class="key-input-wrap">
+    <input type="password" id="apiKey" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false">
+    <button class="key-toggle" onclick="toggleKey()" id="keyToggle">show</button>
+  </div>
+  <span class="key-note">Your key is used only in your browser — never sent to any server. Get one free at <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a>.</span>
+  <span class="no-key-msg" id="noKeyMsg">⚠ Please enter your API key above before generating.</span>
+</div>
 
 <div class="panel">
   <div class="panel-label">Organisation context</div>
@@ -296,10 +318,26 @@ function buildPrompt(type){
   }
 }
 
+function getKey(){return document.getElementById('apiKey').value.trim();}
+
+function toggleKey(){
+  const inp=document.getElementById('apiKey');
+  const btn=document.getElementById('keyToggle');
+  if(inp.type==='password'){inp.type='text';btn.textContent='hide';}
+  else{inp.type='password';btn.textContent='show';}
+}
+
 async function callClaude(prompt){
+  const key=getKey();
+  if(!key){throw new Error('NO_KEY');}
   const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
     body:JSON.stringify({
       model:'claude-sonnet-4-20250514',
       max_tokens:1000,
@@ -307,7 +345,7 @@ async function callClaude(prompt){
       messages:[{role:'user',content:prompt}]
     })
   });
-  if(!res.ok)throw new Error('API '+res.status);
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.error?.message||'API '+res.status);}
   const d=await res.json();
   return d.content?.[0]?.text||'';
 }
@@ -349,7 +387,12 @@ async function gen(type){
     document.getElementById(m.regen).disabled=false;
     document.getElementById(m.stat).innerHTML='';
   }catch(e){
-    document.getElementById(m.stat).innerHTML='error — see console';
+    if(e.message==='NO_KEY'){
+      document.getElementById('noKeyMsg').style.display='block';
+      document.getElementById('apiKey').focus();
+    }else{
+      document.getElementById(m.stat).innerHTML='error: '+e.message;
+    }
     console.error(e);
   }
   document.getElementById(m.btn).disabled=false;
