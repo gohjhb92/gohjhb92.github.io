@@ -3,267 +3,818 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Grant Evaluator — Live Demo Output</title>
+  <title>AI Grant Evaluator - Investment Memo</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --brand: #1a3a5c; --accent: #e67e22; --green: #1a7a4a;
-      --red: #c0392b; --bg: #f0f4f8; --card: #ffffff;
-      --border: #dce3ec; --text: #1a2535; --muted: #6b7a8d;
+      --bg: #efe7dd;
+      --paper: #fbf7f1;
+      --paper-2: #f6efe6;
+      --ink: #201814;
+      --muted: #75675d;
+      --line: #d7c7b7;
+      --line-strong: #bea590;
+      --accent: #7b3f27;
+      --accent-soft: #ead7ca;
+      --good: #2f6e4f;
+      --warn: #b97325;
+      --bad: #a83f2d;
+      --shadow: 0 24px 60px rgba(76, 51, 33, 0.08);
+      --serif: "Cormorant Garamond", serif;
+      --sans: "Manrope", sans-serif;
     }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); }
 
-    header { background: var(--brand); color: #fff; padding: 20px 40px; display: flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
-    header .logo { font-size: 28px; }
-    header h1 { font-size: 1.45rem; font-weight: 700; }
-    header p { font-size: .85rem; opacity: .75; margin-top: 2px; }
+    body {
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(123,63,39,.08), transparent 26%),
+        linear-gradient(180deg, #f8f3ec 0%, var(--bg) 44%, #e8dccf 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 22px 72px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent);
+    }
+
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #8b4b2f, #5f2f1d);
+      color: #fff6ef;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 14px 32px rgba(123,63,39,.18);
+    }
+
+    .brand h1 {
+      font-size: 1.08rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .brand p {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 252, 247, .75);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: .88rem;
+      font-weight: 700;
+      transition: background .18s ease, transform .12s ease;
+    }
+
+    .pill-link:hover { background: #fffaf4; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, .8fr);
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .hero-main,
+    .hero-side,
+    .memo-card,
+    .rail-card {
+      background: rgba(255, 252, 247, .82);
+      border: 1px solid rgba(190,165,144,.52);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-main {
+      padding: 34px 32px 30px;
+    }
+
+    .hero-side {
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-main h2 {
+      font-family: var(--serif);
+      font-size: 4.2rem;
+      line-height: .94;
+      font-weight: 600;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+    }
+
+    .hero-main p {
+      max-width: 720px;
+      font-size: 1.04rem;
+      line-height: 1.8;
+      color: #55463c;
+    }
+
+    .hero-side h3 {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      line-height: .98;
+      margin-bottom: 10px;
+    }
+
+    .hero-side p {
+      color: #5d4d43;
+      font-size: .95rem;
+      line-height: 1.75;
+    }
+
+    .hero-list {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-list li {
+      list-style: none;
+      padding-top: 12px;
+      border-top: 1px solid rgba(190,165,144,.42);
+      color: #4b3e36;
+      font-size: .93rem;
+      line-height: 1.65;
+    }
 
     .demo-banner {
-      background: #fff8e1; border-bottom: 2px solid #f9a825;
-      padding: 12px 40px; text-align: center;
-      font-size: .92rem; color: #5d4037;
+      background: linear-gradient(180deg, #f9f1e8 0%, #f4e7d8 100%);
+      border: 1px solid rgba(185,115,37,.24);
+      border-radius: 22px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      color: #6b4e2f;
+      font-size: .92rem;
+      line-height: 1.7;
     }
-    .demo-banner strong { color: #e65100; }
-    .demo-banner a { color: var(--brand); font-weight: 600; text-decoration: none; }
-    .demo-banner a:hover { text-decoration: underline; }
 
-    main { max-width: 900px; margin: 36px auto; padding: 0 20px 60px; }
+    .demo-banner strong { color: #8b4d20; }
+    .demo-banner a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(123,63,39,.25);
+      font-weight: 700;
+    }
 
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
-    .card h2 { font-size: 1.05rem; font-weight: 700; color: var(--brand); margin-bottom: 18px; }
+    .memo-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 20px;
+      align-items: start;
+    }
 
-    /* Score header */
-    .result-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
-    .result-header h2 { font-size: 1.6rem; font-weight: 800; color: var(--brand); margin-bottom: 8px; }
-    .badge { display: inline-block; padding: 6px 16px; border-radius: 20px; color: #fff; font-weight: 700; font-size: .9rem; }
-    .score-box { text-align: right; }
-    .score-label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; }
-    .score-num { font-size: 3rem; font-weight: 900; color: var(--brand); line-height: 1; }
-    .score-denom { font-size: .8rem; color: var(--muted); margin-top: 2px; }
-    .summary-block { margin-top: 16px; padding: 16px 20px; border-left: 4px solid var(--brand); background: #f7f9fc; border-radius: 0 8px 8px 0; font-size: .95rem; line-height: 1.65; color: #2c3e50; }
+    .memo-stack { display: grid; gap: 18px; }
 
-    /* Chart */
-    .chart-wrap { height: 260px; }
+    .memo-card {
+      padding: 26px 26px 24px;
+    }
 
-    /* Criteria */
-    .criterion { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
-    .criterion-header { display: flex; justify-content: space-between; align-items: center; padding: 13px 18px; cursor: pointer; background: #fafbfc; }
-    .criterion-header:hover { background: #f0f4f8; }
-    .criterion-name { font-weight: 600; font-size: .95rem; }
-    .weight-tag { margin-left: 10px; font-size: .78rem; color: var(--muted); font-weight: 400; }
-    .criterion-score { width: 38px; height: 38px; border-radius: 50%; color: #fff; font-weight: 800; font-size: .95rem; display: flex; align-items: center; justify-content: center; }
-    .criterion-body { padding: 14px 18px; font-size: .92rem; line-height: 1.6; border-top: 1px solid var(--border); display: none; }
+    .memo-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .memo-title {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      line-height: .96;
+      margin-bottom: 10px;
+    }
+
+    .memo-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--muted);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .verdict {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: .86rem;
+      font-weight: 800;
+      background: rgba(47,110,79,.12);
+      color: var(--good);
+      border: 1px solid rgba(47,110,79,.2);
+    }
+
+    .score-block {
+      text-align: right;
+      min-width: 120px;
+    }
+
+    .score-label {
+      font-size: .75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .score-value {
+      font-size: 3.1rem;
+      line-height: .9;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .score-denom {
+      font-size: .76rem;
+      color: var(--muted);
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+    }
+
+    .thesis {
+      padding: 18px 20px;
+      border-left: 4px solid var(--accent);
+      background: linear-gradient(180deg, #faf4ed 0%, #f7efe6 100%);
+      border-radius: 0 16px 16px 0;
+      color: #3d3029;
+      font-size: .98rem;
+      line-height: 1.85;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(190,165,144,.42);
+    }
+
+    .section-head h3 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .section-head span {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-weight: 800;
+    }
+
+    .chart-wrap {
+      height: 320px;
+      padding-top: 8px;
+    }
+
+    .criterion {
+      border: 1px solid rgba(190,165,144,.5);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      background: #fffdf9;
+    }
+
+    .criterion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      cursor: pointer;
+      background: linear-gradient(180deg, #fffdf9 0%, #f7f0e7 100%);
+    }
+
+    .criterion-header:hover { background: #faf4ed; }
+
+    .criterion-name {
+      font-size: .96rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    .weight-tag {
+      display: inline-block;
+      margin-left: 8px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 600;
+    }
+
+    .criterion-score {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fffdf9;
+      font-weight: 900;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .criterion-body {
+      display: none;
+      padding: 18px;
+      border-top: 1px solid rgba(190,165,144,.42);
+      font-size: .95rem;
+      line-height: 1.8;
+      color: #3f332c;
+      background: #fffdfa;
+    }
+
     .criterion-body.open { display: block; }
-    .evidence { margin-top: 10px; padding: 10px 14px; background: #f7f9fc; border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; font-style: italic; font-size: .88rem; color: var(--muted); }
 
-    /* Two columns */
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+    .evidence {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: #f7efe6;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      color: var(--muted);
+      font-style: italic;
+      font-size: .88rem;
+      line-height: 1.7;
+    }
 
-    .list-section h2 { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-    .list-section ul { list-style: none; }
-    .list-section ul li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: .93rem; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
-    .list-section ul li:last-child { border-bottom: none; }
-    .list-section ul li::before { flex-shrink: 0; margin-top: 2px; }
-    .strengths ul li::before { content: "✓"; color: var(--green); font-weight: 700; }
-    .flags ul li::before { content: "!"; color: var(--red); font-weight: 800; font-size: 1rem; }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
 
-    .questions ul li { display: flex; gap: 10px; }
-    .questions ul li::before { content: "?"; color: var(--accent); font-weight: 800; font-size: 1.05rem; flex-shrink: 0; }
+    .list-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
 
-    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--brand); font-weight: 600; text-decoration: none; font-size: .9rem; margin-bottom: 24px; }
-    .back-link:hover { text-decoration: underline; }
-    .back-link::before { content: "←"; }
+    .list-card ul { list-style: none; }
+
+    .list-card li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(190,165,144,.35);
+      font-size: .94rem;
+      line-height: 1.65;
+      color: #40342d;
+    }
+
+    .list-card li:last-child { border-bottom: none; }
+
+    .strengths li::before,
+    .flags li::before,
+    .questions li::before {
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-weight: 900;
+    }
+
+    .strengths li::before { content: "✓"; color: var(--good); }
+    .flags li::before { content: "!"; color: var(--bad); }
+    .questions li::before { content: "?"; color: var(--warn); }
+
+    .rail-card {
+      padding: 22px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .rail-card + .rail-card { margin-top: 16px; }
+
+    .rail-card h4 {
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .rail-card p {
+      font-size: .9rem;
+      line-height: 1.75;
+      color: #5c4d43;
+    }
+
+    .rail-stat {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .rail-item {
+      padding-top: 12px;
+      border-top: 1px solid rgba(190,165,144,.42);
+    }
+
+    .rail-item strong {
+      display: block;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 800;
+    }
+
+    .rail-item span {
+      font-size: .98rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .memo-layout { grid-template-columns: 1fr; }
+      .rail-card { position: static; }
+    }
+
+    @media (max-width: 680px) {
+      .page { padding: 22px 14px 56px; }
+      .topbar,
+      .memo-head,
+      .section-head,
+      .criterion-header,
+      .hero,
+      .two-col { grid-template-columns: 1fr; display: grid; }
+      .hero-main,
+      .hero-side,
+      .memo-card,
+      .rail-card { border-radius: 22px; }
+      .hero-main { padding: 26px 22px; }
+      .hero-side,
+      .memo-card,
+      .rail-card { padding: 20px; }
+      .hero-main h2 { font-size: 3rem; }
+      .score-block { text-align: left; }
+      .two-col { gap: 16px; }
+    }
   </style>
 </head>
 <body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-mark">G</span>
+        <div>
+          <h1>AI Grant Evaluator</h1>
+          <p>Decision-grade memo output for grant and accelerator screening</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="pill-link" href="https://gohjhb92.github.io/">Back to Portfolio</a>
+        <a class="pill-link" href="https://github.com/gohjhb92/ai-grant-evaluator" target="_blank" rel="noopener noreferrer">View GitHub</a>
+      </div>
+    </div>
 
-<header>
-  <span class="logo">🎯</span>
-  <div>
-    <h1>AI Grant Evaluator</h1>
-    <p>Powered by Claude claude-opus-4-7 — structured evaluation with adaptive thinking</p>
+    <section class="hero">
+      <div class="hero-main">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Investment Memo</div>
+        <h2>Grant evaluation, reframed as a clear decision brief.</h2>
+        <p>This sample output shows how the evaluator can convert a startup application into an investor-style recommendation: weighted scoring, evidence-based commentary, strengths, risks, and due-diligence questions in one readable memo.</p>
+      </div>
+      <aside class="hero-side">
+        <div>
+          <h3>Built for screening teams.</h3>
+          <p>Designed for grant reviewers, accelerator operators, and innovation teams who need decisions that are structured, defensible, and quick to scan.</p>
+        </div>
+        <ul class="hero-list">
+          <li>Surface the core thesis before the detail.</li>
+          <li>Translate application text into weighted criteria and evidence.</li>
+          <li>Keep the recommendation, red flags, and questions in one place.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <div class="demo-banner">
+      <strong>Sample memo output.</strong> This page shows a real evaluation generated from a startup application using the AI Grant Evaluator. It is presented as a decision memo rather than a dashboard so the recommendation reads more clearly.
+    </div>
+
+    <div class="memo-layout">
+      <div class="memo-stack">
+        <section class="memo-card">
+          <div class="memo-head">
+            <div>
+              <div class="memo-kicker">Evaluation Summary</div>
+              <h2 class="memo-title">TechFlow Analytics Pte. Ltd.</h2>
+              <span class="verdict">Strong Pass</span>
+            </div>
+            <div class="score-block">
+              <div class="score-label">Overall Score</div>
+              <div class="score-value">4.35</div>
+              <div class="score-denom">Out of 5.00</div>
+            </div>
+          </div>
+          <div class="thesis">
+            TechFlow Analytics presents a rigorous, evidence-rich application with paying customers, quantified outcomes,
+            strong unit economics, and an experienced team addressing a clearly quantified mid-market pain point in SEA.
+            Minor concerns around 20% churn, a provisional rather than granted patent, and the absence of a finance lead
+            are outweighed by strong traction and a credible, milestone-linked use of funds. Recommendation: Strong Pass.
+          </div>
+        </section>
+
+        <section class="memo-card">
+          <div class="section-head">
+            <h3>Score Breakdown</h3>
+            <span>Weighted criteria overview</span>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="scoreChart"></canvas>
+          </div>
+        </section>
+
+        <section class="memo-card">
+          <div class="section-head">
+            <h3>Memo Notes</h3>
+            <span>Click a section to expand</span>
+          </div>
+
+          <div class="criterion">
+            <div class="criterion-header" onclick="toggle(this)">
+              <span class="criterion-name">Problem &amp; Market Opportunity <span class="weight-tag">20% weight</span></span>
+              <span class="criterion-score" style="background:#2f6e4f">5.0</span>
+            </div>
+            <div class="criterion-body">
+              Crystal-clear problem with verified TAM ($1.5T global disruption cost), quantified customer pain (SGD 280K per stoppage), and strong market evidence from a 40-manufacturer survey. The mid-market gap between manual processes and enterprise tools is well-articulated and substantiated.
+              <div class="evidence">"In a survey we conducted across 40 Southeast Asian manufacturers in Q3 2024, 73% reported at least 3 unplanned production stoppages per year, each costing an average of SGD 280,000."</div>
+            </div>
+          </div>
+
+          <div class="criterion">
+            <div class="criterion-header" onclick="toggle(this)">
+              <span class="criterion-name">Solution &amp; Innovation <span class="weight-tag">20% weight</span></span>
+              <span class="criterion-score" style="background:#2f6e4f">4.0</span>
+            </div>
+            <div class="criterion-body">
+              Multimodal sensor fusion with a proprietary 18-month SEA dataset and provisional patent provides meaningful differentiation. Two-week onboarding versus six to nine month enterprise deployments and a 10x price advantage are strong moat signals. Defensibility still partially relies on the patent prosecution outcome.
+              <div class="evidence">"We hold one provisional patent (filed March 2024) on our multimodal sensor fusion algorithm. A full patent application is in progress."</div>
+            </div>
+          </div>
+
+          <div class="criterion">
+            <div class="criterion-header" onclick="toggle(this)">
+              <span class="criterion-name">Business Model <span class="weight-tag">15% weight</span></span>
+              <span class="criterion-score" style="background:#2f6e4f">5.0</span>
+            </div>
+            <div class="criterion-body">
+              Exceptional unit economics: LTV/CAC of 7.5x, about a five-month payback period, and 72% gross margin at scale. The three-tier SaaS pricing model is clearly defined. A path to profitability in Q3 of Year 3 is credible given the current trajectory.
+              <div class="evidence">"LTV/CAC ratio: 7.5x | Gross margin: 72% | Payback period: ~5 months"</div>
+            </div>
+          </div>
+
+          <div class="criterion">
+            <div class="criterion-header" onclick="toggle(this)">
+              <span class="criterion-name">Traction &amp; Validation <span class="weight-tag">20% weight</span></span>
+              <span class="criterion-score" style="background:#2f6e4f">4.0</span>
+            </div>
+            <div class="criterion-body">
+              Two paying customers under 12-month contracts with SGD 6K MRR and one Year 2 renewal with a quantified 34% downtime reduction. Two signed LOIs are in the pipeline. A 71% alert action rate suggests real product engagement. The jump to 10 customers in six months remains ambitious.
+              <div class="evidence">"Precision Parts Asia - SGD 3,200/month... Outcome: 34% reduction in unplanned stoppages; renewed for Year 2"</div>
+            </div>
+          </div>
+
+          <div class="criterion">
+            <div class="criterion-header" onclick="toggle(this)">
+              <span class="criterion-name">Team <span class="weight-tag">15% weight</span></span>
+              <span class="criterion-score" style="background:#2f6e4f">4.0</span>
+            </div>
+            <div class="criterion-body">
+              Strong founder-market fit: the CEO has eight years in supply chain operations plus a prior exit; the CTO brings ML expertise from Sea Group and two patents; the Head of Sales contributes a decade of ERP sales experience in SEA. The finance gap is acknowledged with a concrete hire plan. An academic advisor adds further credibility.
+              <div class="evidence">"Former ML lead at Sea Group; built real-time anomaly detection systems processing 800M events/day"</div>
+            </div>
+          </div>
+
+          <div class="criterion">
+            <div class="criterion-header" onclick="toggle(this)">
+              <span class="criterion-name">Financial Projections &amp; Use of Funds <span class="weight-tag">10% weight</span></span>
+              <span class="criterion-score" style="background:#2f6e4f">4.0</span>
+            </div>
+            <div class="criterion-body">
+              Conservative three-year projections with explicit assumptions for ACV, churn, headcount, and infrastructure scaling. Fund allocation is specific across four categories and linked to milestones. The 20% churn assumption is consistent with pilot data, though still elevated for the segment.
+              <div class="evidence">"Milestones tied to grant: Month 2: 3 new pilot contracts signed... Month 6: 10 total paying customers; SGD 35K MRR achieved"</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="two-col">
+          <section class="memo-card list-card strengths">
+            <div class="section-head">
+              <h3>Strengths</h3>
+              <span>What supports a pass</span>
+            </div>
+            <ul>
+              <li>Quantified customer outcome of 34% downtime reduction from a paying Tier-1 pilot with Year 2 renewal.</li>
+              <li>Strong unit economics with LTV/CAC of 7.5x and roughly a five-month payback period.</li>
+              <li>Clear positioning gap in mid-market SEA versus US enterprise competitors, with a 10x price advantage and two-week onboarding.</li>
+              <li>Experienced founding team with domain expertise across supply chain, ML, and regional B2B sales, plus a prior exit.</li>
+              <li>Thoughtful risk acknowledgment, including PDPA and cross-border data handling, with visible mitigation planning.</li>
+            </ul>
+          </section>
+
+          <section class="memo-card list-card flags">
+            <div class="section-head">
+              <h3>Red Flags</h3>
+              <span>What still needs scrutiny</span>
+            </div>
+            <ul>
+              <li>20% annual churn is elevated for B2B SaaS and could weaken the LTV assumptions if not brought down.</li>
+              <li>No CFO or finance lead yet, with billing currently handled by the Head of Sales.</li>
+              <li>The patent is only provisional, so part of the defensibility story still depends on prosecution success.</li>
+              <li>The grant milestone of 10 paying customers in six months is aggressive relative to the current base of two.</li>
+            </ul>
+          </section>
+        </div>
+
+        <section class="memo-card list-card questions">
+          <div class="section-head">
+            <h3>Due-Diligence Questions</h3>
+            <span>What a reviewer should probe next</span>
+          </div>
+          <ul>
+            <li>What is driving the current 20% annual churn and what interventions are expected to reduce it?</li>
+            <li>What qualified pipeline exists beyond the two LOIs to support the Month 6 target of 10 paying customers?</li>
+            <li>How dependent is the current product and data science workflow on the CTO's tacit knowledge?</li>
+            <li>What are the specific claims in the provisional patent and how defensible are they against prior art?</li>
+            <li>What is the post-grant financing plan to bridge the projected cumulative losses through Years 1 and 2?</li>
+          </ul>
+        </section>
+      </div>
+
+      <aside>
+        <section class="rail-card">
+          <h4>Memo Snapshot</h4>
+          <p>A concise read of why this company screens well at first pass, and where a grant committee should press harder before approval.</p>
+          <div class="rail-stat">
+            <div class="rail-item">
+              <strong>Recommendation</strong>
+              <span>Strong Pass</span>
+            </div>
+            <div class="rail-item">
+              <strong>Primary upside</strong>
+              <span>Strong traction plus unusually healthy unit economics for the stage.</span>
+            </div>
+            <div class="rail-item">
+              <strong>Main concern</strong>
+              <span>Churn and execution risk around aggressive milestone conversion.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="rail-card">
+          <h4>Reviewer Lens</h4>
+          <p>This layout is intentionally closer to an internal investment memo than a dashboard. It emphasizes thesis, evidence, and open questions over interface chrome.</p>
+          <div class="rail-stat">
+            <div class="rail-item">
+              <strong>Best use case</strong>
+              <span>Grant committees, accelerators, innovation teams, and pre-investment triage.</span>
+            </div>
+            <div class="rail-item">
+              <strong>Output style</strong>
+              <span>Readable, shareable, and easier to discuss in review meetings.</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
   </div>
-</header>
 
-<div class="demo-banner">
-  <strong>Live Demo Output</strong> — This is a real evaluation produced by the app on a sample startup application.
-  View the source code on <a href="https://github.com/gohjhb92/ai-grant-evaluator" target="_blank">GitHub</a>.
-</div>
-
-<main>
-  <a href="https://gohjhb92.github.io/" class="back-link">Back to Portfolio</a>
-
-  <!-- Score Header -->
-  <div class="card">
-    <div class="result-header">
-      <div>
-        <h2>TechFlow Analytics Pte. Ltd.</h2>
-        <span class="badge" style="background:#1a7a4a">✅ Strong Pass</span>
-      </div>
-      <div class="score-box">
-        <div class="score-label">Overall Score</div>
-        <div class="score-num">4.35</div>
-        <div class="score-denom">OUT OF 5.00</div>
-      </div>
-    </div>
-    <div class="summary-block">
-      TechFlow Analytics presents a rigorous, evidence-rich application with paying customers, quantified outcomes,
-      strong unit economics, and an experienced team addressing a clearly quantified mid-market pain point in SEA.
-      Minor concerns around 20% churn, provisional (not granted) patent, and the absence of a finance lead are
-      outweighed by strong traction and a credible, milestone-linked use of funds. Recommendation: Strong Pass.
-    </div>
-  </div>
-
-  <!-- Chart -->
-  <div class="card">
-    <h2>Criteria Scores</h2>
-    <div class="chart-wrap">
-      <canvas id="scoreChart"></canvas>
-    </div>
-  </div>
-
-  <!-- Detailed Breakdown -->
-  <div class="card">
-    <h2>Detailed Breakdown <span style="font-weight:400;color:var(--muted);font-size:.85rem">(click to expand)</span></h2>
-
-    <div class="criterion">
-      <div class="criterion-header" onclick="toggle(this)">
-        <span class="criterion-name">Problem & Market Opportunity <span class="weight-tag">20% weight</span></span>
-        <span class="criterion-score" style="background:#1a7a4a">5.0</span>
-      </div>
-      <div class="criterion-body">
-        Crystal-clear problem with verified TAM ($1.5T global disruption cost), quantified customer pain (SGD 280K per stoppage), and strong market evidence from a 40-manufacturer survey. Mid-market gap between manual processes and enterprise tools is well-articulated and substantiated.
-        <div class="evidence">"In a survey we conducted across 40 Southeast Asian manufacturers in Q3 2024, 73% reported at least 3 unplanned production stoppages per year, each costing an average of SGD 280,000."</div>
-      </div>
-    </div>
-
-    <div class="criterion">
-      <div class="criterion-header" onclick="toggle(this)">
-        <span class="criterion-name">Solution & Innovation <span class="weight-tag">20% weight</span></span>
-        <span class="criterion-score" style="background:#1a7a4a">4.0</span>
-      </div>
-      <div class="criterion-body">
-        Multimodal sensor fusion with a proprietary 18-month SEA dataset and provisional patent provides meaningful differentiation. 2-week onboarding vs. 6–9 month enterprise deployments and 10x price advantage are strong moat signals. Defensibility partially reliant on patent prosecution outcome.
-        <div class="evidence">"We hold one provisional patent (filed March 2024) on our multimodal sensor fusion algorithm. A full patent application is in progress."</div>
-      </div>
-    </div>
-
-    <div class="criterion">
-      <div class="criterion-header" onclick="toggle(this)">
-        <span class="criterion-name">Business Model <span class="weight-tag">15% weight</span></span>
-        <span class="criterion-score" style="background:#1a7a4a">5.0</span>
-      </div>
-      <div class="criterion-body">
-        Exceptional unit economics: LTV/CAC of 7.5x, ~5-month payback period, 72% gross margin at scale. Three-tier SaaS pricing is clearly defined. Path to profitability in Q3 Year 3 is credible given current trajectory.
-        <div class="evidence">"LTV/CAC ratio: 7.5× | Gross margin: 72% | Payback period: ~5 months"</div>
-      </div>
-    </div>
-
-    <div class="criterion">
-      <div class="criterion-header" onclick="toggle(this)">
-        <span class="criterion-name">Traction & Validation <span class="weight-tag">20% weight</span></span>
-        <span class="criterion-score" style="background:#1a7a4a">4.0</span>
-      </div>
-      <div class="criterion-body">
-        Two paying customers under 12-month contracts with SGD 6K MRR; one renewed for Year 2 with quantified outcome (34% downtime reduction). Two signed LOIs in pipeline. 71% alert action rate demonstrates product engagement. Scale-up to 10 customers in 6 months is ambitious.
-        <div class="evidence">"Precision Parts Asia — SGD 3,200/month... Outcome: 34% reduction in unplanned stoppages; renewed for Year 2"</div>
-      </div>
-    </div>
-
-    <div class="criterion">
-      <div class="criterion-header" onclick="toggle(this)">
-        <span class="criterion-name">Team <span class="weight-tag">15% weight</span></span>
-        <span class="criterion-score" style="background:#1a7a4a">4.0</span>
-      </div>
-      <div class="criterion-body">
-        Strong founder-market fit: CEO has 8 years supply chain operations with prior exit; CTO has ML expertise from Sea Group with 2 patents; Head of Sales has 10 years ERP sales in SEA. Finance gap acknowledged with a concrete hire plan. Academic advisor adds credibility.
-        <div class="evidence">"Former ML lead at Sea Group; built real-time anomaly detection systems processing 800M events/day"</div>
-      </div>
-    </div>
-
-    <div class="criterion">
-      <div class="criterion-header" onclick="toggle(this)">
-        <span class="criterion-name">Financial Projections & Use of Funds <span class="weight-tag">10% weight</span></span>
-        <span class="criterion-score" style="background:#1a7a4a">4.0</span>
-      </div>
-      <div class="criterion-body">
-        Conservative 3-year projections with explicit assumptions (ACV, churn, headcount, infra scaling). Fund allocation is specific with four categories and milestone-linked targets. 20% churn assumption is consistent with pilot data, though elevated for the segment.
-        <div class="evidence">"Milestones tied to grant: Month 2: 3 new pilot contracts signed... Month 6: 10 total paying customers; SGD 35K MRR achieved"</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Strengths & Red Flags -->
-  <div class="two-col">
-    <div class="card list-section strengths">
-      <h2>✅ Strengths</h2>
-      <ul>
-        <li>Quantified customer outcome (34% downtime reduction) from a paying Tier-1 pilot with Year 2 renewal</li>
-        <li>Strong unit economics with LTV/CAC of 7.5x and ~5-month payback</li>
-        <li>Clear positioning gap in mid-market SEA vs. US enterprise competitors, with 10x price advantage and 2-week onboarding</li>
-        <li>Experienced, complete founding team with domain expertise (supply chain + ML) and prior exit</li>
-        <li>Thorough risk acknowledgment including PDPA/cross-border data handling and key-person dependency mitigations</li>
-      </ul>
-    </div>
-    <div class="card list-section flags">
-      <h2>🚩 Red Flags</h2>
-      <ul>
-        <li>20% annual churn is elevated for B2B SaaS and could undermine LTV assumptions if not reduced</li>
-        <li>No CFO/finance lead — billing currently managed by Head of Sales (acknowledged gap)</li>
-        <li>Patent is only provisional; defensibility partially depends on prosecution outcome</li>
-        <li>Aggressive grant milestone of 10 paying customers in 6 months (from current 2) requires ~4x pipeline conversion</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Due Diligence Questions -->
-  <div class="card list-section questions">
-    <h2>❓ Due-Diligence Questions</h2>
-    <ul>
-      <li>What is driving the 20% annual churn and what specific interventions will reduce it?</li>
-      <li>What is the current qualified pipeline beyond the two LOIs to support the Month 6 goal of 10 paying customers?</li>
-      <li>How dependent is the DPS model on the CTO's tacit knowledge, and what is the timeline for the senior ML engineer hire?</li>
-      <li>What are the specific claims in the provisional patent and likelihood of grant given prior art in supply chain analytics?</li>
-      <li>What is the post-grant funding plan to bridge projected Year 1–2 net losses (~SGD 1.3M cumulative)?</li>
-    </ul>
-  </div>
-</main>
-
-<script>
-  function toggle(header) {
-    header.nextElementSibling.classList.toggle("open");
-  }
-
-  const scores = [5.0, 4.0, 5.0, 4.0, 4.0, 4.0];
-  const labels = [
-    "Problem & Market Opportunity",
-    "Solution & Innovation",
-    "Business Model",
-    "Traction & Validation",
-    "Team",
-    "Financial Projections & Use of Funds"
-  ];
-  const colors = scores.map(s => s >= 4 ? "#1a7a4a" : s >= 3 ? "#e67e22" : "#c0392b");
-
-  new Chart(document.getElementById("scoreChart"), {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [{ data: scores, backgroundColor: colors, borderRadius: 5, barThickness: 28 }]
-    },
-    options: {
-      indexAxis: "y",
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { min: 0, max: 5, ticks: { stepSize: 1 }, grid: { color: "#eee" } },
-        y: { grid: { display: false } }
-      }
+  <script>
+    function toggle(header) {
+      header.nextElementSibling.classList.toggle("open");
     }
-  });
-</script>
+
+    const scores = [5.0, 4.0, 5.0, 4.0, 4.0, 4.0];
+    const labels = [
+      "Problem & Market Opportunity",
+      "Solution & Innovation",
+      "Business Model",
+      "Traction & Validation",
+      "Team",
+      "Financial Projections & Use of Funds"
+    ];
+    const colors = scores.map(s => s >= 4 ? "#7b3f27" : s >= 3 ? "#b97325" : "#a83f2d");
+
+    new Chart(document.getElementById("scoreChart"), {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [{
+          data: scores,
+          backgroundColor: colors,
+          borderRadius: 8,
+          barThickness: 30
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: "#2b211c",
+            titleFont: { family: "Manrope", weight: "700" },
+            bodyFont: { family: "Manrope" }
+          }
+        },
+        scales: {
+          x: {
+            min: 0,
+            max: 5,
+            ticks: { stepSize: 1, color: "#75675d" },
+            grid: { color: "rgba(190,165,144,.34)" },
+            border: { display: false }
+          },
+          y: {
+            ticks: { color: "#4a3b33", font: { family: "Manrope", size: 12, weight: "600" } },
+            grid: { display: false },
+            border: { display: false }
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
