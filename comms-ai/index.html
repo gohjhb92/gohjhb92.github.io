@@ -3,277 +3,766 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CommsAI — Stakeholder Communications Drafter</title>
+<title>CommsAI - Stakeholder Communications Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0e0f11;--surface:#16181c;--surface-2:#1e2026;--border:rgba(255,255,255,0.07);--border-h:rgba(255,255,255,0.14);--text:#e8eaed;--muted:#6b7280;--dim:#374151;--accent:#4ade80;--accent-bg:rgba(74,222,128,0.08);--accent-border:rgba(74,222,128,0.22);--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif}
+:root{
+  --bg:#f4ede3;
+  --paper:#fbf7f1;
+  --paper-2:#f7f0e7;
+  --card:#fffdf9;
+  --ink:#241c18;
+  --muted:#7a685d;
+  --line:#decfc1;
+  --line-strong:#cbb4a0;
+  --accent:#9a5b37;
+  --accent-soft:#efe1d5;
+  --accent-ink:#6d3d22;
+  --success:#3c7a55;
+  --shadow:0 24px 60px rgba(76,51,33,.08);
+  --serif:"Cormorant Garamond", serif;
+  --sans:"Manrope", sans-serif;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;min-height:100vh}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.018) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
-.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:52px 24px 80px}
-
-header{margin-bottom:44px}
-.badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--accent);background:var(--accent-bg);border:1px solid var(--accent-border);border-radius:4px;padding:3px 10px;margin-bottom:18px;letter-spacing:.05em}
-.dot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-size:38px;font-weight:300;letter-spacing:-.025em;line-height:1.12;margin-bottom:12px}
-h1 em{color:var(--accent);font-style:normal;font-weight:500}
-.sub{font-size:14px;color:var(--muted);max-width:500px;font-weight:300;line-height:1.65}
-
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
-.panel-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid1{display:grid;grid-template-columns:1fr;gap:12px}
-.field label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;display:block;margin-bottom:5px}
-.field input,.field select,.field textarea{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;font-family:var(--sans);color:var(--text);outline:none;transition:border-color .15s;appearance:none;-webkit-appearance:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--border-h)}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
-.field select option{background:#1e2026}
-.field textarea{resize:vertical;line-height:1.55}
-
-.tabs{display:flex;gap:3px;margin-bottom:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px}
-.tab{flex:1;padding:8px 14px;font-size:13px;font-family:var(--sans);border:none;border-radius:7px;cursor:pointer;background:transparent;color:var(--muted);transition:all .15s;font-weight:400}
-.tab.active{background:var(--surface-2);color:var(--text);font-weight:500}
-.tab:hover:not(.active){color:var(--text)}
-.tab-pane{display:none}.tab-pane.active{display:block}
-
-.action{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
-.btn-gen{display:flex;align-items:center;gap:7px;padding:9px 18px;background:var(--accent);color:#050a05;border:none;border-radius:8px;font-size:13px;font-weight:500;font-family:var(--sans);cursor:pointer;transition:opacity .15s,transform .1s;white-space:nowrap}
-.btn-gen:hover{opacity:.88}
-.btn-gen:active{transform:scale(.98)}
-.btn-gen:disabled{opacity:.38;cursor:not-allowed;transform:none}
-.btn-gen svg{width:13px;height:13px;flex-shrink:0}
-.btn-sec{padding:9px 14px;background:transparent;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:var(--sans);color:var(--muted);cursor:pointer;transition:all .15s}
-.btn-sec:hover{border-color:var(--border-h);color:var(--text)}
-.btn-sec:disabled{opacity:.35;cursor:not-allowed}
-.status{font-size:12px;font-family:var(--mono);color:var(--muted);display:flex;align-items:center;gap:5px}
-.spinner{width:11px;height:11px;border:1.5px solid var(--border-h);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;flex-shrink:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  font-family:var(--sans);
+  background:
+    radial-gradient(circle at top left, rgba(154,91,55,.08), transparent 30%),
+    linear-gradient(180deg, #f8f2ea 0%, var(--bg) 46%, #efe4d7 100%);
+  color:var(--ink);
+  line-height:1.6;
+}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:42px 24px 88px}
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);
+  gap:28px;
+  align-items:stretch;
+  margin-bottom:28px;
+}
+.hero-copy,.hero-note{
+  background:rgba(255,253,249,.78);
+  border:1px solid rgba(203,180,160,.55);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(8px);
+}
+.hero-copy{padding:38px 36px 34px}
+.hero-note{padding:28px 28px 24px;display:flex;flex-direction:column;justify-content:space-between}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:7px 14px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent-ink);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:18px;
+}
+.eyebrow-dot{width:8px;height:8px;border-radius:999px;background:var(--accent)}
+h1{
+  font-family:var(--serif);
+  font-size:72px;
+  line-height:.95;
+  font-weight:600;
+  letter-spacing:-.03em;
+  margin-bottom:16px;
+}
+.hero-copy h1 span{color:var(--accent)}
+.lead{
+  max-width:640px;
+  font-size:18px;
+  color:#4f4036;
+  margin-bottom:26px;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn-primary,.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-height:48px;
+  padding:0 18px;
+  border-radius:999px;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+  transition:transform .12s ease, background .18s ease, color .18s ease, border-color .18s ease, opacity .18s ease;
+}
+.btn-primary{
+  background:var(--accent);
+  color:#fff8f2;
+  border:1px solid transparent;
+}
+.btn-primary:hover{opacity:.92}
+.btn-secondary{
+  border:1px solid var(--line-strong);
+  background:transparent;
+  color:var(--ink);
+}
+.btn-secondary:hover{background:#fff9f2}
+.hero-note-title{
+  font-family:var(--serif);
+  font-size:32px;
+  line-height:1;
+  margin-bottom:12px;
+}
+.hero-note p{color:#5d4e44;font-size:14px}
+.hero-list{display:grid;gap:14px;margin-top:18px}
+.hero-list li{
+  list-style:none;
+  padding-top:14px;
+  border-top:1px solid rgba(203,180,160,.5);
+}
+.hero-list strong{
+  display:block;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--muted);
+  margin-bottom:4px;
+}
+.hero-list span{font-size:15px;color:var(--ink)}
+.mode-strip{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:26px;
+}
+.mode-card{
+  background:rgba(255,252,247,.84);
+  border:1px solid rgba(203,180,160,.45);
+  border-radius:20px;
+  padding:20px 20px 18px;
+}
+.mode-index{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:12px;
+}
+.mode-card h2{
+  font-family:var(--serif);
+  font-size:30px;
+  line-height:1;
+  margin-bottom:8px;
+}
+.mode-card p{font-size:14px;color:#5c4d44}
+.studio{
+  display:grid;
+  grid-template-columns:320px minmax(0,1fr);
+  gap:20px;
+  align-items:start;
+}
+.studio-side,.studio-main{
+  background:rgba(255,252,247,.88);
+  border:1px solid rgba(203,180,160,.5);
+  border-radius:26px;
+  box-shadow:var(--shadow);
+}
+.studio-side{
+  padding:24px;
+  position:sticky;
+  top:20px;
+}
+.side-title{
+  font-family:var(--serif);
+  font-size:34px;
+  line-height:.95;
+  margin-bottom:12px;
+}
+.side-copy{font-size:14px;color:#5c4d44;margin-bottom:20px}
+.side-block{
+  padding-top:16px;
+  margin-top:16px;
+  border-top:1px solid rgba(203,180,160,.55);
+}
+.side-block h3{
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.side-block ul{display:grid;gap:10px}
+.side-block li{list-style:none;font-size:14px;color:#4d3f36}
+.side-block li::before{
+  content:"";
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background:var(--accent);
+  margin-right:10px;
+}
+.studio-main{padding:20px}
+.key-panel{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px 16px;
+  align-items:center;
+  background:linear-gradient(180deg, #fffdf9 0%, #f8f0e7 100%);
+  border:1px solid rgba(154,91,55,.22);
+  border-radius:22px;
+  padding:18px 18px 16px;
+  margin-bottom:18px;
+}
+.key-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--accent-ink);
+  font-weight:700;
+}
+.key-input-wrap{position:relative}
+.key-panel input{
+  width:100%;
+  height:46px;
+  border:1px solid var(--line);
+  background:#fffdf9;
+  color:var(--ink);
+  border-radius:14px;
+  padding:0 54px 0 14px;
+  font-size:13px;
+  outline:none;
+}
+.key-panel input:focus{border-color:var(--line-strong);box-shadow:0 0 0 3px rgba(154,91,55,.08)}
+.key-toggle{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  border:none;
+  background:#f5eadf;
+  color:var(--accent-ink);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+  border-radius:999px;
+  padding:6px 10px;
+  cursor:pointer;
+}
+.key-note{
+  grid-column:1 / -1;
+  font-size:13px;
+  color:#5a4c42;
+}
+.key-note a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid rgba(154,91,55,.22)}
+.key-note a:hover{border-color:var(--accent)}
+.no-key-msg{
+  display:none;
+  grid-column:1 / -1;
+  font-size:12px;
+  color:#8b2e1d;
+  font-weight:700;
+}
+.panel{
+  background:var(--card);
+  border:1px solid rgba(203,180,160,.55);
+  border-radius:22px;
+  padding:22px;
+  margin-bottom:16px;
+}
+.panel-label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:14px;
+  margin-bottom:16px;
+  border-bottom:1px solid rgba(203,180,160,.5);
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  font-weight:700;
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid1{display:grid;grid-template-columns:1fr;gap:14px}
+.field label{
+  display:block;
+  margin-bottom:7px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--muted);
+  font-weight:700;
+}
+.field input,.field select,.field textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:#fffdf9;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:14px;
+  padding:13px 14px;
+  outline:none;
+  transition:border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.field input::placeholder,.field textarea::placeholder{color:#9a8b80}
+.field textarea{min-height:108px;resize:vertical;line-height:1.6}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--line-strong);
+  box-shadow:0 0 0 3px rgba(154,91,55,.08);
+  background:#fffdfa;
+}
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23886a57' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  padding-right:38px;
+  cursor:pointer;
+}
+.field select option{background:#fffdfa;color:var(--ink)}
+.tabs{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin-bottom:16px;
+}
+.tab{
+  min-height:54px;
+  padding:0 16px;
+  border-radius:18px;
+  border:1px solid rgba(203,180,160,.5);
+  background:rgba(255,252,247,.8);
+  color:#6e5d51;
+  font:600 14px var(--sans);
+  cursor:pointer;
+  transition:all .18s ease;
+}
+.tab:hover{background:#fff8f2;color:var(--ink)}
+.tab.active{
+  background:var(--accent);
+  color:#fff8f2;
+  border-color:transparent;
+}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+.action{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:16px;
+}
+.btn-gen{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  min-height:48px;
+  padding:0 18px;
+  border:none;
+  border-radius:999px;
+  background:var(--accent);
+  color:#fff8f2;
+  font:700 14px var(--sans);
+  cursor:pointer;
+  transition:opacity .18s ease, transform .1s ease;
+}
+.btn-gen:hover{opacity:.92}
+.btn-gen:active{transform:scale(.985)}
+.btn-gen:disabled,.btn-sec:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.btn-gen svg{width:14px;height:14px;flex-shrink:0}
+.btn-sec{
+  min-height:46px;
+  padding:0 16px;
+  border-radius:999px;
+  border:1px solid var(--line-strong);
+  background:transparent;
+  color:#56473c;
+  font:700 13px var(--sans);
+  cursor:pointer;
+}
+.status{
+  min-height:18px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  color:var(--muted);
+}
+.spinner{
+  width:12px;
+  height:12px;
+  border:1.5px solid rgba(154,91,55,.25);
+  border-top-color:var(--accent);
+  border-radius:999px;
+  animation:spin .7s linear infinite;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
-.model-note{font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:8px}
-.model-note span{color:var(--muted)}
-
-.key-panel{background:var(--surface);border:1px solid var(--accent-border);border-radius:12px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.key-panel .key-label{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
-.key-panel .key-input-wrap{flex:1;min-width:220px;position:relative}
-.key-panel input{width:100%;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:9px 36px 9px 12px;font-size:13px;font-family:var(--mono);color:var(--text);outline:none;transition:border-color .15s}
-.key-panel input:focus{border-color:var(--accent-border)}
-.key-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:11px;font-family:var(--mono);padding:2px 4px}
-.key-toggle:hover{color:var(--text)}
-.key-note{font-size:11px;color:var(--muted);font-family:var(--mono);flex-basis:100%;margin-top:2px}
-.key-note a{color:var(--accent);text-decoration:none}
-.key-note a:hover{text-decoration:underline}
-.no-key-msg{display:none;font-size:12px;color:#f87171;font-family:var(--mono);margin-top:6px}
-
-.out-wrap{margin-top:16px;border:1px solid var(--border);border-radius:12px;overflow:hidden;animation:fadeUp .25s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.out-head{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
-.out-label{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;display:flex;align-items:center;gap:8px}
-.tag{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border);border-radius:3px;padding:1px 6px;font-size:9px;letter-spacing:.04em}
-.btn-copy{padding:4px 11px;background:transparent;border:1px solid var(--border);border-radius:6px;font-size:10px;font-family:var(--mono);color:var(--muted);cursor:pointer;transition:all .15s}
-.btn-copy:hover{border-color:var(--border-h);color:var(--text)}
-.btn-copy.ok{color:var(--accent);border-color:var(--accent-border)}
-.out-body{padding:20px;background:var(--surface-2);font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;font-family:var(--sans)}
-.notes{padding:13px 18px;background:var(--surface);border-top:1px solid var(--border)}
-.notes-lbl{font-family:var(--mono);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-bottom:5px}
-.notes-body{font-size:12px;color:var(--muted);line-height:1.65;white-space:pre-wrap}
-
-@media(max-width:600px){h1{font-size:28px}.grid2{grid-template-columns:1fr}.wrap{padding:32px 16px 60px}.tabs{flex-wrap:wrap}}
+.model-note{
+  margin-top:10px;
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+.model-note span{color:var(--accent-ink)}
+.out-wrap{
+  margin-top:16px;
+  border:1px solid rgba(203,180,160,.55);
+  border-radius:22px;
+  overflow:hidden;
+  background:#fffdf9;
+  box-shadow:0 12px 28px rgba(76,51,33,.05);
+}
+.out-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:15px 18px;
+  background:linear-gradient(180deg, #fbf5ed 0%, #f6ece1 100%);
+  border-bottom:1px solid rgba(203,180,160,.55);
+}
+.out-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  font-weight:700;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  min-height:22px;
+  padding:0 8px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent-ink);
+  font-size:10px;
+  letter-spacing:.08em;
+}
+.btn-copy{
+  min-height:34px;
+  padding:0 12px;
+  border-radius:999px;
+  border:1px solid var(--line-strong);
+  background:transparent;
+  color:#56473c;
+  font:700 11px var(--sans);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  cursor:pointer;
+}
+.btn-copy.ok{
+  color:var(--success);
+  border-color:rgba(60,122,85,.35);
+}
+.out-body{
+  padding:24px 22px;
+  background:#fffdf9;
+  color:#2d231e;
+  font-size:15px;
+  line-height:1.88;
+  white-space:pre-wrap;
+}
+.notes{
+  padding:18px 22px;
+  background:#f9f3eb;
+  border-top:1px solid rgba(203,180,160,.55);
+}
+.notes-lbl{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:var(--muted);
+  font-weight:700;
+  margin-bottom:8px;
+}
+.notes-body{
+  white-space:pre-wrap;
+  font-size:14px;
+  line-height:1.7;
+  color:#5e4d42;
+}
+@media (max-width:980px){
+  .hero,.studio{grid-template-columns:1fr}
+  .studio-side{position:static}
+}
+@media (max-width:720px){
+  .wrap{padding:24px 16px 64px}
+  h1{font-size:54px}
+  .mode-strip,.tabs,.grid2{grid-template-columns:1fr}
+  .hero-copy,.hero-note,.studio-main,.studio-side{border-radius:22px}
+  .hero-copy{padding:28px 24px}
+  .hero-note,.studio-side,.studio-main,.panel{padding:18px}
+  .key-panel{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<header>
-  <div class="badge"><div class="dot"></div>claude-powered</div>
-  <h1>Comms<em>AI</em></h1>
-  <p class="sub">AI-powered stakeholder communications drafter. Generate emails, outreach plans, and social copy — tailored to your organisation and context.</p>
-</header>
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>Editorial Studio</div>
+      <h1>Comms<span>AI</span></h1>
+      <p class="lead">A calmer way to draft stakeholder communications. Shape polished emails, outreach plans, and social copy for programmes, partnerships, and ecosystem teams.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#workspace">Open the studio</a>
+        <a class="btn-secondary" href="#privacy">Privacy setup</a>
+      </div>
+    </div>
+    <aside class="hero-note">
+      <div>
+        <div class="hero-note-title">Built for teams that need tone, speed, and clarity.</div>
+        <p>Designed for incubators, accelerators, innovation programmes, and ecosystem operators who need writing that feels credible, human, and ready to send.</p>
+      </div>
+      <ul class="hero-list">
+        <li><strong>Mode one</strong><span>Stakeholder email drafts with sharper structure and warmer tone.</span></li>
+        <li><strong>Mode two</strong><span>End-to-end outreach planning across launch, promotion, and follow-up.</span></li>
+        <li><strong>Mode three</strong><span>Social copy that sounds considered rather than over-automated.</span></li>
+      </ul>
+    </aside>
+  </header>
 
-<div class="key-panel">
-  <span class="key-label">🔑 Anthropic API Key</span>
-  <div class="key-input-wrap">
-    <input type="password" id="apiKey" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false">
-    <button class="key-toggle" onclick="toggleKey()" id="keyToggle">show</button>
-  </div>
-  <span class="key-note">Your key is used only in your browser — never sent to any server. Get one free at <a href="https://console.anthropic.com/" target="_blank">console.anthropic.com</a>.</span>
-  <span class="no-key-msg" id="noKeyMsg">⚠ Please enter your API key above before generating.</span>
-</div>
+  <section class="mode-strip" aria-label="Studio modes">
+    <article class="mode-card">
+      <span class="mode-index">01 / Draft</span>
+      <h2>Stakeholder Email</h2>
+      <p>For founder outreach, partner engagement, invites, updates, and relationship management.</p>
+    </article>
+    <article class="mode-card">
+      <span class="mode-index">02 / Plan</span>
+      <h2>Outreach Plan</h2>
+      <p>For campaign planning, channel sequencing, milestones, and practical communications structure.</p>
+    </article>
+    <article class="mode-card">
+      <span class="mode-index">03 / Publish</span>
+      <h2>Social Post</h2>
+      <p>For launch copy, reminders, milestones, thought leadership, and programme storytelling.</p>
+    </article>
+  </section>
 
-<div class="panel">
-  <div class="panel-label">Organisation context</div>
-  <div class="grid2">
-    <div class="field"><label>Organisation name</label><input type="text" id="orgName" placeholder="e.g. PIER71, TechHub, Innovate SG"></div>
-    <div class="field"><label>Programme / initiative</label><input type="text" id="progName" placeholder="e.g. Smart Port Challenge 2026, Accelerator"></div>
-  </div>
-  <div class="grid1" style="margin-top:12px">
-    <div class="field"><label>Description (optional — improves output)</label><textarea id="orgDesc" rows="2" placeholder="What does your organisation do? Who do you serve? Any key facts or brand voice notes."></textarea></div>
-  </div>
-</div>
+  <section class="studio" id="workspace">
+    <aside class="studio-side">
+      <div class="side-title">Write like a considered programme team.</div>
+      <p class="side-copy">The studio keeps the workflow simple: set your organisation context once, choose a writing mode, add the specifics that matter, then refine from a strong first draft.</p>
 
-<div class="tabs">
-  <button class="tab active" onclick="sw('email',this)">Stakeholder email</button>
-  <button class="tab" onclick="sw('plan',this)">Outreach plan</button>
-  <button class="tab" onclick="sw('social',this)">Social post</button>
-</div>
+      <div class="side-block">
+        <h3>Best results</h3>
+        <ul>
+          <li>Add a clear programme name, dates, and audience before generating.</li>
+          <li>Use the detail field for deadlines, partner names, and event specifics.</li>
+          <li>Regenerate after tightening the brief rather than prompting from scratch.</li>
+        </ul>
+      </div>
 
-<div id="p-email" class="tab-pane active">
-  <div class="panel">
-    <div class="panel-label">Email parameters</div>
-    <div class="grid2">
-      <div class="field"><label>Email type</label>
-        <select id="eType">
-          <option value="applications open — call for submissions">Applications / call for submissions open</option>
-          <option value="shortlisted / selected notification">Shortlisted for programme</option>
-          <option value="not selected — warm rejection keeping the relationship open">Not selected (warm rejection)</option>
-          <option value="welcome to programme with next steps">Welcome to programme</option>
-          <option value="invitation to be a mentor, judge or speaker">Invite: mentor / judge / speaker</option>
-          <option value="corporate or industry partner engagement">Corporate / partner engagement</option>
-          <option value="event invitation">Event invitation</option>
-          <option value="post-meeting or post-event follow-up">Post-event follow-up</option>
-          <option value="programme newsletter or update">Programme update / newsletter</option>
-        </select>
+      <div class="side-block" id="privacy">
+        <h3>Privacy setup</h3>
+        <ul>
+          <li>Your Anthropic key is used directly in the browser.</li>
+          <li>No extra server is involved in this page's generation flow.</li>
+          <li>For public demos, avoid using sensitive names or confidential programme details.</li>
+        </ul>
       </div>
-      <div class="field"><label>Recipient</label>
-        <select id="eRecip">
-          <option value="startup founder or applicant">Startup founder / applicant</option>
-          <option value="corporate or industry partner">Corporate / industry partner</option>
-          <option value="mentor or judge">Mentor or judge</option>
-          <option value="investor or VC">Investor / VC</option>
-          <option value="government agency or regulator">Government / regulator</option>
-          <option value="media or press contact">Media / press</option>
-          <option value="programme alumni">Programme alumni</option>
-        </select>
-      </div>
-      <div class="field"><label>Tone</label>
-        <select id="eTone">
-          <option value="professional and warm">Professional and warm</option>
-          <option value="formal">Formal</option>
-          <option value="conversational">Conversational</option>
-          <option value="urgent and direct">Urgent and direct</option>
-          <option value="celebratory and enthusiastic">Celebratory</option>
-        </select>
-      </div>
-      <div class="field"><label>Length</label>
-        <select id="eLen">
-          <option value="concise — under 150 words">Concise (under 150 words)</option>
-          <option value="standard — 150 to 250 words" selected>Standard (150–250 words)</option>
-          <option value="detailed — 250 to 400 words">Detailed (250–400 words)</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid1" style="margin-top:12px">
-      <div class="field"><label>Specific details / personalisation</label><textarea id="eCtx" rows="2" placeholder="e.g. recipient name, key deadline, event date, specific programme details, personal notes..."></textarea></div>
-    </div>
-    <div class="action">
-      <button class="btn-gen" onclick="gen('email')" id="eBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 4l4 4-4 4"/></svg>Generate email</button>
-      <button class="btn-sec" onclick="gen('email')" id="eRegen" disabled>Regenerate</button>
-      <span class="status" id="eStat"></span>
-    </div>
-    <div class="model-note">powered by <span>claude-sonnet-4</span> via anthropic api</div>
-  </div>
-  <div id="eOut"></div>
-</div>
+    </aside>
 
-<div id="p-plan" class="tab-pane">
-  <div class="panel">
-    <div class="panel-label">Outreach plan parameters</div>
-    <div class="grid2">
-      <div class="field"><label>Launch month</label><input type="text" id="pLaunch" placeholder="e.g. April 2026, Q2 2026"></div>
-      <div class="field"><label>Campaign duration</label>
-        <select id="pDur">
-          <option value="6 weeks">6 weeks</option>
-          <option value="8 weeks">8 weeks</option>
-          <option value="3 months" selected>3 months</option>
-          <option value="6 months">6 months</option>
-          <option value="full annual cycle">Full annual cycle</option>
-        </select>
+    <div class="studio-main">
+      <div class="key-panel">
+        <span class="key-label">Anthropic API Key</span>
+        <div class="key-input-wrap">
+          <input type="password" id="apiKey" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false">
+          <button class="key-toggle" onclick="toggleKey()" id="keyToggle">show</button>
+        </div>
+        <span class="key-note">Your key is used only in your browser and is not sent to any additional server. Get one at <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer">console.anthropic.com</a>.</span>
+        <span class="no-key-msg" id="noKeyMsg">Please enter your API key before generating.</span>
       </div>
-      <div class="field"><label>Primary audience</label>
-        <select id="pAud">
-          <option value="startups and founders globally">Startups and founders (global)</option>
-          <option value="corporate and industry partners">Corporate and industry partners</option>
-          <option value="investors and VCs">Investors and VCs</option>
-          <option value="all stakeholder groups equally">All stakeholders equally</option>
-        </select>
-      </div>
-      <div class="field"><label>Channels available</label>
-        <select id="pCh">
-          <option value="LinkedIn, Instagram, email, WhatsApp, and in-person events">All: LinkedIn, Instagram, email, WhatsApp, events</option>
-          <option value="LinkedIn and email only">LinkedIn + email only</option>
-          <option value="social media and events">Social media + events</option>
-          <option value="digital channels only, no in-person events">Digital only</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid1" style="margin-top:12px">
-      <div class="field"><label>Goals, KPIs or constraints</label><textarea id="pCtx" rows="2" placeholder="e.g. increase applications by 20%, expand to new markets, limited budget, focus on specific vertical, specific cities for roadshows..."></textarea></div>
-    </div>
-    <div class="action">
-      <button class="btn-gen" onclick="gen('plan')" id="pBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 4l4 4-4 4"/></svg>Generate plan</button>
-      <button class="btn-sec" onclick="gen('plan')" id="pRegen" disabled>Regenerate</button>
-      <span class="status" id="pStat"></span>
-    </div>
-    <div class="model-note">powered by <span>claude-sonnet-4</span> via anthropic api</div>
-  </div>
-  <div id="pOut"></div>
-</div>
 
-<div id="p-social" class="tab-pane">
-  <div class="panel">
-    <div class="panel-label">Social post parameters</div>
-    <div class="grid2">
-      <div class="field"><label>Platform</label>
-        <select id="sPlatform">
-          <option value="LinkedIn">LinkedIn</option>
-          <option value="Instagram">Instagram</option>
-          <option value="WhatsApp broadcast message">WhatsApp broadcast</option>
-          <option value="Twitter / X">Twitter / X</option>
-          <option value="Facebook">Facebook</option>
-        </select>
+      <div class="panel">
+        <div class="panel-label"><span>Organisation context</span><span>Set once, use across every mode</span></div>
+        <div class="grid2">
+          <div class="field"><label>Organisation name</label><input type="text" id="orgName" placeholder="e.g. PIER71, TechHub, Innovate SG"></div>
+          <div class="field"><label>Programme / initiative</label><input type="text" id="progName" placeholder="e.g. Smart Port Challenge 2026, Accelerator"></div>
+        </div>
+        <div class="grid1" style="margin-top:14px">
+          <div class="field"><label>Description (optional - improves output)</label><textarea id="orgDesc" rows="3" placeholder="What does your organisation do? Who do you serve? Include brand voice notes, positioning, or key facts that should shape the writing."></textarea></div>
+        </div>
       </div>
-      <div class="field"><label>Post type</label>
-        <select id="sType">
-          <option value="announcement">Announcement</option>
-          <option value="startup or participant spotlight">Startup spotlight</option>
-          <option value="event promotion">Event promotion</option>
-          <option value="application deadline reminder">Deadline reminder</option>
-          <option value="milestone or achievement">Milestone / achievement</option>
-          <option value="thought leadership insight">Thought leadership</option>
-          <option value="behind the scenes">Behind the scenes</option>
-          <option value="call to action">Call to action</option>
-        </select>
-      </div>
-      <div class="field"><label>Tone</label>
-        <select id="sTone">
-          <option value="professional and inspiring">Professional and inspiring</option>
-          <option value="energetic and punchy">Energetic and punchy</option>
-          <option value="conversational and authentic">Conversational and authentic</option>
-          <option value="data-driven and credible">Data-driven and credible</option>
-        </select>
-      </div>
-      <div class="field"><label>Hashtags</label>
-        <select id="sHash">
-          <option value="yes, include relevant hashtags">Yes — suggest hashtags</option>
-          <option value="minimal, 2 to 3 hashtags only">Minimal (2–3 only)</option>
-          <option value="no hashtags">No hashtags</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid1" style="margin-top:12px">
-      <div class="field"><label>Content brief / key message</label><textarea id="sCtx" rows="2" placeholder="What do you want to say? Include any key stats, dates, links, or hooks you want featured."></textarea></div>
-    </div>
-    <div class="action">
-      <button class="btn-gen" onclick="gen('social')" id="sBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 4l4 4-4 4"/></svg>Generate post</button>
-      <button class="btn-sec" onclick="gen('social')" id="sRegen" disabled>Regenerate</button>
-      <span class="status" id="sStat"></span>
-    </div>
-    <div class="model-note">powered by <span>claude-sonnet-4</span> via anthropic api</div>
-  </div>
-  <div id="sOut"></div>
-</div>
 
+      <div class="tabs" role="tablist" aria-label="Generation modes">
+        <button class="tab active" onclick="sw('email',this)">Stakeholder email</button>
+        <button class="tab" onclick="sw('plan',this)">Outreach plan</button>
+        <button class="tab" onclick="sw('social',this)">Social post</button>
+      </div>
+
+      <div id="p-email" class="tab-pane active">
+        <div class="panel">
+          <div class="panel-label"><span>Email brief</span><span>Audience, tone, and specifics</span></div>
+          <div class="grid2">
+            <div class="field"><label>Email type</label>
+              <select id="eType">
+                <option value="applications open - call for submissions">Applications / call for submissions open</option>
+                <option value="shortlisted / selected notification">Shortlisted for programme</option>
+                <option value="not selected - warm rejection keeping the relationship open">Not selected (warm rejection)</option>
+                <option value="welcome to programme with next steps">Welcome to programme</option>
+                <option value="invitation to be a mentor, judge or speaker">Invite: mentor / judge / speaker</option>
+                <option value="corporate or industry partner engagement">Corporate / partner engagement</option>
+                <option value="event invitation">Event invitation</option>
+                <option value="post-meeting or post-event follow-up">Post-event follow-up</option>
+                <option value="programme newsletter or update">Programme update / newsletter</option>
+              </select>
+            </div>
+            <div class="field"><label>Recipient</label>
+              <select id="eRecip">
+                <option value="startup founder or applicant">Startup founder / applicant</option>
+                <option value="corporate or industry partner">Corporate / industry partner</option>
+                <option value="mentor or judge">Mentor or judge</option>
+                <option value="investor or VC">Investor / VC</option>
+                <option value="government agency or regulator">Government / regulator</option>
+                <option value="media or press contact">Media / press</option>
+                <option value="programme alumni">Programme alumni</option>
+              </select>
+            </div>
+            <div class="field"><label>Tone</label>
+              <select id="eTone">
+                <option value="professional and warm">Professional and warm</option>
+                <option value="formal">Formal</option>
+                <option value="conversational">Conversational</option>
+                <option value="urgent and direct">Urgent and direct</option>
+                <option value="celebratory and enthusiastic">Celebratory</option>
+              </select>
+            </div>
+            <div class="field"><label>Length</label>
+              <select id="eLen">
+                <option value="concise - under 150 words">Concise (under 150 words)</option>
+                <option value="standard - 150 to 250 words" selected>Standard (150-250 words)</option>
+                <option value="detailed - 250 to 400 words">Detailed (250-400 words)</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid1" style="margin-top:14px">
+            <div class="field"><label>Specific details / personalisation</label><textarea id="eCtx" rows="3" placeholder="Recipient name, deadline, event date, partnership details, relationship context, or anything the draft should mention directly."></textarea></div>
+          </div>
+          <div class="action">
+            <button class="btn-gen" onclick="gen('email')" id="eBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 4l4 4-4 4"/></svg>Generate email</button>
+            <button class="btn-sec" onclick="gen('email')" id="eRegen" disabled>Regenerate</button>
+            <span class="status" id="eStat"></span>
+          </div>
+          <div class="model-note">powered by <span>claude-sonnet-4</span> via anthropic api</div>
+        </div>
+        <div id="eOut"></div>
+      </div>
+
+      <div id="p-plan" class="tab-pane">
+        <div class="panel">
+          <div class="panel-label"><span>Outreach brief</span><span>Timeline, audience, and campaign constraints</span></div>
+          <div class="grid2">
+            <div class="field"><label>Launch month</label><input type="text" id="pLaunch" placeholder="e.g. April 2026, Q2 2026"></div>
+            <div class="field"><label>Campaign duration</label>
+              <select id="pDur">
+                <option value="6 weeks">6 weeks</option>
+                <option value="8 weeks">8 weeks</option>
+                <option value="3 months" selected>3 months</option>
+                <option value="6 months">6 months</option>
+                <option value="full annual cycle">Full annual cycle</option>
+              </select>
+            </div>
+            <div class="field"><label>Primary audience</label>
+              <select id="pAud">
+                <option value="startups and founders globally">Startups and founders (global)</option>
+                <option value="corporate and industry partners">Corporate and industry partners</option>
+                <option value="investors and VCs">Investors and VCs</option>
+                <option value="all stakeholder groups equally">All stakeholders equally</option>
+              </select>
+            </div>
+            <div class="field"><label>Channels available</label>
+              <select id="pCh">
+                <option value="LinkedIn, Instagram, email, WhatsApp, and in-person events">All: LinkedIn, Instagram, email, WhatsApp, events</option>
+                <option value="LinkedIn and email only">LinkedIn + email only</option>
+                <option value="social media and events">Social media + events</option>
+                <option value="digital channels only, no in-person events">Digital only</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid1" style="margin-top:14px">
+            <div class="field"><label>Goals, KPIs or constraints</label><textarea id="pCtx" rows="3" placeholder="Application targets, new markets, budget constraints, roadshow cities, partner priorities, or any communications goals that should shape the plan."></textarea></div>
+          </div>
+          <div class="action">
+            <button class="btn-gen" onclick="gen('plan')" id="pBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 4l4 4-4 4"/></svg>Generate plan</button>
+            <button class="btn-sec" onclick="gen('plan')" id="pRegen" disabled>Regenerate</button>
+            <span class="status" id="pStat"></span>
+          </div>
+          <div class="model-note">powered by <span>claude-sonnet-4</span> via anthropic api</div>
+        </div>
+        <div id="pOut"></div>
+      </div>
+
+      <div id="p-social" class="tab-pane">
+        <div class="panel">
+          <div class="panel-label"><span>Social brief</span><span>Platform, intent, and message angle</span></div>
+          <div class="grid2">
+            <div class="field"><label>Platform</label>
+              <select id="sPlatform">
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Instagram">Instagram</option>
+                <option value="WhatsApp broadcast message">WhatsApp broadcast</option>
+                <option value="Twitter / X">Twitter / X</option>
+                <option value="Facebook">Facebook</option>
+              </select>
+            </div>
+            <div class="field"><label>Post type</label>
+              <select id="sType">
+                <option value="announcement">Announcement</option>
+                <option value="startup or participant spotlight">Startup spotlight</option>
+                <option value="event promotion">Event promotion</option>
+                <option value="application deadline reminder">Deadline reminder</option>
+                <option value="milestone or achievement">Milestone / achievement</option>
+                <option value="thought leadership insight">Thought leadership</option>
+                <option value="behind the scenes">Behind the scenes</option>
+                <option value="call to action">Call to action</option>
+              </select>
+            </div>
+            <div class="field"><label>Tone</label>
+              <select id="sTone">
+                <option value="professional and inspiring">Professional and inspiring</option>
+                <option value="energetic and punchy">Energetic and punchy</option>
+                <option value="conversational and authentic">Conversational and authentic</option>
+                <option value="data-driven and credible">Data-driven and credible</option>
+              </select>
+            </div>
+            <div class="field"><label>Hashtags</label>
+              <select id="sHash">
+                <option value="yes, include relevant hashtags">Yes - suggest hashtags</option>
+                <option value="minimal, 2 to 3 hashtags only">Minimal (2-3 only)</option>
+                <option value="no hashtags">No hashtags</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid1" style="margin-top:14px">
+            <div class="field"><label>Content brief / key message</label><textarea id="sCtx" rows="3" placeholder="What should the post say? Include the angle, dates, stats, links, audience cues, and what action the reader should take next."></textarea></div>
+          </div>
+          <div class="action">
+            <button class="btn-gen" onclick="gen('social')" id="sBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h12M9 4l4 4-4 4"/></svg>Generate post</button>
+            <button class="btn-sec" onclick="gen('social')" id="sRegen" disabled>Regenerate</button>
+            <span class="status" id="sStat"></span>
+          </div>
+          <div class="model-note">powered by <span>claude-sonnet-4</span> via anthropic api</div>
+        </div>
+        <div id="sOut"></div>
+      </div>
+    </div>
+  </section>
 </div>
 <script>
 function sw(id,el){
@@ -378,6 +867,7 @@ const map={email:{btn:'eBtn',regen:'eRegen',stat:'eStat',out:'eOut'},plan:{btn:'
 
 async function gen(type){
   const m=map[type];
+  document.getElementById('noKeyMsg').style.display='none';
   document.getElementById(m.btn).disabled=true;
   document.getElementById(m.regen).disabled=true;
   document.getElementById(m.stat).innerHTML='<span class="spinner"></span>generating...';
@@ -390,8 +880,9 @@ async function gen(type){
     if(e.message==='NO_KEY'){
       document.getElementById('noKeyMsg').style.display='block';
       document.getElementById('apiKey').focus();
+      document.getElementById(m.stat).innerHTML='';
     }else{
-      document.getElementById(m.stat).innerHTML='error: '+e.message;
+      document.getElementById(m.stat).textContent='error: '+e.message;
     }
     console.error(e);
   }
