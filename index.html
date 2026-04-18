@@ -4,14 +4,545 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Bryan Goh — Portfolio</title>
+    <meta
+      name="description"
+      content="Bryan Goh's portfolio: programme management, ecosystem development, developer relations, cybersecurity, and generative AI."
+    />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-D2VAcTeC.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CZGlG3a5.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" crossorigin href="/assets/index-BoEQcFoX.css" />
   </head>
   <body>
-    <div id="root"></div>
+    <div class="min-h-[100dvh] bg-background text-foreground font-sans selection:bg-accent/30 selection:text-foreground">
+      <header class="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border/40">
+        <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+          <a href="#home" class="font-serif text-xl font-medium tracking-tight hover:text-muted-foreground transition-colors">BG.</a>
+          <nav class="hidden md:flex items-center gap-8">
+            <a href="#about" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</a>
+            <a href="#experience" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Experience</a>
+            <a href="#skills" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Skills</a>
+            <a href="#projects" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Selected Works</a>
+            <a href="#more-work" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">More Work</a>
+            <a href="#education" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Education</a>
+            <a href="#contact" class="text-sm font-medium bg-primary text-primary-foreground px-5 py-2.5 rounded-full hover:bg-primary/90 transition-colors">Let's talk</a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section id="home" class="pt-32 pb-24 px-6 max-w-5xl mx-auto min-h-[80vh] flex flex-col justify-center">
+          <div class="max-w-3xl">
+            <p class="text-muted-foreground font-medium tracking-widest uppercase text-sm mb-6">Bryan Goh</p>
+            <h1 class="text-5xl md:text-7xl font-serif text-foreground leading-[1.1] mb-8 max-w-3xl">
+              Technology Operator &amp; Ecosystem Builder
+            </h1>
+            <div class="max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed space-y-6">
+              <p>
+                Programme management, ecosystem development, developer relations, cybersecurity, and generative AI —
+                bridging strategy and execution.
+              </p>
+              <p class="text-base md:text-lg">
+                5+ years of cross-functional experience building communities, running programmes, and driving impact
+                across startups, government-linked entities, and research institutions.
+              </p>
+            </div>
+            <div class="mt-12 flex flex-wrap items-center gap-4">
+              <a
+                href="#contact"
+                class="inline-flex items-center justify-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-medium hover:bg-primary/90 transition-colors"
+              >
+                Get in touch
+              </a>
+              <a
+                href="#projects"
+                class="inline-flex items-center justify-center text-foreground hover:text-muted-foreground transition-colors text-base font-medium"
+              >
+                View selected works
+              </a>
+              <a
+                href="https://github.com/gohjhb92/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors text-base font-medium"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" class="py-24 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground">About</h2>
+            </div>
+            <div class="w-full md:w-2/3">
+              <div class="prose prose-lg prose-neutral max-w-none text-muted-foreground">
+                <p class="mb-6">
+                  I'm a Singapore-based technology professional with 5+ years of cross-functional experience spanning
+                  programme management, ecosystem development, developer relations, cybersecurity, and generative AI. I
+                  thrive at the intersection of people, process, and technology — designing programmes that scale,
+                  building communities that engage, and bridging technical depth with strategic execution.
+                </p>
+                <p class="mb-12">
+                  My career has taken me across diverse environments — from driving startup grants and hackathons at a
+                  blockchain company, to testing Singapore's national payment systems at Deloitte on behalf of MAS, to
+                  conducting research at NUS. I'm currently deepening my expertise in Generative AI for business through
+                  SMU Academy while preparing for my next opportunity.
+                </p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 pt-8 border-t border-border/50">
+                  <div>
+                    <p class="text-3xl font-serif text-foreground mb-2">5+</p>
+                    <p class="text-sm font-medium">Years cross-functional experience</p>
+                  </div>
+                  <div>
+                    <p class="text-3xl font-serif text-foreground mb-2">SG</p>
+                    <p class="text-sm font-medium">Based in Singapore</p>
+                  </div>
+                  <div>
+                    <p class="text-3xl font-serif text-foreground mb-2">AI</p>
+                    <p class="text-sm font-medium">Current focus: Generative AI</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" class="py-24 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground sticky top-32">Experience</h2>
+            </div>
+            <div class="w-full md:w-2/3 space-y-16">
+              <article class="group">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-4">
+                  <h3 class="text-xl font-medium text-foreground">Upskilling &amp; Recovery</h3>
+                  <p class="text-sm font-medium text-muted-foreground mt-1 sm:mt-0">Jan 2024 – Oct 2025</p>
+                </div>
+                <p class="text-lg text-foreground mb-6 font-serif italic">Personal — Career Break / Medical Leave</p>
+                <ul class="space-y-4">
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Enrolled in SMU Academy Advanced Certificate in Generative AI for Business Growth and Innovation, applying LLM tools and AI strategy frameworks to real-world business cases.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Completed self-directed learning in Python, data analysis, and AI tooling, building practical skills in Jupyter Notebooks and data pipelines.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Actively preparing for return to a technology operator or ecosystem-focused role.</li>
+                </ul>
+              </article>
+
+              <article class="group">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-4">
+                  <h3 class="text-xl font-medium text-foreground">Program Manager</h3>
+                  <p class="text-sm font-medium text-muted-foreground mt-1 sm:mt-0">Aug 2021 – Dec 2023</p>
+                </div>
+                <p class="text-lg text-foreground mb-6 font-serif italic">TZ APAC — Tezos Ecosystem, Asia Pacific</p>
+                <ul class="space-y-4">
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Administered startup grant programmes totalling six figures in funding, evaluating applications and tracking milestone deliverables across portfolio companies across South-East Asia.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Co-organised TezAsia 2022 — the largest Web3 hackathon in Asia — scaling to 10,000 registrations (700% YoY growth), offering $100,000 in prizes and $100,000 in early-stage grants across DeFi, NFT &amp; Gaming, and Women in Tech tracks.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Built and scaled developer communities across Singapore, SEA, and South Asia through workshops, content, and online engagement; managed the TZ APAC × NUS Computing education partnership.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Managed vendor relationships, budgets, and logistics for virtual and in-person events including the Singapore Fintech Festival activation and S.E.A. Focus 2022 NFT exhibition.</li>
+                </ul>
+              </article>
+
+              <article class="group">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-4">
+                  <h3 class="text-xl font-medium text-foreground">Associate — MAS Engagement</h3>
+                  <p class="text-sm font-medium text-muted-foreground mt-1 sm:mt-0">Aug 2019 – Sep 2020</p>
+                </div>
+                <p class="text-lg text-foreground mb-6 font-serif italic">Deloitte Touche Tohmatsu</p>
+                <ul class="space-y-4">
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Conducted end-to-end testing of Singapore's national payment infrastructure on behalf of the Monetary Authority of Singapore (MAS), ensuring compliance, reliability, and security across critical systems.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Documented vulnerability assessments and risk findings; prepared structured reports for senior stakeholder review.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Coordinated with cross-functional teams and government counterparts to align on testing scope and remediation timelines across payment system upgrades.</li>
+                </ul>
+              </article>
+
+              <article class="group">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between mb-4">
+                  <h3 class="text-xl font-medium text-foreground">Research Engineer</h3>
+                  <p class="text-sm font-medium text-muted-foreground mt-1 sm:mt-0">Oct 2018 – Jul 2019</p>
+                </div>
+                <p class="text-lg text-foreground mb-6 font-serif italic">National University of Singapore (NUS)</p>
+                <ul class="space-y-4">
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Developed Python scripts and data pipelines to automate signal acquisition and pre-processing workflows in support of published research output.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Built software prototypes for experiments and collaborated with faculty and postgraduate researchers to translate research requirements into functional tools.</li>
+                  <li class="text-muted-foreground leading-relaxed pl-4 relative before:absolute before:content-[''] before:w-1.5 before:h-1.5 before:bg-muted-foreground/30 before:rounded-full before:left-0 before:top-2.5">Maintained lab equipment, documented experimental procedures, and managed data integrity across signal processing and systems research projects.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="skills" class="py-24 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground">Skills</h2>
+            </div>
+            <div class="w-full md:w-2/3 space-y-12">
+              <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                <div class="md:w-1/3 pt-1.5"><h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">Programme &amp; Ecosystem</h3></div>
+                <div class="md:w-2/3 flex flex-wrap gap-3">
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Programme Management</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Grant Administration</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Ecosystem Development</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Startup Acceleration</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Hackathon Design</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">KPI Tracking</span>
+                </div>
+              </div>
+              <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                <div class="md:w-1/3 pt-1.5"><h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">Events &amp; Operations</h3></div>
+                <div class="md:w-2/3 flex flex-wrap gap-3">
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Event Planning</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Vendor Management</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Budget Oversight</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Workshop Facilitation</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Virtual &amp; Hybrid Events</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Logistics Coordination</span>
+                </div>
+              </div>
+              <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                <div class="md:w-1/3 pt-1.5"><h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">Community &amp; Comms</h3></div>
+                <div class="md:w-2/3 flex flex-wrap gap-3">
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Developer Relations</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Community Building</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Technical Writing</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Content Strategy</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Stakeholder Engagement</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Social Media</span>
+                </div>
+              </div>
+              <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                <div class="md:w-1/3 pt-1.5"><h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">AI &amp; Technology</h3></div>
+                <div class="md:w-2/3 flex flex-wrap gap-3">
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Generative AI</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">LLM Applications</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">AI Strategy</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Blockchain / Web3</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Smart Contracts</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Technology Evaluation</span>
+                </div>
+              </div>
+              <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                <div class="md:w-1/3 pt-1.5"><h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">Programming &amp; Data</h3></div>
+                <div class="md:w-2/3 flex flex-wrap gap-3">
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Python</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">SQL</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Data Analysis</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">JavaScript</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Git / GitHub</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Jupyter Notebooks</span>
+                </div>
+              </div>
+              <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                <div class="md:w-1/3 pt-1.5"><h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">Cybersecurity</h3></div>
+                <div class="md:w-2/3 flex flex-wrap gap-3">
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Payment System Testing</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Vulnerability Assessment</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Risk Management</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Security Documentation</span>
+                  <span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full text-sm font-medium bg-muted/50 border border-border text-foreground">Regulatory Compliance (MAS)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" class="py-24 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground sticky top-32">Selected Works</h2>
+            </div>
+            <div class="w-full md:w-2/3 space-y-16">
+              <article class="group">
+                <h3 class="text-2xl font-serif text-foreground mb-4">AI Grant Evaluator</h3>
+                <p class="text-lg text-muted-foreground leading-relaxed mb-6">A web app that uses Claude AI to evaluate startup grant applications. Upload a PDF or text application and receive a structured score report covering problem, solution, traction, team, and financials — with red flags, key questions, and an overall funding recommendation.</p>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Python</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Flask</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Claude API</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Generative AI</span>
+                  </div>
+                  <div class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Built end-to-end with Claude API</div>
+                </div>
+                <div class="flex items-center gap-6">
+                  <a href="https://gohjhb92.github.io/ai-grant-evaluator/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                  <a href="https://github.com/gohjhb92/ai-grant-evaluator" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
+                </div>
+              </article>
+
+              <article class="group">
+                <h3 class="text-2xl font-serif text-foreground mb-4">CommsAI</h3>
+                <p class="text-lg text-muted-foreground leading-relaxed mb-6">AI-powered stakeholder communications drafter for innovation programme managers. Generates stakeholder emails, end-to-end outreach plans, and social posts — tailored to your organisation and context. Built for incubators, accelerators, and ecosystem teams.</p>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Generative AI</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Claude API</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Communications</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Programme Management</span>
+                  </div>
+                  <div class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Purpose-built for ecosystem teams</div>
+                </div>
+                <div class="flex items-center gap-6">
+                  <a href="https://gohjhb92.github.io/comms-ai/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                  <a href="https://github.com/gohjhb92/comms-ai" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
+                </div>
+              </article>
+
+              <article class="group">
+                <h3 class="text-2xl font-serif text-foreground mb-4">TezAsia — Web3 Hackathon</h3>
+                <p class="text-lg text-muted-foreground leading-relaxed mb-6">Co-organised TezAsia 2022 with Tezos India — the largest Web3 hackathon in Asia. Scaled from conception to 10,000 registrations, a 700% year-on-year increase. Month-long pan-Asia event with $100,000 in prizes and $100,000 in early-stage grants.</p>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Event Management</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Developer Relations</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Web3</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Tezos</span>
+                  </div>
+                  <div class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">10,000 registrations · 700% YoY growth</div>
+                </div>
+                <div class="flex items-center gap-6">
+                  <a href="https://www.tzapac.com/articles/tz-apac-and-tezos-india-join-forces-to-launch-tezasia-the-largest-web3-hackathon-in-asia/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                </div>
+              </article>
+
+              <article class="group">
+                <h3 class="text-2xl font-serif text-foreground mb-4">MAS Payment System Testing</h3>
+                <p class="text-lg text-muted-foreground leading-relaxed mb-6">Conducted end-to-end testing of Singapore's national payment infrastructure on behalf of the Monetary Authority of Singapore (MAS) at Deloitte, ensuring compliance, reliability, and security across critical national systems.</p>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Cybersecurity</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Payment Systems</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Regulatory Compliance (MAS)</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">QA &amp; Testing</span>
+                  </div>
+                  <div class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">National-scale critical infrastructure</div>
+                </div>
+              </article>
+
+              <article class="group">
+                <h3 class="text-2xl font-serif text-foreground mb-4">Iran War Analysis</h3>
+                <p class="text-lg text-muted-foreground leading-relaxed mb-6">Independent research and commentary synthesising geopolitical developments, military posturing, and narrative framing around the Iran conflict. Explores how media framing, state communication, and open-source intelligence shape public understanding.</p>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
+                  <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Geopolitics</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Research</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Commentary</span>
+                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Open-Source Intel</span>
+                  </div>
+                  <div class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Independent research &amp; analysis</div>
+                </div>
+                <div class="flex items-center gap-6">
+                  <a href="https://gohjhb92.github.io/iran-analysis/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="more-work" class="py-24 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground sticky top-32">Additional Projects &amp; Writing</h2>
+            </div>
+            <div class="w-full md:w-2/3 space-y-16">
+              <div>
+                <h3 class="text-xl font-medium text-foreground mb-6">Professional Highlights</h3>
+                <div class="space-y-8">
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                      <h4 class="text-xl font-serif text-foreground">Tezos Learn &amp; Earn Campaign</h4>
+                      <span class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Growth &amp; Education</span>
+                    </div>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Designed and executed a CoinGecko Learn &amp; Earn campaign for Tezos, driving user education and ecosystem awareness by incentivising participants to complete learning tasks and earn XTZ rewards — contributing to top-of-funnel blockchain adoption across the Tezos ecosystem.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Growth Marketing</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Web3</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Tezos</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">CoinGecko</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Community</span>
+                    </div>
+                    <a href="https://www.coingecko.com/en/candy/rewards/learn-earn-about-tezos" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                  </article>
+
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                      <h4 class="text-xl font-serif text-foreground">Singapore Fintech Festival — Tezos × Crown Digital</h4>
+                      <span class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Partnership Activation</span>
+                    </div>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Managed TZ APAC's activation at the Singapore Fintech Festival, facilitating a landmark Web3 integration between Tezos and Crown Digital's Ella robot barista. Attendees minted NFT proof-of-attendance tokens on the Tezos blockchain and used them to purchase coffee — showcasing real-world blockchain utility at one of Asia's largest fintech events.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Event Management</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">NFT</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Tezos</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Web3</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Fintech</span>
+                    </div>
+                    <a href="https://www.crowndigital.io/singapore-fintech-festival" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                  </article>
+
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                      <h4 class="text-xl font-serif text-foreground">S.E.A. Focus 2022 — Tezos NFT Exhibition</h4>
+                      <span class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Arts &amp; Culture</span>
+                    </div>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Brought Tezos NFTs to S.E.A. Focus 2022 "chance...constellations", Southeast Asia's premier art fair held at Tanjong Pagar Distripark. Curated and managed Tezos' presence as the blockchain partner, showcasing NFT artworks from regional artists and introducing Web3 collecting to the Southeast Asian art community.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">NFT</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Web3</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Tezos</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Arts &amp; Culture</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Exhibition</span>
+                    </div>
+                    <a href="https://seafocus.sg/2022-s-e-a-focus-chanceconstellations/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                  </article>
+
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
+                      <h4 class="text-xl font-serif text-foreground">NUS Computing × TZ APAC — Developer Education Partnership</h4>
+                      <span class="text-sm font-medium text-foreground bg-accent/10 text-accent px-4 py-1.5 rounded-full whitespace-nowrap">Education Partnership</span>
+                    </div>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Established a formal education partnership between TZ APAC and NUS School of Computing to build Singapore's next generation of blockchain developers. Co-launched the Centre for Nurturing Computing Excellence and the TZ APAC Tezos Developer Hub in the Singapore CBD, delivering a curriculum combining workshops and tutorials to university students.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Education</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Blockchain</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Developer Relations</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">NUS</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Partnership</span>
+                    </div>
+                    <a href="https://www.tzapac.com/articles/nus-computing-joins-forces-with-tz-apac-to-develop-singapores-next-generation-of-tech-innovators/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View Project</a>
+                  </article>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-xl font-medium text-foreground mb-6">Personal Projects &amp; Writing</h3>
+                <div class="space-y-8">
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <h4 class="text-xl font-serif text-foreground mb-4">Current Affairs &amp; Policy Writing</h4>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Personal essays on global events, technology policy, and digital governance. Covers topics including AI regulation, platform policy, cybersecurity governance, and the intersection of technology and international relations.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Policy</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Writing</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">AI Governance</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Technology</span>
+                    </div>
+                    <a href="https://gohjhb92.github.io/current-affairs/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">Read More</a>
+                  </article>
+
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <h4 class="text-xl font-serif text-foreground mb-4">AI Workflow Experiments</h4>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Hands-on explorations using generative AI tools, automation workflows, and productivity systems. Documents experiments with prompt engineering, LLM chaining, and AI-assisted research and writing pipelines.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Generative AI</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Automation</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Productivity</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">LLMs</span>
+                    </div>
+                    <a href="https://github.com/gohjhb92/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">View on GitHub</a>
+                  </article>
+
+                  <article class="p-6 rounded-2xl bg-card border border-card-border">
+                    <h4 class="text-xl font-serif text-foreground mb-4">GitHub Pages Experiments</h4>
+                    <p class="text-muted-foreground leading-relaxed mb-5">Side projects, prototypes, and published writing hosted on my personal site. An ongoing space for independent work including data experiments, mini-tools, and digital publishing.</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Side Projects</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Web</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Publishing</span>
+                      <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-medium bg-muted border border-border text-muted-foreground">Prototyping</span>
+                    </div>
+                    <div class="flex items-center gap-6">
+                      <a href="https://gohjhb92.github.io/briefing-bot/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors pb-1 border-b border-foreground hover:border-accent">Visit Example</a>
+                      <a href="https://github.com/gohjhb92/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">GitHub</a>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="education" class="py-24 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground">Education &amp; Development</h2>
+            </div>
+            <div class="w-full md:w-2/3">
+              <div class="grid md:grid-cols-2 gap-5">
+                <article class="group flex flex-col p-6 rounded-2xl bg-card border border-card-border hover:border-primary/50 transition-all duration-300">
+                  <div class="flex items-start justify-between gap-3 mb-4">
+                    <div class="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0">01</div>
+                    <span class="text-xs font-medium px-2.5 py-1 rounded-full shrink-0 bg-primary/15 text-primary">In Progress</span>
+                  </div>
+                  <h3 class="font-semibold text-sm leading-snug mb-1">Advanced Certificate in Generative AI for Business Growth and Innovation</h3>
+                  <p class="text-primary text-xs font-medium mb-3">SMU Academy</p>
+                  <p class="text-muted-foreground text-xs leading-relaxed mt-auto">Applying LLM tools and AI strategy frameworks to real-world business and operational contexts.</p>
+                </article>
+                <article class="group flex flex-col p-6 rounded-2xl bg-card border border-card-border hover:border-primary/50 transition-all duration-300">
+                  <div class="flex items-start justify-between gap-3 mb-4">
+                    <div class="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0">02</div>
+                    <span class="text-xs font-medium px-2.5 py-1 rounded-full shrink-0 bg-muted text-muted-foreground">Graduated</span>
+                  </div>
+                  <h3 class="font-semibold text-sm leading-snug mb-1">Bachelor of Engineering, Electrical Engineering (Honours)</h3>
+                  <p class="text-primary text-xs font-medium mb-3">National University of Singapore</p>
+                  <p class="text-muted-foreground text-xs leading-relaxed mt-auto">Foundational engineering rigour with focus on signals, systems, and electronics.</p>
+                </article>
+                <article class="group flex flex-col p-6 rounded-2xl bg-card border border-card-border hover:border-primary/50 transition-all duration-300">
+                  <div class="flex items-start justify-between gap-3 mb-4">
+                    <div class="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0">03</div>
+                    <span class="text-xs font-medium px-2.5 py-1 rounded-full shrink-0 bg-muted text-muted-foreground">Completed</span>
+                  </div>
+                  <h3 class="font-semibold text-sm leading-snug mb-1">WSQ Advanced Certificate in Learning and Performance</h3>
+                  <p class="text-primary text-xs font-medium mb-3">IAL (Institute for Adult Learning)</p>
+                  <p class="text-muted-foreground text-xs leading-relaxed mt-auto">Curriculum and instructional design; facilitation and training delivery.</p>
+                </article>
+                <article class="group flex flex-col p-6 rounded-2xl bg-card border border-card-border hover:border-primary/50 transition-all duration-300">
+                  <div class="flex items-start justify-between gap-3 mb-4">
+                    <div class="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0">04</div>
+                    <span class="text-xs font-medium px-2.5 py-1 rounded-full shrink-0 bg-muted text-muted-foreground">Completed</span>
+                  </div>
+                  <h3 class="font-semibold text-sm leading-snug mb-1">Data Science 101</h3>
+                  <p class="text-primary text-xs font-medium mb-3">Hackwagon Academy</p>
+                  <p class="text-muted-foreground text-xs leading-relaxed mt-auto">Practical data science with Python, pandas, and exploratory data analysis.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="py-32 px-6 max-w-5xl mx-auto scroll-mt-20">
+          <div class="border-t border-border pt-16 flex flex-col md:flex-row gap-12 md:gap-24">
+            <div class="w-full md:w-1/3">
+              <h2 class="text-3xl font-serif text-foreground">Contact</h2>
+            </div>
+            <div class="w-full md:w-2/3">
+              <div>
+                <p class="text-xl md:text-2xl text-foreground font-serif leading-relaxed mb-4 max-w-lg">
+                  I'm actively exploring new opportunities in programme management, ecosystem development, developer
+                  relations, and AI-adjacent roles.
+                </p>
+                <p class="text-base text-muted-foreground mb-12 max-w-lg">
+                  Feel free to reach out — I'd love to connect.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <a href="mailto:gohjhbcem@gmail.com" class="inline-flex items-center justify-center bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-medium hover:bg-primary/90 transition-colors">gohjhbcem@gmail.com</a>
+                  <a href="https://www.linkedin.com/in/bryangoh92/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-transparent border border-border text-foreground px-8 py-4 rounded-full text-base font-medium hover:bg-muted transition-colors">LinkedIn</a>
+                  <a href="https://github.com/gohjhb92/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-transparent border border-border text-foreground px-8 py-4 rounded-full text-base font-medium hover:bg-muted transition-colors">GitHub</a>
+                </div>
+                <p class="mt-24 text-sm text-muted-foreground">© <span id="year">2026</span> Bryan Goh. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
