@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IncubatorOS &mdash; Founder Cohort &amp; Grant Tracking Dashboard</title>
+  <meta name="description" content="IncubatorOS is a mock incubation programme management dashboard for founder pipelines, mentor matching, grant milestones, pilot readiness, and programme KPIs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4ede4;
+      --paper: #fffaf4;
+      --paper-2: #f8f1e8;
+      --ink: #221c18;
+      --muted: #73645a;
+      --line: #decfc1;
+      --line-strong: #c8b09b;
+      --accent: #8f5735;
+      --accent-dark: #63351f;
+      --accent-soft: #efe0d4;
+      --blue: #27566f;
+      --green: #397354;
+      --amber: #a76527;
+      --red: #9c4335;
+      --shadow: 0 24px 60px rgba(72, 49, 34, .08);
+      --serif: "Cormorant Garamond", serif;
+      --sans: "Manrope", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(143, 87, 53, .1), transparent 28%),
+        radial-gradient(circle at 90% 16%, rgba(39, 86, 111, .09), transparent 24%),
+        linear-gradient(180deg, #fbf6ef 0%, var(--bg) 48%, #eee2d4 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 34px 22px 82px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #fff8f1;
+      font-weight: 800;
+      box-shadow: 0 16px 34px rgba(99, 53, 31, .18);
+    }
+
+    .brand strong { display: block; font-size: 15px; line-height: 1.1; }
+    .brand span { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    .nav-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+    .pill-link,
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+
+    .pill-link {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 250, 244, .7);
+      font-size: 13px;
+    }
+
+    .btn-primary,
+    .btn-secondary { min-height: 48px; padding: 0 18px; font-size: 14px; }
+    .btn-primary { background: var(--accent); color: #fff8f1; border: 1px solid transparent; }
+    .btn-secondary { background: transparent; border: 1px solid var(--line-strong); color: var(--ink); }
+    .pill-link:hover,
+    .btn-secondary:hover { background: #fffdf8; }
+    .btn-primary:hover { opacity: .92; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr);
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 26px;
+    }
+
+    .hero-copy,
+    .hero-panel,
+    .card,
+    .dashboard,
+    .section {
+      background: rgba(255, 250, 244, .86);
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-copy { padding: 42px 38px 36px; }
+    .hero-panel { padding: 30px 28px; display: flex; flex-direction: column; justify-content: space-between; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--accent); }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; }
+    h1 { font-size: clamp(54px, 8vw, 92px); line-height: .88; margin-bottom: 18px; }
+    h1 span { color: var(--accent); }
+    .subtitle { font-size: clamp(24px, 3vw, 38px); line-height: 1.05; color: #3f332c; margin-bottom: 18px; }
+    .lead { max-width: 740px; font-size: 18px; color: #51443b; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero-panel h2 { font-size: 35px; line-height: 1; margin-bottom: 12px; }
+    .hero-panel p { color: #5d4e44; font-size: 14px; }
+    .hero-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+    .hero-metric {
+      padding: 16px;
+      border: 1px solid rgba(200, 176, 155, .5);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .7);
+    }
+    .hero-metric strong { display: block; font-size: 24px; color: var(--accent-dark); }
+    .hero-metric span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .section { padding: 30px; margin-top: 24px; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .section h2 { font-size: clamp(34px, 4vw, 48px); line-height: 1; }
+    .section-intro { max-width: 740px; color: #5d4e44; font-size: 16px; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .card { padding: 22px; box-shadow: none; }
+    .card h3 { font-size: 26px; line-height: 1.05; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 14px; }
+    .card-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .dashboard { padding: 24px; margin-top: 16px; box-shadow: none; background: rgba(255, 253, 248, .9); }
+    .kpis { display: grid; grid-template-columns: repeat(7, minmax(130px, 1fr)); gap: 10px; margin-bottom: 18px; overflow-x: auto; padding-bottom: 4px; }
+    .kpi-card {
+      min-width: 130px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(200, 176, 155, .5);
+      background: #fffaf4;
+    }
+    .kpi-card strong { display: block; font-size: 22px; line-height: 1.05; color: var(--accent-dark); }
+    .kpi-card span { display: block; color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 18px; }
+    .filter-btn {
+      border: 1px solid var(--line-strong);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 9px 13px;
+      font: 800 12px var(--sans);
+      cursor: pointer;
+    }
+    .filter-btn.active { background: var(--accent); color: #fff8f1; border-color: var(--accent); }
+
+    .table-wrap { overflow-x: auto; border: 1px solid rgba(200, 176, 155, .55); border-radius: 18px; background: #fffaf4; }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid rgba(200, 176, 155, .38); text-align: left; vertical-align: top; }
+    th {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      background: #f6eee5;
+      white-space: nowrap;
+    }
+    td { font-size: 14px; color: #3d312b; }
+    tr:last-child td { border-bottom: 0; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      background: #eee7df;
+      color: #51443b;
+    }
+    .badge.good { background: #dcebdd; color: var(--green); }
+    .badge.warn { background: #f4e3cf; color: var(--amber); }
+    .badge.low { background: #eadbd7; color: var(--red); }
+    .badge.blue { background: #dce8ee; color: var(--blue); }
+
+    .rubric-total {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 9px 14px;
+      background: #dce8ee;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .timeline-item {
+      position: relative;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(200, 176, 155, .5);
+      background: rgba(255, 253, 248, .78);
+    }
+    .timeline-item span {
+      display: inline-flex;
+      margin-bottom: 16px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .timeline-item h3 { font-size: 24px; line-height: 1.05; }
+
+    .checklist { display: grid; gap: 12px; }
+    .check {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 16px;
+      border: 1px solid rgba(200, 176, 155, .48);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .72);
+    }
+    .check span {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .check p { color: #4f4036; font-weight: 700; }
+
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 253, 248, .76);
+      padding: 9px 13px;
+      color: #51443b;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .relevance {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .relevance-list { display: grid; gap: 12px; }
+    .relevance-list li {
+      list-style: none;
+      padding: 16px;
+      border: 1px solid rgba(200, 176, 155, .5);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .72);
+      color: #4f4036;
+    }
+
+    .final {
+      text-align: center;
+      padding: 42px 30px;
+    }
+    .final h2 { max-width: 880px; margin: 0 auto 22px; }
+
+    @media (max-width: 980px) {
+      .hero, .relevance { grid-template-columns: 1fr; }
+      .grid-3, .grid-2, .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 22px 14px 60px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .nav-actions { justify-content: flex-start; }
+      .hero-copy, .hero-panel, .section { padding: 24px 20px; border-radius: 22px; }
+      .grid-3, .grid-2, .timeline, .hero-metrics { grid-template-columns: 1fr; }
+      h1 { font-size: 58px; }
+      .subtitle { font-size: 27px; }
+      .lead { font-size: 16px; }
+      .hero-actions a { width: 100%; }
+      .kpis { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="../index.html#projects" aria-label="Back to Bryan Goh portfolio">
+        <span class="brand-mark">IO</span>
+        <span>
+          <strong>IncubatorOS</strong>
+          <span>Portfolio project by Bryan Goh</span>
+        </span>
+      </a>
+      <nav class="nav-actions" aria-label="Project navigation">
+        <a class="pill-link" href="../index.html#projects">Back to portfolio</a>
+        <a class="pill-link" href="#dashboard">Dashboard Preview</a>
+        <a class="pill-link" href="#framework">Operating Framework</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Incubation Programme OS</div>
+          <h1>Incubator<span>OS</span></h1>
+          <p class="subtitle">Founder Cohort &amp; Grant Tracking Dashboard</p>
+          <p class="lead">IncubatorOS is a mock incubation programme management dashboard designed to help programme managers track founder pipelines, startup evaluations, mentor matching, grant milestones, demo day preparation, and cohort-level KPIs.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#dashboard">View Dashboard Preview</a>
+            <a class="btn-secondary" href="#framework">See Operating Framework</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="Project summary">
+          <div>
+            <h2>Built for practical venture programme operations.</h2>
+            <p>A practical operating system for incubation programme managers to track startup applications, founder progress, mentor engagement, grant milestones, pilot opportunities, and programme KPIs.</p>
+          </div>
+          <div class="hero-metrics">
+            <div class="hero-metric"><strong>128</strong><span>applications tracked</span></div>
+            <div class="hero-metric"><strong>12</strong><span>cohort startups</span></div>
+            <div class="hero-metric"><strong>36</strong><span>mentor matches</span></div>
+            <div class="hero-metric"><strong>78%</strong><span>demo day readiness</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Problem</div>
+            <h2>Incubation teams often run on scattered information.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Founder applications, grant reviews, mentor assignments, milestone reporting, demo day logistics, and stakeholder updates can quickly spread across spreadsheets, emails, decks, chat threads, and static documents.</p>
+        <div class="grid-3" style="margin-top:22px">
+          <article class="card"><span class="card-index">01</span><h3>Fragmented founder and startup data</h3><p>Programme teams need one reliable view of applicants, founders, startup maturity, sector focus, and evaluation notes.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Manual grant and milestone tracking</h3><p>Grant approvals, milestone evidence, payout readiness, and reporting obligations become hard to monitor consistently.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Limited visibility into cohort KPIs</h3><p>Leadership, funders, and partners need timely signals on founder progress, mentor engagement, pilots, and outcomes.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="framework">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Solution</div>
+            <h2>One structured dashboard for core incubation workflows.</h2>
+          </div>
+        </div>
+        <p class="section-intro">IncubatorOS brings founder intake, evaluation, support, grant tracking, mentor coordination, KPI reporting, and demo day preparation into a single practical operating framework.</p>
+        <div class="grid-3" style="margin-top:22px">
+          <article class="card"><span class="card-index">01</span><h3>Founder Pipeline Tracker</h3><p>Track status from application review to interview, shortlist, onboarding, and active cohort support.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Application Scoring Rubric</h3><p>Score founders consistently across market, feasibility, founder capability, pilot potential, and strategic fit.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Mentor Matching Tracker</h3><p>Match founders with sector, technical, go-to-market, fundraising, regulatory, and pilot access mentors.</p></article>
+          <article class="card"><span class="card-index">04</span><h3>KPI Dashboard</h3><p>Monitor cohort health through applications, shortlist rates, mentor coverage, grants, pilots, and readiness.</p></article>
+          <article class="card"><span class="card-index">05</span><h3>Grant Milestone Tracker</h3><p>Manage grant amounts, evidence collection, milestone completion, and payout readiness.</p></article>
+          <article class="card"><span class="card-index">06</span><h3>Demo Day Timeline</h3><p>Coordinate founder onboarding, validation reviews, pitch refinement, rehearsal, and investor preparation.</p></article>
+          <article class="card"><span class="card-index">07</span><h3>Founder Check-in Template</h3><p>Use a repeatable weekly check-in structure for progress, blockers, pilots, evidence, and next actions.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="dashboard">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Dashboard Preview</div>
+            <h2>Cohort health, founder pipeline, grants, and pilots at a glance.</h2>
+          </div>
+        </div>
+        <div class="dashboard">
+          <div class="kpis" aria-label="Programme KPI cards">
+            <div class="kpi-card"><strong>128</strong><span>Applications Received</span></div>
+            <div class="kpi-card"><strong>24</strong><span>Startups Shortlisted</span></div>
+            <div class="kpi-card"><strong>12</strong><span>Cohort Startups</span></div>
+            <div class="kpi-card"><strong>36</strong><span>Mentors Matched</span></div>
+            <div class="kpi-card"><strong>US$120,000</strong><span>Grant Capital Allocated</span></div>
+            <div class="kpi-card"><strong>9</strong><span>Pilot Opportunities</span></div>
+            <div class="kpi-card"><strong>78%</strong><span>Demo Day Readiness</span></div>
+          </div>
+          <h3 style="font-size:30px;margin:8px 0 4px">Founder Pipeline Tracker</h3>
+          <p class="section-intro">Use the quick filters to scan by grant approval, mentor coverage, or pilot readiness.</p>
+          <div class="filters" aria-label="Founder pipeline filters">
+            <button class="filter-btn active" data-filter="all">All startups</button>
+            <button class="filter-btn" data-filter="Approved">Grant approved</button>
+            <button class="filter-btn" data-filter="Pending">Grant pending</button>
+            <button class="filter-btn" data-filter="High">High pilot readiness</button>
+            <button class="filter-btn" data-filter="Unmatched">Needs mentor</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Startup</th>
+                  <th>Sector</th>
+                  <th>Stage</th>
+                  <th>Founder Status</th>
+                  <th>Application Score</th>
+                  <th>Grant Status</th>
+                  <th>Mentor Match</th>
+                  <th>Pilot Readiness</th>
+                </tr>
+              </thead>
+              <tbody id="pipelineRows">
+                <tr data-grant="Approved" data-pilot="High" data-mentor="Matched"><td><strong>FinSight AI</strong></td><td>AI Credit Risk</td><td>MVP</td><td><span class="badge blue">Interviewed</span></td><td>86</td><td><span class="badge good">Approved</span></td><td><span class="badge good">Matched</span></td><td><span class="badge good">High</span></td></tr>
+                <tr data-grant="Pending" data-pilot="Medium" data-mentor="Matched"><td><strong>ReguLens</strong></td><td>RegTech Compliance</td><td>Prototype</td><td><span class="badge blue">Shortlisted</span></td><td>81</td><td><span class="badge warn">Pending</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td></tr>
+                <tr data-grant="Approved" data-pilot="High" data-mentor="Matched"><td><strong>PayMesh</strong></td><td>Cross-border Payments</td><td>MVP</td><td><span class="badge good">Onboarded</span></td><td>89</td><td><span class="badge good">Approved</span></td><td><span class="badge good">Matched</span></td><td><span class="badge good">High</span></td></tr>
+                <tr data-grant="Not Yet" data-pilot="Low" data-mentor="Unmatched"><td><strong>GreenLedger</strong></td><td>Sustainable Finance</td><td>Idea</td><td><span class="badge warn">Reviewing</span></td><td>73</td><td><span class="badge">Not Yet</span></td><td><span class="badge low">Unmatched</span></td><td><span class="badge low">Low</span></td></tr>
+                <tr data-grant="Pending" data-pilot="Medium" data-mentor="Matched"><td><strong>TrustVault</strong></td><td>Digital Identity</td><td>Prototype</td><td><span class="badge blue">Interviewed</span></td><td>84</td><td><span class="badge warn">Pending</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Application Scoring</div>
+            <h2>Evaluation rubric for a 100-point founder application score.</h2>
+          </div>
+          <span class="rubric-total">Total score: 100</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Criteria</th><th>Weight</th><th>Explanation</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Problem clarity</strong></td><td>12</td><td>How clearly the startup defines the user pain, urgency, and current alternatives.</td></tr>
+              <tr><td><strong>Market opportunity</strong></td><td>14</td><td>Size, timing, customer segment focus, and relevance to an investable or scalable opportunity.</td></tr>
+              <tr><td><strong>Product feasibility</strong></td><td>12</td><td>Evidence that the proposed product can be built, tested, and improved during the cohort.</td></tr>
+              <tr><td><strong>Founder capability</strong></td><td>14</td><td>Team commitment, domain knowledge, execution capacity, and openness to feedback.</td></tr>
+              <tr><td><strong>Business model</strong></td><td>10</td><td>Revenue logic, pricing assumptions, customer willingness to pay, and go-to-market clarity.</td></tr>
+              <tr><td><strong>Strategic fit with AI / digital finance</strong></td><td>14</td><td>Alignment with AI, fintech, digital finance, responsible innovation, and institutional priorities.</td></tr>
+              <tr><td><strong>Pilot potential</strong></td><td>12</td><td>Likelihood of securing a meaningful customer, research, ecosystem, or industry pilot.</td></tr>
+              <tr><td><strong>Grant milestone clarity</strong></td><td>12</td><td>Quality of proposed milestones, evidence, budget use, and reporting readiness.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Mentor Matching</div>
+            <h2>Mentors are matched by founder need, not just availability.</h2>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card"><h3>Matching dimensions</h3><p>Sector expertise, technical needs, go-to-market needs, fundraising readiness, regulatory needs, and pilot partner access.</p></article>
+          <article class="card"><h3>Programme benefit</h3><p>A structured match view helps programme managers prioritise warm introductions, reduce founder drift, and show mentor engagement to stakeholders.</p></article>
+        </div>
+        <div class="table-wrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Startup</th><th>Key Need</th><th>Suggested Mentor Type</th><th>Match Priority</th><th>Next Action</th></tr></thead>
+            <tbody>
+              <tr><td><strong>FinSight AI</strong></td><td>Bank pilot validation</td><td>Credit risk and bank partnerships leader</td><td><span class="badge good">High</span></td><td>Introduce to digital bank innovation lead</td></tr>
+              <tr><td><strong>ReguLens</strong></td><td>Regulatory workflow review</td><td>Compliance product advisor</td><td><span class="badge good">High</span></td><td>Schedule mentor office hours</td></tr>
+              <tr><td><strong>GreenLedger</strong></td><td>Problem validation</td><td>Sustainable finance operator</td><td><span class="badge warn">Medium</span></td><td>Define customer discovery questions</td></tr>
+              <tr><td><strong>TrustVault</strong></td><td>Enterprise buyer discovery</td><td>Digital identity go-to-market mentor</td><td><span class="badge warn">Medium</span></td><td>Review buyer map and pitch</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Grant Milestones</div>
+            <h2>Grant progress is visible from approval to evidence submission.</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Startup</th><th>Grant Amount</th><th>Milestone 1</th><th>Milestone 2</th><th>Milestone 3</th><th>Current Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>FinSight AI</strong></td><td>US$10,000</td><td>Data access plan</td><td>MVP risk model</td><td>Bank pilot memo</td><td><span class="badge good">M2 in progress</span></td></tr>
+              <tr><td><strong>PayMesh</strong></td><td>US$12,000</td><td>Corridor research</td><td>Merchant test flow</td><td>Pilot partner LOI</td><td><span class="badge good">M1 complete</span></td></tr>
+              <tr><td><strong>ReguLens</strong></td><td>US$9,500</td><td>Compliance workflow map</td><td>Prototype review</td><td>Demo environment</td><td><span class="badge warn">Awaiting approval</span></td></tr>
+              <tr><td><strong>TrustVault</strong></td><td>US$10,500</td><td>Identity use-case brief</td><td>API prototype</td><td>Enterprise pilot pitch</td><td><span class="badge warn">Evidence pending</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Demo Day Timeline</div>
+            <h2>Eight-week operating rhythm from onboarding to investor readiness.</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          <article class="timeline-item"><span>Week 1</span><h3>Founder onboarding</h3></article>
+          <article class="timeline-item"><span>Week 2</span><h3>Customer discovery review</h3></article>
+          <article class="timeline-item"><span>Week 3</span><h3>Mentor matching</h3></article>
+          <article class="timeline-item"><span>Week 4</span><h3>Product validation checkpoint</h3></article>
+          <article class="timeline-item"><span>Week 5</span><h3>Pitch deck review</h3></article>
+          <article class="timeline-item"><span>Week 6</span><h3>Investor Q&amp;A preparation</h3></article>
+          <article class="timeline-item"><span>Week 7</span><h3>Demo rehearsal</h3></article>
+          <article class="timeline-item"><span>Week 8</span><h3>Demo Day</h3></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Founder Check-in Template</div>
+            <h2>A reusable weekly support framework for programme managers.</h2>
+          </div>
+        </div>
+        <div class="checklist">
+          <div class="check"><span>01</span><p>What progress was made this week?</p></div>
+          <div class="check"><span>02</span><p>What blockers need support?</p></div>
+          <div class="check"><span>03</span><p>What customer or pilot conversations happened?</p></div>
+          <div class="check"><span>04</span><p>What milestone evidence can be shared?</p></div>
+          <div class="check"><span>05</span><p>What mentor or partner introductions are needed?</p></div>
+          <div class="check"><span>06</span><p>What is the next measurable action?</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Skills Demonstrated</div>
+            <h2>Designed to show incubation and venture-building readiness.</h2>
+          </div>
+        </div>
+        <div class="tag-cloud">
+          <span class="tag">Incubation programme design</span>
+          <span class="tag">Founder pipeline management</span>
+          <span class="tag">Grant evaluation</span>
+          <span class="tag">KPI tracking</span>
+          <span class="tag">Mentor and partner coordination</span>
+          <span class="tag">Startup ecosystem operations</span>
+          <span class="tag">Venture-building process design</span>
+          <span class="tag">AI and digital finance programme readiness</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="relevance">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Relevance to AIDF</div>
+            <h2>Why this fits a university-level digital finance institute.</h2>
+            <p class="section-intro" style="margin-top:16px">IncubatorOS is shaped around the operating needs of institute-backed venture programmes that translate research, AI ideas, and digital finance concepts into founder pathways.</p>
+          </div>
+          <ul class="relevance-list">
+            <li>Supports venture pipeline development from application intake to cohort formation.</li>
+            <li>Helps translate AI and digital finance ideas into structured startup pathways.</li>
+            <li>Creates structure for founder support, mentor matching, and ecosystem engagement.</li>
+            <li>Enables reporting for grants, stakeholders, programme outcomes, and institutional visibility.</li>
+            <li>Supports demo days, pilot matchmaking, and ecosystem partnerships across universities, industry, and investors.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section final">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Closing Statement</div>
+        <h2>IncubatorOS was designed as a practical portfolio project to demonstrate how structured programme operations can improve founder experience, stakeholder visibility, and venture-building outcomes.</h2>
+        <a class="btn-primary" href="../index.html#contact">Discuss programme work</a>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const pipelineRows = document.querySelectorAll("#pipelineRows tr");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        filterButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        pipelineRows.forEach((row) => {
+          const matches = filter === "all" ||
+            row.dataset.grant === filter ||
+            row.dataset.pilot === filter ||
+            row.dataset.mentor === filter;
+          row.style.display = matches ? "" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
