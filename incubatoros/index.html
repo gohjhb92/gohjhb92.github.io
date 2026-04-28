@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IncubatorOS &mdash; Founder Cohort &amp; Grant Tracking Dashboard</title>
-  <meta name="description" content="IncubatorOS is a mock incubation programme management dashboard for founder pipelines, mentor matching, grant milestones, pilot readiness, and programme KPIs.">
+  <title>IncubatorOS &mdash; Singapore Startup Grant &amp; Institutional Venture Support Dashboard</title>
+  <meta name="description" content="IncubatorOS is a mock operating system for Singapore startup grant readiness, institutional venture pathways, mentor matching, milestone evidence, and programme KPIs.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
       color: var(--ink);
       background:
         radial-gradient(circle at 8% 0%, rgba(143, 87, 53, .1), transparent 28%),
-        radial-gradient(circle at 90% 16%, rgba(39, 86, 111, .09), transparent 24%),
+        radial-gradient(circle at 92% 10%, rgba(39, 86, 111, .09), transparent 24%),
         linear-gradient(180deg, #fbf6ef 0%, var(--bg) 48%, #eee2d4 100%);
       line-height: 1.6;
     }
@@ -93,7 +93,7 @@
       min-height: 42px;
       padding: 0 15px;
       border: 1px solid var(--line-strong);
-      background: rgba(255, 250, 244, .7);
+      background: rgba(255, 250, 244, .72);
       font-size: 13px;
     }
 
@@ -117,8 +117,9 @@
     .hero-panel,
     .card,
     .dashboard,
-    .section {
-      background: rgba(255, 250, 244, .86);
+    .section,
+    .notice {
+      background: rgba(255, 250, 244, .88);
       border: 1px solid rgba(200, 176, 155, .55);
       border-radius: 26px;
       box-shadow: var(--shadow);
@@ -147,9 +148,9 @@
     h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; }
     h1 { font-size: clamp(54px, 8vw, 92px); line-height: .88; margin-bottom: 18px; }
     h1 span { color: var(--accent); }
-    .subtitle { font-size: clamp(24px, 3vw, 38px); line-height: 1.05; color: #3f332c; margin-bottom: 18px; }
-    .lead { max-width: 740px; font-size: 18px; color: #51443b; margin-bottom: 28px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .subtitle { max-width: 840px; font-size: clamp(24px, 3vw, 39px); line-height: 1.05; color: #3f332c; margin-bottom: 18px; }
+    .lead { max-width: 760px; font-size: 18px; color: #51443b; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
     .hero-panel h2 { font-size: 35px; line-height: 1; margin-bottom: 12px; }
     .hero-panel p { color: #5d4e44; font-size: 14px; }
@@ -158,12 +159,12 @@
       padding: 16px;
       border: 1px solid rgba(200, 176, 155, .5);
       border-radius: 18px;
-      background: rgba(255, 253, 248, .7);
+      background: rgba(255, 253, 248, .72);
     }
-    .hero-metric strong { display: block; font-size: 24px; color: var(--accent-dark); }
+    .hero-metric strong { display: block; font-size: 24px; color: var(--accent-dark); line-height: 1.1; }
     .hero-metric span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    .section { padding: 30px; margin-top: 24px; }
+    .section { padding: 31px; margin-top: 24px; }
     .section-head {
       display: flex;
       align-items: end;
@@ -172,10 +173,13 @@
       margin-bottom: 22px;
     }
     .section h2 { font-size: clamp(34px, 4vw, 48px); line-height: 1; }
-    .section-intro { max-width: 740px; color: #5d4e44; font-size: 16px; }
+    .section-intro { max-width: 790px; color: #5d4e44; font-size: 16px; }
 
     .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
     .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .pathway-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+    .report-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+
     .card { padding: 22px; box-shadow: none; }
     .card h3 { font-size: 26px; line-height: 1.05; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: 14px; }
@@ -193,16 +197,42 @@
       margin-bottom: 14px;
     }
 
+    .pathway-card {
+      padding: 22px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 22px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .pathway-card h3 { font-size: 27px; line-height: 1; margin-bottom: 10px; }
+    .pathway-card dl { display: grid; gap: 10px; }
+    .pathway-card dt {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--accent-dark);
+      margin-bottom: 3px;
+    }
+    .pathway-card dd { color: #55463d; font-size: 14px; }
+
     .dashboard { padding: 24px; margin-top: 16px; box-shadow: none; background: rgba(255, 253, 248, .9); }
-    .kpis { display: grid; grid-template-columns: repeat(7, minmax(130px, 1fr)); gap: 10px; margin-bottom: 18px; overflow-x: auto; padding-bottom: 4px; }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
     .kpi-card {
-      min-width: 130px;
-      padding: 16px;
+      min-height: 112px;
+      padding: 17px;
       border-radius: 18px;
       border: 1px solid rgba(200, 176, 155, .5);
       background: #fffaf4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .kpi-card strong { display: block; font-size: 22px; line-height: 1.05; color: var(--accent-dark); }
+    .kpi-card strong { display: block; font-size: 24px; line-height: 1.08; color: var(--accent-dark); }
     .kpi-card span { display: block; color: var(--muted); font-size: 12px; margin-top: 8px; }
 
     .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 18px; }
@@ -218,7 +248,7 @@
     .filter-btn.active { background: var(--accent); color: #fff8f1; border-color: var(--accent); }
 
     .table-wrap { overflow-x: auto; border: 1px solid rgba(200, 176, 155, .55); border-radius: 18px; background: #fffaf4; }
-    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    table { width: 100%; border-collapse: collapse; min-width: 920px; }
     th, td { padding: 14px 16px; border-bottom: 1px solid rgba(200, 176, 155, .38); text-align: left; vertical-align: top; }
     th {
       color: var(--muted);
@@ -230,6 +260,8 @@
     }
     td { font-size: 14px; color: #3d312b; }
     tr:last-child td { border-bottom: 0; }
+    .table-note { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -247,7 +279,8 @@
     .badge.low { background: #eadbd7; color: var(--red); }
     .badge.blue { background: #dce8ee; color: var(--blue); }
 
-    .rubric-total {
+    .rubric-total,
+    .sample-label {
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -305,7 +338,8 @@
     .check p { color: #4f4036; font-weight: 700; }
 
     .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
-    .tag {
+    .tag,
+    .report-metric {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -316,7 +350,9 @@
       color: #51443b;
       font-size: 13px;
       font-weight: 800;
+      text-align: center;
     }
+    .report-metric { min-height: 54px; border-radius: 16px; }
 
     .relevance {
       display: grid;
@@ -334,15 +370,26 @@
       color: #4f4036;
     }
 
+    .notice {
+      padding: 24px;
+      margin-top: 24px;
+      background: rgba(255, 253, 248, .82);
+      box-shadow: none;
+    }
+    .notice h2 { font-size: 32px; margin-bottom: 8px; }
+    .notice p { color: #5d4e44; }
+
     .final {
       text-align: center;
       padding: 42px 30px;
     }
-    .final h2 { max-width: 880px; margin: 0 auto 22px; }
+    .final h2 { max-width: 900px; margin: 0 auto 22px; }
 
     @media (max-width: 980px) {
       .hero, .relevance { grid-template-columns: 1fr; }
-      .grid-3, .grid-2, .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3, .grid-2, .timeline, .pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .report-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section-head { align-items: start; flex-direction: column; }
     }
 
@@ -350,13 +397,15 @@
       .wrap { padding: 22px 14px 60px; }
       .topbar { align-items: flex-start; flex-direction: column; }
       .nav-actions { justify-content: flex-start; }
-      .hero-copy, .hero-panel, .section { padding: 24px 20px; border-radius: 22px; }
-      .grid-3, .grid-2, .timeline, .hero-metrics { grid-template-columns: 1fr; }
+      .hero-copy, .hero-panel, .section, .notice { padding: 24px 20px; border-radius: 22px; }
+      .grid-3, .grid-2, .timeline, .hero-metrics, .pathway-grid, .kpis, .report-grid { grid-template-columns: 1fr; }
       h1 { font-size: 58px; }
       .subtitle { font-size: 27px; }
       .lead { font-size: 16px; }
       .hero-actions a { width: 100%; }
-      .kpis { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+      .table-wrap { margin-left: -2px; margin-right: -2px; }
+      table { min-width: 940px; }
+      th, td { padding: 12px 13px; }
     }
   </style>
 </head>
@@ -372,31 +421,31 @@
       </a>
       <nav class="nav-actions" aria-label="Project navigation">
         <a class="pill-link" href="../index.html#projects">Back to portfolio</a>
-        <a class="pill-link" href="#dashboard">Dashboard Preview</a>
-        <a class="pill-link" href="#framework">Operating Framework</a>
+        <a class="pill-link" href="#dashboard">Grant Dashboard</a>
+        <a class="pill-link" href="#pathways">Institution Pathways</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" id="top">
         <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-dot"></span>Incubation Programme OS</div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Singapore Startup Support OS</div>
           <h1>Incubator<span>OS</span></h1>
-          <p class="subtitle">Founder Cohort &amp; Grant Tracking Dashboard</p>
-          <p class="lead">IncubatorOS is a mock incubation programme management dashboard designed to help programme managers track founder pipelines, startup evaluations, mentor matching, grant milestones, demo day preparation, and cohort-level KPIs.</p>
+          <p class="subtitle">Singapore Startup Grant &amp; Institutional Venture Support Dashboard</p>
+          <p class="lead">IncubatorOS is a mock programme operations dashboard designed for Singapore-based startup support teams. It helps institutions track founder applications, startup grant readiness, research-commercialisation pathways, mentor matching, milestone evidence, pilot opportunities, and cohort-level outcomes.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#dashboard">View Dashboard Preview</a>
-            <a class="btn-secondary" href="#framework">See Operating Framework</a>
+            <a class="btn-primary" href="#dashboard">View Grant Readiness Dashboard</a>
+            <a class="btn-secondary" href="#pathways">Explore Institution Pathways</a>
           </div>
         </div>
         <aside class="hero-panel" aria-label="Project summary">
           <div>
-            <h2>Built for practical venture programme operations.</h2>
-            <p>A practical operating system for incubation programme managers to track startup applications, founder progress, mentor engagement, grant milestones, pilot opportunities, and programme KPIs.</p>
+            <h2>Built for education-linked venture operations.</h2>
+            <p>A mock operating system for universities, polytechnics, research institutes, incubators, accelerators, venture studios, and government-linked startup support programmes.</p>
           </div>
           <div class="hero-metrics">
-            <div class="hero-metric"><strong>128</strong><span>applications tracked</span></div>
-            <div class="hero-metric"><strong>12</strong><span>cohort startups</span></div>
+            <div class="hero-metric"><strong>31</strong><span>grant readiness reviews</span></div>
+            <div class="hero-metric"><strong>10</strong><span>institution pathways</span></div>
             <div class="hero-metric"><strong>36</strong><span>mentor matches</span></div>
             <div class="hero-metric"><strong>78%</strong><span>demo day readiness</span></div>
           </div>
@@ -407,14 +456,14 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Problem</div>
-            <h2>Incubation teams often run on scattered information.</h2>
+            <h2>Singapore startup support teams manage many founder pathways at once.</h2>
           </div>
         </div>
-        <p class="section-intro">Founder applications, grant reviews, mentor assignments, milestone reporting, demo day logistics, and stakeholder updates can quickly spread across spreadsheets, emails, decks, chat threads, and static documents.</p>
+        <p class="section-intro">Institutional teams often support student founders, alumni startups, research teams, early-stage founders, grant applicants, incubation cohorts, mentors, advisors, and corporate or institutional pilot partners across overlapping workflows.</p>
         <div class="grid-3" style="margin-top:22px">
-          <article class="card"><span class="card-index">01</span><h3>Fragmented founder and startup data</h3><p>Programme teams need one reliable view of applicants, founders, startup maturity, sector focus, and evaluation notes.</p></article>
-          <article class="card"><span class="card-index">02</span><h3>Manual grant and milestone tracking</h3><p>Grant approvals, milestone evidence, payout readiness, and reporting obligations become hard to monitor consistently.</p></article>
-          <article class="card"><span class="card-index">03</span><h3>Limited visibility into cohort KPIs</h3><p>Leadership, funders, and partners need timely signals on founder progress, mentor engagement, pilots, and outcomes.</p></article>
+          <article class="card"><span class="card-index">01</span><h3>Scattered founder and grant data</h3><p>Founder and grant data are often spread across forms, spreadsheets, emails, mentor notes, interview records, and programme trackers.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Limited readiness visibility</h3><p>Institutions need clearer visibility into eligibility, milestones, evidence quality, funding readiness, and pathway fit.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Reporting takes extra effort</h3><p>Programme teams need better reporting for grants, leadership, partners, and ecosystem outcomes without rebuilding dashboards every cycle.</p></article>
         </div>
       </section>
 
@@ -422,18 +471,42 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Solution</div>
-            <h2>One structured dashboard for core incubation workflows.</h2>
+            <h2>Grant readiness, founder support, venture workflows, and KPIs in one dashboard.</h2>
           </div>
         </div>
-        <p class="section-intro">IncubatorOS brings founder intake, evaluation, support, grant tracking, mentor coordination, KPI reporting, and demo day preparation into a single practical operating framework.</p>
+        <p class="section-intro">IncubatorOS gives programme managers a structured view of founder pipelines, grant pathway fit, milestone evidence, mentor matching, pilot readiness, and stakeholder reporting.</p>
         <div class="grid-3" style="margin-top:22px">
-          <article class="card"><span class="card-index">01</span><h3>Founder Pipeline Tracker</h3><p>Track status from application review to interview, shortlist, onboarding, and active cohort support.</p></article>
-          <article class="card"><span class="card-index">02</span><h3>Application Scoring Rubric</h3><p>Score founders consistently across market, feasibility, founder capability, pilot potential, and strategic fit.</p></article>
-          <article class="card"><span class="card-index">03</span><h3>Mentor Matching Tracker</h3><p>Match founders with sector, technical, go-to-market, fundraising, regulatory, and pilot access mentors.</p></article>
-          <article class="card"><span class="card-index">04</span><h3>KPI Dashboard</h3><p>Monitor cohort health through applications, shortlist rates, mentor coverage, grants, pilots, and readiness.</p></article>
-          <article class="card"><span class="card-index">05</span><h3>Grant Milestone Tracker</h3><p>Manage grant amounts, evidence collection, milestone completion, and payout readiness.</p></article>
-          <article class="card"><span class="card-index">06</span><h3>Demo Day Timeline</h3><p>Coordinate founder onboarding, validation reviews, pitch refinement, rehearsal, and investor preparation.</p></article>
-          <article class="card"><span class="card-index">07</span><h3>Founder Check-in Template</h3><p>Use a repeatable weekly check-in structure for progress, blockers, pilots, evidence, and next actions.</p></article>
+          <article class="card"><span class="card-index">01</span><h3>Founder Pipeline Tracker</h3><p>Track student, alumni, research, first-time founder, and spin-off teams from intake to programme support.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Grant Readiness Scoring</h3><p>Score founder eligibility, validation, use of funds, milestones, team capability, and ecosystem fit.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Institution Pathway Recommender</h3><p>Suggest suitable Singapore startup grant, university, research-commercialisation, or incubation pathways.</p></article>
+          <article class="card"><span class="card-index">04</span><h3>Mentor Matching Tracker</h3><p>Match teams with mentors based on technology, market, grant, pilot, go-to-market, and fundraising needs.</p></article>
+          <article class="card"><span class="card-index">05</span><h3>Funding &amp; Milestone Evidence Tracker</h3><p>Monitor evidence submitted, use-of-funds plans, milestone completion, and readiness for next support steps.</p></article>
+          <article class="card"><span class="card-index">06</span><h3>Pilot Readiness Tracker</h3><p>Assess customer discovery, pilot scope, technical readiness, institutional fit, and partner introduction needs.</p></article>
+          <article class="card"><span class="card-index">07</span><h3>Demo Day Timeline</h3><p>Coordinate pitch reviews, demo rehearsals, founder updates, partner invitations, and investor Q&amp;A preparation.</p></article>
+          <article class="card"><span class="card-index">08</span><h3>Founder Check-in Template</h3><p>Use a repeatable support cadence for progress, blockers, evidence, mentor needs, and next measurable actions.</p></article>
+          <article class="card"><span class="card-index">09</span><h3>KPI &amp; Stakeholder Reporting Dashboard</h3><p>Summarise applications, teams supported, grant reviews, milestones, mentors, pilots, and demo day outcomes.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="pathways">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Pathway Map</div>
+            <h2>Singapore Startup Grant &amp; Institution Pathway Map</h2>
+          </div>
+        </div>
+        <p class="section-intro">IncubatorOS helps programme managers identify which support pathway best fits each startup based on founder profile, venture stage, technology readiness, market validation, institution affiliation, and milestone evidence.</p>
+        <div class="pathway-grid">
+          <article class="pathway-card"><h3>Startup SG Founder</h3><dl><div><dt>Use for</dt><dd>First-time founders with innovative business concepts.</dd></div><div><dt>Track</dt><dd>Founder eligibility, business concept, feasibility, team strength, market potential, mentor recommendation, founder commitment.</dd></div></dl></article>
+          <article class="pathway-card"><h3>Startup SG Tech</h3><dl><div><dt>Use for</dt><dd>Deep-tech or proprietary technology startups seeking proof-of-concept or proof-of-value support.</dd></div><div><dt>Track</dt><dd>Technology novelty, IP status, prototype readiness, technical feasibility, commercial validation, POC/POV evidence, project milestones.</dd></div></dl></article>
+          <article class="pathway-card"><h3>Startup SG Accelerator</h3><dl><div><dt>Use for</dt><dd>Incubators, accelerators, and startup enablers that support startup growth.</dd></div><div><dt>Track</dt><dd>Programme design, mentor network, startup outcomes, market access support, funding support, ecosystem impact.</dd></div></dl></article>
+          <article class="pathway-card"><h3>Startup SG Equity</h3><dl><div><dt>Use for</dt><dd>High-potential Singapore-based technology startups preparing for investment or co-investment.</dd></div><div><dt>Track</dt><dd>Investor readiness, IP strength, global market potential, traction, fundraising pipeline, qualified investor interest.</dd></div></dl></article>
+          <article class="pathway-card"><h3>NUS Venture Initiation Programme</h3><dl><div><dt>Use for</dt><dd>NUS student or alumni teams pursuing innovative startup ideas.</dd></div><div><dt>Track</dt><dd>Project scope, founder team, 12-month milestones, prototype progress, validation evidence, budget use.</dd></div></dl></article>
+          <article class="pathway-card"><h3>NUS GRIP</h3><dl><div><dt>Use for</dt><dd>NUS researchers, postgraduate students, research staff, NUS Overseas Colleges alumni, and NUS alumni building deep-tech startups.</dd></div><div><dt>Track</dt><dd>Research translation, market validation, business model design, mentorship, incubation progress, investment readiness.</dd></div></dl></article>
+          <article class="pathway-card"><h3>National GRIP</h3><dl><div><dt>Use for</dt><dd>Researchers, innovators, and aspiring founders from Singapore universities and research institutes translating lab-based research into ventures.</dd></div><div><dt>Track</dt><dd>Research origin, technology readiness, venture formation, industry mentorship, commercialisation plan, spin-off potential.</dd></div></dl></article>
+          <article class="pathway-card"><h3>NTUitive / NTU Innovation &amp; Entrepreneurship</h3><dl><div><dt>Use for</dt><dd>NTU-linked inventors, researchers, student founders, and startups seeking incubation, grant support, IP support, or venture-building pathways.</dd></div><div><dt>Track</dt><dd>Invention disclosure, IP readiness, POC support, startup formation, mentor support, incubation status.</dd></div></dl></article>
+          <article class="pathway-card"><h3>SMU Institute of Innovation &amp; Entrepreneurship</h3><dl><div><dt>Use for</dt><dd>SMU-linked founders and startups entering incubation, mentor-led startup development, or growth support.</dd></div><div><dt>Track</dt><dd>BIG incubation status, mentor engagement, startup traction, acceleration grant readiness, market validation, seed-readiness.</dd></div></dl></article>
+          <article class="pathway-card"><h3>SUTD Venture, Innovation &amp; Entrepreneurship</h3><dl><div><dt>Use for</dt><dd>SUTD-linked student, alumni, faculty, and entrepreneurship programme teams seeking grants, mentors, prototype support, or venture investment.</dd></div><div><dt>Track</dt><dd>Prototype funding, mentor needs, venture innovation fund readiness, design/AI innovation alignment, market testing progress.</dd></div></dl></article>
         </div>
       </section>
 
@@ -441,26 +514,28 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Dashboard Preview</div>
-            <h2>Cohort health, founder pipeline, grants, and pilots at a glance.</h2>
+            <h2>Grant readiness, founder pathways, milestones, and programme outcomes at a glance.</h2>
           </div>
         </div>
         <div class="dashboard">
           <div class="kpis" aria-label="Programme KPI cards">
             <div class="kpi-card"><strong>128</strong><span>Applications Received</span></div>
+            <div class="kpi-card"><strong>64</strong><span>Teams Screened</span></div>
             <div class="kpi-card"><strong>24</strong><span>Startups Shortlisted</span></div>
             <div class="kpi-card"><strong>12</strong><span>Cohort Startups</span></div>
+            <div class="kpi-card"><strong>31</strong><span>Grant Readiness Reviews</span></div>
             <div class="kpi-card"><strong>36</strong><span>Mentors Matched</span></div>
-            <div class="kpi-card"><strong>US$120,000</strong><span>Grant Capital Allocated</span></div>
             <div class="kpi-card"><strong>9</strong><span>Pilot Opportunities</span></div>
             <div class="kpi-card"><strong>78%</strong><span>Demo Day Readiness</span></div>
           </div>
+
           <h3 style="font-size:30px;margin:8px 0 4px">Founder Pipeline Tracker</h3>
-          <p class="section-intro">Use the quick filters to scan by grant approval, mentor coverage, or pilot readiness.</p>
+          <p class="section-intro">Filter by grant readiness, mentor coverage, or pilot readiness to identify the next programme action.</p>
           <div class="filters" aria-label="Founder pipeline filters">
-            <button class="filter-btn active" data-filter="all">All startups</button>
-            <button class="filter-btn" data-filter="Approved">Grant approved</button>
-            <button class="filter-btn" data-filter="Pending">Grant pending</button>
-            <button class="filter-btn" data-filter="High">High pilot readiness</button>
+            <button class="filter-btn active" data-filter="all">All teams</button>
+            <button class="filter-btn" data-filter="High">High readiness</button>
+            <button class="filter-btn" data-filter="Medium">Medium readiness</button>
+            <button class="filter-btn" data-filter="Early">Early readiness</button>
             <button class="filter-btn" data-filter="Unmatched">Needs mentor</button>
           </div>
           <div class="table-wrap">
@@ -468,21 +543,23 @@
               <thead>
                 <tr>
                   <th>Startup</th>
+                  <th>Founder Type</th>
                   <th>Sector</th>
                   <th>Stage</th>
-                  <th>Founder Status</th>
-                  <th>Application Score</th>
-                  <th>Grant Status</th>
+                  <th>Pathway Fit</th>
+                  <th>Grant Readiness</th>
                   <th>Mentor Match</th>
                   <th>Pilot Readiness</th>
+                  <th>Next Review</th>
                 </tr>
               </thead>
               <tbody id="pipelineRows">
-                <tr data-grant="Approved" data-pilot="High" data-mentor="Matched"><td><strong>FinSight AI</strong></td><td>B2B Analytics</td><td>MVP</td><td><span class="badge blue">Interviewed</span></td><td>86</td><td><span class="badge good">Approved</span></td><td><span class="badge good">Matched</span></td><td><span class="badge good">High</span></td></tr>
-                <tr data-grant="Pending" data-pilot="Medium" data-mentor="Matched"><td><strong>EduBridge</strong></td><td>Education Technology</td><td>Prototype</td><td><span class="badge blue">Shortlisted</span></td><td>81</td><td><span class="badge warn">Pending</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td></tr>
-                <tr data-grant="Approved" data-pilot="High" data-mentor="Matched"><td><strong>SupplyLoop</strong></td><td>Logistics Software</td><td>MVP</td><td><span class="badge good">Onboarded</span></td><td>89</td><td><span class="badge good">Approved</span></td><td><span class="badge good">Matched</span></td><td><span class="badge good">High</span></td></tr>
-                <tr data-grant="Not Yet" data-pilot="Low" data-mentor="Unmatched"><td><strong>GreenLedger</strong></td><td>Climate Operations</td><td>Idea</td><td><span class="badge warn">Reviewing</span></td><td>73</td><td><span class="badge">Not Yet</span></td><td><span class="badge low">Unmatched</span></td><td><span class="badge low">Low</span></td></tr>
-                <tr data-grant="Pending" data-pilot="Medium" data-mentor="Matched"><td><strong>TrustVault</strong></td><td>Customer Trust</td><td>Prototype</td><td><span class="badge blue">Interviewed</span></td><td>84</td><td><span class="badge warn">Pending</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td></tr>
+                <tr data-readiness="High" data-pilot="Medium" data-mentor="Matched"><td><strong>FinSight AI</strong></td><td>University Research Team</td><td>AI Credit Risk</td><td>Prototype</td><td>NUS GRIP / Startup SG Tech</td><td><span class="badge good">High</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td><td>POC Review</td></tr>
+                <tr data-readiness="High" data-pilot="High" data-mentor="Matched"><td><strong>ReguLens</strong></td><td>Alumni Startup</td><td>RegTech Compliance</td><td>MVP</td><td>Startup SG Tech / Equity</td><td><span class="badge good">High</span></td><td><span class="badge good">Matched</span></td><td><span class="badge good">High</span></td><td>Pilot Scope Review</td></tr>
+                <tr data-readiness="Medium" data-pilot="Medium" data-mentor="Matched"><td><strong>PayMesh</strong></td><td>First-Time Founder Team</td><td>Cross-border Payments</td><td>MVP</td><td>Startup SG Founder</td><td><span class="badge warn">Medium</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td><td>Mentor Review</td></tr>
+                <tr data-readiness="Early" data-pilot="Low" data-mentor="Unmatched"><td><strong>GreenLedger</strong></td><td>Student Founder Team</td><td>Sustainable Finance</td><td>Idea</td><td>NUS VIP / Institution Grant</td><td><span class="badge blue">Early</span></td><td><span class="badge low">Unmatched</span></td><td><span class="badge low">Low</span></td><td>Customer Discovery</td></tr>
+                <tr data-readiness="High" data-pilot="Medium" data-mentor="Matched"><td><strong>TrustVault</strong></td><td>Research Institute Spin-off</td><td>Digital Identity</td><td>Prototype</td><td>National GRIP / Startup SG Tech</td><td><span class="badge good">High</span></td><td><span class="badge good">Matched</span></td><td><span class="badge warn">Medium</span></td><td>Commercialisation Review</td></tr>
+                <tr data-readiness="Medium" data-pilot="Medium" data-mentor="Unmatched"><td><strong>CareBridge</strong></td><td>Polytechnic Innovation Team</td><td>HealthTech Operations</td><td>MVP</td><td>Institution Incubator / Startup SG Founder</td><td><span class="badge warn">Medium</span></td><td><span class="badge low">Unmatched</span></td><td><span class="badge warn">Medium</span></td><td>Founder Readiness Review</td></tr>
               </tbody>
             </table>
           </div>
@@ -492,25 +569,95 @@
       <section class="section">
         <div class="section-head">
           <div>
-            <div class="eyebrow"><span class="eyebrow-dot"></span>Application Scoring</div>
-            <h2>Evaluation rubric for a 100-point founder application score.</h2>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Pathway Recommender</div>
+            <h2>Grant &amp; Institution Pathway Recommender</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Startup</th><th>Founder Type</th><th>Stage</th><th>Sector</th><th>Suggested Pathway</th><th>Why This Pathway Fits</th><th>Evidence Required</th><th>Next Action</th></tr></thead>
+            <tbody>
+              <tr><td><strong>FinSight AI</strong></td><td>University Research Team</td><td>Prototype</td><td>AI Credit Risk</td><td>NUS GRIP / Startup SG Tech</td><td>Research-linked AI solution with proprietary technology and commercialisation potential.</td><td>Technical demo, IP summary, validation interviews, POC milestone plan.</td><td>Prepare research translation and POC readiness pack.</td></tr>
+              <tr><td><strong>ReguLens</strong></td><td>Alumni Startup</td><td>MVP</td><td>RegTech Compliance</td><td>Startup SG Tech / Startup SG Equity</td><td>Deep-tech compliance product with enterprise use case and potential investor pathway.</td><td>Product demo, pilot scope, customer feedback, investor materials.</td><td>Review POV readiness and investor pipeline.</td></tr>
+              <tr><td><strong>PayMesh</strong></td><td>First-Time Founder Team</td><td>MVP</td><td>Cross-border Payments</td><td>Startup SG Founder</td><td>Early-stage founder team with innovative business concept and market potential.</td><td>Business model, customer discovery, team profile, go-to-market plan.</td><td>Prepare mentor review and application readiness checklist.</td></tr>
+              <tr><td><strong>GreenLedger</strong></td><td>Student Founder Team</td><td>Idea</td><td>Sustainable Finance</td><td>NUS VIP / Institution Startup Grant</td><td>Early student-led idea suitable for prototype and validation support.</td><td>Problem statement, customer interviews, prototype plan, 12-month budget.</td><td>Complete customer discovery and prototype milestone plan.</td></tr>
+              <tr><td><strong>TrustVault</strong></td><td>Research Institute Spin-off</td><td>Prototype</td><td>Digital Identity</td><td>National GRIP / Startup SG Tech</td><td>Research-origin deep-tech venture with potential institutional commercialisation pathway.</td><td>Research summary, technical feasibility, market validation, commercialisation plan.</td><td>Map venture formation milestones and mentor needs.</td></tr>
+              <tr><td><strong>CareBridge</strong></td><td>Polytechnic Innovation Team</td><td>MVP</td><td>HealthTech Operations</td><td>Institution Incubator / Startup SG Founder</td><td>Applied innovation project with early users and founder development needs.</td><td>User testing results, MVP demo, founder commitment, budget plan.</td><td>Assign mentor and prepare founder readiness review.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Scoring Rubric</div>
+            <h2>Grant Readiness Scoring Rubric</h2>
           </div>
           <span class="rubric-total">Total score: 100</span>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Criteria</th><th>Weight</th><th>Explanation</th></tr></thead>
+            <thead><tr><th>Criteria</th><th>Points</th><th>What the review checks</th></tr></thead>
             <tbody>
-              <tr><td><strong>Problem clarity</strong></td><td>12</td><td>How clearly the startup defines the user pain, urgency, and current alternatives.</td></tr>
-              <tr><td><strong>Market opportunity</strong></td><td>14</td><td>Size, timing, customer segment focus, and relevance to an investable or scalable opportunity.</td></tr>
-              <tr><td><strong>Product feasibility</strong></td><td>12</td><td>Evidence that the proposed product can be built, tested, and improved during the cohort.</td></tr>
-              <tr><td><strong>Founder capability</strong></td><td>14</td><td>Team commitment, domain knowledge, execution capacity, and openness to feedback.</td></tr>
-              <tr><td><strong>Business model</strong></td><td>10</td><td>Revenue logic, pricing assumptions, customer willingness to pay, and go-to-market clarity.</td></tr>
-              <tr><td><strong>Strategic fit with programme goals</strong></td><td>14</td><td>Alignment with the incubator's sector focus, founder support mandate, ecosystem priorities, and expected outcomes.</td></tr>
-              <tr><td><strong>Pilot potential</strong></td><td>12</td><td>Likelihood of securing a meaningful customer, research, ecosystem, or industry pilot.</td></tr>
-              <tr><td><strong>Grant milestone clarity</strong></td><td>12</td><td>Quality of proposed milestones, evidence, budget use, and reporting readiness.</td></tr>
+              <tr><td><strong>Founder eligibility and commitment</strong></td><td>15</td><td>Founder profile, programme fit, availability, role clarity, and readiness to execute.</td></tr>
+              <tr><td><strong>Problem clarity and market need</strong></td><td>15</td><td>Quality of problem definition, customer segment, urgency, and market relevance.</td></tr>
+              <tr><td><strong>Product or technology feasibility</strong></td><td>15</td><td>Prototype readiness, technical feasibility, build plan, and technology assumptions.</td></tr>
+              <tr><td><strong>Validation evidence</strong></td><td>15</td><td>Customer interviews, pilots, LOIs, early usage, research validation, or market signals.</td></tr>
+              <tr><td><strong>Team capability</strong></td><td>10</td><td>Founder skills, domain knowledge, execution capacity, and mentorability.</td></tr>
+              <tr><td><strong>Budget and use-of-funds clarity</strong></td><td>10</td><td>Budget logic, spending priorities, evidence of need, and responsible use of support.</td></tr>
+              <tr><td><strong>Milestone plan</strong></td><td>10</td><td>Measurable milestones, evidence requirements, timeline, and review checkpoints.</td></tr>
+              <tr><td><strong>Institutional or ecosystem fit</strong></td><td>10</td><td>Fit with institution, grant, research-commercialisation, incubation, or ecosystem objectives.</td></tr>
             </tbody>
           </table>
+        </div>
+        <p class="table-note">This mock rubric is designed for portfolio demonstration only. Real grant eligibility and award decisions depend on each programme's official criteria and current application guidelines.</p>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Evidence Tracker</div>
+            <h2>Grant Milestone &amp; Evidence Tracker</h2>
+          </div>
+          <span class="sample-label">Sample amounts only</span>
+        </div>
+        <p class="section-intro">Institutional startup programmes need clear evidence before recommending teams for grants, incubation, pilots, or investor introductions. This tracker helps programme managers monitor milestone completion, evidence submitted, use-of-funds plans, and support outcomes.</p>
+        <div class="table-wrap" style="margin-top:16px">
+          <table>
+            <thead><tr><th>Startup</th><th>Pathway</th><th>Support Amount</th><th>Milestone 1</th><th>Milestone 2</th><th>Milestone 3</th><th>Evidence Status</th><th>Current Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>FinSight AI</strong></td><td>NUS GRIP / Startup SG Tech</td><td>S$50,000</td><td>IP summary</td><td>Technical demo</td><td>POC milestone plan</td><td><span class="badge good">Evidence pack drafted</span></td><td>M2 in progress</td></tr>
+              <tr><td><strong>ReguLens</strong></td><td>Startup SG Tech / Equity</td><td>S$250,000</td><td>Enterprise pilot scope</td><td>POV evidence</td><td>Investor materials</td><td><span class="badge warn">Pilot feedback pending</span></td><td>POV review</td></tr>
+              <tr><td><strong>PayMesh</strong></td><td>Startup SG Founder</td><td>S$50,000</td><td>Business model</td><td>Customer discovery</td><td>Mentor recommendation</td><td><span class="badge warn">Use-of-funds draft</span></td><td>Mentor review</td></tr>
+              <tr><td><strong>GreenLedger</strong></td><td>NUS VIP / Institution Grant</td><td>S$10,000</td><td>Problem statement</td><td>Prototype plan</td><td>12-month budget</td><td><span class="badge blue">Early evidence</span></td><td>Discovery stage</td></tr>
+              <tr><td><strong>TrustVault</strong></td><td>National GRIP / Startup SG Tech</td><td>S$20,000</td><td>Research summary</td><td>Commercialisation plan</td><td>Mentor needs map</td><td><span class="badge good">Research evidence ready</span></td><td>Venture formation</td></tr>
+              <tr><td><strong>CareBridge</strong></td><td>Institution Incubator</td><td>Not Yet Assigned</td><td>User testing</td><td>MVP demo</td><td>Founder readiness</td><td><span class="badge warn">Testing results needed</span></td><td>Founder review</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Support amounts shown here are sample amounts for interface demonstration and do not imply guaranteed funding.</p>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Reporting</div>
+            <h2>Institutional Reporting View</h2>
+          </div>
+        </div>
+        <p class="section-intro">Singapore universities, research institutes, and startup ecosystem organisations need outcome reporting for internal leadership, grant administrators, partners, and ecosystem stakeholders.</p>
+        <div class="report-grid">
+          <span class="report-metric">Applications reviewed</span>
+          <span class="report-metric">Student / alumni / research teams supported</span>
+          <span class="report-metric">Grant applications prepared</span>
+          <span class="report-metric">Milestones completed</span>
+          <span class="report-metric">Mentors engaged</span>
+          <span class="report-metric">Pilot opportunities created</span>
+          <span class="report-metric">Startups incorporated</span>
+          <span class="report-metric">Follow-on funding conversations</span>
+          <span class="report-metric">Demo day participation</span>
+          <span class="report-metric">Research-to-market opportunities identified</span>
         </div>
       </section>
 
@@ -518,43 +665,12 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Mentor Matching</div>
-            <h2>Mentors are matched by founder need, not just availability.</h2>
+            <h2>Mentors are matched to pathway gaps and founder needs.</h2>
           </div>
         </div>
         <div class="grid-2">
-          <article class="card"><h3>Matching dimensions</h3><p>Sector expertise, technical needs, go-to-market needs, fundraising readiness, regulatory needs, and pilot partner access.</p></article>
-          <article class="card"><h3>Programme benefit</h3><p>A structured match view helps programme managers prioritise warm introductions, reduce founder drift, and show mentor engagement to stakeholders.</p></article>
-        </div>
-        <div class="table-wrap" style="margin-top:16px">
-          <table>
-            <thead><tr><th>Startup</th><th>Key Need</th><th>Suggested Mentor Type</th><th>Match Priority</th><th>Next Action</th></tr></thead>
-            <tbody>
-              <tr><td><strong>FinSight AI</strong></td><td>B2B pilot validation</td><td>Enterprise partnerships leader</td><td><span class="badge good">High</span></td><td>Introduce to innovation partner lead</td></tr>
-              <tr><td><strong>EduBridge</strong></td><td>User research and adoption</td><td>Education product advisor</td><td><span class="badge good">High</span></td><td>Schedule mentor office hours</td></tr>
-              <tr><td><strong>GreenLedger</strong></td><td>Problem validation</td><td>Climate startup operator</td><td><span class="badge warn">Medium</span></td><td>Define customer discovery questions</td></tr>
-              <tr><td><strong>TrustVault</strong></td><td>Enterprise buyer discovery</td><td>B2B go-to-market mentor</td><td><span class="badge warn">Medium</span></td><td>Review buyer map and pitch</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow"><span class="eyebrow-dot"></span>Grant Milestones</div>
-            <h2>Grant progress is visible from approval to evidence submission.</h2>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Startup</th><th>Grant Amount</th><th>Milestone 1</th><th>Milestone 2</th><th>Milestone 3</th><th>Current Status</th></tr></thead>
-            <tbody>
-              <tr><td><strong>FinSight AI</strong></td><td>US$10,000</td><td>Customer discovery plan</td><td>MVP analytics workflow</td><td>Enterprise pilot memo</td><td><span class="badge good">M2 in progress</span></td></tr>
-              <tr><td><strong>SupplyLoop</strong></td><td>US$12,000</td><td>Operations research</td><td>Warehouse test flow</td><td>Pilot partner LOI</td><td><span class="badge good">M1 complete</span></td></tr>
-              <tr><td><strong>EduBridge</strong></td><td>US$9,500</td><td>Learner workflow map</td><td>Prototype review</td><td>Demo environment</td><td><span class="badge warn">Awaiting approval</span></td></tr>
-              <tr><td><strong>TrustVault</strong></td><td>US$10,500</td><td>Customer use-case brief</td><td>API prototype</td><td>Enterprise pilot pitch</td><td><span class="badge warn">Evidence pending</span></td></tr>
-            </tbody>
-          </table>
+          <article class="card"><h3>Matching dimensions</h3><p>Sector expertise, technical needs, research translation, grant readiness, go-to-market needs, fundraising readiness, regulatory needs, and pilot partner access.</p></article>
+          <article class="card"><h3>Programme benefit</h3><p>A structured match view helps programme managers prioritise warm introductions, reduce founder drift, and show mentor engagement to institutional stakeholders.</p></article>
         </div>
       </section>
 
@@ -562,16 +678,16 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Demo Day Timeline</div>
-            <h2>Eight-week operating rhythm from onboarding to investor readiness.</h2>
+            <h2>Eight-week rhythm from pathway review to demo readiness.</h2>
           </div>
         </div>
         <div class="timeline">
           <article class="timeline-item"><span>Week 1</span><h3>Founder onboarding</h3></article>
-          <article class="timeline-item"><span>Week 2</span><h3>Customer discovery review</h3></article>
+          <article class="timeline-item"><span>Week 2</span><h3>Pathway and grant readiness review</h3></article>
           <article class="timeline-item"><span>Week 3</span><h3>Mentor matching</h3></article>
-          <article class="timeline-item"><span>Week 4</span><h3>Product validation checkpoint</h3></article>
-          <article class="timeline-item"><span>Week 5</span><h3>Pitch deck review</h3></article>
-          <article class="timeline-item"><span>Week 6</span><h3>Investor Q&amp;A preparation</h3></article>
+          <article class="timeline-item"><span>Week 4</span><h3>Validation evidence checkpoint</h3></article>
+          <article class="timeline-item"><span>Week 5</span><h3>Pitch and milestone review</h3></article>
+          <article class="timeline-item"><span>Week 6</span><h3>Pilot and partner preparation</h3></article>
           <article class="timeline-item"><span>Week 7</span><h3>Demo rehearsal</h3></article>
           <article class="timeline-item"><span>Week 8</span><h3>Demo Day</h3></article>
         </div>
@@ -581,15 +697,15 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Founder Check-in Template</div>
-            <h2>A reusable weekly support framework for programme managers.</h2>
+            <h2>A reusable support framework for programme managers.</h2>
           </div>
         </div>
         <div class="checklist">
           <div class="check"><span>01</span><p>What progress was made this week?</p></div>
           <div class="check"><span>02</span><p>What blockers need support?</p></div>
-          <div class="check"><span>03</span><p>What customer or pilot conversations happened?</p></div>
-          <div class="check"><span>04</span><p>What milestone evidence can be shared?</p></div>
-          <div class="check"><span>05</span><p>What mentor or partner introductions are needed?</p></div>
+          <div class="check"><span>03</span><p>What customer, pilot, or partner conversations happened?</p></div>
+          <div class="check"><span>04</span><p>What grant milestone evidence can be shared?</p></div>
+          <div class="check"><span>05</span><p>What mentor, institution, or ecosystem introductions are needed?</p></div>
           <div class="check"><span>06</span><p>What is the next measurable action?</p></div>
         </div>
       </section>
@@ -598,41 +714,49 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Skills Demonstrated</div>
-            <h2>Designed to show incubation and venture-building readiness.</h2>
+            <h2>Designed to show Singapore startup ecosystem operating readiness.</h2>
           </div>
         </div>
         <div class="tag-cloud">
-          <span class="tag">Incubation programme design</span>
+          <span class="tag">Startup grant readiness tracking</span>
+          <span class="tag">University entrepreneurship programme design</span>
           <span class="tag">Founder pipeline management</span>
-          <span class="tag">Grant evaluation</span>
-          <span class="tag">KPI tracking</span>
+          <span class="tag">Research commercialisation support</span>
+          <span class="tag">Institutional stakeholder reporting</span>
           <span class="tag">Mentor and partner coordination</span>
-          <span class="tag">Startup ecosystem operations</span>
-          <span class="tag">Venture-building process design</span>
-          <span class="tag">Startup incubation programme readiness</span>
+          <span class="tag">Milestone and evidence tracking</span>
+          <span class="tag">Pilot readiness assessment</span>
+          <span class="tag">Programme KPI dashboarding</span>
+          <span class="tag">Singapore startup ecosystem familiarity</span>
         </div>
       </section>
 
       <section class="section">
         <div class="relevance">
           <div>
-            <div class="eyebrow"><span class="eyebrow-dot"></span>Relevance to Startup Ecosystems</div>
-            <h2>Why this fits incubators, accelerators, universities, and venture studios.</h2>
-            <p class="section-intro" style="margin-top:16px">IncubatorOS is shaped around the operating needs of venture programmes that translate promising ideas, founder ambition, and ecosystem resources into structured startup pathways.</p>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Singapore Ecosystem Fit</div>
+            <h2>Relevance to Singapore Startup &amp; Education Ecosystems</h2>
+            <p class="section-intro" style="margin-top:16px">IncubatorOS is designed around the operating needs of Singapore's startup support ecosystem, where universities, research institutes, incubators, accelerators, and public-sector-linked programmes help founders move from idea to validation, funding readiness, pilots, and venture formation.</p>
           </div>
           <ul class="relevance-list">
-            <li>Supports venture pipeline development from application intake to cohort formation.</li>
-            <li>Helps translate early-stage ideas into structured startup pathways.</li>
-            <li>Creates structure for founder support, mentor matching, and ecosystem engagement.</li>
-            <li>Enables reporting for grants, stakeholders, programme outcomes, and institutional visibility.</li>
-            <li>Supports demo days, pilot matchmaking, and ecosystem partnerships across universities, industry, and investors.</li>
+            <li>Supports startup grant readiness across founder, technology, accelerator, and equity-style pathways.</li>
+            <li>Helps institutions manage student, alumni, researcher, and early-stage founder pipelines.</li>
+            <li>Creates structure for mentor matching, milestone evidence, and founder check-ins.</li>
+            <li>Supports research-commercialisation and university spin-off workflows.</li>
+            <li>Enables clearer reporting for programme teams, leadership, funders, and ecosystem partners.</li>
+            <li>Helps founders prepare for grants, pilots, demo days, and investor conversations.</li>
           </ul>
         </div>
       </section>
 
+      <section class="notice">
+        <h2>Portfolio Demonstration Notice</h2>
+        <p>This project is a mock portfolio case study and is not an official grant application tool. Grant names, eligibility criteria, and funding amounts should always be verified against the latest official programme pages before use.</p>
+      </section>
+
       <section class="section final">
         <div class="eyebrow"><span class="eyebrow-dot"></span>Closing Statement</div>
-        <h2>IncubatorOS was designed as a practical portfolio project to demonstrate how structured programme operations can improve founder experience, stakeholder visibility, and venture-building outcomes.</h2>
+        <h2>IncubatorOS was designed as a practical portfolio project to demonstrate how structured programme operations can improve founder experience, grant readiness, institutional visibility, and venture-building outcomes.</h2>
         <a class="btn-primary" href="../index.html#contact">Discuss programme work</a>
       </section>
     </main>
@@ -650,7 +774,7 @@
 
         pipelineRows.forEach((row) => {
           const matches = filter === "all" ||
-            row.dataset.grant === filter ||
+            row.dataset.readiness === filter ||
             row.dataset.pilot === filter ||
             row.dataset.mentor === filter;
           row.style.display = matches ? "" : "none";
