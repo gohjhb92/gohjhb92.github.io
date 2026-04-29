@@ -179,6 +179,15 @@
     .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
     .pathway-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
     .report-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 20px; }
+    .operating-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+    .flow-step {
+      padding: 16px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .flow-step strong { display: block; color: var(--accent-dark); font-size: 13px; margin-bottom: 5px; }
+    .flow-step span { display: block; color: #55463d; font-size: 13px; }
 
     .card { padding: 22px; box-shadow: none; }
     .card h3 { font-size: 26px; line-height: 1.05; margin-bottom: 8px; }
@@ -292,6 +301,15 @@
       font-weight: 800;
       white-space: nowrap;
     }
+    .score-bands { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .score-band {
+      padding: 15px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .score-band strong { display: block; color: var(--accent-dark); font-size: 13px; }
+    .score-band span { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
 
     .timeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
     .timeline-item {
@@ -387,7 +405,7 @@
 
     @media (max-width: 980px) {
       .hero, .relevance { grid-template-columns: 1fr; }
-      .grid-3, .grid-2, .timeline, .pathway-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3, .grid-2, .timeline, .pathway-grid, .operating-flow, .score-bands { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .report-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section-head { align-items: start; flex-direction: column; }
@@ -398,7 +416,7 @@
       .topbar { align-items: flex-start; flex-direction: column; }
       .nav-actions { justify-content: flex-start; }
       .hero-copy, .hero-panel, .section, .notice { padding: 24px 20px; border-radius: 22px; }
-      .grid-3, .grid-2, .timeline, .hero-metrics, .pathway-grid, .kpis, .report-grid { grid-template-columns: 1fr; }
+      .grid-3, .grid-2, .timeline, .hero-metrics, .pathway-grid, .kpis, .report-grid, .operating-flow, .score-bands { grid-template-columns: 1fr; }
       h1 { font-size: 58px; }
       .subtitle { font-size: 27px; }
       .lead { font-size: 16px; }
@@ -480,11 +498,18 @@
           <article class="card"><span class="card-index">02</span><h3>Grant Readiness Scoring</h3><p>Score founder eligibility, validation, use of funds, milestones, team capability, and ecosystem fit.</p></article>
           <article class="card"><span class="card-index">03</span><h3>Institution Pathway Recommender</h3><p>Suggest suitable Singapore startup grant, university, research-commercialisation, or incubation pathways.</p></article>
           <article class="card"><span class="card-index">04</span><h3>Mentor Matching Tracker</h3><p>Match teams with mentors based on technology, market, grant, pilot, go-to-market, and fundraising needs.</p></article>
-          <article class="card"><span class="card-index">05</span><h3>Funding &amp; Milestone Evidence Tracker</h3><p>Monitor evidence submitted, use-of-funds plans, milestone completion, and readiness for next support steps.</p></article>
+          <article class="card"><span class="card-index">05</span><h3>Grant Milestone &amp; Evidence Tracker</h3><p>Monitor evidence submitted, use-of-funds plans, milestone completion, and readiness for next support steps.</p></article>
           <article class="card"><span class="card-index">06</span><h3>Pilot Readiness Tracker</h3><p>Assess customer discovery, pilot scope, technical readiness, institutional fit, and partner introduction needs.</p></article>
           <article class="card"><span class="card-index">07</span><h3>Demo Day Timeline</h3><p>Coordinate pitch reviews, demo rehearsals, founder updates, partner invitations, and investor Q&amp;A preparation.</p></article>
           <article class="card"><span class="card-index">08</span><h3>Founder Check-in Template</h3><p>Use a repeatable support cadence for progress, blockers, evidence, mentor needs, and next measurable actions.</p></article>
           <article class="card"><span class="card-index">09</span><h3>KPI &amp; Stakeholder Reporting Dashboard</h3><p>Summarise applications, teams supported, grant reviews, milestones, mentors, pilots, and demo day outcomes.</p></article>
+        </div>
+        <div class="operating-flow" aria-label="Incubation operating workflow">
+          <div class="flow-step"><strong>1. Intake</strong><span>Capture founder profile, institution link, startup stage, sector, and support need.</span></div>
+          <div class="flow-step"><strong>2. Pathway review</strong><span>Compare grant, university, research-commercialisation, and incubator fit.</span></div>
+          <div class="flow-step"><strong>3. Evidence plan</strong><span>Define milestone proof, use-of-funds logic, prototype needs, and validation gaps.</span></div>
+          <div class="flow-step"><strong>4. Support matching</strong><span>Assign mentors, partner introductions, pilot preparation, and founder check-ins.</span></div>
+          <div class="flow-step"><strong>5. Reporting</strong><span>Track outcomes for leadership, grant administrators, partners, and ecosystem stakeholders.</span></div>
         </div>
       </section>
 
@@ -538,6 +563,7 @@
             <button class="filter-btn" data-filter="Early">Early readiness</button>
             <button class="filter-btn" data-filter="Unmatched">Needs mentor</button>
           </div>
+          <p class="table-note">Use the filters to spot which teams are ready for grant review, which need mentor coverage, and which need more validation before the next programme checkpoint.</p>
           <div class="table-wrap">
             <table>
               <thead>
@@ -612,6 +638,12 @@
           </table>
         </div>
         <p class="table-note">This mock rubric is designed for portfolio demonstration only. Real grant eligibility and award decisions depend on each programme's official criteria and current application guidelines.</p>
+        <div class="score-bands" aria-label="Grant readiness score bands">
+          <div class="score-band"><strong>80-100</strong><span>Ready for pathway or grant review.</span></div>
+          <div class="score-band"><strong>60-79</strong><span>Promising; evidence pack needs refinement.</span></div>
+          <div class="score-band"><strong>40-59</strong><span>Early; needs validation and milestone support.</span></div>
+          <div class="score-band"><strong>Below 40</strong><span>Not ready for grant recommendation.</span></div>
+        </div>
       </section>
 
       <section class="section">
@@ -751,7 +783,7 @@
 
       <section class="notice">
         <h2>Portfolio Demonstration Notice</h2>
-        <p>This project is a mock portfolio case study and is not an official grant application tool. Grant names, eligibility criteria, and funding amounts should always be verified against the latest official programme pages before use.</p>
+        <p>This project is a mock portfolio case study and is not an official grant application tool. Grant names, eligibility criteria, appointed partners, application windows, claim conditions, and funding amounts should always be verified against the latest official programme pages before use.</p>
       </section>
 
       <section class="section final">
