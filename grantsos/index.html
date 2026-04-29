@@ -199,6 +199,15 @@
     .type-grid,
     .checklist,
     .source-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .triage-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+    .triage-step {
+      padding: 16px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .triage-step strong { display: block; color: var(--accent-dark); font-size: 13px; margin-bottom: 5px; }
+    .triage-step span { display: block; color: #55463d; font-size: 13px; }
     .type-card,
     .check,
     .source-item {
@@ -246,7 +255,7 @@
     @media (max-width: 980px) {
       .hero, .score-grid { grid-template-columns: 1fr; }
       .hero-panel { border-width: 1px 0 0; border-radius: 0; }
-      .grid-3, .grid-2, .pathway-grid, .type-grid, .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3, .grid-2, .pathway-grid, .type-grid, .source-grid, .triage-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section-head { align-items: start; flex-direction: column; }
       .matrix { grid-template-columns: 1fr; }
@@ -260,7 +269,7 @@
       .topbar { align-items: flex-start; flex-direction: column; }
       .nav-actions { justify-content: flex-start; }
       .hero-copy, .hero-panel, .section, .notice { padding: 24px 20px; border-radius: 22px; }
-      .grid-3, .grid-2, .pathway-grid, .hero-metrics, .kpis, .type-grid, .checklist, .source-grid { grid-template-columns: 1fr; }
+      .grid-3, .grid-2, .pathway-grid, .hero-metrics, .kpis, .type-grid, .checklist, .source-grid, .triage-flow { grid-template-columns: 1fr; }
       h1 { font-size: 58px; }
       .subtitle { font-size: 27px; }
       .lead { font-size: 16px; }
@@ -346,6 +355,13 @@
           <article class="card"><span class="card-index">07</span><h3>Funding Use Case Matrix</h3><p>Separate founder grants, POC, POV, investment, loans, market access, and validation support.</p></article>
           <article class="card"><span class="card-index">08</span><h3>Application Preparation Dashboard</h3><p>Prioritise next actions before mentor review, grant application, pilot scoping, or investor outreach.</p></article>
         </div>
+        <div class="triage-flow" aria-label="Grant pathway triage workflow">
+          <div class="triage-step"><strong>1. Founder profile</strong><span>First-time, student, alumni, research, deep-tech, or growth-stage.</span></div>
+          <div class="triage-step"><strong>2. Startup stage</strong><span>Idea, validation, prototype, MVP, pilot, revenue, or scale-up.</span></div>
+          <div class="triage-step"><strong>3. Funding need</strong><span>Validation, POC, POV, startup capital, equity, financing, or market access.</span></div>
+          <div class="triage-step"><strong>4. Evidence gap</strong><span>Eligibility, prototype, customer discovery, IP, budget, milestones, or traction.</span></div>
+          <div class="triage-step"><strong>5. Next action</strong><span>Mentor review, evidence pack, pathway referral, pilot prep, or investor readiness.</span></div>
+        </div>
       </section>
 
       <section class="section" id="pathways">
@@ -380,7 +396,7 @@
             <h2>Grant Pathway Recommender</h2>
           </div>
         </div>
-        <p class="section-intro">Static sample data shows how a programme operator might triage startup teams by funding need and pathway fit before a formal mentor, grant, or investment review.</p>
+        <p class="section-intro">Static sample data shows how a programme operator might triage startup teams by funding need, evidence readiness, and pathway fit before a formal mentor, grant, or investment review.</p>
         <div class="dashboard">
           <div class="kpis">
             <div class="kpi-card"><strong>7</strong><span>sample startups assessed</span></div>
@@ -395,6 +411,7 @@
             <button class="filter-btn" data-filter="Investor">Investor readiness</button>
             <button class="filter-btn" data-filter="Validation">Validation</button>
           </div>
+          <p class="table-note">Use the filters to test how different funding needs change the recommended pathway and preparation work.</p>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Startup</th><th>Founder Type</th><th>Stage</th><th>Sector</th><th>Funding Need</th><th>Suggested Pathway</th><th>Why It Fits</th><th>Evidence Required</th><th>Next Action</th></tr></thead>
@@ -434,9 +451,10 @@
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Stage Matcher</div>
-            <h2>Startup Stage Matcher</h2>
+            <h2>Startup Stage &amp; Eligibility Matrix</h2>
           </div>
         </div>
+        <p class="section-intro">This matrix keeps stage, evidence, and pathway fit in one view so founders do not mistake interest in an idea for grant readiness.</p>
         <div class="matrix" aria-label="Stage to grant matrix">
           <div class="matrix-head">Stage</div><div class="matrix-head">Best-fit support</div><div class="matrix-head">Evidence needed</div><div class="matrix-head">Example pathways</div>
           <div class="matrix-stage">Idea</div><div>Founder readiness / idea validation</div><div>Problem statement, customer discovery</div><div>University grants, institution incubator</div>
@@ -588,6 +606,7 @@
           </div>
         </div>
         <p class="section-intro">Grant criteria, funding amounts, and eligibility rules can change. Founders should verify details against official programme pages before applying.</p>
+        <p class="table-note">Recommended verification checks: current eligibility, application windows, appointed partners, funding quantum, claim conditions, sector restrictions, and required supporting documents.</p>
         <div class="source-grid" style="margin-top:20px">
           <div class="source-item">Enterprise Singapore / Startup SG</div>
           <div class="source-item">NUS Enterprise Funding</div>
