@@ -161,6 +161,17 @@
     .risk-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     .relationship-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 18px; }
     .relationship-card h3 { font-family: var(--serif); font-size: 24px; margin-bottom: 6px; }
+    .command-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    .command-item {
+      padding: 18px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .command-item strong { display: block; color: var(--accent-dark); font-size: 14px; margin-bottom: 5px; }
+    .command-item span { display: block; color: #55463d; font-size: 13px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 16px; }
+    .legend span { display: inline-flex; align-items: center; min-height: 30px; padding: 6px 10px; border-radius: 999px; background: rgba(255, 250, 244, .72); border: 1px solid var(--line-strong); color: #51443b; font-size: 12px; font-weight: 800; }
     .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
     .tag { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(255, 250, 244, .7); color: #51443b; font-size: 13px; font-weight: 800; text-align: center; }
     .notice { padding: 24px; margin-top: 24px; background: rgba(255, 253, 248, .82); box-shadow: none; }
@@ -172,7 +183,7 @@
     @media (max-width: 980px) {
       .hero { grid-template-columns: 1fr; }
       .hero-panel { border-width: 1px 0 0; border-radius: 0; }
-      .grid-3, .grid-2, .timeline, .ritual-grid, .risk-grid, .relationship-grid, .operating-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3, .grid-2, .timeline, .ritual-grid, .risk-grid, .relationship-grid, .operating-flow, .command-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section-head { align-items: start; flex-direction: column; }
     }
@@ -182,7 +193,7 @@
       .topbar { align-items: flex-start; flex-direction: column; }
       .nav-actions { justify-content: flex-start; }
       .hero-copy, .hero-panel, .section, .notice { padding: 24px 20px; border-radius: 22px; }
-      .grid-3, .grid-2, .timeline, .hero-metrics, .kpis, .ritual-grid, .risk-grid, .relationship-grid, .operating-flow { grid-template-columns: 1fr; }
+      .grid-3, .grid-2, .timeline, .hero-metrics, .kpis, .ritual-grid, .risk-grid, .relationship-grid, .operating-flow, .command-grid { grid-template-columns: 1fr; }
       h1 { font-size: 58px; }
       .subtitle { font-size: 27px; }
       .lead { font-size: 16px; }
@@ -275,6 +286,22 @@
         </div>
       </section>
 
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Command Centre</div>
+            <h2>What the programme manager checks every week.</h2>
+          </div>
+        </div>
+        <p class="section-intro">This view translates programme execution into a weekly operating checklist: what is due, who owns it, what is blocked, what needs escalation, and what must be communicated before the next touchpoint.</p>
+        <div class="command-grid">
+          <div class="command-item"><strong>Delivery health</strong><span>Are workshops, clinics, mentor sessions, and founder deliverables on schedule?</span></div>
+          <div class="command-item"><strong>Founder experience</strong><span>Are founders clear on expectations, deadlines, support channels, and next actions?</span></div>
+          <div class="command-item"><strong>Operational risk</strong><span>Which logistics, budget, vendor, partner, or stakeholder issues need escalation?</span></div>
+          <div class="command-item"><strong>Reporting readiness</strong><span>Can leadership see progress, outcomes, budget movement, and decisions without chasing updates?</span></div>
+        </div>
+      </section>
+
       <section class="section" id="dashboard">
         <div class="section-head">
           <div>
@@ -296,6 +323,12 @@
           </div>
           <h3 style="font-size:28px; margin: 0 0 12px">Programme Workstream Tracker</h3>
           <p class="table-note">Use this table to track weekly execution across programme design, founder support, logistics, reporting, and ecosystem events.</p>
+          <div class="legend" aria-label="Workstream status legend">
+            <span>On Track: ready for next checkpoint</span>
+            <span>Watch: needs follow-up this week</span>
+            <span>Upcoming: not late, but preparation required</span>
+            <span>Not Started: requires owner action</span>
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Workstream</th><th>Owner</th><th>Status</th><th>This Week</th><th>Key Deliverable</th><th>Risk</th><th>Next Action</th></tr></thead>
@@ -349,6 +382,28 @@
       <section class="section">
         <div class="section-head">
           <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Budget &amp; Logistics</div>
+            <h2>Budget and logistics control view.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Programme execution depends on visible ownership for vendors, venues, approvals, event materials, catering, AV, speaker needs, and budget variance.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Category</th><th>Budget</th><th>Status</th><th>Owner</th><th>Risk</th><th>Next Action</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Workshop venue</strong></td><td>Logistics</td><td>S$3,200</td><td><span class="badge good">Confirmed</span></td><td>Operations Coordinator</td><td>Room setup differs by week</td><td>Confirm seating plan before each session</td></tr>
+              <tr><td><strong>Founder clinic catering</strong></td><td>Vendor</td><td>S$1,800</td><td><span class="badge warn">Watch</span></td><td>Programme Manager</td><td>Quote above estimate</td><td>Request alternate vendor quote</td></tr>
+              <tr><td><strong>Demo day AV</strong></td><td>Event Production</td><td>S$6,500</td><td><span class="badge blue">Upcoming</span></td><td>Events Lead</td><td>Technical rehearsal not scheduled</td><td>Book rehearsal slot and equipment test</td></tr>
+              <tr><td><strong>Speaker honorarium</strong></td><td>Programme Content</td><td>S$4,000</td><td><span class="badge good">On Track</span></td><td>Programme Lead</td><td>Payment paperwork incomplete</td><td>Send forms to speakers</td></tr>
+              <tr><td><strong>Demo day collateral</strong></td><td>Communications</td><td>S$2,500</td><td><span class="badge low">Not Started</span></td><td>Partnerships Lead</td><td>Founder one-liners not final</td><td>Collect founder profiles and logos</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Communications</div>
             <h2>Participant communications tracker.</h2>
           </div>
@@ -390,6 +445,26 @@
           <span class="tag">Partner engagement</span>
           <span class="tag">Risks escalated</span>
           <span class="tag">Improvements logged</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Escalation Log</div>
+            <h2>Decision and escalation tracker.</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Issue</th><th>Impact</th><th>Decision Needed</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Mentor gap for AI founders</strong></td><td>Two startups lack sector mentor coverage</td><td>Approve outreach to external mentor network</td><td>Programme Lead</td><td>Week 3</td><td><span class="badge warn">Open</span></td></tr>
+              <tr><td><strong>Demo day venue capacity</strong></td><td>Investor guest list may exceed room capacity</td><td>Confirm overflow room or cap attendance</td><td>Events Lead</td><td>Week 5</td><td><span class="badge blue">Review</span></td></tr>
+              <tr><td><strong>Budget variance</strong></td><td>Catering and AV quotes exceed planning estimate</td><td>Reallocate from contingency or reduce scope</td><td>Operations Coordinator</td><td>Week 4</td><td><span class="badge warn">Open</span></td></tr>
+              <tr><td><strong>Founder deck quality</strong></td><td>Five teams need pitch narrative support</td><td>Add extra pitch clinic before rehearsal</td><td>Founder Support Lead</td><td>Week 6</td><td><span class="badge good">Actioned</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
