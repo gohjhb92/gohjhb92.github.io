@@ -121,7 +121,9 @@ button {
 .nav-links a,
 .nav-cta,
 .site-footer a,
-.work-card > a {
+.work-card > a,
+.compact-list a,
+.card-links a {
   border-bottom: 1px solid transparent;
   transition: color 180ms ease, border-color 180ms ease;
 }
@@ -129,7 +131,9 @@ button {
 .nav-links a:hover,
 .nav-cta:hover,
 .site-footer a:hover,
-.work-card > a:hover {
+.work-card > a:hover,
+.compact-list a:hover,
+.card-links a:hover {
   border-color: var(--vermilion);
   color: var(--vermilion-dark);
 }
@@ -526,12 +530,20 @@ h3 {
   font-size: 0.68rem;
 }
 
-.work-card > a {
+.work-card > a,
+.compact-list a,
+.card-links a {
   width: fit-content;
   color: var(--vermilion-dark);
   font-family: var(--mono);
   font-size: 0.78rem;
   font-weight: 800;
+}
+
+.card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
 }
 
 .compact-list {
@@ -546,6 +558,11 @@ h3 {
   min-height: 18rem;
   padding: 1.1rem;
   background: var(--paper);
+}
+
+.compact-list a {
+  display: inline-flex;
+  margin-top: 1rem;
 }
 
 .compact-list span,
