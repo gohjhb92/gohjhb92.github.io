@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VentureSupportOS &mdash; Early-Stage Startup Support Dashboard</title>
+  <meta name="description" content="VentureSupportOS is a mock portfolio dashboard for customer discovery, product validation, market access, fundraising readiness, pilot opportunities, and mentor matching.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4ede4;
+      --paper: #fffaf4;
+      --ink: #221c18;
+      --muted: #73645a;
+      --line: #decfc1;
+      --line-strong: #c8b09b;
+      --accent: #8f5735;
+      --accent-dark: #63351f;
+      --accent-soft: #efe0d4;
+      --blue: #27566f;
+      --green: #397354;
+      --amber: #a76527;
+      --red: #9c4335;
+      --shadow: 0 24px 60px rgba(72, 49, 34, .08);
+      --serif: "Cormorant Garamond", serif;
+      --sans: "Manrope", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(143, 87, 53, .1), transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(39, 86, 111, .09), transparent 24%),
+        linear-gradient(180deg, #fbf6ef 0%, var(--bg) 48%, #eee2d4 100%);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 34px 22px 82px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #fff8f1;
+      font-weight: 800;
+      box-shadow: 0 16px 34px rgba(99, 53, 31, .18);
+    }
+    .brand strong { display: block; font-size: 15px; line-height: 1.1; }
+    .brand span { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+    .nav-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+    .pill-link,
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+    .pill-link { min-height: 42px; padding: 0 15px; border: 1px solid var(--line-strong); background: rgba(255, 250, 244, .72); font-size: 13px; }
+    .btn-primary,
+    .btn-secondary { min-height: 48px; padding: 0 20px; font-size: 14px; }
+    .btn-primary { color: #fff8f1; background: var(--accent-dark); border: 1px solid var(--accent-dark); }
+    .btn-secondary { color: var(--ink); background: rgba(255, 250, 244, .45); border: 1px solid var(--line-strong); }
+    .pill-link:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover { transform: translateY(-1px); }
+
+    .hero,
+    .hero-panel,
+    .card,
+    .section,
+    .dashboard,
+    .notice {
+      background: rgba(255, 250, 244, .88);
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .65fr); overflow: hidden; }
+    .hero-copy { padding: 42px 38px 36px; }
+    .hero-panel { padding: 30px 28px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: none; border-radius: 0; border-width: 0 0 0 1px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--accent-dark); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+    .eyebrow-dot { width: 8px; height: 8px; border-radius: 999px; background: var(--accent); }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.02em; }
+    h1 { font-size: clamp(48px, 7vw, 88px); line-height: .9; margin-bottom: 18px; overflow-wrap: anywhere; }
+    h1 span { color: var(--accent); }
+    .subtitle { max-width: 880px; font-size: clamp(24px, 3vw, 39px); line-height: 1.05; color: #3f332c; margin-bottom: 18px; }
+    .lead { max-width: 790px; font-size: 18px; color: #51443b; margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .hero-panel h2 { font-size: 35px; line-height: 1; margin-bottom: 12px; }
+    .hero-panel p { color: #5d4e44; font-size: 14px; }
+    .hero-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 30px; }
+    .hero-metric { padding: 16px; border: 1px solid rgba(200, 176, 155, .5); border-radius: 18px; background: rgba(255, 253, 248, .72); }
+    .hero-metric strong { display: block; font-size: 24px; color: var(--accent-dark); line-height: 1.1; }
+    .hero-metric span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    .section { padding: 31px; margin-top: 24px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 22px; margin-bottom: 22px; }
+    .section h2 { font-size: clamp(34px, 4vw, 48px); line-height: 1; }
+    .section-intro { max-width: 840px; color: #5d4e44; font-size: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .card { padding: 22px; box-shadow: none; }
+    .card h3 { font-size: 26px; line-height: 1.05; margin-bottom: 8px; }
+    .card p, .card li { color: var(--muted); font-size: 14px; }
+    .card ul { padding-left: 18px; margin-top: 8px; }
+    .card-index { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 999px; background: var(--accent-soft); color: var(--accent-dark); font-size: 12px; font-weight: 800; margin-bottom: 14px; }
+
+    .dashboard { padding: 24px; margin-top: 16px; box-shadow: none; background: rgba(255, 253, 248, .9); }
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .kpi-card { min-height: 112px; padding: 17px; border-radius: 18px; border: 1px solid rgba(200, 176, 155, .5); background: #fffaf4; display: flex; flex-direction: column; justify-content: space-between; }
+    .kpi-card strong { display: block; font-size: 24px; line-height: 1.08; color: var(--accent-dark); }
+    .kpi-card span { display: block; color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .table-wrap { max-width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; border: 1px solid rgba(200, 176, 155, .55); border-radius: 18px; background: #fffaf4; }
+    table { width: 100%; border-collapse: collapse; min-width: 940px; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid rgba(200, 176, 155, .38); text-align: left; vertical-align: top; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .11em; font-weight: 800; background: rgba(239, 224, 212, .45); }
+    td { font-size: 14px; color: #3d312b; overflow-wrap: break-word; }
+    tr:last-child td { border-bottom: 0; }
+    .table-note { color: var(--muted); font-size: 12px; margin: 10px 0 0; }
+    .badge { display: inline-flex; align-items: center; justify-content: center; min-height: 26px; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .badge.good { background: #dce9df; color: var(--green); }
+    .badge.warn { background: #f2e3d3; color: var(--amber); }
+    .badge.low { background: #eadbd7; color: var(--red); }
+    .badge.blue { background: #dce8ee; color: var(--blue); }
+
+    .score-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr); gap: 16px; align-items: start; }
+    .score-bands, .pathway, .relationship-grid { display: grid; gap: 12px; }
+    .score-band, .pathway-step, .mentor-card, .relationship-card, .validation-card {
+      padding: 16px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .score-band strong, .pathway-step strong, .mentor-card strong, .relationship-card h3, .validation-card strong { display: block; color: var(--accent-dark); }
+    .score-band span, .pathway-step span, .mentor-card span, .relationship-card p, .validation-card span { display: block; color: var(--muted); font-size: 13px; }
+    .pathway { grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: 22px; }
+    .pathway-step { position: relative; min-height: 145px; }
+    .pathway-step em { display: inline-flex; margin-bottom: 10px; color: var(--blue); font-style: normal; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .pathway-step strong { font-size: 14px; margin-bottom: 5px; }
+    .validation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .validation-card strong { font-size: 13px; margin-bottom: 5px; }
+    .mentor-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+    .mentor-card { text-align: center; min-height: 104px; }
+    .mentor-card strong { font-size: 13px; margin-bottom: 6px; }
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+    .tag { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line-strong); background: rgba(255, 250, 244, .7); color: #51443b; font-size: 13px; font-weight: 800; text-align: center; }
+    .relationship-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 18px; }
+    .relationship-card h3 { font-family: var(--serif); font-size: 24px; margin-bottom: 6px; }
+    .notice { padding: 24px; margin-top: 24px; background: rgba(255, 253, 248, .82); box-shadow: none; }
+    .notice h2 { font-size: 32px; margin-bottom: 8px; }
+    .notice p { color: #5d4e44; }
+    .final { text-align: center; padding: 42px 30px; }
+    .final h2 { max-width: 900px; margin: 0 auto 22px; }
+
+    @media (max-width: 980px) {
+      .hero, .score-grid { grid-template-columns: 1fr; }
+      .hero-panel { border-width: 1px 0 0; border-radius: 0; }
+      .grid-3, .grid-2, .grid-4, .relationship-grid, .validation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pathway { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .mentor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 680px) {
+      .wrap { padding: 22px 14px 60px; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .nav-actions, .hero-actions { width: 100%; justify-content: flex-start; }
+      .pill-link { flex: 1 1 calc(50% - 10px); min-width: 0; text-align: center; }
+      .hero-copy, .hero-panel, .section, .notice { padding: 24px 20px; border-radius: 22px; }
+      .grid-3, .grid-2, .grid-4, .hero-metrics, .kpis, .relationship-grid, .validation-grid, .pathway, .mentor-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(38px, 12vw, 48px); }
+      .subtitle { font-size: clamp(24px, 8vw, 27px); }
+      .lead { font-size: 16px; }
+      .hero-actions a { width: 100%; }
+      .table-wrap { margin-left: -2px; margin-right: -2px; }
+      table { min-width: 940px; }
+      th, td { padding: 12px 13px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="Back to portfolio home">
+        <span class="brand-mark">GO</span>
+        <span><strong>VentureSupportOS</strong><span>Early-stage startup support</span></span>
+      </a>
+      <nav class="nav-actions" aria-label="Project navigation">
+        <a class="pill-link" href="../index.html#projects">Back to portfolio</a>
+        <a class="pill-link" href="#dashboard">Support Dashboard</a>
+        <a class="pill-link" href="#readiness">Readiness Score</a>
+        <a class="pill-link" href="#pathway">Support Pathway</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Early-Stage Venture Support</div>
+          <h1>VentureSupport<span>OS</span></h1>
+          <p class="subtitle">Early-Stage Startup Support Dashboard</p>
+          <p class="lead">VentureSupportOS is a mock portfolio project designed for startup incubators, university entrepreneurship teams, venture studios, and innovation programmes. It helps programme managers diagnose founder needs, assign practical support, track validation evidence, manage partner introductions, prepare startups for funding, and structure pilot opportunities.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#dashboard">View Support Dashboard</a>
+            <a class="btn-secondary" href="#discovery">Track Founder Evidence</a>
+            <a class="btn-secondary" href="#pathway">Explore Support Pathway</a>
+          </div>
+        </div>
+        <aside class="hero-panel" aria-label="Project summary">
+          <div>
+            <h2>Built for programme teams moving founders from advice to action.</h2>
+            <p>A practical operating view for matching each startup to the right support at the right moment: customer discovery, product validation, market access, fundraising readiness, mentor input, or pilot preparation.</p>
+          </div>
+          <div class="hero-metrics">
+            <div class="hero-metric"><strong>32</strong><span>startups supported</span></div>
+            <div class="hero-metric"><strong>420</strong><span>interviews tracked</span></div>
+            <div class="hero-metric"><strong>46</strong><span>partner introductions</span></div>
+            <div class="hero-metric"><strong>9</strong><span>pilots scoped</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Problem</div>
+            <h2>Early-stage founders need specific support, not generic advice.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Early-stage ventures rarely need the same intervention at the same time. Some teams need customer discovery, some need product validation, some need market access, some need fundraising preparation, and others need help turning partner interest into a well-scoped pilot.</p>
+        <div class="grid-3" style="margin-top:22px">
+          <article class="card"><span class="card-index">01</span><h3>Support can be too generic</h3><p>Founders may receive broad feedback even when the real blocker is more specific: weak evidence, unclear buyers, missing validation, or poor pilot definition.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Evidence is hard to see</h3><p>Programme teams need a clear operating view of each startup's current blockers, proof points, mentor input, and next measurable action.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Introductions need timing</h3><p>Mentors, partners, investors, and pilot opportunities should be matched when the startup has the right materials, readiness, and decision path.</p></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Solution</div>
+            <h2>A practical support operating system for venture-building teams.</h2>
+          </div>
+        </div>
+        <p class="section-intro">VentureSupportOS gives programme teams a structured way to diagnose founder needs and assign support pathways across discovery, validation, market access, fundraising, pilot readiness, and mentor matching.</p>
+        <div class="grid-4" style="margin-top:22px">
+          <article class="card"><span class="card-index">01</span><h3>Founder Support Diagnostic</h3><p>Classify each startup's main gap and support pathway.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Customer Discovery Tracker</h3><p>Track interviews, hypotheses, pain levels, and insights.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Product Validation Board</h3><p>Monitor MVP tests, workflow fit, feasibility, and milestones.</p></article>
+          <article class="card"><span class="card-index">04</span><h3>Market Access CRM</h3><p>Manage partner segments, introduction status, and follow-ups.</p></article>
+          <article class="card"><span class="card-index">05</span><h3>Fundraising Readiness Score</h3><p>Score investor or grant review readiness out of 100.</p></article>
+          <article class="card"><span class="card-index">06</span><h3>Pilot Opportunity Tracker</h3><p>Structure objectives, risks, success metrics, and outcomes.</p></article>
+          <article class="card"><span class="card-index">07</span><h3>Mentor Matching</h3><p>Match founders with the mentor type they need next.</p></article>
+          <article class="card"><span class="card-index">08</span><h3>KPI Dashboard</h3><p>Report venture support activity and founder progress clearly.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="dashboard">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Founder Support Dashboard</div>
+            <h2>One view of startup needs, support actions, and evidence.</h2>
+          </div>
+        </div>
+        <div class="dashboard">
+          <div class="kpis">
+            <div class="kpi-card"><strong>32</strong><span>Startups Supported</span></div>
+            <div class="kpi-card"><strong>420</strong><span>Customer Interviews Tracked</span></div>
+            <div class="kpi-card"><strong>18</strong><span>MVP Tests Completed</span></div>
+            <div class="kpi-card"><strong>46</strong><span>Partner Introductions</span></div>
+            <div class="kpi-card"><strong>14</strong><span>Fundraising Reviews</span></div>
+            <div class="kpi-card"><strong>9</strong><span>Pilot Opportunities Scoped</span></div>
+            <div class="kpi-card"><strong>28</strong><span>Mentors Matched</span></div>
+            <div class="kpi-card"><strong>11</strong><span>Demo Day Ready</span></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Startup</th>
+                  <th>Sector</th>
+                  <th>Stage</th>
+                  <th>Primary Gap</th>
+                  <th>Recommended Support</th>
+                  <th>Evidence Needed</th>
+                  <th>Next Action</th>
+                  <th>Support Owner</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>FinSight AI</td><td>AI Credit Risk</td><td><span class="badge blue">Prototype</span></td><td>Pilot Readiness</td><td>Pilot scoping</td><td>Pilot objective, data needs, success metrics</td><td>Prepare pilot brief</td><td>Programme Manager</td></tr>
+                <tr><td>ReguLens</td><td>RegTech Compliance</td><td><span class="badge good">MVP</span></td><td>Market Access</td><td>Partner introductions</td><td>Demo, use case, buyer persona</td><td>Introduce compliance mentor</td><td>Ecosystem Lead</td></tr>
+                <tr><td>PayMesh</td><td>Cross-border Payments</td><td><span class="badge good">MVP</span></td><td>Fundraising Readiness</td><td>Pitch and funding prep</td><td>Deck, traction, use of funds</td><td>Review pitch deck</td><td>Venture Mentor</td></tr>
+                <tr><td>GreenLedger</td><td>Sustainable Finance</td><td><span class="badge low">Idea</span></td><td>Customer Discovery</td><td>Problem validation</td><td>20 customer interviews, problem statement</td><td>Run discovery sprint</td><td>Founder Coach</td></tr>
+                <tr><td>TrustVault</td><td>Digital Identity</td><td><span class="badge blue">Prototype</span></td><td>Product Validation</td><td>User testing</td><td>Prototype demo, workflow feedback</td><td>Schedule usability test</td><td>Product Mentor</td></tr>
+                <tr><td>CareBridge</td><td>HealthTech Ops</td><td><span class="badge good">MVP</span></td><td>Pilot Readiness</td><td>Risk review and pilot setup</td><td>Workflow map, non-sensitive pilot scope</td><td>Define pilot environment</td><td>Partnerships Lead</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">Sample data only. The dashboard is designed to show how practical founder support can be structured inside an incubation programme.</p>
+        </div>
+      </section>
+
+      <section class="section" id="discovery">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Customer Discovery Tracker</div>
+            <h2>Validate whether the problem is real, painful, and worth solving.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Customer discovery helps founders move beyond assumptions by tracking interview volume, target customer quality, pain signals, and the next learning milestone.</p>
+        <div class="table-wrap" style="margin-top:18px">
+          <table>
+            <thead><tr><th>Startup</th><th>Target Customer</th><th>Hypothesis</th><th>Interviews Completed</th><th>Pain Level</th><th>Key Insight</th><th>Next Step</th></tr></thead>
+            <tbody>
+              <tr><td>GreenLedger</td><td>SME sustainability leads</td><td>SMEs need simpler ESG reporting evidence</td><td>18</td><td><span class="badge warn">Medium</span></td><td>Reporting is painful but budget owner is unclear</td><td>Interview CFO and compliance roles</td></tr>
+              <tr><td>CareBridge</td><td>Community care ops teams</td><td>Manual scheduling creates care coordination delays</td><td>32</td><td><span class="badge good">High</span></td><td>Ops teams want non-clinical workflow automation first</td><td>Map pilot workflow with one provider</td></tr>
+              <tr><td>PayMesh</td><td>SME exporters</td><td>Payment tracking across markets is fragmented</td><td>27</td><td><span class="badge good">High</span></td><td>Founders should narrow to invoice reconciliation use case</td><td>Validate buyer willingness to pay</td></tr>
+              <tr><td>ReguLens</td><td>Compliance managers</td><td>Policy review workflows are slow and repetitive</td><td>21</td><td><span class="badge good">High</span></td><td>Teams need audit trail and approval workflow more than summaries</td><td>Build workflow demo around audit use case</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Product Validation Board</div>
+            <h2>Test whether the prototype or MVP works in a real workflow.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Product validation tracks whether a startup has evidence that users can understand the product, complete the workflow, trust the output, and reach a measurable result.</p>
+        <div class="validation-grid">
+          <article class="validation-card"><strong>Prototype status</strong><span>TrustVault has a clickable workflow and API mock ready for identity verification tests.</span></article>
+          <article class="validation-card"><strong>User testing</strong><span>CareBridge needs five operations users to test the handoff workflow before partner introduction.</span></article>
+          <article class="validation-card"><strong>Technical feasibility</strong><span>FinSight AI needs explainability notes and anonymised data requirements before pilot scoping.</span></article>
+          <article class="validation-card"><strong>Workflow fit</strong><span>ReguLens should validate policy review handoffs across legal, compliance, and business users.</span></article>
+          <article class="validation-card"><strong>Validation metric</strong><span>PayMesh is tracking reconciliation time saved and transaction-status clarity for SME users.</span></article>
+          <article class="validation-card"><strong>Next milestone</strong><span>GreenLedger must convert discovery insights into a lightweight prototype and test plan.</span></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Market Access CRM</div>
+            <h2>Help startups reach customers, partners, and ecosystem channels.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Market access support should be managed like an operating pipeline: define the target segment, prepare the right material, make the introduction, and track the follow-up.</p>
+        <div class="table-wrap" style="margin-top:18px">
+          <table>
+            <thead><tr><th>Startup</th><th>Target Segment</th><th>Partner Type</th><th>Intro Status</th><th>Material Needed</th><th>Follow-up Action</th></tr></thead>
+            <tbody>
+              <tr><td>ReguLens</td><td>Enterprise compliance teams</td><td>Regulated enterprise</td><td><span class="badge warn">Preparing</span></td><td>Workflow demo, use case one-pager</td><td>Send mentor-reviewed outreach pack</td></tr>
+              <tr><td>PayMesh</td><td>SME exporters</td><td>Fintech platform</td><td><span class="badge blue">Intro drafted</span></td><td>Buyer persona, transaction flow</td><td>Clarify regulatory assumptions</td></tr>
+              <tr><td>CareBridge</td><td>Community care providers</td><td>Healthcare operations lead</td><td><span class="badge good">Warm intro</span></td><td>Non-sensitive pilot scope</td><td>Schedule workflow validation call</td></tr>
+              <tr><td>FinSight AI</td><td>SME lending teams</td><td>Financial institution</td><td><span class="badge warn">Needs brief</span></td><td>Data request, model explainability note</td><td>Prepare pilot brief for review</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="readiness">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Fundraising Readiness Score</div>
+            <h2>A 100-point rubric for investor or grant review preparation.</h2>
+          </div>
+        </div>
+        <div class="score-grid">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Criteria</th><th>Points</th><th>What It Checks</th></tr></thead>
+              <tbody>
+                <tr><td>Problem and market clarity</td><td>15</td><td>Clear pain point, target customer, urgency, and market narrative.</td></tr>
+                <tr><td>Product evidence</td><td>15</td><td>Prototype, MVP, demo, workflow proof, or technical feasibility evidence.</td></tr>
+                <tr><td>Traction</td><td>15</td><td>Customer interviews, users, pilots, revenue, partnerships, or usage signals.</td></tr>
+                <tr><td>Business model</td><td>15</td><td>Revenue logic, buyer, pricing assumptions, and go-to-market approach.</td></tr>
+                <tr><td>Team capability</td><td>10</td><td>Founder commitment, domain insight, execution ability, and gaps.</td></tr>
+                <tr><td>Use of funds</td><td>10</td><td>Clear budget, runway logic, grant use, or investor capital allocation.</td></tr>
+                <tr><td>Milestone plan</td><td>10</td><td>Specific milestones tied to product, market, pilot, or revenue outcomes.</td></tr>
+                <tr><td>Investor fit</td><td>10</td><td>Alignment with investor, grant, accelerator, or institutional pathway.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <aside class="score-bands">
+            <div class="score-band"><strong>80-100</strong><span>Ready for investor or grant review.</span></div>
+            <div class="score-band"><strong>60-79</strong><span>Promising but needs stronger evidence.</span></div>
+            <div class="score-band"><strong>40-59</strong><span>Needs more validation before fundraising.</span></div>
+            <div class="score-band"><strong>Below 40</strong><span>Not fundraising-ready; return to discovery and validation.</span></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Pilot Opportunity Tracker</div>
+            <h2>Structure pilots before making external introductions.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Pilots should have clear objectives, success metrics, partner owners, risks, and a post-pilot decision path. VentureSupportOS helps teams avoid vague introductions that do not convert into learning or commercial outcomes.</p>
+        <div class="table-wrap" style="margin-top:18px">
+          <table>
+            <thead><tr><th>Startup</th><th>Target Partner</th><th>Pilot Objective</th><th>Success Metrics</th><th>Key Risk</th><th>Status</th><th>Post-Pilot Path</th></tr></thead>
+            <tbody>
+              <tr><td>FinSight AI</td><td>Financial institution lending team</td><td>Test SME credit workflow improvement</td><td>Review time, explainability, analyst feedback</td><td>Data access</td><td><span class="badge blue">Scoped</span></td><td>Extended pilot or model refinement</td></tr>
+              <tr><td>CareBridge</td><td>Community care provider</td><td>Validate non-clinical operations workflow</td><td>Scheduling time saved, adoption feedback</td><td>Workflow change</td><td><span class="badge warn">Risk review</span></td><td>Implementation plan or workflow redesign</td></tr>
+              <tr><td>TrustVault</td><td>Enterprise IT team</td><td>Test controlled identity verification journey</td><td>Completion rate, security review, user friction</td><td>Privacy and integration</td><td><span class="badge warn">Preparing</span></td><td>Security review and partner decision</td></tr>
+              <tr><td>ScaleOps AI</td><td>Enterprise operations team</td><td>Measure AI operations productivity lift</td><td>Baseline delta, user feedback, ROI case</td><td>Change management</td><td><span class="badge good">Active</span></td><td>Commercial conversation</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Mentor Matching</div>
+            <h2>Match founders to the mentor type they need now.</h2>
+          </div>
+        </div>
+        <p class="section-intro">Mentor matching works best when it is tied to a specific blocker and output, not a generic mentoring session. This mock view maps startup needs to the right support category.</p>
+        <div class="mentor-grid">
+          <article class="mentor-card"><strong>Customer discovery</strong><span>Interview design, insight synthesis, customer segmentation.</span></article>
+          <article class="mentor-card"><strong>Product</strong><span>Prototype testing, workflow design, product prioritisation.</span></article>
+          <article class="mentor-card"><strong>Go-to-market</strong><span>Buyer persona, outreach material, channel strategy.</span></article>
+          <article class="mentor-card"><strong>Fundraising</strong><span>Deck review, use of funds, investor narrative.</span></article>
+          <article class="mentor-card"><strong>Regulatory</strong><span>Compliance assumptions, licensing dependencies, risk review.</span></article>
+          <article class="mentor-card"><strong>Technical</strong><span>Architecture, feasibility, security, AI or data readiness.</span></article>
+          <article class="mentor-card"><strong>Pilot partnerships</strong><span>Pilot objective, partner fit, success metrics, follow-up path.</span></article>
+        </div>
+      </section>
+
+      <section class="section" id="pathway">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Support Pathway Framework</div>
+            <h2>Move founders through the venture journey with stage-specific support.</h2>
+          </div>
+        </div>
+        <div class="pathway">
+          <article class="pathway-step"><em>Idea stage</em><strong>Customer Discovery</strong><span>Validate the problem, customer, pain level, and urgency.</span></article>
+          <article class="pathway-step"><em>Prototype stage</em><strong>Product Validation</strong><span>Test feasibility, workflow fit, and early user feedback.</span></article>
+          <article class="pathway-step"><em>MVP stage</em><strong>Market Access</strong><span>Prepare buyer materials and targeted partner introductions.</span></article>
+          <article class="pathway-step"><em>Early traction</em><strong>Fundraising Readiness</strong><span>Review traction, business model, use of funds, and milestone plan.</span></article>
+          <article class="pathway-step"><em>Pilot ready</em><strong>Pilot Opportunity</strong><span>Define objectives, risks, metrics, partner owner, and success path.</span></article>
+          <article class="pathway-step"><em>Post-pilot</em><strong>Commercialisation / Investor Pathway</strong><span>Convert pilot evidence into commercial, grant, or investor conversations.</span></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Institutional Use Case</div>
+            <h2>Useful for teams that support founders across messy early-stage progress.</h2>
+          </div>
+        </div>
+        <p class="section-intro">VentureSupportOS can be used by university incubators, startup accelerators, venture studios, research commercialisation teams, government-linked innovation programmes, and corporate innovation teams.</p>
+        <div class="tag-cloud" style="margin-top:22px">
+          <span class="tag">Diagnose founder needs</span>
+          <span class="tag">Assign mentors</span>
+          <span class="tag">Track validation evidence</span>
+          <span class="tag">Prepare startups for grants or funding</span>
+          <span class="tag">Manage partner introductions</span>
+          <span class="tag">Structure pilot opportunities</span>
+          <span class="tag">Report programme outcomes</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Skills Demonstrated</div>
+            <h2>Programme operations, founder support, and venture-building thinking.</h2>
+          </div>
+        </div>
+        <div class="tag-cloud">
+          <span class="tag">Early-stage venture support</span>
+          <span class="tag">Customer discovery design</span>
+          <span class="tag">Product validation tracking</span>
+          <span class="tag">Market access operations</span>
+          <span class="tag">Fundraising readiness assessment</span>
+          <span class="tag">Pilot opportunity structuring</span>
+          <span class="tag">Mentor matching</span>
+          <span class="tag">Programme KPI tracking</span>
+          <span class="tag">Startup ecosystem operations</span>
+          <span class="tag">Venture-building process design</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Relationship to My Other Portfolio Projects</div>
+            <h2>A connected startup ecosystem operating suite.</h2>
+          </div>
+        </div>
+        <div class="relationship-grid">
+          <article class="relationship-card"><h3>GrantsOS</h3><p>Funding pathway discovery and grant readiness.</p></article>
+          <article class="relationship-card"><h3>IncubatorOS</h3><p>Founder cohort and incubation programme operations.</p></article>
+          <article class="relationship-card"><h3>PilotMatchOS</h3><p>Partner matching and pilot validation.</p></article>
+          <article class="relationship-card"><h3>VentureSupportOS</h3><p>Practical founder support across the venture journey.</p></article>
+        </div>
+      </section>
+
+      <section class="notice">
+        <h2>Portfolio Demonstration Notice</h2>
+        <p>This project is a mock portfolio case study and is not an official startup advisory, investment, grant, or legal tool. It is designed to demonstrate programme operations, founder support workflows, and venture-building thinking.</p>
+      </section>
+
+      <section class="section final">
+        <h2>VentureSupportOS shows how incubation teams can translate founder needs into practical support, measurable evidence, and better venture-building outcomes.</h2>
+        <a class="btn-primary" href="../index.html#projects">Back to selected works</a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
