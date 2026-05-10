@@ -1,0 +1,116 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FinSight Incubator - AI Startup Screening Dashboard</title>
+    <meta name="description" content="FinSight Incubator is an AI-powered digital finance startup screening dashboard for university fintech incubation managers.">
+    <link rel="canonical" href="https://gohjhb92.github.io/finsight-incubator/">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" aria-label="Project navigation">
+      <a class="brand" href="../" aria-label="Bryan Goh home">
+        <span class="brand-mark">BG</span>
+        <span class="brand-text">Bryan Goh</span>
+      </a>
+      <nav class="nav-links" aria-label="Project sections">
+        <a href="#overview">Overview</a>
+        <a href="#features">Features</a>
+        <a href="#memo">AI Memo</a>
+        <a href="#stack">Stack</a>
+      </nav>
+      <a class="nav-cta" href="../#work">Back to works</a>
+    </header>
+
+    <main id="main">
+      <section class="hero section-band" id="overview" aria-labelledby="project-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="metadata-line">FinTech / AI screening / incubation ops</p>
+            <h1 id="project-title">FinSight Incubator</h1>
+            <p class="hero-subtitle">AI-powered digital finance startup screening dashboard for incubation managers.</p>
+            <p class="hero-intro">
+              FinSight Incubator turns startup intake data into scorecards, due-diligence questions,
+              mentor recommendations, and exportable incubation memos for university fintech programmes.
+            </p>
+            <div class="hero-actions" aria-label="Project links">
+              <a class="button primary" href="https://github.com/gohjhb92" target="_blank" rel="noreferrer">GitHub profile</a>
+              <a class="button secondary" href="../#work">View portfolio</a>
+            </div>
+          </div>
+
+          <aside class="terminal-panel" aria-label="Project status panel">
+            <div class="terminal-topline">
+              <span>finsight.project</span>
+              <span>MVP</span>
+            </div>
+            <dl class="status-list">
+              <div><dt>Audience</dt><dd>University fintech incubators</dd></div>
+              <div><dt>Workflow</dt><dd>Intake / scoring / memo generation</dd></div>
+              <div><dt>Data</dt><dd>Mock cohort records</dd></div>
+              <div><dt>AI</dt><dd>OpenAI-ready API with mock fallback</dd></div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section-band" id="features" aria-labelledby="features-title">
+        <div class="section-marker" aria-hidden="true">01</div>
+        <div class="section-heading">
+          <p class="metadata-line">product.scope</p>
+          <h2 id="features-title">What it does</h2>
+        </div>
+        <div class="skill-grid">
+          <article><h3>Startup Intake</h3><p>Captures startup name, sector, stage, founders, country, traction, funding ask, description, and regulatory risk.</p></article>
+          <article><h3>Screening Dashboard</h3><p>Ranks digital finance startups by AI score, recommendation, traction, country, sector, and funding ask.</p></article>
+          <article><h3>Startup Detail</h3><p>Shows scoring dimensions, strengths, risks, due-diligence questions, and incubation recommendation.</p></article>
+          <article><h3>Scoring Model</h3><p>Founder Quality, Market Opportunity, Product Differentiation, Regulatory Readiness, Traction, and Ecosystem Fit.</p></article>
+          <article><h3>AI Memo Generator</h3><p>Generates structured incubation memos with mentor suggestions and final recommendation logic.</p></article>
+          <article><h3>Exportable Output</h3><p>Memo pages are styled for browser print and PDF export, suitable for internal review packets.</p></article>
+        </div>
+      </section>
+
+      <section class="section-band" id="memo" aria-labelledby="memo-title">
+        <div class="section-marker" aria-hidden="true">02</div>
+        <div class="section-heading">
+          <p class="metadata-line">memo.generator</p>
+          <h2 id="memo-title">Structured incubation memo output.</h2>
+        </div>
+        <div class="two-column">
+          <p>
+            The memo generator produces an executive summary, startup overview, market opportunity,
+            founder assessment, product and technology assessment, regulatory risk, digital finance
+            relevance, incubation fit, suggested mentors, due-diligence questions, and final recommendation.
+          </p>
+          <p>
+            The implementation includes a server API route designed for OpenAI integration using an
+            environment variable for the API key. If the key is missing, the system returns a deterministic
+            mock memo so the prototype remains usable without exposing secrets to frontend code.
+          </p>
+        </div>
+      </section>
+
+      <section class="section-band" id="stack" aria-labelledby="stack-title">
+        <div class="section-marker" aria-hidden="true">03</div>
+        <div class="section-heading">
+          <p class="metadata-line">implementation.notes</p>
+          <h2 id="stack-title">Built as a practical MVP.</h2>
+        </div>
+        <div class="compact-list">
+          <article><span>Frontend</span><h3>Next.js + TypeScript</h3><p>App Router pages for landing, intake, dashboard, startup detail, and memo output.</p></article>
+          <article><span>Styling</span><h3>Tailwind CSS</h3><p>Clean institutional UI suitable for a university fintech incubator.</p></article>
+          <article><span>AI Route</span><h3>/api/generate-memo</h3><p>Server-side OpenAI integration with mock fallback and structured response shape.</p></article>
+          <article><span>Portfolio Fit</span><h3>Programme Ops + AI</h3><p>Shows how AI can support founder screening, due diligence, and incubation decision workflows.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Bryan Goh. All rights reserved.</span>
+      <a href="../#top">Back to portfolio</a>
+    </footer>
+  </body>
+</html>
