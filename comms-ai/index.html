@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -509,9 +509,28 @@ h1{
   .key-panel{grid-template-columns:1fr}
 }
 </style>
+  <link rel="stylesheet" href="../project-clean.css">
 </head>
-<body>
-<div class="wrap">
+<body>  <aside class="project-sidebar" aria-label="Project workspace navigation">
+    <div>
+      <a class="project-brand" href="../index.html">
+        <span class="project-brand-mark">BG</span>
+        <span><span class="project-brand-label">Project Archive</span><span class="project-brand-title">Bryan Goh</span></span>
+      </a>
+      <nav class="project-nav">
+        <a href="../index.html">Portfolio</a>
+        <a href="#top" aria-current="page">Overview</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#timeline">Details</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="project-sidebar-foot">
+      <span class="project-stamp">BG</span>
+      <span>Clean project workspace<br>case notes / tools / dashboards</span>
+    </div>
+  </aside>
+<div class="wrap" id="top">
 
   <header class="hero">
     <div class="hero-copy">
@@ -891,3 +910,5 @@ async function gen(type){
 </script>
 </body>
 </html>
+
+
