@@ -443,7 +443,9 @@ th {
 
   h1,
   .hero-main h2 {
-    font-size: clamp(36px, 12vw, 48px) !important;
+    font-size: clamp(32px, 10vw, 40px) !important;
+    overflow-wrap: normal !important;
+    word-break: keep-all !important;
   }
 
   .pill-link,
