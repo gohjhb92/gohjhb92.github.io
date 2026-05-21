@@ -757,6 +757,201 @@
       text-transform: uppercase;
     }
 
+    .interaction-demo {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .demo-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1.05fr 0.95fr;
+      margin-top: 18px;
+    }
+
+    .demo-screen,
+    .demo-trace {
+      background: #0a1017;
+      border: 1px solid var(--border2);
+      min-height: 420px;
+      padding: 16px;
+    }
+
+    .demo-topbar,
+    .demo-row,
+    .demo-order-row,
+    .demo-status-row {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .demo-topbar {
+      border-bottom: 1px solid var(--border);
+      color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .demo-market {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 0.8fr;
+      margin-top: 14px;
+    }
+
+    .demo-ticket,
+    .demo-book,
+    .demo-mini-panel {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+      padding: 14px;
+    }
+
+    .demo-ticket strong,
+    .demo-book strong,
+    .demo-mini-panel strong,
+    .trace-step strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      line-height: 1;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .demo-side {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 12px;
+    }
+
+    .demo-pill {
+      border: 1px solid var(--border2);
+      color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      padding: 8px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .demo-pill.active {
+      background: rgba(38, 162, 105, 0.22);
+      border-color: var(--green);
+      color: var(--white);
+    }
+
+    .demo-field {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+    }
+
+    .demo-field span,
+    .demo-order-row span,
+    .demo-status-row span,
+    .trace-step span {
+      color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .demo-field b,
+    .demo-order-row b,
+    .demo-status-row b {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .demo-button {
+      background: var(--green);
+      color: #07110d;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin-top: 14px;
+      padding: 11px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .demo-order-row {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 5px 0;
+    }
+
+    .demo-order-row.ask b { color: var(--red); }
+    .demo-order-row.bid b { color: var(--green); }
+
+    .demo-mid {
+      color: var(--cyan);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .demo-bottom {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 12px;
+    }
+
+    .demo-status-row {
+      margin-bottom: 8px;
+    }
+
+    .trace-step {
+      border-left: 3px solid var(--border2);
+      margin-bottom: 12px;
+      padding: 10px 0 10px 14px;
+      position: relative;
+    }
+
+    .trace-step::before {
+      background: var(--cyan);
+      border-radius: 50%;
+      content: '';
+      height: 9px;
+      left: -6px;
+      position: absolute;
+      top: 15px;
+      width: 9px;
+    }
+
+    .trace-step.active {
+      background: rgba(56, 189, 248, 0.06);
+      border-color: var(--cyan);
+    }
+
+    .trace-step p {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .demo-note {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 12px;
+    }
+
     .flow {
       display: grid;
       gap: 10px;
@@ -905,6 +1100,11 @@
           "hype"
           "hyperevm"
           "apps";
+      }
+      .demo-grid,
+      .demo-market,
+      .demo-bottom {
+        grid-template-columns: 1fr;
       }
       .thesis-point { grid-template-columns: 1fr; }
       .bar-row,
@@ -1100,6 +1300,89 @@
               <div class="protocol-link">Liquidity becomes platform</div>
             </article>
           </div>
+        </div>
+        <div class="interaction-demo" aria-label="Stylized demo of a Hyperliquid trade and protocol interaction">
+          <div class="callout-title">Interaction Demo</div>
+          <p>A simplified view of what the protocol interaction looks like: a trader sees an exchange interface, while the underlying stack handles collateral, matching, margin, settlement, fees, validators, and downstream apps.</p>
+          <div class="demo-grid">
+            <div class="demo-screen" aria-label="Mock trading screen">
+              <div class="demo-topbar">
+                <span>Hyperliquid-style trading surface</span>
+                <span>BTC-PERP / 10x</span>
+              </div>
+              <div class="demo-market">
+                <div class="demo-ticket">
+                  <strong>Order Ticket</strong>
+                  <div class="demo-side">
+                    <div class="demo-pill active">Long</div>
+                    <div class="demo-pill">Short</div>
+                  </div>
+                  <div class="demo-field"><span>Collateral</span><b>1,000 USDC</b></div>
+                  <div class="demo-field"><span>Market</span><b>BTC-PERP</b></div>
+                  <div class="demo-field"><span>Size</span><b>0.20 BTC</b></div>
+                  <div class="demo-field"><span>Leverage</span><b>10.0x</b></div>
+                  <div class="demo-button">Place Order</div>
+                </div>
+                <div class="demo-book">
+                  <strong>Order Book</strong>
+                  <div class="demo-order-row ask"><span>Ask</span><b>105,284</b></div>
+                  <div class="demo-order-row ask"><span>Ask</span><b>105,276</b></div>
+                  <div class="demo-mid">105,268</div>
+                  <div class="demo-order-row bid"><span>Bid</span><b>105,260</b></div>
+                  <div class="demo-order-row bid"><span>Bid</span><b>105,251</b></div>
+                </div>
+              </div>
+              <div class="demo-bottom">
+                <div class="demo-mini-panel">
+                  <strong>Margin</strong>
+                  <div class="demo-status-row"><span>Initial</span><b>10%</b></div>
+                  <div class="demo-status-row"><span>Mode</span><b>Cross</b></div>
+                </div>
+                <div class="demo-mini-panel">
+                  <strong>Fees</strong>
+                  <div class="demo-status-row"><span>Flow</span><b>Protocol</b></div>
+                  <div class="demo-status-row"><span>Loop</span><b>HYPE</b></div>
+                </div>
+                <div class="demo-mini-panel">
+                  <strong>Risk</strong>
+                  <div class="demo-status-row"><span>Oracle</span><b>Mark</b></div>
+                  <div class="demo-status-row"><span>Liquidation</span><b>Native</b></div>
+                </div>
+              </div>
+            </div>
+            <div class="demo-trace" aria-label="Protocol trace behind the trade">
+              <div class="demo-topbar">
+                <span>Protocol Trace</span>
+                <span>What happens under the hood</span>
+              </div>
+              <div class="trace-step active">
+                <span>01 / Collateral</span>
+                <strong>USDC available</strong>
+                <p>Trader funds are available through bridge and aligned quote asset flows, forming the collateral base for the position.</p>
+              </div>
+              <div class="trace-step active">
+                <span>02 / HyperCore</span>
+                <strong>Order matched</strong>
+                <p>The native order book handles price-time priority, margin checks, position updates, liquidations, and mark-price logic.</p>
+              </div>
+              <div class="trace-step">
+                <span>03 / Validators</span>
+                <strong>State finalized</strong>
+                <p>Validators secure the chain, bridge operations, and protocol state transitions around the trade.</p>
+              </div>
+              <div class="trace-step">
+                <span>04 / Fees + HYPE</span>
+                <strong>Value loop</strong>
+                <p>Trading activity creates protocol fees; HYPE links staking, gas, fee discounts, and network security.</p>
+              </div>
+              <div class="trace-step">
+                <span>05 / HyperEVM + Apps</span>
+                <strong>Composability</strong>
+                <p>Apps can build around the liquidity layer: vaults, dashboards, structured products, treasury tools, and synthetic TradFi front ends.</p>
+              </div>
+            </div>
+          </div>
+          <p class="demo-note">Stylized demo for explanatory purposes only. It is not an official Hyperliquid interface or a live trading screen.</p>
         </div>
         <div class="stack-map" aria-label="Hyperliquid stack map">
           <div class="stack-layer"><strong>Trading</strong><p>Spot and perpetual order books with exchange logic close to the chain.</p></div>
