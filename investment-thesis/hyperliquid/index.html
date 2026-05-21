@@ -767,7 +767,7 @@
     .demo-grid {
       display: grid;
       gap: 14px;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1fr;
       margin-top: 18px;
     }
 
@@ -792,12 +792,31 @@
       width: 100%;
     }
 
+    .surface-shot {
+      max-height: 520px;
+    }
+
+    .surface-shot img {
+      object-fit: cover;
+      object-position: top left;
+    }
+
     .surface-caption {
       border-top: 1px solid var(--border);
       color: var(--dim);
       font-size: 13px;
       line-height: 1.55;
       padding: 12px 14px;
+    }
+
+    .demo-trace {
+      min-height: 0;
+    }
+
+    .trace-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(5, 1fr);
     }
 
     .demo-topbar,
@@ -939,7 +958,6 @@
 
     .trace-step {
       border-left: 3px solid var(--border2);
-      margin-bottom: 12px;
       padding: 10px 0 10px 14px;
       position: relative;
     }
@@ -1124,7 +1142,8 @@
       }
       .demo-grid,
       .demo-market,
-      .demo-bottom {
+      .demo-bottom,
+      .trace-grid {
         grid-template-columns: 1fr;
       }
       .thesis-point { grid-template-columns: 1fr; }
@@ -1335,30 +1354,32 @@
                 <span>Protocol Trace</span>
                 <span>What happens under the hood</span>
               </div>
-              <div class="trace-step active">
-                <span>01 / Collateral</span>
-                <strong>USDC available</strong>
-                <p>Trader funds are available through bridge and aligned quote asset flows, forming the collateral base for the position.</p>
-              </div>
-              <div class="trace-step active">
-                <span>02 / HyperCore</span>
-                <strong>Order matched</strong>
-                <p>The native order book handles price-time priority, margin checks, position updates, liquidations, and mark-price logic.</p>
-              </div>
-              <div class="trace-step">
-                <span>03 / Validators</span>
-                <strong>State finalized</strong>
-                <p>Validators secure the chain, bridge operations, and protocol state transitions around the trade.</p>
-              </div>
-              <div class="trace-step">
-                <span>04 / Fees + HYPE</span>
-                <strong>Value loop</strong>
-                <p>Trading activity creates protocol fees; HYPE links staking, gas, fee discounts, and network security.</p>
-              </div>
-              <div class="trace-step">
-                <span>05 / HyperEVM + Apps</span>
-                <strong>Composability</strong>
-                <p>Apps can build around the liquidity layer: vaults, dashboards, structured products, treasury tools, and synthetic TradFi front ends.</p>
+              <div class="trace-grid">
+                <div class="trace-step active">
+                  <span>01 / Collateral</span>
+                  <strong>USDC available</strong>
+                  <p>Bridge and aligned quote assets form the collateral base.</p>
+                </div>
+                <div class="trace-step active">
+                  <span>02 / HyperCore</span>
+                  <strong>Order matched</strong>
+                  <p>Native order book handles matching, margin, mark price, and liquidations.</p>
+                </div>
+                <div class="trace-step">
+                  <span>03 / Validators</span>
+                  <strong>State finalized</strong>
+                  <p>Validators secure consensus, bridge operations, and protocol state.</p>
+                </div>
+                <div class="trace-step">
+                  <span>04 / Fees + HYPE</span>
+                  <strong>Value loop</strong>
+                  <p>Trading fees link back to HYPE utility, staking, gas, and incentives.</p>
+                </div>
+                <div class="trace-step">
+                  <span>05 / Apps</span>
+                  <strong>Composability</strong>
+                  <p>HyperEVM apps build vaults, dashboards, structured products, and TradFi front ends.</p>
+                </div>
               </div>
             </div>
           </div>
