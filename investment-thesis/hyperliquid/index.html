@@ -228,6 +228,66 @@
     p:last-child { margin-bottom: 0; }
     strong { color: var(--white); }
 
+    .visual-brief {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      margin: 0 0 36px;
+    }
+
+    .brief-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      min-height: 138px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brief-card::after {
+      content: '';
+      position: absolute;
+      inset: auto 18px 16px 18px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      opacity: 0.65;
+    }
+
+    .brief-kicker,
+    .mini-label,
+    .bar-label,
+    .risk-label,
+    .architecture-label,
+    .allocation-name,
+    .allocation-value,
+    .comparison-meta {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brief-kicker {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .brief-card strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 0.95;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .brief-card p {
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
     .metric-grid {
       display: grid;
       gap: 12px;
@@ -239,6 +299,14 @@
       background: var(--surface);
       border: 1px solid var(--border2);
       padding: 16px;
+    }
+
+    .metric::before {
+      content: '';
+      display: block;
+      height: 3px;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, var(--cyan), rgba(56, 189, 248, 0.08));
     }
 
     .metric-value {
@@ -275,6 +343,49 @@
     .callout.warning { border-left: 3px solid var(--amber); }
     .callout.risk { border-left: 3px solid var(--red); }
 
+    .lens-grid,
+    .architecture-grid,
+    .risk-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin: 28px 0;
+    }
+
+    .lens-card,
+    .architecture-card,
+    .risk-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 18px;
+    }
+
+    .lens-card strong,
+    .architecture-card strong,
+    .risk-card strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .lens-card p,
+    .architecture-card p,
+    .risk-card p {
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .architecture-label {
+      color: var(--cyan);
+      display: block;
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
     .data-table {
       border-collapse: collapse;
       font-size: 14px;
@@ -304,6 +415,116 @@
     .data-table tr:nth-child(even) td { background: rgba(255, 255, 255, 0.025); }
     .data-table td:first-child { color: var(--white); font-weight: 600; }
 
+    .bar-stack {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .bar-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(150px, 220px) 1fr minmax(54px, auto);
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .bar-row:last-child { margin-bottom: 0; }
+
+    .bar-label {
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .bar-track {
+      background: rgba(255, 255, 255, 0.06);
+      height: 11px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      height: 100%;
+      min-width: 2px;
+    }
+
+    .bar-value {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      text-align: right;
+    }
+
+    .allocation-chart {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .allocation-strip {
+      display: flex;
+      height: 28px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .allocation-segment {
+      min-width: 2px;
+    }
+
+    .allocation-list {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .allocation-item {
+      align-items: center;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 9px 1fr auto;
+    }
+
+    .allocation-dot {
+      height: 9px;
+      width: 9px;
+    }
+
+    .allocation-name {
+      color: var(--text);
+      font-size: 10px;
+    }
+
+    .allocation-value {
+      color: var(--white);
+      font-size: 11px;
+    }
+
+    .comparison-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .comparison-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(110px, 150px) 1fr minmax(88px, auto);
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .comparison-row:last-child { margin-bottom: 0; }
+
+    .comparison-meta {
+      color: var(--dim);
+      font-size: 10px;
+      text-align: right;
+    }
+
     .flow {
       display: grid;
       gap: 10px;
@@ -321,6 +542,13 @@
       min-height: 88px;
       padding: 14px;
       text-transform: uppercase;
+    }
+
+    .flow-step span {
+      color: var(--cyan);
+      display: block;
+      font-size: 12px;
+      margin-bottom: 8px;
     }
 
     .checklist {
@@ -344,6 +572,21 @@
       margin-bottom: 8px;
       text-transform: uppercase;
     }
+
+    .risk-meter {
+      background: rgba(255, 255, 255, 0.06);
+      height: 8px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .risk-fill {
+      height: 100%;
+    }
+
+    .risk-fill.high { background: var(--red); width: 86%; }
+    .risk-fill.med { background: var(--amber); width: 66%; }
+    .risk-fill.watch { background: var(--cyan); width: 48%; }
 
     ul {
       margin: 16px 0 0;
@@ -392,6 +635,15 @@
 
     @media (max-width: 760px) {
       .flow { grid-template-columns: 1fr; }
+      .visual-brief { grid-template-columns: 1fr; }
+      .bar-row,
+      .comparison-row {
+        grid-template-columns: 1fr;
+      }
+      .bar-value,
+      .comparison-meta {
+        text-align: left;
+      }
     }
 
     @media (max-width: 560px) {
@@ -422,7 +674,25 @@
     </header>
 
     <section class="summary">
-      <strong>Executive summary:</strong> Hyperliquid has moved beyond being just another onchain perpetuals venue and now looks more like a vertically integrated financial infrastructure stack. The highest-conviction incubator angle is ecosystem building: execution, compliance, treasury, stablecoin, or structured-finance middleware built around deep native liquidity and HyperEVM composability.
+      <strong>Executive summary:</strong> Hyperliquid is no longer only an onchain perps venue. It now looks like a vertically integrated financial infrastructure stack: native order books, deep liquidity, HyperEVM composability, and token economics tied to network activity.
+    </section>
+
+    <section class="visual-brief" aria-label="Investment thesis summary">
+      <article class="brief-card">
+        <div class="brief-kicker">Core thesis</div>
+        <strong>Build on it</strong>
+        <p>Best incubator angle: portfolio companies using Hyperliquid as market, collateral, execution, or treasury infrastructure.</p>
+      </article>
+      <article class="brief-card">
+        <div class="brief-kicker">Why now</div>
+        <strong>Scale lead</strong>
+        <p>Liquidity, open interest, fees, and user activity are materially ahead of most onchain derivatives venues.</p>
+      </article>
+      <article class="brief-card">
+        <div class="brief-kicker">Main watchpoint</div>
+        <strong>Regulatory risk</strong>
+        <p>Always-on leveraged markets, bridge design, and validator concentration remain the key diligence gates.</p>
+      </article>
     </section>
 
     <nav class="toc" aria-label="Table of contents">
@@ -447,86 +717,97 @@
           <div class="metric"><span class="metric-value">$56.8M</span><span class="metric-label">30d fees</span></div>
           <div class="metric"><span class="metric-value">59.3K</span><span class="metric-label">Daily active addresses</span></div>
         </div>
-        <p>Public dashboards in May 2026 put Hyperliquid materially ahead of most other onchain perpetuals venues across liquidity, open interest, fee generation, and usage proxies. For an incubator, the platform is best framed as infrastructure to build on rather than as a conventional seed-stage company investment.</p>
+        <div class="bar-stack" aria-label="Hyperliquid KPI scale">
+          <div class="bar-row"><div class="bar-label">30d perp volume</div><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><div class="bar-value">$176B</div></div>
+          <div class="bar-row"><div class="bar-label">Open interest</div><div class="bar-track"><div class="bar-fill" style="width: 86%;"></div></div><div class="bar-value">$8.9B</div></div>
+          <div class="bar-row"><div class="bar-label">TVL</div><div class="bar-track"><div class="bar-fill" style="width: 62%;"></div></div><div class="bar-value">$5.1B</div></div>
+          <div class="bar-row"><div class="bar-label">30d fees</div><div class="bar-track"><div class="bar-fill" style="width: 44%;"></div></div><div class="bar-value">$56.8M</div></div>
+        </div>
+        <p>Public dashboards in May 2026 put Hyperliquid ahead on the indicators that matter for startup builders: liquidity depth, open interest, fee generation, and active usage.</p>
         <div class="callout positive">
           <div class="callout-title">Incubator View</div>
-          <p>Hyperliquid is most interesting as a platform for portfolio-company formation: compliance-aware execution tools, treasury workflows, stablecoin infrastructure, market data, and HyperEVM applications that can use HyperCore liquidity.</p>
+          <p>Frame it as infrastructure to build on, not a conventional seed-stage company investment.</p>
         </div>
       </section>
 
       <section class="section" id="overview">
         <div class="sec-header"><span class="sec-num">02</span><h2>Project Overview &amp; Investment Lens</h2></div>
-        <p>Hyperliquid's official mission is ambitious: to become a blockchain for all finance. The protocol began by solving a narrow pain point, fast and low-friction onchain perpetuals trading, but its architecture now points toward a broader role in crypto-native capital markets.</p>
-        <p>Founder disclosure is less polished than the product. Official documentation emphasizes the contributor ecosystem and protocol design more than named executives. Industry analyses commonly identify Jeff Yan and the pseudonymous iliensinc as key founders, while external filings tied to listed products describe Hyperliquid Labs Pte. Ltd. as a core development entity.</p>
-        <p>That matters for diligence. Hyperliquid should be evaluated less like a seed-stage startup with a venture-style cap table and more like an emergent financial operating system with several monetization and application layers.</p>
-        <table class="data-table">
-          <thead><tr><th>Financing / cap-table item</th><th>Public status</th><th>Investment read</th></tr></thead>
-          <tbody>
-            <tr><td>Equity fundraising rounds</td><td>Unavailable / unspecified</td><td>No public cap table identified in reviewed sources.</td></tr>
-            <tr><td>Shareholder list / dilution history</td><td>Unavailable / unspecified</td><td>Upstream equity diligence would require direct access.</td></tr>
-            <tr><td>Private token-sale bucket</td><td>No distinct bucket shown in published genesis allocation</td><td>Suggests less visible token-sale overhang, but verify privately.</td></tr>
-            <tr><td>Foundation / contributor allocations</td><td>Publicly disclosed in token allocation materials</td><td>Material to governance and supply analysis.</td></tr>
-          </tbody>
-        </table>
+        <p>Hyperliquid began with a narrow wedge: fast, low-friction onchain perpetuals trading. The current architecture points toward something broader: a crypto-native capital markets operating system.</p>
+        <div class="lens-grid">
+          <article class="lens-card"><strong>Not a seed deal</strong><p>Public equity rounds, shareholder lists, and dilution history are not available from reviewed sources.</p></article>
+          <article class="lens-card"><strong>Protocol thesis</strong><p>The investable question is whether liquidity, builders, and fees keep compounding around the stack.</p></article>
+          <article class="lens-card"><strong>Startup wedge</strong><p>Best fit is middleware around execution, treasury, stablecoins, market data, and compliance controls.</p></article>
+        </div>
       </section>
 
       <section class="section" id="technology">
         <div class="sec-header"><span class="sec-num">03</span><h2>Product &amp; Technology</h2></div>
-        <p>Hyperliquid's architecture is one of its strongest differentiators. The chain is purpose-built, not a generic app-layer deployment. Official docs describe a performance-oriented HyperBFT consensus design and an execution split between HyperCore and HyperEVM.</p>
-        <p>HyperCore houses the native order books for spot and perpetuals. HyperEVM provides a general-purpose smart-contract environment secured by the same validator set rather than a separate chain. This lets applications compose with market structure and liquidity without treating the derivatives venue as an external primitive.</p>
-        <p>Custody is hybrid rather than purely trustless. Users do not surrender funds to a centralized exchange omnibus wallet, but bridged assets still rely on validator-signed deposit and withdrawal flows. That is better than centralized-exchange custody, but it creates meaningful dependencies around bridge logic, validator integrity, and key management.</p>
+        <p>The differentiator is vertical integration. Exchange logic, execution, liquidity, smart contracts, and staking all sit inside one coordinated stack.</p>
+        <div class="architecture-grid">
+          <article class="architecture-card"><span class="architecture-label">Layer 1</span><strong>HyperBFT</strong><p>Performance-oriented consensus for a purpose-built financial chain.</p></article>
+          <article class="architecture-card"><span class="architecture-label">Market engine</span><strong>HyperCore</strong><p>Native order books, margin, liquidations, and oracle-driven mark pricing.</p></article>
+          <article class="architecture-card"><span class="architecture-label">App layer</span><strong>HyperEVM</strong><p>Smart contracts secured by the same validator set and close to native liquidity.</p></article>
+          <article class="architecture-card"><span class="architecture-label">Custody</span><strong>Bridge flow</strong><p>Hybrid custody with validator-signed deposits and withdrawals.</p></article>
+        </div>
         <div class="callout warning">
           <div class="callout-title">Security Read</div>
-          <p>Published bridge-side security work is useful, but a bridge audit is not a full-stack protocol-security opinion. Validators, front-end infrastructure, custody operations, and operational key management remain part of real-world resilience.</p>
+          <p>A bridge audit is useful, but it is not a full-stack security opinion. Validators, front ends, custody operations, and key management still matter.</p>
         </div>
       </section>
 
       <section class="section" id="tokenomics">
         <div class="sec-header"><span class="sec-num">04</span><h2>Tokenomics &amp; Governance</h2></div>
-        <p>Public launch materials describe 1 billion HYPE as the genesis supply. The allocation is unusually clean by crypto standards, with the largest buckets directed to community distribution and future ecosystem incentives rather than a large disclosed private-sale tranche.</p>
-        <table class="data-table">
-          <thead><tr><th>HYPE allocation bucket</th><th>Share</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td>Future emissions &amp; community rewards</td><td>38.888%</td><td>Funds staking and future ecosystem incentives.</td></tr>
-            <tr><td>Genesis distribution</td><td>31.0%</td><td>Initial community and user allocation.</td></tr>
-            <tr><td>Current &amp; future core contributors</td><td>23.8%</td><td>Subject to lock-up and vesting disclosures.</td></tr>
-            <tr><td>Hyper Foundation</td><td>6.0%</td><td>Ecosystem and protocol budget.</td></tr>
-            <tr><td>Community grants</td><td>0.3%</td><td>Small ecosystem grants pool.</td></tr>
-            <tr><td>HIP-2 allocation</td><td>0.012%</td><td>Hyperliquidity-related allocation.</td></tr>
-          </tbody>
-        </table>
-        <p>HYPE utility is credible: it secures the network through delegated proof of stake, serves as the gas asset on HyperEVM, and can reduce trading fees when staked. The Assistance Fund strengthens the value loop by receiving trading-fee flows and purchasing HYPE.</p>
-        <div class="flow" aria-label="Token value loop">
-          <div class="flow-step">Users trade spot and perps</div>
-          <div class="flow-step">Protocol fees flow</div>
-          <div class="flow-step">Assistance Fund purchases HYPE</div>
-          <div class="flow-step">HYPE holders stake or delegate</div>
-          <div class="flow-step">Top validators secure consensus</div>
+        <p>Public launch materials describe 1 billion HYPE as genesis supply. The large buckets lean toward community distribution and future ecosystem incentives rather than a large disclosed private-sale tranche.</p>
+        <div class="allocation-chart" aria-label="HYPE genesis allocation">
+          <div class="allocation-strip">
+            <div class="allocation-segment" style="width: 38.888%; background: var(--cyan);"></div>
+            <div class="allocation-segment" style="width: 31%; background: var(--green);"></div>
+            <div class="allocation-segment" style="width: 23.8%; background: var(--amber);"></div>
+            <div class="allocation-segment" style="width: 6%; background: var(--red);"></div>
+            <div class="allocation-segment" style="width: 0.312%; background: var(--white);"></div>
+          </div>
+          <div class="allocation-list">
+            <div class="allocation-item"><span class="allocation-dot" style="background: var(--cyan);"></span><span class="allocation-name">Future emissions &amp; community rewards</span><span class="allocation-value">38.888%</span></div>
+            <div class="allocation-item"><span class="allocation-dot" style="background: var(--green);"></span><span class="allocation-name">Genesis distribution</span><span class="allocation-value">31.0%</span></div>
+            <div class="allocation-item"><span class="allocation-dot" style="background: var(--amber);"></span><span class="allocation-name">Core contributors</span><span class="allocation-value">23.8%</span></div>
+            <div class="allocation-item"><span class="allocation-dot" style="background: var(--red);"></span><span class="allocation-name">Hyper Foundation</span><span class="allocation-value">6.0%</span></div>
+            <div class="allocation-item"><span class="allocation-dot" style="background: var(--white);"></span><span class="allocation-name">Grants / HIP-2</span><span class="allocation-value">0.312%</span></div>
+          </div>
         </div>
-        <p>Governance remains validator-centric. The active validator set comprises the top 24 by delegated stake, making validator concentration and delegation behavior core diligence topics.</p>
+        <p>HYPE secures the network, acts as HyperEVM gas, can reduce fees when staked, and is supported by an Assistance Fund purchase loop.</p>
+        <div class="flow" aria-label="Token value loop">
+          <div class="flow-step"><span>01</span>Users trade spot and perps</div>
+          <div class="flow-step"><span>02</span>Protocol fees flow</div>
+          <div class="flow-step"><span>03</span>Assistance Fund buys HYPE</div>
+          <div class="flow-step"><span>04</span>Holders stake or delegate</div>
+          <div class="flow-step"><span>05</span>Validators secure consensus</div>
+        </div>
+        <p>Governance remains validator-centric, so delegation concentration is a diligence item rather than a footnote.</p>
       </section>
 
       <section class="section" id="traction">
         <div class="sec-header"><span class="sec-num">05</span><h2>Market Traction &amp; Competitive Position</h2></div>
-        <p>Traction is the main reason Hyperliquid deserves incubator attention. The platform combines exchange-grade throughput, deep open interest, fee generation, and collateral depth. Circle's reported USDC circulation on Hyperliquid reinforces the platform's importance as a collateral and liquidity venue.</p>
-        <table class="data-table">
-          <thead><tr><th>Protocol</th><th>TVL</th><th>30d perp volume</th><th>Open interest</th><th>Strategic read</th></tr></thead>
-          <tbody>
-            <tr><td>Hyperliquid</td><td>$5.118B</td><td>$176.059B</td><td>$8.86B</td><td>Scale leader with integrated L1 and order-book model.</td></tr>
-            <tr><td>dYdX</td><td>$138.67M</td><td>$3.7B</td><td>$62.8M</td><td>Mature brand, but far behind current scale.</td></tr>
-            <tr><td>GMX</td><td>$205.32M</td><td>$2.867B</td><td>$100.51M</td><td>Durable niche venue with less throughput and depth.</td></tr>
-            <tr><td>Jupiter Perpetual Exchange</td><td>$669.91M</td><td>$5.277B</td><td>$88.76M</td><td>Strong Solana distribution, weaker derivatives depth.</td></tr>
-            <tr><td>edgeX</td><td>$148.32M</td><td>$41.436B</td><td>$913.28M</td><td>Fast-growing challenger, still materially smaller.</td></tr>
-            <tr><td>SynFutures V3</td><td>$2.78M</td><td>$2.268B</td><td>$1.25M</td><td>Active but far lighter liquidity footprint.</td></tr>
-          </tbody>
-        </table>
-        <p>The total addressable market is broader than crypto perpetuals alone. Hyperliquid does not need to replace traditional finance to be strategically important; it only needs to keep compounding share in the digitally native subset of derivatives, collateral, and structured-finance activity.</p>
+        <p>Traction is the reason to pay attention. Hyperliquid combines throughput, open interest, fee generation, and collateral depth in one venue.</p>
+        <div class="comparison-card" aria-label="30-day perpetuals volume comparison">
+          <div class="comparison-row"><div class="bar-label">Hyperliquid</div><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><div class="comparison-meta">$176.1B 30d volume</div></div>
+          <div class="comparison-row"><div class="bar-label">edgeX</div><div class="bar-track"><div class="bar-fill" style="width: 24%;"></div></div><div class="comparison-meta">$41.4B</div></div>
+          <div class="comparison-row"><div class="bar-label">Jupiter Perps</div><div class="bar-track"><div class="bar-fill" style="width: 3%;"></div></div><div class="comparison-meta">$5.3B</div></div>
+          <div class="comparison-row"><div class="bar-label">dYdX</div><div class="bar-track"><div class="bar-fill" style="width: 2.1%;"></div></div><div class="comparison-meta">$3.7B</div></div>
+          <div class="comparison-row"><div class="bar-label">GMX</div><div class="bar-track"><div class="bar-fill" style="width: 1.6%;"></div></div><div class="comparison-meta">$2.9B</div></div>
+          <div class="comparison-row"><div class="bar-label">SynFutures V3</div><div class="bar-track"><div class="bar-fill" style="width: 1.3%;"></div></div><div class="comparison-meta">$2.3B</div></div>
+        </div>
+        <p>The TAM is broader than crypto perps. The strategic upside is becoming default market and collateral infrastructure for crypto-native fintech.</p>
       </section>
 
       <section class="section" id="risks">
         <div class="sec-header"><span class="sec-num">06</span><h2>Risks &amp; Incubator Recommendations</h2></div>
-        <p>The major investment risk is regulatory. Hyperliquid's terms restrict access for users in certain jurisdictions, and some delegation flows are KYC/KYB-gated in ways that exclude geographies such as the U.S. and Ontario. That helps operationally, but it does not remove legal risk around always-on leveraged markets.</p>
-        <p>The next risks are technical and governance-related: bridge dependency, validator concentration, incomplete audit scope, and evolving slashing or governance mechanisms. These risks should be analyzed alongside concentration metrics rather than accepted at face value.</p>
+        <p>The opportunity is real, but the gating risks are not cosmetic. Any incubator exposure should start with legal, infrastructure, economics, and security diligence.</p>
+        <div class="risk-grid" aria-label="Risk matrix">
+          <article class="risk-card"><strong>Regulation</strong><p>Restricted jurisdictions and leveraged markets remain the highest-signal legal risk.</p><div class="risk-meter"><div class="risk-fill high"></div></div></article>
+          <article class="risk-card"><strong>Bridge / validator</strong><p>Deposits, withdrawals, and consensus depend on validator integrity and concentration.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
+          <article class="risk-card"><strong>Audit scope</strong><p>Bridge-side audits do not cover every off-chain operational dependency.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
+          <article class="risk-card"><strong>Governance</strong><p>Validator-centric governance is workable, but concentration should be monitored.</p><div class="risk-meter"><div class="risk-fill watch"></div></div></article>
+        </div>
         <div class="checklist">
           <div class="check-card"><strong>Legal</strong><p>Is the product insulated from restricted-jurisdiction user flows, benchmark manipulation issues, and money-transmission risk?</p></div>
           <div class="check-card"><strong>Infrastructure</strong><p>What are the exact dependencies on bridge withdrawals, validator concentration, API uptime, and oracle quality?</p></div>
