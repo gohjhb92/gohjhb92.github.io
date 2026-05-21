@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyperliquid Investment Report - Bryan Goh</title>
+  <meta name="description" content="Public-source Hyperliquid investment screening memo for fintech incubation and market infrastructure analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0c1117;
+      --surface: #121a23;
+      --surface2: #172231;
+      --border: #263445;
+      --border2: #34475b;
+      --text: #cbd7e1;
+      --dim: #7f93a6;
+      --cyan: #38bdf8;
+      --green: #26a269;
+      --amber: #e0a328;
+      --red: #e25555;
+      --white: #f4f8fb;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 280px),
+        linear-gradient(180deg, #0c1117 0%, #101722 100%);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      min-height: 100vh;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.05) 2px, rgba(0, 0, 0, 0.05) 4px);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 28px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      align-items: center;
+      border-bottom: 1px solid var(--border2);
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left,
+    .topbar a,
+    .classification-stamp,
+    .masthead-sub,
+    .author-line,
+    .toc-label,
+    .sec-num,
+    .metric-label,
+    .callout-title,
+    .source-list h3,
+    .footer-left,
+    .footer-right a {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .topbar-left {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .topbar a {
+      color: var(--dim);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .topbar a:hover { color: var(--white); }
+
+    .masthead {
+      border-bottom: 1px solid var(--border2);
+      padding: 52px 0 42px;
+    }
+
+    .classification-stamp {
+      border: 2px solid var(--cyan);
+      color: var(--cyan);
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      padding: 3px 10px;
+    }
+
+    h1 {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(38px, 6.5vw, 74px);
+      line-height: 0.95;
+      letter-spacing: 0;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    h1 span { color: var(--cyan); }
+
+    .masthead-sub {
+      color: var(--dim);
+      font-size: clamp(15px, 2.2vw, 21px);
+      font-weight: 300;
+      margin-bottom: 26px;
+    }
+
+    .author-line {
+      color: var(--dim);
+      font-size: 12px;
+    }
+
+    .author-line strong { color: var(--text); }
+
+    .summary {
+      background: var(--surface);
+      border-left: 3px solid var(--cyan);
+      margin: 36px 0;
+      padding: 22px 26px;
+    }
+
+    .summary strong { color: var(--white); }
+
+    .note {
+      border: 1px solid var(--border2);
+      color: var(--dim);
+      font-size: 13px;
+      margin: 24px 0 0;
+      padding: 12px 14px;
+    }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin-bottom: 0;
+      padding: 22px 26px;
+    }
+
+    .toc-label {
+      border-bottom: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+    }
+
+    .toc ol {
+      columns: 2;
+      column-gap: 30px;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      break-inside: avoid;
+      margin-bottom: 6px;
+    }
+
+    .toc a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .section {
+      border-bottom: 1px solid var(--border);
+      padding: 48px 0;
+    }
+
+    .section:last-of-type { border-bottom: none; }
+
+    .sec-header {
+      align-items: baseline;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .sec-num {
+      color: var(--cyan);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    h2 {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: 0;
+      margin: 30px 0 12px;
+      text-transform: uppercase;
+    }
+
+    p { margin-bottom: 18px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--white); }
+
+    .metric-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      margin: 28px 0;
+    }
+
+    .metric {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 16px;
+    }
+
+    .metric-value {
+      color: var(--white);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      color: var(--dim);
+      display: block;
+      font-size: 10px;
+    }
+
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 24px 26px;
+    }
+
+    .callout-title {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .callout.positive { border-left: 3px solid var(--green); }
+    .callout.warning { border-left: 3px solid var(--amber); }
+    .callout.risk { border-left: 3px solid var(--red); }
+
+    .data-table {
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 28px 0;
+      width: 100%;
+    }
+
+    .data-table th {
+      background: var(--white);
+      color: #0c1117;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      padding: 9px 12px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .data-table td {
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+
+    .data-table tr:nth-child(even) td { background: rgba(255, 255, 255, 0.025); }
+    .data-table td:first-child { color: var(--white); font-weight: 600; }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 28px 0;
+    }
+
+    .flow-step {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      line-height: 1.2;
+      min-height: 88px;
+      padding: 14px;
+      text-transform: uppercase;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin: 28px 0;
+    }
+
+    .check-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 18px;
+    }
+
+    .check-card strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    ul {
+      margin: 16px 0 0;
+      padding-left: 22px;
+    }
+
+    li { margin-bottom: 8px; }
+
+    .source-list {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 22px 24px;
+    }
+
+    .source-list h3 {
+      color: var(--cyan);
+      font-size: 11px;
+      margin: 0 0 12px;
+    }
+
+    .source-list p {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .page-footer {
+      border-top: 1px solid var(--border2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      padding-top: 20px;
+    }
+
+    .footer-left {
+      color: var(--dim);
+      font-size: 11px;
+    }
+
+    .footer-right a {
+      color: var(--cyan);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 760px) {
+      .flow { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 0 16px 60px; }
+      .masthead { padding: 34px 0 28px; }
+      .toc { padding: 18px; }
+      .toc ol { columns: 1; }
+      .section { padding: 36px 0; }
+      .data-table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="topbar-left">Bryan Goh &middot; Investment Thesis</div>
+      <div><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Thesis Index</a></div>
+    </div>
+
+    <header class="masthead">
+      <div class="classification-stamp">Public Screening Memo</div>
+      <h1><span>Hyperliquid</span><br>Investment Report</h1>
+      <div class="masthead-sub">Fintech incubation lens &middot; DeFi derivatives &middot; Market infrastructure</div>
+      <div class="author-line">
+        <strong>Bryan Goh</strong> &nbsp;&middot;&nbsp; Audience: incubator manager, fintech &nbsp;&middot;&nbsp; May 2026
+      </div>
+      <div class="note">This is an analytical screening memo using public sources only. It is not investment advice.</div>
+    </header>
+
+    <section class="summary">
+      <strong>Executive summary:</strong> Hyperliquid has moved beyond being just another onchain perpetuals venue and now looks more like a vertically integrated financial infrastructure stack. The highest-conviction incubator angle is ecosystem building: execution, compliance, treasury, stablecoin, or structured-finance middleware built around deep native liquidity and HyperEVM composability.
+    </section>
+
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-label">Memo Sections</div>
+      <ol>
+        <li><a href="#snapshot">Portfolio Snapshot</a></li>
+        <li><a href="#overview">Project Overview</a></li>
+        <li><a href="#technology">Product &amp; Technology</a></li>
+        <li><a href="#tokenomics">Tokenomics &amp; Governance</a></li>
+        <li><a href="#traction">Market Traction</a></li>
+        <li><a href="#risks">Risks &amp; Recommendations</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section class="section" id="snapshot">
+        <div class="sec-header"><span class="sec-num">01</span><h2>Portfolio Snapshot</h2></div>
+        <div class="metric-grid">
+          <div class="metric"><span class="metric-value">$5.1B</span><span class="metric-label">TVL snapshot</span></div>
+          <div class="metric"><span class="metric-value">$176B</span><span class="metric-label">30d perpetual volume</span></div>
+          <div class="metric"><span class="metric-value">$8.9B</span><span class="metric-label">Open interest</span></div>
+          <div class="metric"><span class="metric-value">$56.8M</span><span class="metric-label">30d fees</span></div>
+          <div class="metric"><span class="metric-value">59.3K</span><span class="metric-label">Daily active addresses</span></div>
+        </div>
+        <p>Public dashboards in May 2026 put Hyperliquid materially ahead of most other onchain perpetuals venues across liquidity, open interest, fee generation, and usage proxies. For an incubator, the platform is best framed as infrastructure to build on rather than as a conventional seed-stage company investment.</p>
+        <div class="callout positive">
+          <div class="callout-title">Incubator View</div>
+          <p>Hyperliquid is most interesting as a platform for portfolio-company formation: compliance-aware execution tools, treasury workflows, stablecoin infrastructure, market data, and HyperEVM applications that can use HyperCore liquidity.</p>
+        </div>
+      </section>
+
+      <section class="section" id="overview">
+        <div class="sec-header"><span class="sec-num">02</span><h2>Project Overview &amp; Investment Lens</h2></div>
+        <p>Hyperliquid's official mission is ambitious: to become a blockchain for all finance. The protocol began by solving a narrow pain point, fast and low-friction onchain perpetuals trading, but its architecture now points toward a broader role in crypto-native capital markets.</p>
+        <p>Founder disclosure is less polished than the product. Official documentation emphasizes the contributor ecosystem and protocol design more than named executives. Industry analyses commonly identify Jeff Yan and the pseudonymous iliensinc as key founders, while external filings tied to listed products describe Hyperliquid Labs Pte. Ltd. as a core development entity.</p>
+        <p>That matters for diligence. Hyperliquid should be evaluated less like a seed-stage startup with a venture-style cap table and more like an emergent financial operating system with several monetization and application layers.</p>
+        <table class="data-table">
+          <thead><tr><th>Financing / cap-table item</th><th>Public status</th><th>Investment read</th></tr></thead>
+          <tbody>
+            <tr><td>Equity fundraising rounds</td><td>Unavailable / unspecified</td><td>No public cap table identified in reviewed sources.</td></tr>
+            <tr><td>Shareholder list / dilution history</td><td>Unavailable / unspecified</td><td>Upstream equity diligence would require direct access.</td></tr>
+            <tr><td>Private token-sale bucket</td><td>No distinct bucket shown in published genesis allocation</td><td>Suggests less visible token-sale overhang, but verify privately.</td></tr>
+            <tr><td>Foundation / contributor allocations</td><td>Publicly disclosed in token allocation materials</td><td>Material to governance and supply analysis.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section" id="technology">
+        <div class="sec-header"><span class="sec-num">03</span><h2>Product &amp; Technology</h2></div>
+        <p>Hyperliquid's architecture is one of its strongest differentiators. The chain is purpose-built, not a generic app-layer deployment. Official docs describe a performance-oriented HyperBFT consensus design and an execution split between HyperCore and HyperEVM.</p>
+        <p>HyperCore houses the native order books for spot and perpetuals. HyperEVM provides a general-purpose smart-contract environment secured by the same validator set rather than a separate chain. This lets applications compose with market structure and liquidity without treating the derivatives venue as an external primitive.</p>
+        <p>Custody is hybrid rather than purely trustless. Users do not surrender funds to a centralized exchange omnibus wallet, but bridged assets still rely on validator-signed deposit and withdrawal flows. That is better than centralized-exchange custody, but it creates meaningful dependencies around bridge logic, validator integrity, and key management.</p>
+        <div class="callout warning">
+          <div class="callout-title">Security Read</div>
+          <p>Published bridge-side security work is useful, but a bridge audit is not a full-stack protocol-security opinion. Validators, front-end infrastructure, custody operations, and operational key management remain part of real-world resilience.</p>
+        </div>
+      </section>
+
+      <section class="section" id="tokenomics">
+        <div class="sec-header"><span class="sec-num">04</span><h2>Tokenomics &amp; Governance</h2></div>
+        <p>Public launch materials describe 1 billion HYPE as the genesis supply. The allocation is unusually clean by crypto standards, with the largest buckets directed to community distribution and future ecosystem incentives rather than a large disclosed private-sale tranche.</p>
+        <table class="data-table">
+          <thead><tr><th>HYPE allocation bucket</th><th>Share</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Future emissions &amp; community rewards</td><td>38.888%</td><td>Funds staking and future ecosystem incentives.</td></tr>
+            <tr><td>Genesis distribution</td><td>31.0%</td><td>Initial community and user allocation.</td></tr>
+            <tr><td>Current &amp; future core contributors</td><td>23.8%</td><td>Subject to lock-up and vesting disclosures.</td></tr>
+            <tr><td>Hyper Foundation</td><td>6.0%</td><td>Ecosystem and protocol budget.</td></tr>
+            <tr><td>Community grants</td><td>0.3%</td><td>Small ecosystem grants pool.</td></tr>
+            <tr><td>HIP-2 allocation</td><td>0.012%</td><td>Hyperliquidity-related allocation.</td></tr>
+          </tbody>
+        </table>
+        <p>HYPE utility is credible: it secures the network through delegated proof of stake, serves as the gas asset on HyperEVM, and can reduce trading fees when staked. The Assistance Fund strengthens the value loop by receiving trading-fee flows and purchasing HYPE.</p>
+        <div class="flow" aria-label="Token value loop">
+          <div class="flow-step">Users trade spot and perps</div>
+          <div class="flow-step">Protocol fees flow</div>
+          <div class="flow-step">Assistance Fund purchases HYPE</div>
+          <div class="flow-step">HYPE holders stake or delegate</div>
+          <div class="flow-step">Top validators secure consensus</div>
+        </div>
+        <p>Governance remains validator-centric. The active validator set comprises the top 24 by delegated stake, making validator concentration and delegation behavior core diligence topics.</p>
+      </section>
+
+      <section class="section" id="traction">
+        <div class="sec-header"><span class="sec-num">05</span><h2>Market Traction &amp; Competitive Position</h2></div>
+        <p>Traction is the main reason Hyperliquid deserves incubator attention. The platform combines exchange-grade throughput, deep open interest, fee generation, and collateral depth. Circle's reported USDC circulation on Hyperliquid reinforces the platform's importance as a collateral and liquidity venue.</p>
+        <table class="data-table">
+          <thead><tr><th>Protocol</th><th>TVL</th><th>30d perp volume</th><th>Open interest</th><th>Strategic read</th></tr></thead>
+          <tbody>
+            <tr><td>Hyperliquid</td><td>$5.118B</td><td>$176.059B</td><td>$8.86B</td><td>Scale leader with integrated L1 and order-book model.</td></tr>
+            <tr><td>dYdX</td><td>$138.67M</td><td>$3.7B</td><td>$62.8M</td><td>Mature brand, but far behind current scale.</td></tr>
+            <tr><td>GMX</td><td>$205.32M</td><td>$2.867B</td><td>$100.51M</td><td>Durable niche venue with less throughput and depth.</td></tr>
+            <tr><td>Jupiter Perpetual Exchange</td><td>$669.91M</td><td>$5.277B</td><td>$88.76M</td><td>Strong Solana distribution, weaker derivatives depth.</td></tr>
+            <tr><td>edgeX</td><td>$148.32M</td><td>$41.436B</td><td>$913.28M</td><td>Fast-growing challenger, still materially smaller.</td></tr>
+            <tr><td>SynFutures V3</td><td>$2.78M</td><td>$2.268B</td><td>$1.25M</td><td>Active but far lighter liquidity footprint.</td></tr>
+          </tbody>
+        </table>
+        <p>The total addressable market is broader than crypto perpetuals alone. Hyperliquid does not need to replace traditional finance to be strategically important; it only needs to keep compounding share in the digitally native subset of derivatives, collateral, and structured-finance activity.</p>
+      </section>
+
+      <section class="section" id="risks">
+        <div class="sec-header"><span class="sec-num">06</span><h2>Risks &amp; Incubator Recommendations</h2></div>
+        <p>The major investment risk is regulatory. Hyperliquid's terms restrict access for users in certain jurisdictions, and some delegation flows are KYC/KYB-gated in ways that exclude geographies such as the U.S. and Ontario. That helps operationally, but it does not remove legal risk around always-on leveraged markets.</p>
+        <p>The next risks are technical and governance-related: bridge dependency, validator concentration, incomplete audit scope, and evolving slashing or governance mechanisms. These risks should be analyzed alongside concentration metrics rather than accepted at face value.</p>
+        <div class="checklist">
+          <div class="check-card"><strong>Legal</strong><p>Is the product insulated from restricted-jurisdiction user flows, benchmark manipulation issues, and money-transmission risk?</p></div>
+          <div class="check-card"><strong>Infrastructure</strong><p>What are the exact dependencies on bridge withdrawals, validator concentration, API uptime, and oracle quality?</p></div>
+          <div class="check-card"><strong>Economics</strong><p>How do fee flows, deployer economics, and HYPE buyback mechanics affect the portfolio company's business model?</p></div>
+          <div class="check-card"><strong>Security</strong><p>Which parts of the stack rely on unaudited off-chain components, operational key management, or upgrade authority?</p></div>
+        </div>
+        <div class="callout risk">
+          <div class="callout-title">Bottom Line</div>
+          <p>Hyperliquid is increasingly a platform thesis, not only a token or trading thesis. Its current edge comes from deep liquidity, native order books, and same-security composability through HyperEVM. The critical diligence issues are regulation, validator and bridge concentration, and full-stack operational security.</p>
+        </div>
+      </section>
+
+      <section class="section" id="sources">
+        <div class="sec-header"><span class="sec-num">Sources</span><h2>Public Source Base</h2></div>
+        <div class="source-list">
+          <h3>Referenced source categories</h3>
+          <p>Official Hyperliquid docs, HyperEVM docs, staking docs, fee docs, bridge docs, validator docs, public contracts repository, DefiLlama, Token Terminal, Circle, CoinGecko, Binance launch materials, Presto Research, OTC Markets filing references, Reuters, FIA, BIS, CoinDesk, and Hyperliquid terms. Figures are presented as May 2026 public-source screening snapshots and should be refreshed before any live investment decision.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-left">Research only &middot; Not financial advice</div>
+      <div class="footer-right"><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Investment Thesis Index</a></div>
+    </footer>
+  </div>
+</body>
+</html>
