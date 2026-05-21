@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food, Fuel &amp; Fertilizer - Bryan Goh</title>
+  <meta name="description" content="Public-source 2026/27 wheat, corn, and sugar trade thesis for retail investors using agriculture futures ETFs and ETCs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Fraunces:opsz,wght@9..144,650;9..144,750&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #10150f;
+      --surface: #182216;
+      --surface2: #22311d;
+      --border: #35462d;
+      --border2: #596a3b;
+      --text: #dce8ce;
+      --dim: #9eae87;
+      --cyan: #83cfee;
+      --green: #84b94f;
+      --amber: #f0c95a;
+      --red: #e86b55;
+      --white: #fff8dd;
+      --soil: #241a12;
+      --leaf: #a6cf5d;
+      --sugar: #f6e9bc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(240, 201, 90, 0.18), transparent 260px),
+        radial-gradient(circle at 86% 12%, rgba(132, 185, 79, 0.16), transparent 340px),
+        linear-gradient(180deg, #10150f 0%, #151c12 46%, #0e130c 100%);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(112deg, transparent 0 45%, rgba(240, 201, 90, 0.045) 45% 46%, transparent 46% 100%),
+        repeating-linear-gradient(105deg, rgba(132, 185, 79, 0.045) 0 1px, transparent 1px 34px);
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.95), transparent 82%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle, rgba(255, 248, 221, 0.05) 1px, transparent 1.6px) 0 0 / 26px 26px,
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.06) 3px, rgba(0, 0, 0, 0.06) 4px);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 28px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      align-items: center;
+      border-bottom: 1px solid rgba(240, 201, 90, 0.34);
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left,
+    .topbar a,
+    .classification-stamp,
+    .masthead-sub,
+    .author-line,
+    .toc-label,
+    .sec-num,
+    .metric-label,
+    .callout-title,
+    .source-list h3,
+    .footer-left,
+    .footer-right a {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .topbar-left {
+      color: var(--amber);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .topbar a {
+      color: var(--dim);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .topbar a:hover { color: var(--white); }
+
+    .masthead {
+      background:
+        linear-gradient(135deg, rgba(132, 185, 79, 0.16), transparent 45%),
+        radial-gradient(circle at 92% 18%, rgba(240, 201, 90, 0.19), transparent 230px);
+      border: 1px solid rgba(240, 201, 90, 0.28);
+      border-radius: 8px;
+      box-shadow: 0 28px 80px rgba(5, 8, 4, 0.36);
+      margin: 34px 0 0;
+      overflow: hidden;
+      padding: 48px 34px 40px;
+      position: relative;
+    }
+
+    .masthead::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(100deg, transparent 0 27px, rgba(240, 201, 90, 0.08) 28px 29px),
+        linear-gradient(180deg, transparent 0 64%, rgba(36, 26, 18, 0.38) 100%);
+      pointer-events: none;
+    }
+
+    .masthead::after {
+      border: 1px solid rgba(240, 201, 90, 0.35);
+      color: rgba(255, 248, 221, 0.38);
+      content: 'CORN   WEAT   SUGA';
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      padding: 8px 12px;
+      position: absolute;
+      right: 26px;
+      top: 24px;
+      transform: rotate(2deg);
+    }
+
+    .masthead > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .classification-stamp {
+      background: rgba(240, 201, 90, 0.1);
+      border: 2px solid var(--amber);
+      color: var(--amber);
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      padding: 3px 10px;
+    }
+
+    h1 {
+      color: var(--white);
+      font-family: 'Fraunces', 'Barlow Condensed', serif;
+      font-size: clamp(38px, 6.5vw, 74px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      margin-bottom: 10px;
+    }
+
+    h1 span { color: var(--amber); }
+
+    .masthead-sub {
+      color: var(--dim);
+      font-size: clamp(15px, 2.2vw, 21px);
+      font-weight: 300;
+      margin-bottom: 26px;
+    }
+
+    .author-line {
+      color: var(--dim);
+      font-size: 12px;
+    }
+
+    .author-line strong { color: var(--text); }
+
+    .summary {
+      background:
+        linear-gradient(90deg, rgba(240, 201, 90, 0.1), rgba(24, 34, 22, 0.96)),
+        var(--surface);
+      border: 1px solid rgba(240, 201, 90, 0.28);
+      border-left: 5px solid var(--amber);
+      border-radius: 8px;
+      margin: 36px 0;
+      padding: 22px 26px;
+    }
+
+    .summary strong { color: var(--white); }
+
+    .note {
+      background: rgba(16, 21, 15, 0.66);
+      border: 1px solid rgba(240, 201, 90, 0.28);
+      border-radius: 8px;
+      color: var(--dim);
+      font-size: 13px;
+      margin: 24px 0 0;
+      padding: 12px 14px;
+    }
+
+    .toc {
+      background:
+        linear-gradient(180deg, rgba(34, 49, 29, 0.88), rgba(24, 34, 22, 0.98));
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      margin-bottom: 0;
+      padding: 22px 26px;
+    }
+
+    .toc-label {
+      border-bottom: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+    }
+
+    .toc ol {
+      columns: 2;
+      column-gap: 30px;
+      padding-left: 20px;
+    }
+
+    .toc li {
+      break-inside: avoid;
+      margin-bottom: 6px;
+    }
+
+    .toc a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .section {
+      border-bottom: 1px solid rgba(89, 106, 59, 0.52);
+      padding: 48px 0;
+    }
+
+    .section:last-of-type { border-bottom: none; }
+
+    .sec-header {
+      align-items: baseline;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .sec-num {
+      background: rgba(240, 201, 90, 0.12);
+      border: 1px solid rgba(240, 201, 90, 0.34);
+      border-radius: 999px;
+      color: var(--amber);
+      font-size: 11px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+
+    h2 {
+      color: var(--white);
+      font-family: 'Fraunces', 'Barlow Condensed', serif;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: 0;
+      margin: 30px 0 12px;
+      text-transform: uppercase;
+    }
+
+    p { margin-bottom: 18px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--white); }
+
+    .visual-brief {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      margin: 0 0 36px;
+    }
+
+    .brief-card {
+      background:
+        linear-gradient(180deg, rgba(34, 49, 29, 0.95), rgba(24, 34, 22, 0.98));
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      box-shadow: 0 18px 46px rgba(5, 8, 4, 0.2);
+      min-height: 138px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brief-card::after {
+      content: '';
+      position: absolute;
+      inset: auto 18px 16px 18px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--amber), rgba(132, 185, 79, 0.4), transparent);
+      opacity: 0.65;
+    }
+
+    .brief-card::before {
+      color: rgba(240, 201, 90, 0.16);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 68px;
+      font-weight: 700;
+      line-height: 1;
+      position: absolute;
+      right: 14px;
+      top: 12px;
+    }
+
+    .brief-card:nth-child(1)::before { content: 'N'; }
+    .brief-card:nth-child(2)::before { content: 'CAL'; font-size: 48px; top: 18px; }
+    .brief-card:nth-child(3)::before { content: 'BTU'; font-size: 48px; top: 18px; }
+
+    .brief-kicker,
+    .mini-label,
+    .bar-label,
+    .risk-label,
+    .architecture-label,
+    .allocation-name,
+    .allocation-value,
+    .comparison-meta {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brief-kicker {
+      color: var(--amber);
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .brief-card strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 0.95;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .brief-card p {
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .metric-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      margin: 28px 0;
+    }
+
+    .metric {
+      background:
+        linear-gradient(180deg, rgba(255, 248, 221, 0.04), transparent),
+        var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .metric::before {
+      content: '';
+      display: block;
+      height: 3px;
+      margin-bottom: 14px;
+      background: linear-gradient(90deg, var(--amber), var(--green), rgba(132, 185, 79, 0.08));
+    }
+
+    .metric-value {
+      color: var(--white);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric-label {
+      color: var(--dim);
+      display: block;
+      font-size: 10px;
+    }
+
+    .callout {
+      background:
+        linear-gradient(90deg, rgba(255, 248, 221, 0.035), transparent),
+        var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      margin: 28px 0;
+      padding: 24px 26px;
+    }
+
+    .callout-title {
+      color: var(--amber);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .callout.positive { border-left: 3px solid var(--green); }
+    .callout.warning { border-left: 3px solid var(--amber); }
+    .callout.risk { border-left: 3px solid var(--red); }
+
+    .lens-grid,
+    .architecture-grid,
+    .risk-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin: 28px 0;
+    }
+
+    .thesis-panel {
+      background:
+        linear-gradient(135deg, rgba(132, 185, 79, 0.08), transparent 50%),
+        var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      margin: 28px 0;
+      padding: 24px;
+    }
+
+    .thesis-panel h3 {
+      margin-top: 0;
+    }
+
+    .thesis-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .thesis-point {
+      align-items: start;
+      border-top: 1px dashed rgba(166, 207, 93, 0.28);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 78px 1fr;
+      padding-top: 14px;
+    }
+
+    .thesis-point span,
+    .scenario-label,
+    .monitor-label {
+      color: var(--amber);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .thesis-point p {
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .lens-card,
+    .architecture-card,
+    .risk-card,
+    .scenario-card,
+    .monitor-card {
+      background:
+        linear-gradient(180deg, rgba(255, 248, 221, 0.035), rgba(255, 248, 221, 0.01)),
+        var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .lens-card strong,
+    .architecture-card strong,
+    .risk-card strong,
+    .scenario-card strong,
+    .monitor-card strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .lens-card p,
+    .architecture-card p,
+    .risk-card p,
+    .scenario-card p,
+    .monitor-card p {
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .architecture-label {
+      color: var(--amber);
+      display: block;
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .data-table {
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 28px 0;
+      overflow: hidden;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .data-table th {
+      background: linear-gradient(90deg, var(--amber), var(--sugar));
+      color: #19130b;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      padding: 9px 12px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .data-table td {
+      background: rgba(24, 34, 22, 0.72);
+      border-bottom: 1px solid rgba(89, 106, 59, 0.52);
+      color: var(--text);
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+
+    .data-table tr:nth-child(even) td { background: rgba(34, 49, 29, 0.76); }
+    .data-table td:first-child { color: var(--white); font-weight: 600; }
+
+    .bar-stack {
+      background:
+        repeating-linear-gradient(90deg, rgba(240, 201, 90, 0.035) 0 1px, transparent 1px 42px),
+        var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .bar-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(150px, 220px) 1fr minmax(54px, auto);
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .bar-row:last-child { margin-bottom: 0; }
+
+    .bar-label {
+      color: var(--text);
+      font-size: 11px;
+    }
+
+    .bar-track {
+      background: rgba(255, 248, 221, 0.08);
+      border-radius: 999px;
+      height: 11px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      background: linear-gradient(90deg, var(--green), var(--amber));
+      border-radius: 999px;
+      height: 100%;
+      min-width: 2px;
+    }
+
+    .bar-value {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px;
+      text-align: right;
+    }
+
+    .allocation-chart {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .allocation-strip {
+      display: flex;
+      height: 28px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .allocation-segment {
+      min-width: 2px;
+    }
+
+    .allocation-list {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .allocation-item {
+      align-items: center;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 9px 1fr auto;
+    }
+
+    .allocation-dot {
+      height: 9px;
+      width: 9px;
+    }
+
+    .allocation-name {
+      color: var(--text);
+      font-size: 10px;
+    }
+
+    .allocation-value {
+      color: var(--white);
+      font-size: 11px;
+    }
+
+    .comparison-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .comparison-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(110px, 150px) 1fr minmax(88px, auto);
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .comparison-row:last-child { margin-bottom: 0; }
+
+    .comparison-meta {
+      color: var(--dim);
+      font-size: 10px;
+      text-align: right;
+    }
+
+    .price-panel {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(240, 201, 90, 0.11), transparent 180px),
+        linear-gradient(180deg, rgba(34, 49, 29, 0.95), rgba(24, 34, 22, 0.98));
+      border: 1px solid rgba(240, 201, 90, 0.28);
+      border-radius: 8px;
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .price-chart {
+      display: block;
+      height: auto;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .price-axis,
+    .price-grid {
+      stroke: rgba(255, 248, 221, 0.14);
+      stroke-width: 1;
+    }
+
+    .price-line {
+      fill: none;
+      stroke: var(--amber);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 4;
+    }
+
+    .price-area {
+      fill: rgba(240, 201, 90, 0.12);
+    }
+
+    .entry-band {
+      fill: rgba(224, 163, 40, 0.16);
+      stroke: rgba(224, 163, 40, 0.6);
+      stroke-dasharray: 5 5;
+      stroke-width: 1;
+    }
+
+    .price-point {
+      fill: var(--bg);
+      stroke: var(--amber);
+      stroke-width: 3;
+    }
+
+    .entry-point {
+      fill: var(--amber);
+      stroke: var(--white);
+      stroke-width: 2;
+    }
+
+    .price-text {
+      fill: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .price-callout {
+      fill: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .price-note {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 12px;
+    }
+
+    .stack-map {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 28px 0;
+    }
+
+    .stack-layer {
+      background:
+        linear-gradient(180deg, rgba(132, 185, 79, 0.14), rgba(255, 248, 221, 0.025));
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      min-height: 118px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .stack-layer::before {
+      content: '';
+      background: linear-gradient(90deg, var(--green), var(--amber));
+      border-radius: 999px;
+      height: 3px;
+      left: 16px;
+      position: absolute;
+      right: 16px;
+      top: 14px;
+    }
+
+    .stack-layer strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 20px;
+      line-height: 1;
+      margin: 18px 0 8px;
+      text-transform: uppercase;
+    }
+
+    .stack-layer p {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .protocol-snapshot {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(132, 185, 79, 0.12), transparent 260px),
+        var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .protocol-map {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas:
+        "users bridge validators"
+        "hypercore hypercore hype"
+        "hyperevm apps apps";
+      margin-top: 18px;
+    }
+
+    .protocol-node {
+      background:
+        linear-gradient(180deg, rgba(255, 248, 221, 0.04), rgba(255, 248, 221, 0.012));
+      border: 1px solid rgba(166, 207, 93, 0.25);
+      border-radius: 8px;
+      min-height: 104px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .protocol-node::before {
+      content: '';
+      background: linear-gradient(90deg, var(--amber), transparent);
+      height: 3px;
+      left: 16px;
+      position: absolute;
+      right: 16px;
+      top: 14px;
+    }
+
+    .protocol-node strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      margin: 18px 0 8px;
+      text-transform: uppercase;
+    }
+
+    .protocol-node p {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .protocol-users { grid-area: users; }
+    .protocol-bridge { grid-area: bridge; }
+    .protocol-validators { grid-area: validators; }
+    .protocol-core { grid-area: hypercore; border-color: rgba(240, 201, 90, 0.68); }
+    .protocol-hype { grid-area: hype; }
+    .protocol-evm { grid-area: hyperevm; }
+    .protocol-apps { grid-area: apps; border-color: rgba(132, 185, 79, 0.7); }
+
+    .protocol-link {
+      color: var(--amber);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      margin-top: 12px;
+      text-transform: uppercase;
+    }
+
+    .interaction-demo {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .demo-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      margin-top: 18px;
+    }
+
+    .demo-screen,
+    .demo-trace {
+      background: #0a1017;
+      border: 1px solid var(--border2);
+      min-height: 420px;
+      padding: 16px;
+    }
+
+    .surface-shot {
+      background: #050b10;
+      border: 1px solid var(--border2);
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .surface-shot img {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .surface-shot {
+      max-height: 520px;
+    }
+
+    .surface-shot img {
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    .surface-caption {
+      border-top: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 12px 14px;
+    }
+
+    .demo-trace {
+      min-height: 0;
+    }
+
+    .trace-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .demo-topbar,
+    .demo-row,
+    .demo-order-row,
+    .demo-status-row {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .demo-topbar {
+      border-bottom: 1px solid var(--border);
+      color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      padding-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .demo-market {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr 0.8fr;
+      margin-top: 14px;
+    }
+
+    .demo-ticket,
+    .demo-book,
+    .demo-mini-panel {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+      padding: 14px;
+    }
+
+    .demo-ticket strong,
+    .demo-book strong,
+    .demo-mini-panel strong,
+    .trace-step strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      line-height: 1;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .demo-side {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 12px;
+    }
+
+    .demo-pill {
+      border: 1px solid var(--border2);
+      color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      padding: 8px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .demo-pill.active {
+      background: rgba(38, 162, 105, 0.22);
+      border-color: var(--green);
+      color: var(--white);
+    }
+
+    .demo-field {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+    }
+
+    .demo-field span,
+    .demo-order-row span,
+    .demo-status-row span,
+    .trace-step span {
+      color: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .demo-field b,
+    .demo-order-row b,
+    .demo-status-row b {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .demo-button {
+      background: var(--green);
+      color: #07110d;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin-top: 14px;
+      padding: 11px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .demo-order-row {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 5px 0;
+    }
+
+    .demo-order-row.ask b { color: var(--red); }
+    .demo-order-row.bid b { color: var(--green); }
+
+    .demo-mid {
+      color: var(--cyan);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      padding: 12px 0;
+      text-align: center;
+    }
+
+    .demo-bottom {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 12px;
+    }
+
+    .demo-status-row {
+      margin-bottom: 8px;
+    }
+
+    .trace-step {
+      border-left: 3px solid var(--border2);
+      padding: 10px 0 10px 14px;
+      position: relative;
+    }
+
+    .trace-step::before {
+      background: var(--cyan);
+      border-radius: 50%;
+      content: '';
+      height: 9px;
+      left: -6px;
+      position: absolute;
+      top: 15px;
+      width: 9px;
+    }
+
+    .trace-step.active {
+      background: rgba(56, 189, 248, 0.06);
+      border-color: var(--cyan);
+    }
+
+    .trace-step p {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .demo-note {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 12px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 28px 0;
+    }
+
+    .flow-step {
+      background:
+        linear-gradient(180deg, rgba(132, 185, 79, 0.12), rgba(24, 34, 22, 0.98));
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      line-height: 1.2;
+      min-height: 88px;
+      padding: 14px;
+      text-transform: uppercase;
+    }
+
+    .flow-step span {
+      color: var(--amber);
+      display: block;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      margin: 28px 0;
+    }
+
+    .check-card {
+      background: var(--surface);
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .check-card strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 19px;
+      line-height: 1;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .risk-meter {
+      background: rgba(255, 248, 221, 0.08);
+      border-radius: 999px;
+      height: 8px;
+      margin-top: 12px;
+      overflow: hidden;
+    }
+
+    .risk-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .risk-fill.high { background: var(--red); width: 86%; }
+    .risk-fill.med { background: var(--amber); width: 66%; }
+    .risk-fill.watch { background: var(--green); width: 48%; }
+
+    .scenario-grid,
+    .monitor-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      margin: 28px 0;
+    }
+
+    .scenario-card {
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-card::after {
+      color: rgba(240, 201, 90, 0.11);
+      content: 'FIELD';
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      position: absolute;
+      right: 12px;
+      top: 12px;
+    }
+
+    .scenario-card.upside { border-top: 3px solid var(--green); }
+    .scenario-card.base { border-top: 3px solid var(--amber); }
+    .scenario-card.downside { border-top: 3px solid var(--red); }
+
+    .monitor-value {
+      color: var(--white);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+      margin: 10px 0 8px;
+    }
+
+    ul {
+      margin: 16px 0 0;
+      padding-left: 22px;
+    }
+
+    li { margin-bottom: 8px; }
+
+    .source-list {
+      background:
+        linear-gradient(180deg, rgba(34, 49, 29, 0.9), rgba(24, 34, 22, 0.98));
+      border: 1px solid rgba(166, 207, 93, 0.28);
+      border-radius: 8px;
+      padding: 22px 24px;
+    }
+
+    .source-list h3 {
+      color: var(--amber);
+      font-size: 11px;
+      margin: 0 0 12px;
+    }
+
+    .source-list p {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .page-footer {
+      border-top: 1px solid rgba(240, 201, 90, 0.34);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      padding-top: 20px;
+    }
+
+    .footer-left {
+      color: var(--dim);
+      font-size: 11px;
+    }
+
+    .footer-right a {
+      color: var(--amber);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 760px) {
+      .flow { grid-template-columns: 1fr; }
+      .visual-brief { grid-template-columns: 1fr; }
+      .stack-map { grid-template-columns: 1fr; }
+      .protocol-map {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "users"
+          "bridge"
+          "validators"
+          "hypercore"
+          "hype"
+          "hyperevm"
+          "apps";
+      }
+      .demo-grid,
+      .demo-market,
+      .demo-bottom,
+      .trace-grid {
+        grid-template-columns: 1fr;
+      }
+      .thesis-point { grid-template-columns: 1fr; }
+      .bar-row,
+      .comparison-row {
+        grid-template-columns: 1fr;
+      }
+      .bar-value,
+      .comparison-meta {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page { padding: 0 16px 60px; }
+      .masthead {
+        margin-top: 20px;
+        padding: 30px 18px 26px;
+      }
+      .masthead::after {
+        display: none;
+      }
+      .toc { padding: 18px; }
+      .toc ol { columns: 1; }
+      .section { padding: 36px 0; }
+      .data-table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="topbar-left">Bryan Goh &middot; Investment Thesis</div>
+      <div><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Thesis Index</a></div>
+    </div>
+
+    <header class="masthead">
+      <div class="classification-stamp">Public Investment Thesis</div>
+      <h1><span>Food, Fuel</span><br>&amp; Fertilizer</h1>
+      <div class="masthead-sub">A 2026/27 Wheat, Corn &amp; Sugar Trade Thesis</div>
+      <div class="author-line">
+        <strong>Bryan Goh</strong> &nbsp;&middot;&nbsp; Retail investor lens &middot; Agriculture futures ETFs/ETCs &middot; Iran war cascade trade &nbsp;&middot;&nbsp; May 2026
+      </div>
+      <div class="note">This is a public-source analytical thesis for research and portfolio demonstration only. It is not investment advice.</div>
+    </header>
+
+    <section class="summary">
+      <strong>Thesis in one line:</strong> A Middle East energy and fertilizer shock can transmit into wheat, corn, and sugar with a crop-calendar lag, making CORN, WEAT, and SUGA a portfolio-demo basket for monitoring food inflation risk rather than a guaranteed directional trade.
+    </section>
+
+    <section class="visual-brief" aria-label="Investment thesis summary">
+      <article class="brief-card">
+        <div class="brief-kicker">Core thesis</div>
+        <strong>Fertilizer shock</strong>
+        <p>Energy, natural gas, ammonia, urea, potash, and shipping constraints can raise input costs before food prices fully react.</p>
+      </article>
+      <article class="brief-card">
+        <div class="brief-kicker">Why it matters</div>
+        <strong>Crop calendar lag</strong>
+        <p>Planting decisions, fertilizer application, weather, yield formation, and harvest timing turn an input shock into delayed supply risk.</p>
+      </article>
+      <article class="brief-card">
+        <div class="brief-kicker">Trade linkage</div>
+        <strong>Biofuel / energy</strong>
+        <p>Corn ethanol and sugar ethanol connect food commodities to oil, fuel policy, and producer margins when energy prices reprice.</p>
+      </article>
+    </section>
+
+    <nav class="toc" aria-label="Table of contents">
+      <div class="toc-label">Memo Sections</div>
+      <ol>
+        <li><a href="#snapshot">Portfolio Snapshot</a></li>
+        <li><a href="#macro">Macro Setup</a></li>
+        <li><a href="#mechanism">Mechanism Map</a></li>
+        <li><a href="#crop-lens">Crop Lens</a></li>
+        <li><a href="#scenarios">Scenario Matrix</a></li>
+        <li><a href="#risks">Risk Checklist</a></li>
+        <li><a href="#sources">Public Source Base</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <section class="section" id="snapshot">
+        <div class="sec-header"><span class="sec-num">01</span><h2>Portfolio Snapshot</h2></div>
+        <div class="metric-grid">
+          <div class="metric"><span class="metric-value">CORN</span><span class="metric-label">Corn futures ETF / ETC watch</span></div>
+          <div class="metric"><span class="metric-value">WEAT</span><span class="metric-label">Wheat futures ETF / ETC watch</span></div>
+          <div class="metric"><span class="metric-value">SUGA</span><span class="metric-label">Sugar futures ETC watch</span></div>
+          <div class="metric"><span class="metric-value">2026/27</span><span class="metric-label">Crop-cycle focus</span></div>
+          <div class="metric"><span class="metric-value">Demo</span><span class="metric-label">Research portfolio only</span></div>
+        </div>
+        <div class="bar-stack" aria-label="Agriculture thesis exposure map">
+          <div class="bar-row"><div class="bar-label">Fertilizer sensitivity</div><div class="bar-track"><div class="bar-fill" style="width: 90%;"></div></div><div class="bar-value">Wheat / corn</div></div>
+          <div class="bar-row"><div class="bar-label">Energy linkage</div><div class="bar-track"><div class="bar-fill" style="width: 82%;"></div></div><div class="bar-value">Corn / sugar</div></div>
+          <div class="bar-row"><div class="bar-label">Weather beta</div><div class="bar-track"><div class="bar-fill" style="width: 74%;"></div></div><div class="bar-value">All three</div></div>
+          <div class="bar-row"><div class="bar-label">Policy risk</div><div class="bar-track"><div class="bar-fill" style="width: 68%;"></div></div><div class="bar-value">Exports / biofuel</div></div>
+        </div>
+        <div class="price-panel" aria-label="Agriculture shock timeline">
+          <div class="callout-title">Shock Transmission Timeline</div>
+          <p>The trade setup is not that food futures instantly follow oil. The cleaner thesis is staged: energy and fertilizer move first, planting economics react second, crop balance sheets tighten or normalize later.</p>
+          <svg class="price-chart" viewBox="0 0 760 300" role="img" aria-labelledby="timeline-title timeline-desc">
+            <title id="timeline-title">Agriculture shock transmission timeline</title>
+            <desc id="timeline-desc">A stylized timeline from energy shock to fertilizer cost, crop decisions, yield risk, and commodity ETF monitoring.</desc>
+            <line class="price-grid" x1="60" y1="54" x2="720" y2="54"></line>
+            <line class="price-grid" x1="60" y1="114" x2="720" y2="114"></line>
+            <line class="price-grid" x1="60" y1="174" x2="720" y2="174"></line>
+            <line class="price-grid" x1="60" y1="234" x2="720" y2="234"></line>
+            <line class="price-axis" x1="60" y1="250" x2="720" y2="250"></line>
+            <line class="price-axis" x1="60" y1="34" x2="60" y2="250"></line>
+            <rect class="entry-band" x="86" y="132" width="158" height="76" rx="0"></rect>
+            <path class="price-area" d="M 120 188 L 245 150 L 372 130 L 500 94 L 640 70 L 640 250 L 120 250 Z"></path>
+            <path class="price-line" d="M 120 188 L 245 150 L 372 130 L 500 94 L 640 70"></path>
+            <circle class="entry-point" cx="120" cy="188" r="7"></circle>
+            <circle class="price-point" cx="245" cy="150" r="6"></circle>
+            <circle class="price-point" cx="372" cy="130" r="6"></circle>
+            <circle class="price-point" cx="500" cy="94" r="6"></circle>
+            <circle class="price-point" cx="640" cy="70" r="6"></circle>
+            <text class="price-text" x="18" y="58">High</text>
+            <text class="price-text" x="18" y="118">Tight</text>
+            <text class="price-text" x="18" y="178">Watch</text>
+            <text class="price-text" x="18" y="238">Calm</text>
+            <text class="price-text" x="88" y="276">Energy</text>
+            <text class="price-text" x="206" y="276">Fertilizer</text>
+            <text class="price-text" x="330" y="276">Planting</text>
+            <text class="price-text" x="462" y="276">Weather</text>
+            <text class="price-text" x="602" y="276">Harvest</text>
+            <text class="price-callout" x="96" y="122">Input shock</text>
+            <text class="price-callout" x="512" y="58">Balance sheet risk</text>
+          </svg>
+          <p class="price-note">Stylized framework only. Futures-based funds can underperform spot moves because of roll yield, fees, liquidity, currency effects, and contract selection.</p>
+        </div>
+        <p>The portfolio-demo expression is a three-name watch basket rather than a single conviction bet. CORN, WEAT, and SUGA give public-market readers an accessible way to track the food, fuel, and fertilizer channel without pretending that commodity futures exposure is simple or risk-free.</p>
+        <div class="callout positive">
+          <div class="callout-title">Investment Read</div>
+          <p>The investable question is whether the 2026 Middle East energy and fertilizer shock stays temporary, or whether it flows through acreage, yields, inventories, and export policy into the 2026/27 crop balance sheets.</p>
+        </div>
+      </section>
+
+      <section class="section" id="macro">
+        <div class="sec-header"><span class="sec-num">02</span><h2>Macro Setup</h2></div>
+        <p>The agriculture thesis starts outside agriculture. A regional war shock can reprice crude oil, gas, shipping insurance, freight routes, and fertilizer inputs before consumers see a clean food-price signal. That matters because modern grain and sugar supply chains are energy-intensive from field to port.</p>
+        <p>World Bank commodity materials in April and May 2026 framed the Middle East shock as an energy and fertilizer-led commodity event. USDA WASDE remains the monthly anchor for wheat, corn, and sugar supply-demand estimates, while AMIS and FAO help track food-market transparency and early stress signals.</p>
+        <div class="lens-grid">
+          <article class="lens-card"><strong>Energy first</strong><p>Oil and gas can affect freight, drying, irrigation, processing, ethanol economics, and nitrogen fertilizer production.</p></article>
+          <article class="lens-card"><strong>Fertilizer second</strong><p>Higher urea, ammonia, phosphate, and potash costs change farmer margins and can alter application rates or crop choices.</p></article>
+          <article class="lens-card"><strong>Food later</strong><p>Crop markets often need acreage, weather, export, and inventory confirmation before a durable price response forms.</p></article>
+        </div>
+        <div class="thesis-panel">
+          <h3>Retail investor lens</h3>
+          <p>This is not a call to buy grain exposure blindly. It is a public-source screening memo for how a retail investor might monitor a shock cascade using liquid, listed instruments while respecting the complexity of futures rolls and policy risk.</p>
+          <div class="thesis-list">
+            <div class="thesis-point"><span>Access</span><p>ETFs and ETCs make futures-linked exposure visible, but they do not remove commodity, roll, currency, liquidity, or issuer risk.</p></div>
+            <div class="thesis-point"><span>Timing</span><p>The macro story can be correct while the trade is early if weather is benign, stocks are comfortable, or futures curves absorb the shock.</p></div>
+            <div class="thesis-point"><span>Use case</span><p>The basket is best framed as a portfolio-demo inflation hedge watchlist, not a promise of protection or outperformance.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="mechanism">
+        <div class="sec-header"><span class="sec-num">03</span><h2>Mechanism Map</h2></div>
+        <p>The reason the trade is interesting is the chain of causality. A fertilizer shock is not just an input-cost chart. It changes farmer behavior, crop margins, forward selling, acreage incentives, and eventually import needs or export restraint.</p>
+        <div class="protocol-snapshot" aria-label="Agriculture mechanism map">
+          <div class="callout-title">Cascade Map</div>
+          <p>The highest-signal path is energy to fertilizer to crop economics to food-linked futures. The weaker the evidence at each step, the more this remains a watchlist rather than a trade.</p>
+          <div class="protocol-map">
+            <article class="protocol-node protocol-users"><strong>War / shipping risk</strong><p>Regional conflict can raise insurance, freight, energy risk premia, and the cost of moving inputs and crops.</p><div class="protocol-link">Macro trigger</div></article>
+            <article class="protocol-node protocol-bridge"><strong>Energy complex</strong><p>Oil and gas prices influence fertilizer production, farm fuel, drying, processing, and ethanol parity.</p><div class="protocol-link">Cost channel</div></article>
+            <article class="protocol-node protocol-validators"><strong>Fertilizer markets</strong><p>Nitrogen, phosphate, and potash stress can squeeze margins or reduce application intensity.</p><div class="protocol-link">Input channel</div></article>
+            <article class="protocol-node protocol-core"><strong>Crop calendar</strong><p>Planting, tasseling, flowering, harvest, and stock-use revisions determine when the shock becomes measurable.</p><div class="protocol-link">Lag mechanism</div></article>
+            <article class="protocol-node protocol-hype"><strong>Balance sheets</strong><p>USDA WASDE and global crop reports update supply, demand, ending stocks, trade, and price assumptions.</p><div class="protocol-link">Confirmation layer</div></article>
+            <article class="protocol-node protocol-evm"><strong>Futures curve</strong><p>Nearby spreads, carry, backwardation, and fund roll mechanics determine investor experience.</p><div class="protocol-link">Market structure</div></article>
+            <article class="protocol-node protocol-apps"><strong>CORN / WEAT / SUGA</strong><p>Listed wrappers translate futures exposure into portfolio-demo instruments, with tracking and roll caveats.</p><div class="protocol-link">Retail expression</div></article>
+          </div>
+        </div>
+        <div class="stack-map" aria-label="Mechanism stack">
+          <div class="stack-layer"><strong>Shock</strong><p>Conflict raises energy, freight, insurance, and fertilizer uncertainty.</p></div>
+          <div class="stack-layer"><strong>Decision</strong><p>Farmers respond through crop mix, application rates, hedging, and input timing.</p></div>
+          <div class="stack-layer"><strong>Supply</strong><p>Weather and yields decide whether lower margins become lower output.</p></div>
+          <div class="stack-layer"><strong>Market</strong><p>Futures curves, ETFs, and ETCs convert the story into investable price action.</p></div>
+        </div>
+        <div class="architecture-grid">
+          <article class="architecture-card"><span class="architecture-label">Input</span><strong>Urea / ammonia</strong><p>Nitrogen cost is closely tied to energy and matters heavily for corn yields.</p></article>
+          <article class="architecture-card"><span class="architecture-label">Crop</span><strong>Wheat</strong><p>Global trade sensitivity, weather exposure, and substitution with feed grains.</p></article>
+          <article class="architecture-card"><span class="architecture-label">Crop</span><strong>Corn</strong><p>Fertilizer intensity, feed demand, ethanol demand, and summer weather risk.</p></article>
+          <article class="architecture-card"><span class="architecture-label">Crop</span><strong>Sugar</strong><p>Brazil and India policy, cane crush economics, ethanol parity, and weather.</p></article>
+        </div>
+        <div class="callout warning">
+          <div class="callout-title">Timing Read</div>
+          <p>The cleanest signal is not the headline shock. It is confirmation in fertilizer affordability, crop condition, WASDE revisions, export policy, futures spreads, and fund tracking behavior.</p>
+        </div>
+      </section>
+
+      <section class="section" id="crop-lens">
+        <div class="sec-header"><span class="sec-num">04</span><h2>Crop Lens</h2></div>
+        <p>The basket is deliberately split across wheat, corn, and sugar because each crop expresses a different part of the same macro stress. Wheat is the food-security and trade channel. Corn is the fertilizer and feed channel. Sugar is the energy and ethanol channel.</p>
+        <table class="data-table">
+          <thead><tr><th>Instrument</th><th>Crop lens</th><th>Key mechanism</th><th>Main watchpoints</th></tr></thead>
+          <tbody>
+            <tr><td>WEAT</td><td>Wheat futures exposure</td><td>Food security, export flows, drought, fertilizer and fuel costs</td><td>Black Sea exports, U.S. Plains, EU weather, WASDE stocks</td></tr>
+            <tr><td>CORN</td><td>Corn futures exposure</td><td>Nitrogen cost, feed demand, ethanol margins, U.S. summer weather</td><td>Planting progress, crop condition, ethanol crush, stocks-to-use</td></tr>
+            <tr><td>SUGA</td><td>Sugar futures exposure</td><td>Energy parity, cane-to-ethanol switching, Brazil and India policy</td><td>Brazil harvest, India exports, crude oil, currency and weather</td></tr>
+          </tbody>
+        </table>
+        <div class="thesis-panel">
+          <h3>Basket logic</h3>
+          <p>The crop mix avoids making the thesis depend on one commodity. If wheat rallies on food security, corn rallies on input and ethanol pressure, or sugar rallies on energy-linked cane economics, the basket can still illustrate the broader agriculture cascade.</p>
+          <div class="thesis-list">
+            <div class="thesis-point"><span>WEAT</span><p>Most directly tied to staple food security, export bans, drought risk, and global import demand.</p></div>
+            <div class="thesis-point"><span>CORN</span><p>Most directly tied to fertilizer intensity, livestock feed, ethanol, and the U.S. growing season.</p></div>
+            <div class="thesis-point"><span>SUGA</span><p>Most directly tied to energy parity because cane can move between sugar and ethanol economics.</p></div>
+          </div>
+        </div>
+        <div class="flow" aria-label="Crop monitoring sequence">
+          <div class="flow-step"><span>01</span>Energy shock</div>
+          <div class="flow-step"><span>02</span>Fertilizer affordability</div>
+          <div class="flow-step"><span>03</span>Planting and crop condition</div>
+          <div class="flow-step"><span>04</span>WASDE revisions</div>
+          <div class="flow-step"><span>05</span>Futures curve and ETF/ETC tracking</div>
+        </div>
+        <p>The main caveat is that commodity products can be right on the macro narrative and wrong on investor returns. Futures curve shape, roll costs, contract liquidity, currency, fees, and timing all matter.</p>
+      </section>
+
+      <section class="section" id="scenarios">
+        <div class="sec-header"><span class="sec-num">05</span><h2>Scenario Matrix</h2></div>
+        <p>The thesis works best as a probability map. A war headline alone is not enough. The key is whether the shock persists long enough to alter input economics, crop expectations, trade flows, and futures curves.</p>
+        <div class="scenario-grid" aria-label="Future scenarios">
+          <article class="scenario-card upside"><div class="scenario-label">Upside case</div><strong>Food inflation cascade</strong><p>Energy and fertilizer stay elevated, crop conditions deteriorate, export policy tightens, and wheat, corn, and sugar futures reprice higher into 2026/27 balance-sheet revisions.</p></article>
+          <article class="scenario-card base"><div class="scenario-label">Base case</div><strong>Volatile monitoring trade</strong><p>Input costs remain a concern but global supplies stay broadly manageable. The basket becomes a watchlist and tactical inflation hedge rather than a sustained directional winner.</p></article>
+          <article class="scenario-card downside"><div class="scenario-label">Downside case</div><strong>Shock fades</strong><p>Energy prices normalize, fertilizer supply loosens, weather is benign, inventories rebuild, and futures-linked funds underperform because the curve, timing, or fees work against holders.</p></article>
+        </div>
+        <div class="monitor-grid" aria-label="Metrics to monitor">
+          <article class="monitor-card"><div class="monitor-label">Energy</div><span class="monitor-value">Oil + gas</span><p>Crude, gas, shipping, insurance, diesel, and fertilizer feedstock pressure.</p></article>
+          <article class="monitor-card"><div class="monitor-label">Fertilizer</div><span class="monitor-value">Urea + potash</span><p>Price indices, affordability, export controls, and production disruptions.</p></article>
+          <article class="monitor-card"><div class="monitor-label">Crops</div><span class="monitor-value">WASDE</span><p>Ending stocks, acreage, yields, exports, import demand, and price assumptions.</p></article>
+          <article class="monitor-card"><div class="monitor-label">Policy</div><span class="monitor-value">Exports</span><p>Biofuel mandates, export bans, import subsidies, strategic reserves, and tariffs.</p></article>
+          <article class="monitor-card"><div class="monitor-label">Vehicles</div><span class="monitor-value">Roll</span><p>ETF/ETC tracking, futures curve shape, fees, currency, spread, and liquidity.</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="risks">
+        <div class="sec-header"><span class="sec-num">06</span><h2>Risk Checklist</h2></div>
+        <p>The main risk is overconfidence. Food, fuel, and fertilizer are connected, but not mechanically or instantly. A public thesis should show the chain of evidence and the points where it can fail.</p>
+        <div class="risk-grid" aria-label="Risk matrix">
+          <article class="risk-card"><strong>Futures roll</strong><p>ETF/ETC performance can diverge from spot commodity headlines because contracts roll across the curve.</p><div class="risk-meter"><div class="risk-fill high"></div></div></article>
+          <article class="risk-card"><strong>Weather reversal</strong><p>Benign weather and high yields can offset fertilizer stress and rebuild inventories.</p><div class="risk-meter"><div class="risk-fill high"></div></div></article>
+          <article class="risk-card"><strong>Policy intervention</strong><p>Export rules, subsidies, mandates, and reserves can suppress or redirect price signals.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
+          <article class="risk-card"><strong>Macro deflation</strong><p>A broad growth slowdown can weaken commodity demand even when input costs stay high.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
+          <article class="risk-card"><strong>Vehicle fit</strong><p>Issuer risk, fees, bid-ask spreads, currency exposure, and tax treatment matter for retail investors.</p><div class="risk-meter"><div class="risk-fill watch"></div></div></article>
+        </div>
+        <div class="checklist">
+          <div class="check-card"><strong>Evidence</strong><p>Are fertilizer costs, crop conditions, and WASDE revisions confirming the story, or is it still only a macro headline?</p></div>
+          <div class="check-card"><strong>Timing</strong><p>Which crop calendar matters now: planting, emergence, pollination, flowering, harvest, or post-harvest stocks?</p></div>
+          <div class="check-card"><strong>Vehicle</strong><p>Does the chosen ETF or ETC match the intended crop exposure, contract month, currency, and holding period?</p></div>
+          <div class="check-card"><strong>Exit</strong><p>What would invalidate the trade: lower energy, cheaper fertilizer, strong harvest, easing conflict, or curve decay?</p></div>
+        </div>
+        <div class="callout risk">
+          <div class="callout-title">Bottom Line</div>
+          <p>Food, Fuel &amp; Fertilizer is a cascade thesis, not a guarantee. The upside is a measurable food-inflation hedge framework if energy and fertilizer stress reach crop balance sheets. The downside is that the shock fades, the timing is wrong, or futures-wrapper mechanics eat the narrative.</p>
+        </div>
+      </section>
+
+      <section class="section" id="sources">
+        <div class="sec-header"><span class="sec-num">07</span><h2>Public Source Base</h2></div>
+        <div class="source-list">
+          <h3>Referenced source categories</h3>
+          <p>USDA WASDE and World Agricultural Outlook Board release materials; USDA NASS crop progress and acreage reports; USDA ERS commodity outlooks; FAO Food Price Index and AMIS Market Monitor; World Bank Commodity Markets Outlook and monthly commodity price data; International Grains Council market reports; ICE and CME futures contract references; issuer materials for CORN, WEAT, and SUGA; public energy and fertilizer price datasets; and major public reporting on Middle East energy and shipping risk. Figures and links should be refreshed before any live investment decision.</p>
+          <p>Key public anchors used for this draft include USDA WASDE May 2026 release materials, World Bank Commodity Markets Outlook April 2026, World Bank May 2026 commodity price notes, and FAO/AMIS April 2026 market-monitor context.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <div class="footer-left">Research only &middot; Not financial advice</div>
+      <div class="footer-right"><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Investment Thesis Index</a></div>
+    </footer>
+  </div>
+</body>
+</html>
+
