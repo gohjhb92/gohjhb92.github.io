@@ -779,6 +779,27 @@
       padding: 16px;
     }
 
+    .surface-shot {
+      background: #050b10;
+      border: 1px solid var(--border2);
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .surface-shot img {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .surface-caption {
+      border-top: 1px solid var(--border);
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 12px 14px;
+    }
+
     .demo-topbar,
     .demo-row,
     .demo-order-row,
@@ -1303,52 +1324,11 @@
         </div>
         <div class="interaction-demo" aria-label="Stylized demo of a Hyperliquid trade and protocol interaction">
           <div class="callout-title">Interaction Demo</div>
-          <p>A simplified view of what the protocol interaction looks like: a trader sees an exchange interface, while the underlying stack handles collateral, matching, margin, settlement, fees, validators, and downstream apps.</p>
+          <p>A real trading surface shows what users actually experience: chart, order book, market stats, leverage controls, and the order ticket. The protocol trace beside it explains what is happening underneath.</p>
           <div class="demo-grid">
-            <div class="demo-screen" aria-label="Mock trading screen">
-              <div class="demo-topbar">
-                <span>Hyperliquid-style trading surface</span>
-                <span>BTC-PERP / 10x</span>
-              </div>
-              <div class="demo-market">
-                <div class="demo-ticket">
-                  <strong>Order Ticket</strong>
-                  <div class="demo-side">
-                    <div class="demo-pill active">Long</div>
-                    <div class="demo-pill">Short</div>
-                  </div>
-                  <div class="demo-field"><span>Collateral</span><b>1,000 USDC</b></div>
-                  <div class="demo-field"><span>Market</span><b>BTC-PERP</b></div>
-                  <div class="demo-field"><span>Size</span><b>0.20 BTC</b></div>
-                  <div class="demo-field"><span>Leverage</span><b>10.0x</b></div>
-                  <div class="demo-button">Place Order</div>
-                </div>
-                <div class="demo-book">
-                  <strong>Order Book</strong>
-                  <div class="demo-order-row ask"><span>Ask</span><b>105,284</b></div>
-                  <div class="demo-order-row ask"><span>Ask</span><b>105,276</b></div>
-                  <div class="demo-mid">105,268</div>
-                  <div class="demo-order-row bid"><span>Bid</span><b>105,260</b></div>
-                  <div class="demo-order-row bid"><span>Bid</span><b>105,251</b></div>
-                </div>
-              </div>
-              <div class="demo-bottom">
-                <div class="demo-mini-panel">
-                  <strong>Margin</strong>
-                  <div class="demo-status-row"><span>Initial</span><b>10%</b></div>
-                  <div class="demo-status-row"><span>Mode</span><b>Cross</b></div>
-                </div>
-                <div class="demo-mini-panel">
-                  <strong>Fees</strong>
-                  <div class="demo-status-row"><span>Flow</span><b>Protocol</b></div>
-                  <div class="demo-status-row"><span>Loop</span><b>HYPE</b></div>
-                </div>
-                <div class="demo-mini-panel">
-                  <strong>Risk</strong>
-                  <div class="demo-status-row"><span>Oracle</span><b>Mark</b></div>
-                  <div class="demo-status-row"><span>Liquidation</span><b>Native</b></div>
-                </div>
-              </div>
+            <div class="surface-shot" aria-label="Screenshot of the official Hyperliquid BTC trading surface">
+              <img src="./hyperliquid-trade-btc.png" alt="Official Hyperliquid BTC-USDC trading surface with candlestick chart, order book, and order ticket">
+              <p class="surface-caption">Screenshot captured from the official Hyperliquid app at app.hyperliquid.xyz/trade/BTC. Market prices and announcements are point-in-time and may change.</p>
             </div>
             <div class="demo-trace" aria-label="Protocol trace behind the trade">
               <div class="demo-topbar">
@@ -1382,7 +1362,7 @@
               </div>
             </div>
           </div>
-          <p class="demo-note">Stylized demo for explanatory purposes only. It is not an official Hyperliquid interface or a live trading screen.</p>
+          <p class="demo-note">The screenshot is a static capture of the official public interface. The protocol trace is explanatory and does not represent a live order or financial recommendation.</p>
         </div>
         <div class="stack-map" aria-label="Hyperliquid stack map">
           <div class="stack-layer"><strong>Trading</strong><p>Spot and perpetual order books with exchange logic close to the chain.</p></div>
