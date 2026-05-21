@@ -15,3 +15,25 @@ filterButtons.forEach((button) => {
     });
   });
 });
+
+const moreWorkNavLink = [...document.querySelectorAll('.nav-links a')].find(
+  (link) => link.getAttribute('href') === '#more-work'
+);
+
+if (moreWorkNavLink) {
+  moreWorkNavLink.textContent = 'Writing';
+}
+
+const writingList = document.querySelector('#more-work .compact-list');
+
+if (writingList && !document.querySelector('[href="./articles/ai-fintech-startups-singapore.html"]')) {
+  const articleCard = document.createElement('article');
+  articleCard.className = 'featured-writing';
+  articleCard.innerHTML = `
+    <span>Market Research Article</span>
+    <h3>AI FinTech Startups in Singapore</h3>
+    <p>A portfolio research article mapping AI-fintech startup opportunities across regtech, credit underwriting, wealthtech, insurtech, payments, and personal finance.</p>
+    <a href="./articles/ai-fintech-startups-singapore.html">Read Article</a>
+  `;
+  writingList.prepend(articleCard);
+}
