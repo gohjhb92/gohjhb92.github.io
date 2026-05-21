@@ -27,8 +27,189 @@
     <meta name="twitter:image" content="https://gohjhb92.github.io/opengraph.jpg">
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../styles.css">
+    <style>
+      .ai-fintech-article {
+        --article-accent: #287b83;
+        --article-accent-dark: #0d4f54;
+      }
+
+      .ai-fintech-article .article-shell {
+        width: min(1180px, calc(100% - 2rem));
+      }
+
+      .ai-fintech-article .article-hero {
+        padding: clamp(3.2rem, 6vw, 5.8rem) 0 clamp(2.8rem, 5vw, 4.4rem);
+      }
+
+      .ai-fintech-article .article-hero-grid {
+        grid-template-columns: minmax(0, 0.96fr) minmax(280px, 360px);
+        align-items: center;
+      }
+
+      .ai-fintech-article .article-hero h1 {
+        max-width: 12.5ch;
+        margin-bottom: 1rem;
+        font-size: clamp(3.8rem, 8.5vw, 7.1rem);
+        line-height: 0.88;
+      }
+
+      .ai-fintech-article .article-deck {
+        max-width: 760px;
+      }
+
+      .ai-fintech-article .article-deck:first-of-type {
+        color: var(--vermilion-dark);
+        font-weight: 650;
+      }
+
+      .ai-fintech-article .article-meta-row span {
+        background: rgba(255, 250, 240, 0.78);
+      }
+
+      .ai-fintech-article .article-hero-panel {
+        background: rgba(255, 250, 240, 0.86);
+        box-shadow: 10px 10px 0 rgba(40, 123, 131, 0.13);
+      }
+
+      .ai-fintech-article .article-hero-panel p {
+        font-size: 1.02rem;
+      }
+
+      .ai-fintech-article .article-layout {
+        grid-template-columns: 220px minmax(0, 1fr);
+        padding-top: clamp(2.8rem, 5vw, 4.25rem);
+      }
+
+      .ai-fintech-article .article-section h2 {
+        max-width: 840px;
+        font-size: clamp(2.2rem, 4.8vw, 4.3rem);
+      }
+
+      .ai-fintech-article .article-lede {
+        max-width: 820px;
+      }
+
+      .ai-fintech-article #opportunity-map .article-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ai-fintech-article #opportunity-map .article-card:first-child {
+        background:
+          linear-gradient(135deg, rgba(40, 123, 131, 0.12), rgba(255, 250, 240, 0.72));
+        box-shadow: 8px 8px 0 rgba(40, 123, 131, 0.16);
+      }
+
+      .ai-fintech-article #evaluation-framework .article-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .ai-fintech-article .article-card {
+        min-height: auto;
+        padding: 1.15rem;
+      }
+
+      .ai-fintech-article .article-card h3 {
+        max-width: 24ch;
+      }
+
+      .ai-fintech-article .article-table {
+        min-width: 900px;
+      }
+
+      .ai-fintech-article .article-table th {
+        background: #102825;
+      }
+
+      .ai-fintech-article .article-callout {
+        max-width: 880px;
+      }
+
+      .ai-fintech-article #where-i-would-focus .article-callout {
+        background: #0d2b26;
+        border-left-color: var(--article-accent);
+      }
+
+      @media (max-width: 920px) {
+        .ai-fintech-article .article-hero-grid,
+        .ai-fintech-article .article-layout,
+        .ai-fintech-article #opportunity-map .article-grid,
+        .ai-fintech-article #evaluation-framework .article-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .ai-fintech-article .article-hero {
+          padding-top: 3rem;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .ai-fintech-article .article-shell {
+          width: min(100% - 1.6rem, 1180px);
+        }
+
+        .ai-fintech-article .article-hero {
+          padding: 2.7rem 0 2.4rem;
+        }
+
+        .ai-fintech-article .article-hero h1 {
+          max-width: 10.8ch;
+          font-size: clamp(3.05rem, 15.3vw, 4.35rem);
+          line-height: 0.9;
+        }
+
+        .ai-fintech-article .article-deck {
+          font-size: 1.02rem;
+        }
+
+        .ai-fintech-article .article-meta-row {
+          gap: 0.45rem;
+        }
+
+        .ai-fintech-article .article-meta-row span {
+          min-height: 1.85rem;
+          font-size: 0.68rem;
+        }
+
+        .ai-fintech-article .article-hero-panel {
+          padding: 0.95rem;
+          box-shadow: 6px 6px 0 rgba(40, 123, 131, 0.13);
+        }
+
+        .ai-fintech-article .article-hero-panel p {
+          font-size: 0.98rem;
+        }
+
+        .ai-fintech-article .article-hero-panel dl {
+          gap: 0.5rem;
+          margin-top: 0.85rem;
+          padding-top: 0.85rem;
+        }
+
+        .ai-fintech-article .article-hero-panel dl div {
+          grid-template-columns: 4.8rem 1fr;
+          gap: 0.55rem;
+        }
+
+        .ai-fintech-article .article-layout {
+          padding-top: 2.2rem;
+        }
+
+        .ai-fintech-article .article-section {
+          margin-bottom: 2.8rem;
+          padding-bottom: 2.6rem;
+        }
+
+        .ai-fintech-article .article-section h2 {
+          font-size: clamp(2rem, 10vw, 3rem);
+        }
+
+        .ai-fintech-article .article-card {
+          padding: 1rem;
+        }
+      }
+    </style>
   </head>
-  <body class="article-page">
+  <body class="article-page ai-fintech-article">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header" aria-label="Primary navigation">
