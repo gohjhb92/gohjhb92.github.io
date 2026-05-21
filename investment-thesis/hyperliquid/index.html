@@ -574,6 +574,81 @@
       text-align: right;
     }
 
+    .price-panel {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .price-chart {
+      display: block;
+      height: auto;
+      margin-top: 14px;
+      width: 100%;
+    }
+
+    .price-axis,
+    .price-grid {
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-width: 1;
+    }
+
+    .price-line {
+      fill: none;
+      stroke: var(--cyan);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 4;
+    }
+
+    .price-area {
+      fill: rgba(56, 189, 248, 0.11);
+    }
+
+    .entry-band {
+      fill: rgba(224, 163, 40, 0.16);
+      stroke: rgba(224, 163, 40, 0.6);
+      stroke-dasharray: 5 5;
+      stroke-width: 1;
+    }
+
+    .price-point {
+      fill: var(--bg);
+      stroke: var(--cyan);
+      stroke-width: 3;
+    }
+
+    .entry-point {
+      fill: var(--amber);
+      stroke: var(--white);
+      stroke-width: 2;
+    }
+
+    .price-text {
+      fill: var(--dim);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .price-callout {
+      fill: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .price-note {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.55;
+      margin-top: 12px;
+    }
+
     .stack-map {
       display: grid;
       gap: 10px;
@@ -841,6 +916,40 @@
           <div class="bar-row"><div class="bar-label">Open interest</div><div class="bar-track"><div class="bar-fill" style="width: 86%;"></div></div><div class="bar-value">$8.9B</div></div>
           <div class="bar-row"><div class="bar-label">TVL</div><div class="bar-track"><div class="bar-fill" style="width: 62%;"></div></div><div class="bar-value">$5.1B</div></div>
           <div class="bar-row"><div class="bar-label">30d fees</div><div class="bar-track"><div class="bar-fill" style="width: 44%;"></div></div><div class="bar-value">$56.8M</div></div>
+        </div>
+        <div class="price-panel" aria-label="HYPE price chart with May 2026 thesis entry marker">
+          <div class="callout-title">Personal Thesis Entry Marker</div>
+          <p>May 2026 was the entry window for this thesis. The chart below frames the position around the low-to-mid $40s public price zone and the breakout toward the high $40s later in the month.</p>
+          <svg class="price-chart" viewBox="0 0 760 300" role="img" aria-labelledby="price-chart-title price-chart-desc">
+            <title id="price-chart-title">HYPE price snapshots in May 2026</title>
+            <desc id="price-chart-desc">Line chart showing selected May 2026 HYPE price snapshots and a highlighted personal thesis entry zone.</desc>
+            <line class="price-grid" x1="60" y1="54" x2="720" y2="54"></line>
+            <line class="price-grid" x1="60" y1="114" x2="720" y2="114"></line>
+            <line class="price-grid" x1="60" y1="174" x2="720" y2="174"></line>
+            <line class="price-grid" x1="60" y1="234" x2="720" y2="234"></line>
+            <line class="price-axis" x1="60" y1="250" x2="720" y2="250"></line>
+            <line class="price-axis" x1="60" y1="34" x2="60" y2="250"></line>
+            <rect class="entry-band" x="92" y="138" width="152" height="66" rx="0"></rect>
+            <path class="price-area" d="M 120 156 L 240 166 L 360 186 L 520 76 L 640 60 L 640 250 L 120 250 Z"></path>
+            <path class="price-line" d="M 120 156 L 240 166 L 360 186 L 520 76 L 640 60"></path>
+            <circle class="entry-point" cx="120" cy="156" r="7"></circle>
+            <circle class="price-point" cx="240" cy="166" r="6"></circle>
+            <circle class="price-point" cx="360" cy="186" r="6"></circle>
+            <circle class="price-point" cx="520" cy="76" r="6"></circle>
+            <circle class="price-point" cx="640" cy="60" r="6"></circle>
+            <text class="price-text" x="22" y="58">$50</text>
+            <text class="price-text" x="22" y="118">$46</text>
+            <text class="price-text" x="22" y="178">$42</text>
+            <text class="price-text" x="22" y="238">$38</text>
+            <text class="price-text" x="94" y="276">May 5</text>
+            <text class="price-text" x="214" y="276">May 6</text>
+            <text class="price-text" x="333" y="276">May 11</text>
+            <text class="price-text" x="491" y="276">May 18</text>
+            <text class="price-text" x="602" y="276">Late May</text>
+            <text class="price-callout" x="98" y="128">Thesis entry zone</text>
+            <text class="price-callout" x="515" y="54">Breakout watch</text>
+          </svg>
+          <p class="price-note">Chart uses selected public May 2026 price snapshots rather than a live feed. Exact personal entry price can be added if you want the page to show cost basis, unrealized gain/loss, or portfolio sizing.</p>
         </div>
         <p>These figures matter because exchanges are reflexive businesses. Liquidity attracts traders, traders generate fees, fees fund incentives and buybacks, deeper books attract more sophisticated flow, and the venue becomes harder to displace.</p>
         <div class="callout positive">
