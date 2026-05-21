@@ -689,6 +689,74 @@
       line-height: 1.45;
     }
 
+    .protocol-snapshot {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      margin: 28px 0;
+      padding: 20px;
+    }
+
+    .protocol-map {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas:
+        "users bridge validators"
+        "hypercore hypercore hype"
+        "hyperevm apps apps";
+      margin-top: 18px;
+    }
+
+    .protocol-node {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border2);
+      min-height: 104px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .protocol-node::before {
+      content: '';
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      height: 3px;
+      left: 16px;
+      position: absolute;
+      right: 16px;
+      top: 14px;
+    }
+
+    .protocol-node strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      line-height: 1;
+      margin: 18px 0 8px;
+      text-transform: uppercase;
+    }
+
+    .protocol-node p {
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .protocol-users { grid-area: users; }
+    .protocol-bridge { grid-area: bridge; }
+    .protocol-validators { grid-area: validators; }
+    .protocol-core { grid-area: hypercore; border-color: rgba(56, 189, 248, 0.7); }
+    .protocol-hype { grid-area: hype; }
+    .protocol-evm { grid-area: hyperevm; }
+    .protocol-apps { grid-area: apps; border-color: rgba(38, 162, 105, 0.7); }
+
+    .protocol-link {
+      color: var(--cyan);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      margin-top: 12px;
+      text-transform: uppercase;
+    }
+
     .flow {
       display: grid;
       gap: 10px;
@@ -827,6 +895,17 @@
       .flow { grid-template-columns: 1fr; }
       .visual-brief { grid-template-columns: 1fr; }
       .stack-map { grid-template-columns: 1fr; }
+      .protocol-map {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "users"
+          "bridge"
+          "validators"
+          "hypercore"
+          "hype"
+          "hyperevm"
+          "apps";
+      }
       .thesis-point { grid-template-columns: 1fr; }
       .bar-row,
       .comparison-row {
@@ -981,6 +1060,47 @@
       <section class="section" id="technology">
         <div class="sec-header"><span class="sec-num">03</span><h2>Product &amp; Technology</h2></div>
         <p>The differentiator is vertical integration. Hyperliquid is designed around a native order-book engine rather than an automated market maker retrofitted onto a general-purpose chain. That choice matters because derivatives traders care about latency, margining, liquidations, oracle quality, and predictable execution.</p>
+        <div class="protocol-snapshot" aria-label="Protocol snapshot showing how Hyperliquid works">
+          <div class="callout-title">Protocol Snapshot</div>
+          <p>At a high level, Hyperliquid combines an exchange engine, an EVM app layer, validator-secured settlement, bridged collateral, and HYPE staking into one integrated financial stack.</p>
+          <div class="protocol-map">
+            <article class="protocol-node protocol-users">
+              <strong>Users / Traders</strong>
+              <p>Trade spot and perpetual markets through front ends, APIs, wallets, and builder interfaces.</p>
+              <div class="protocol-link">Order flow + collateral</div>
+            </article>
+            <article class="protocol-node protocol-bridge">
+              <strong>Bridge / USDC</strong>
+              <p>Collateral enters through bridge flows and aligned quote assets that support trading and settlement.</p>
+              <div class="protocol-link">Deposit / withdraw</div>
+            </article>
+            <article class="protocol-node protocol-validators">
+              <strong>Validators</strong>
+              <p>Secure consensus, bridge processes, market rules, and protocol-level operations.</p>
+              <div class="protocol-link">Consensus layer</div>
+            </article>
+            <article class="protocol-node protocol-core">
+              <strong>HyperCore</strong>
+              <p>Native order books, margin, liquidations, oracle-driven mark prices, perp markets, spot markets, and HIP-3 builder-deployed perps.</p>
+              <div class="protocol-link">Exchange engine</div>
+            </article>
+            <article class="protocol-node protocol-hype">
+              <strong>HYPE</strong>
+              <p>Gas on HyperEVM, staking asset, fee-discount asset, and token linked to security and network activity.</p>
+              <div class="protocol-link">Stake / gas / incentives</div>
+            </article>
+            <article class="protocol-node protocol-evm">
+              <strong>HyperEVM</strong>
+              <p>Smart-contract layer secured by the same validator set and positioned close to native exchange liquidity.</p>
+              <div class="protocol-link">Programmable apps</div>
+            </article>
+            <article class="protocol-node protocol-apps">
+              <strong>Apps / Builders</strong>
+              <p>Risk dashboards, vaults, structured products, market data, treasury tools, and synthetic TradFi market front ends.</p>
+              <div class="protocol-link">Liquidity becomes platform</div>
+            </article>
+          </div>
+        </div>
         <div class="stack-map" aria-label="Hyperliquid stack map">
           <div class="stack-layer"><strong>Trading</strong><p>Spot and perpetual order books with exchange logic close to the chain.</p></div>
           <div class="stack-layer"><strong>Settlement</strong><p>Margin, liquidations, oracle pricing, and clearing as native infrastructure.</p></div>
