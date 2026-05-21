@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychedelic Stocks: A Retail Trader Thesis - Bryan Goh</title>
+  <meta name="description" content="A retail-trader thesis comparing DFTX, GHRS, and ATAI across catalysts, valuation, runway, and risk.">
+  <link rel="canonical" href="https://gohjhb92.github.io/investment-thesis/psychedelic-stocks/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111018;
+      --surface: #191725;
+      --surface2: #221f32;
+      --border: #342f48;
+      --border2: #51496f;
+      --text: #ded8ec;
+      --dim: #a69abb;
+      --cyan: #8bd3ff;
+      --violet: #b89cff;
+      --green: #74d69b;
+      --amber: #f1c76b;
+      --red: #ef6f7a;
+      --white: #fbf8ff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at 12% 0%, rgba(184, 156, 255, 0.16), transparent 280px),
+        radial-gradient(circle at 88% 10%, rgba(139, 211, 255, 0.12), transparent 320px),
+        linear-gradient(180deg, #111018 0%, #171523 48%, #0e0d14 100%);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      min-height: 100vh;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle, rgba(251, 248, 255, 0.05) 1px, transparent 1.6px) 0 0 / 28px 28px,
+        repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.07) 3px, rgba(0, 0, 0, 0.07) 4px);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 28px 84px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      align-items: center;
+      border-bottom: 1px solid var(--border2);
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left,
+    .topbar a,
+    .classification-stamp,
+    .masthead-sub,
+    .author-line,
+    .toc-label,
+    .article-body h2,
+    .article-body h3,
+    .footer-left,
+    .footer-right a {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .topbar-left {
+      color: var(--violet);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .topbar a {
+      color: var(--dim);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .topbar a:hover { color: var(--white); }
+
+    .masthead {
+      border-bottom: 1px solid var(--border2);
+      padding: 52px 0 42px;
+    }
+
+    .classification-stamp {
+      border: 2px solid var(--violet);
+      color: var(--violet);
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      padding: 3px 10px;
+    }
+
+    h1 {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(40px, 6.5vw, 76px);
+      line-height: 0.95;
+      letter-spacing: 0;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .masthead-sub {
+      color: var(--cyan);
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .author-line {
+      color: var(--dim);
+      font-size: 11px;
+    }
+
+    .toc {
+      background: rgba(25, 23, 37, 0.72);
+      border: 1px solid var(--border);
+      margin: 30px 0 34px;
+      padding: 20px;
+    }
+
+    .toc-label {
+      color: var(--violet);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .toc-grid {
+      display: grid;
+      gap: 8px 18px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .toc a {
+      color: var(--text);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .toc a:hover { color: var(--white); }
+
+    .article-body {
+      background: rgba(17, 16, 24, 0.64);
+      border: 1px solid var(--border);
+      padding: 34px;
+    }
+
+    .article-body h2 {
+      border-top: 1px solid var(--border2);
+      color: var(--white);
+      font-size: 28px;
+      line-height: 1.1;
+      margin: 40px 0 18px;
+      padding-top: 24px;
+    }
+
+    .article-body h2:first-child { margin-top: 0; }
+
+    .article-body h3 {
+      color: var(--cyan);
+      font-size: 20px;
+      margin: 30px 0 12px;
+    }
+
+    .article-body p {
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+
+    .article-body strong { color: var(--white); }
+
+    .article-body blockquote {
+      background: rgba(184, 156, 255, 0.08);
+      border-left: 4px solid var(--violet);
+      color: var(--white);
+      margin: 0 0 24px;
+      padding: 14px 18px;
+    }
+
+    .article-body table {
+      border-collapse: collapse;
+      display: block;
+      font-size: 14px;
+      margin: 20px 0 28px;
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    .article-body th,
+    .article-body td {
+      border: 1px solid var(--border2);
+      padding: 9px 11px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .article-body th {
+      background: rgba(184, 156, 255, 0.14);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .article-body td[align="right"],
+    .article-body th[align="right"] { text-align: right; }
+
+    .article-body ul {
+      margin: 0 0 20px 20px;
+    }
+
+    .article-body li { margin: 7px 0; }
+
+    .article-body a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .article-body a:hover { text-decoration: underline; }
+
+    footer {
+      align-items: center;
+      border-top: 1px solid var(--border2);
+      color: var(--dim);
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      margin-top: 34px;
+      padding-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left,
+    .footer-right a {
+      color: var(--dim);
+      font-size: 11px;
+      text-decoration: none;
+    }
+
+    .footer-right a:hover { color: var(--white); }
+
+    @media (max-width: 700px) {
+      .page { padding: 0 18px 60px; }
+      .masthead { padding: 38px 0 32px; }
+      .article-body { padding: 24px 18px; }
+      .article-body p { font-size: 16px; }
+      .article-body table { font-size: 13px; }
+      .article-body th, .article-body td { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="topbar" aria-label="Article navigation">
+      <div class="topbar-left">Bryan Goh &middot; Investment Thesis</div>
+      <div><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Thesis Index</a></div>
+    </nav>
+
+    <header class="masthead">
+      <div class="classification-stamp">Retail Biotech Thesis</div>
+      <h1>Psychedelic Stocks</h1>
+      <div class="masthead-sub">DFTX / GHRS / ATAI catalyst framework</div>
+      <div class="author-line">Public-source research note &middot; May 2026 &middot; Not financial advice</div>
+    </header>
+
+    <aside class="toc" aria-label="Table of contents">
+      <div class="toc-label">Sections</div>
+      <div class="toc-grid">
+        <a href="#my-ranking">My Ranking</a>
+        <a href="#the-market-snapshot">Market Snapshot</a>
+        <a href="#quick-balance-sheet-view">Balance Sheet</a>
+        <a href="#dftx">DFTX</a>
+        <a href="#ghrs">GHRS</a>
+        <a href="#atai">ATAI</a>
+        <a href="#catalyst-calendar">Catalysts</a>
+        <a href="#scenario-ranges">Scenarios</a>
+        <a href="#main-risks">Risks</a>
+        <a href="#my-bottom-line">Bottom Line</a>
+      </div>
+    </aside>
+
+    <main class="article-body">
+<blockquote>
+<p>This is my personal research note, not financial advice.</p>
+</blockquote>
+<p>Psychedelic medicine stocks are not normal value stocks.</p>
+<p>The main drivers are not current earnings, dividends, or near-term product revenue. They are clinical readouts, FDA interactions, trial design, financing decisions, and investor appetite for high-risk biotech stories.</p>
+<p>The three names I am comparing here are Definium Therapeutics, GH Research, and AtaiBeckley.</p>
+<p>My thesis is simple:</p>
+<p><strong>ATAI looks like the best risk-adjusted setup, DFTX is the cleanest near-term catalyst trade, and GHRS is high-quality science that I would rather buy on weakness.</strong></p>
+<h2 id="my-ranking">My Ranking</h2>
+<table>
+<thead>
+<tr>
+<th align="right">Rank</th>
+<th>Stock</th>
+<th>My read</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">1</td>
+<td>ATAI</td>
+<td>Best balance of upside, diversification, and runway.</td>
+</tr>
+<tr>
+<td align="right">2</td>
+<td>DFTX</td>
+<td>Best pure catalyst trade, but the most binary.</td>
+</tr>
+<tr>
+<td align="right">3</td>
+<td>GHRS</td>
+<td>Strong science and workflow story, but less obviously cheap after its rerating and financing.</td>
+</tr>
+</tbody></table>
+<p>ATAI is my preferred speculative core because it has more than one way to win. BPL-003 gives it a Phase 3-ready lead program, VLS-01 gives it another major 2026 catalyst, EMP-01 gives it early optionality in social anxiety, and management has guided runway into 2029.</p>
+<p>DFTX is the most exciting if the goal is a fast trade around clinical catalysts. It has three Phase 3 DT120 ODT readouts expected in 2026, plus another MDD Phase 3 study now dosing. That is powerful, but it also makes the stock extremely event-driven.</p>
+<p>GHRS may have one of the cleanest clinical workflow stories in the group. Its GH001 data in treatment-resistant depression are impressive, and the short psychoactive duration could matter commercially. The issue is that Phase 3 has not started yet, while the stock has already rerated and the company has added financing capacity.</p>
+<h2 id="the-market-snapshot">The Market Snapshot</h2>
+<p>The source report used the following price snapshot from May 19, 2026:</p>
+<table>
+<thead>
+<tr>
+<th>Stock</th>
+<th align="right">Price used</th>
+<th align="right">Share count used</th>
+<th align="right">Approximate basic market cap</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DFTX</td>
+<td align="right">$20.40</td>
+<td align="right">104.0M</td>
+<td align="right">$2.12B</td>
+</tr>
+<tr>
+<td>GHRS</td>
+<td align="right">$22.29</td>
+<td align="right">68.58M pro forma</td>
+<td align="right">$1.53B</td>
+</tr>
+<tr>
+<td>ATAI</td>
+<td align="right">$4.01</td>
+<td align="right">365.56M</td>
+<td align="right">$1.47B</td>
+</tr>
+</tbody></table>
+<p>That context matters because DFTX and GHRS are not obviously undiscovered anymore. Their valuations already assume a meaningful amount of clinical success.</p>
+<p>Compass Pathways is a useful comparison. It already has two positive Phase 3 trials for COMP360 in treatment-resistant depression and has FDA rolling review momentum. If DFTX or GHRS trade above or near validated peers before pivotal success is proven, the margin for disappointment becomes thinner.</p>
+<h2 id="quick-balance-sheet-view">Quick Balance Sheet View</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>DFTX</th>
+<th>GHRS</th>
+<th>ATAI</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Latest cash and securities</td>
+<td>$373.4M at March 31, 2026</td>
+<td>$267.3M at March 31, plus $111.2M net April offering proceeds</td>
+<td>$209.9M at March 31, 2026</td>
+</tr>
+<tr>
+<td>Q1 operating cash burn</td>
+<td>$42.6M</td>
+<td>$10.7M</td>
+<td>$21.1M</td>
+</tr>
+<tr>
+<td>Revenue profile</td>
+<td>Pre-revenue</td>
+<td>Pre-revenue</td>
+<td>Small reported revenue, but still not a commercial-product story</td>
+</tr>
+<tr>
+<td>Net loss</td>
+<td>$77.1M, affected by non-cash warrant liability change</td>
+<td>$19.0M</td>
+<td>$29.8M</td>
+</tr>
+<tr>
+<td>Runway guidance</td>
+<td>Into 2028</td>
+<td>Strong balance sheet, but burn should rise when Phase 3 starts</td>
+<td>Into 2029</td>
+</tr>
+</tbody></table>
+<p>The short version: all three have enough capital to keep developing their pipelines, but none of them should be treated like a cash-flow business. These are clinical-stage biotech trades.</p>
+<h2 id="dftx">DFTX</h2>
+<p>Definium Therapeutics, formerly MindMed, is a late-stage psychiatry biotech built around DT120 ODT, an oral lysergide D-tartrate formulation. Its main targets are generalized anxiety disorder, major depressive disorder, and PTSD. The company is also developing DT402 in autism spectrum disorder.</p>
+<p>The bullish case is timing.</p>
+<p>DT120 is already in multiple Phase 3 studies, and the company has guided to several key readouts in 2026:</p>
+<table>
+<thead>
+<tr>
+<th>Catalyst</th>
+<th>Expected timing</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Emerge topline readout</td>
+<td>Late Q2 2026</td>
+</tr>
+<tr>
+<td>Voyage topline readout</td>
+<td>Early Q3 2026</td>
+</tr>
+<tr>
+<td>Panorama topline readout</td>
+<td>Late Q3 2026</td>
+</tr>
+<tr>
+<td>Haven PTSD Phase 3 start</td>
+<td>Planned for 2027</td>
+</tr>
+</tbody></table>
+<p>That is a rare amount of high-impact data for one biotech stock in one year.</p>
+<p>The problem is valuation and binary risk. DFTX already carries a large market cap relative to the rest of the group. If the readouts are clean, the stock can still rerate higher. But if the data are mixed, investors may quickly reprice the company toward cash plus limited pipeline option value.</p>
+<p>My read: <strong>DFTX is the best instrument for a catalyst trade, not the easiest long-term core holding.</strong></p>
+<h2 id="ghrs">GHRS</h2>
+<p>GH Research is the most focused single-asset story in the group. Its lead program is GH001, an inhaled mebufotenin candidate for treatment-resistant depression. It also has GH002, an intravenous mebufotenin program, behind it.</p>
+<p>The strongest part of the GHRS story is workflow.</p>
+<p>In Phase 2b, GHRS reported a placebo-adjusted MADRS improvement of 15.5 points on Day 8, with 57.5% remission at Day 8 in the double-blind portion and 73% remission at six months in the open-label extension. The company also reported a median psychoactive duration of about 11 minutes, 99% discharge readiness within one hour, and no psychotherapy requirement in the study design.</p>
+<p>If those features hold up in pivotal trials, GH001 could be much easier for clinics to deliver than longer-session psychedelic models.</p>
+<p>The catch is timing. GHRS has not yet started Phase 3. The FDA lifted the GH001 clinical hold in January 2026, and the company is seeking alignment for a late-2026 global pivotal start. That is progress, but it still leaves investors waiting for the next real de-risking step.</p>
+<p>The financing backdrop also matters. GHRS raised capital in April 2026 and then established a $200M ATM facility in May. That improves flexibility, but it can also cap upside if the company sells stock into strength.</p>
+<p>My read: <strong>GHRS is high quality, but at the current setup I would rather buy pullbacks than chase.</strong></p>
+<h2 id="atai">ATAI</h2>
+<p>AtaiBeckley is the most diversified of the three.</p>
+<p>After the combination of atai Life Sciences and Beckley Psytech, ATAI is more focused around rapid-acting mental health programs. The lead asset is BPL-003, an intranasal mebufotenin benzoate candidate for treatment-resistant depression.</p>
+<p>ATAI has three main upside levers:</p>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BPL-003</td>
+<td>Phase 3-ready lead asset in treatment-resistant depression, with Breakthrough Therapy Designation.</td>
+</tr>
+<tr>
+<td>VLS-01</td>
+<td>DMT buccal film with Phase 2 Elumina topline results expected in Q4 2026.</td>
+</tr>
+<tr>
+<td>EMP-01</td>
+<td>Early social anxiety program with positive Phase 2a proof-of-concept signals.</td>
+</tr>
+</tbody></table>
+<p>BPL-003 is the centerpiece. ATAI reported a successful end-of-Phase 2 meeting with the FDA and said Phase 3 initiation remained on track for Q2 2026. The planned ReConnection pivotal program gives the company a clear late-stage path.</p>
+<p>VLS-01 is the second important catalyst. It is designed around an approximately two-hour interventional psychiatry treatment paradigm, which could make it more practical than longer-duration psychedelic treatments if efficacy holds up.</p>
+<p>EMP-01 is earlier, but it gives the stock another source of optionality. The Phase 2a social anxiety trial showed a placebo-adjusted LSAS improvement, patient-reported improvement, behavioral avoidance improvement, and no serious adverse events.</p>
+<p>My read: <strong>ATAI is the best overall speculative setup because it does not depend on only one readout.</strong></p>
+<h2 id="catalyst-calendar">Catalyst Calendar</h2>
+<table>
+<thead>
+<tr>
+<th>Window</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q2 2026</td>
+<td>DFTX Emerge topline expected</td>
+</tr>
+<tr>
+<td>Q2 2026</td>
+<td>DFTX Ascend first-patient dosing underway</td>
+</tr>
+<tr>
+<td>Q2 2026</td>
+<td>ATAI BPL-003 ReConnection Phase 3 start targeted</td>
+</tr>
+<tr>
+<td>Early Q3 2026</td>
+<td>DFTX Voyage topline expected</td>
+</tr>
+<tr>
+<td>Late Q3 2026</td>
+<td>DFTX Panorama topline expected</td>
+</tr>
+<tr>
+<td>Late 2026</td>
+<td>GHRS global Phase 3 start targeted after FDA alignment</td>
+</tr>
+<tr>
+<td>Q4 2026</td>
+<td>ATAI VLS-01 Elumina Phase 2 topline expected</td>
+</tr>
+<tr>
+<td>Q4 2026</td>
+<td>ATAI BPL-003 Phase 2a Part 4 initial data expected</td>
+</tr>
+<tr>
+<td>Q4 2026</td>
+<td>Helus HLP003 APPROACH topline expected</td>
+</tr>
+<tr>
+<td>2027</td>
+<td>DFTX Haven Phase 3 PTSD study planned</td>
+</tr>
+<tr>
+<td>Early 2029</td>
+<td>ATAI BPL-003 ReConnection core-study toplines expected</td>
+</tr>
+</tbody></table>
+<p>This calendar is the practical reason the stocks trade differently. DFTX has the most near-term data density. ATAI has a broader 2026-to-2029 pipeline path. GHRS has a strong story, but the next key step is trial-start and regulatory alignment rather than pivotal data.</p>
+<h2 id="scenario-ranges">Scenario Ranges</h2>
+<p>These are not price targets. They are scenario ranges from the source report, built around clinical stage, cash position, current price, burn, and peer context.</p>
+<h3 id="dftx">DFTX</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Core assumption</th>
+<th align="right">Target range</th>
+<th align="right">Move vs $20.40</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bear</td>
+<td>One or more 2026 readouts miss or look ambiguous.</td>
+<td align="right">$8 to $12</td>
+<td align="right">-61% to -41%</td>
+</tr>
+<tr>
+<td>Base</td>
+<td>At least one MDD and one GAD readout are strong enough to sustain an FDA-path narrative.</td>
+<td align="right">$24 to $28</td>
+<td align="right">+18% to +37%</td>
+</tr>
+<tr>
+<td>Bull</td>
+<td>Emerge, Voyage, and Panorama all read cleanly enough for investors to discount a broad filing path.</td>
+<td align="right">$35 to $45</td>
+<td align="right">+72% to +121%</td>
+</tr>
+</tbody></table>
+<p>DFTX has the biggest single-event upside, but also the harshest downside if the readouts disappoint.</p>
+<h3 id="ghrs">GHRS</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Core assumption</th>
+<th align="right">Target range</th>
+<th align="right">Move vs $22.29</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bear</td>
+<td>FDA alignment drags, pivotal start slips, or dilution overhang dominates sentiment.</td>
+<td align="right">$9 to $13</td>
+<td align="right">-60% to -42%</td>
+</tr>
+<tr>
+<td>Base</td>
+<td>FDA alignment arrives and Phase 3 starts in late 2026, but the market waits for execution.</td>
+<td align="right">$23 to $27</td>
+<td align="right">+3% to +21%</td>
+</tr>
+<tr>
+<td>Bull</td>
+<td>Clean regulatory alignment and renewed premium for the ultra-short workflow advantage.</td>
+<td align="right">$32 to $40</td>
+<td align="right">+44% to +80%</td>
+</tr>
+</tbody></table>
+<p>GHRS has a very credible science story, but the upside looks less underappreciated unless the regulatory and trial-start news comes in better than expected.</p>
+<h3 id="atai">ATAI</h3>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Core assumption</th>
+<th align="right">Target range</th>
+<th align="right">Move vs $4.01</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bear</td>
+<td>BPL-003 starts Phase 3, but VLS-01 disappoints or execution slips.</td>
+<td align="right">$2.25 to $3.00</td>
+<td align="right">-44% to -25%</td>
+</tr>
+<tr>
+<td>Base</td>
+<td>BPL-003 starts cleanly and VLS-01 data are good enough to support a broader rerating.</td>
+<td align="right">$5.25 to $6.25</td>
+<td align="right">+31% to +56%</td>
+</tr>
+<tr>
+<td>Bull</td>
+<td>BPL-003 execution stays on track, VLS-01 is strong, and EMP-01 keeps de-risking.</td>
+<td align="right">$8.00 to $9.50</td>
+<td align="right">+100% to +137%</td>
+</tr>
+</tbody></table>
+<p>ATAI is not the cleanest binary catalyst. That is the point. It has several shots on goal, which makes it more attractive as a speculative position.</p>
+<h2 id="main-risks">Main Risks</h2>
+<p>The biggest risk is clinical failure. These companies can lose large amounts of market value on one trial result, one safety signal, or one FDA interaction.</p>
+<p>The second risk is regulatory friction. Psychedelic and Schedule I-related products can face extra commercialization steps even after clinical success. FDA alignment is not the same as approval.</p>
+<p>The third risk is dilution. GHRS has the clearest near-term dilution overhang because of the ATM facility after its April financing. ATAI also has an ATM, though the source report noted no Q1 2026 sales under it. DFTX appears less urgent from a financing perspective because it has guided runway into 2028.</p>
+<p>The fourth risk is sector sentiment. Psychedelic stocks can trade on narrative, social media enthusiasm, peer readouts, and broad biotech risk appetite. A good company-specific thesis can still get hit if the whole group sells off.</p>
+<h2 id="how-i-would-trade-it">How I Would Trade It</h2>
+<table>
+<thead>
+<tr>
+<th>Stock</th>
+<th>How I would treat it</th>
+<th>Entry approach</th>
+<th>Risk control</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DFTX</td>
+<td>Catalyst trade first, long-term investment second.</td>
+<td>Start small on weakness rather than buying a full position into strength.</td>
+<td>Size for the possibility of a 30% to 50% clinical-data gap.</td>
+</tr>
+<tr>
+<td>GHRS</td>
+<td>Pullback buy.</td>
+<td>Wait for retracements or clearer Phase 3 design and start timing.</td>
+<td>Respect the ATM overhang and trim if the stock runs hard into updates.</td>
+</tr>
+<tr>
+<td>ATAI</td>
+<td>Core speculative position among the three.</td>
+<td>Scale in over time ahead of BPL-003 Phase 3 initiation and VLS-01 data.</td>
+<td>Use a thesis stop: reduce if VLS-01 disappoints and BPL-003 execution slips.</td>
+</tr>
+</tbody></table>
+<p>For a retail portfolio, I would keep sizing conservative. My generic rule for binary biotech is to keep each initial position small enough that a bad readout does not damage the whole portfolio. For many traders, that means something like 0.5% to 1.5% per name, with a strict cap on total exposure to the psychedelic biotech basket.</p>
+<h2 id="my-bottom-line">My Bottom Line</h2>
+<p>If I had to reduce this to one sentence:</p>
+<p><strong>Buy ATAI for the best overall upside setup, trade DFTX for the biggest near-term catalyst convexity, and wait for a better entry in GHRS unless you specifically want the ultra-short workflow bet.</strong></p>
+<p>ATAI is the name I would be most comfortable owning as a speculative core. It has a credible Phase 3-ready asset, another 2026 readout, early pipeline optionality, and runway into 2029.</p>
+<p>DFTX is the name most likely to move fastest in either direction. That can be good if the data are clean, but painful if the Phase 3 readouts are mixed.</p>
+<p>GHRS may still become a major winner if GH001 repeats its Phase 2b profile in pivotal work. I just do not think the current setup gives the same fresh upside as ATAI or the same near-term catalyst torque as DFTX.</p>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://ir.ataibeckley.com/news-releases/news-release-details/ataibeckley-reports-first-quarter-2026-financial-results-and/">AtaiBeckley Q1 2026 financial results</a></li>
+<li><a href="https://ir.ataibeckley.com/news-releases/news-release-details/ataibeckley-reports-fourth-quarter-and-full-year-2025-financial/">AtaiBeckley Q4 and full-year 2025 financial results</a></li>
+<li><a href="https://www.ataibeckley.com/our-work/clinical-trials/completed-clinical-trials">AtaiBeckley clinical trials</a></li>
+<li><a href="https://definiumtx.com/pipeline/dt120/">Definium Therapeutics DT120 pipeline</a></li>
+<li><a href="https://ir.definiumtx.com/sec-filings/all-sec-filings/content/0001193125-26-211989/dftx-20260331.htm">Definium Therapeutics Q1 2026 10-Q</a></li>
+<li><a href="https://ir.definiumtx.com/sec-filings/all-sec-filings/content/0001193125-26-218251/0001193125-26-218251.pdf">Definium Therapeutics May 2026 8-K</a></li>
+<li><a href="https://investor.ghres.com/news-releases/news-release-details/gh-research-reports-full-year-2025-financial-results-and/">GH Research full-year 2025 financial results</a></li>
+<li><a href="https://investor.ghres.com/news-releases/news-release-details/gh-research-reports-first-quarter-2026-financial-results-and/">GH Research Q1 2026 financial results</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1855129/000114036126021169/ny20073175x1_424b5.htm">GH Research April 2026 offering prospectus</a></li>
+<li><a href="https://ir.compasspathways.com/News--Events-/news/news-details/2026/Compass-Pathways-Successfully-Achieves-Primary-Endpoint-in-Second-Phase-3-Trial-Evaluating-COMP360-Psilocybin-for-Treatment-Resistant-Depression/default.aspx">Compass Pathways second Phase 3 COMP360 readout</a></li>
+<li><a href="https://ir.compasspathways.com/News--Events-/news/news-details/2026/Compass-Pathways-Announces-First-Quarter-2026-Financial-Results-and-Business-Highlights/">Compass Pathways Q1 2026 results</a></li>
+<li><a href="https://www.helus.com/development-pipeline/">Helus development pipeline</a></li>
+</ul>
+
+    </main>
+
+    <footer>
+      <div class="footer-left">gohjhb92.github.io / investment thesis</div>
+      <div class="footer-right"><a href="https://gohjhb92.github.io/">&#8592; Back to Portfolio</a></div>
+    </footer>
+  </div>
+</body>
+</html>
