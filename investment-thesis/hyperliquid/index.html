@@ -820,6 +820,7 @@
         <li><a href="#technology">Product &amp; Technology</a></li>
         <li><a href="#tokenomics">Tokenomics &amp; Governance</a></li>
         <li><a href="#traction">Market Traction</a></li>
+        <li><a href="#tradfi">TradFi Perps</a></li>
         <li><a href="#future">Future Scenarios</a></li>
         <li><a href="#risks">Risks &amp; Recommendations</a></li>
       </ol>
@@ -941,23 +942,54 @@
         <p>The competitive point is not that other venues disappear. The point is that derivatives venues often exhibit winner-take-most behavior around liquidity. If Hyperliquid remains the deepest onchain venue, it can become the default base layer for products that need execution quality: copy trading, treasury automation, structured products, market-making tooling, risk dashboards, and stablecoin collateral workflows.</p>
         <div class="thesis-panel">
           <h3>Why this could be bigger than perps</h3>
-          <p>Perps are the beachhead. The larger opportunity is to become the programmable venue where crypto-native capital markets are built: collateral, leverage, portfolio margining, structured risk, onchain market data, and applications that are closer to liquidity than they would be on a generic chain.</p>
+          <p>Crypto perps are the beachhead. The larger opportunity is to become the programmable venue where crypto-native capital markets are built: collateral, leverage, portfolio margining, structured risk, onchain market data, and applications that are closer to liquidity than they would be on a generic chain.</p>
+        </div>
+      </section>
+
+      <section class="section" id="tradfi">
+        <div class="sec-header"><span class="sec-num">06</span><h2>TradFi Perps &amp; Synthetic Markets</h2></div>
+        <p>The missing piece in a Hyperliquid thesis is that the opportunity is not limited to crypto assets. HIP-3 allows builders to deploy their own perp markets on HyperCore, with deployer-defined market specifications, oracle definitions, leverage limits, and settlement rules. That pushes Hyperliquid toward a much larger design space: onchain perpetual exposure to equities, FX, commodities, rates-like instruments, indices, and other real-world price feeds.</p>
+        <div class="lens-grid">
+          <article class="lens-card"><strong>Equities</strong><p>Stock perps can give 24/7 synthetic exposure to names like major tech or high-beta public companies, without users touching the underlying equity.</p></article>
+          <article class="lens-card"><strong>FX</strong><p>Currency perps turn Hyperliquid from a crypto venue into a possible onchain macro trading venue for dollar, euro, yen, sterling, and emerging-market pairs.</p></article>
+          <article class="lens-card"><strong>Commodities</strong><p>Oil, gold, and other commodity-linked perps extend the platform into global macro and hedging narratives.</p></article>
+          <article class="lens-card"><strong>Indices</strong><p>Index perps could make broad market exposure programmable, composable, and usable inside DeFi strategies.</p></article>
+        </div>
+        <div class="stack-map" aria-label="TradFi perp expansion map">
+          <div class="stack-layer"><strong>Price feed</strong><p>External asset prices need reliable, manipulation-resistant oracle definitions.</p></div>
+          <div class="stack-layer"><strong>Perp market</strong><p>HIP-3 deployers define the contract, leverage limits, and market operation.</p></div>
+          <div class="stack-layer"><strong>Collateral</strong><p>Stablecoins and aligned quote assets can become the settlement layer for non-crypto exposure.</p></div>
+          <div class="stack-layer"><strong>Apps</strong><p>Front ends, vaults, risk tools, and structured products can package the exposure for users.</p></div>
+        </div>
+        <div class="thesis-panel">
+          <h3>Why TradFi perps change the thesis</h3>
+          <p>If Hyperliquid becomes a venue where builders can list liquid, reliable synthetic markets for both crypto and traditional assets, the platform stops being only a crypto derivatives exchange. It starts looking like an onchain venue for global risk transfer.</p>
+          <div class="thesis-list">
+            <div class="thesis-point"><span>TAM</span><p>The addressable market expands from crypto-native speculation into equities, macro, commodities, FX, hedging, and portfolio construction.</p></div>
+            <div class="thesis-point"><span>Access</span><p>Retail users get one account, one collateral base, and 24/7 access to markets that are normally fragmented across brokers, CFD venues, futures exchanges, and geography.</p></div>
+            <div class="thesis-point"><span>Composability</span><p>TradFi-like exposures can become building blocks inside DeFi: vault strategies, collateral management, structured yield, automated hedging, and portfolio risk tools.</p></div>
+            <div class="thesis-point"><span>Constraint</span><p>The harder the asset is to price cleanly, the more important oracle quality, market operation, legal posture, and slashing design become.</p></div>
+          </div>
+        </div>
+        <div class="callout warning">
+          <div class="callout-title">Important Distinction</div>
+          <p>TradFi perps are synthetic exposure, not ownership of the underlying stock, currency, commodity, or index. That makes them powerful for access and composability, but also increases legal, oracle, and market-integrity risk.</p>
         </div>
       </section>
 
       <section class="section" id="future">
-        <div class="sec-header"><span class="sec-num">06</span><h2>Future Scenarios</h2></div>
+        <div class="sec-header"><span class="sec-num">07</span><h2>Future Scenarios</h2></div>
         <p>The future of Hyperliquid depends on whether it can turn early liquidity dominance into durable financial infrastructure. Three paths matter most:</p>
         <div class="scenario-grid" aria-label="Future scenarios">
           <article class="scenario-card upside">
             <div class="scenario-label">Upside case</div>
             <strong>Crypto-native CME</strong>
-            <p>Hyperliquid remains the deepest onchain derivatives venue, HyperEVM applications grow around its liquidity, USDC collateral deepens, and HYPE captures more network utility through staking, gas, and fee-linked demand.</p>
+            <p>Hyperliquid remains the deepest onchain derivatives venue, HIP-3 expands credible markets into TradFi assets, HyperEVM applications grow around liquidity, and HYPE captures more network utility through staking, gas, and fee-linked demand.</p>
           </article>
           <article class="scenario-card base">
             <div class="scenario-label">Base case</div>
             <strong>Perps leader</strong>
-            <p>The exchange stays dominant in onchain perps, but ecosystem expansion is slower. HYPE remains linked to trading activity, while broader app-layer value accrual takes longer to prove.</p>
+            <p>The exchange stays dominant in crypto perps, while TradFi perps remain a promising but uneven product category. HYPE remains linked to trading activity, while broader app-layer value accrual takes longer to prove.</p>
           </article>
           <article class="scenario-card downside">
             <div class="scenario-label">Downside case</div>
@@ -968,17 +1000,19 @@
         <div class="monitor-grid" aria-label="Metrics to monitor">
           <article class="monitor-card"><div class="monitor-label">Liquidity</div><span class="monitor-value">OI + Depth</span><p>Open interest, spreads, liquidation performance, and major-pair depth.</p></article>
           <article class="monitor-card"><div class="monitor-label">Usage</div><span class="monitor-value">DAA + Fees</span><p>Daily active addresses, recurring fee generation, and non-incentivized activity.</p></article>
-          <article class="monitor-card"><div class="monitor-label">Ecosystem</div><span class="monitor-value">HyperEVM</span><p>App launches, stablecoin flows, builder quality, and usage outside the perps UI.</p></article>
+          <article class="monitor-card"><div class="monitor-label">Market breadth</div><span class="monitor-value">HIP-3</span><p>Quality of builder-deployed markets across equities, FX, commodities, indices, and crypto long-tail assets.</p></article>
+          <article class="monitor-card"><div class="monitor-label">Ecosystem</div><span class="monitor-value">HyperEVM</span><p>App launches, stablecoin flows, builder quality, and usage outside the core perps UI.</p></article>
           <article class="monitor-card"><div class="monitor-label">Risk</div><span class="monitor-value">Validators</span><p>Validator concentration, bridge behavior, audits, incidents, and jurisdictional pressure.</p></article>
         </div>
       </section>
 
       <section class="section" id="risks">
-        <div class="sec-header"><span class="sec-num">07</span><h2>Risks &amp; Investor Checklist</h2></div>
+        <div class="sec-header"><span class="sec-num">08</span><h2>Risks &amp; Investor Checklist</h2></div>
         <p>The opportunity is real, but the gating risks are not cosmetic. A serious thesis should start with legal, infrastructure, economics, and security diligence, not just volume charts.</p>
         <div class="risk-grid" aria-label="Risk matrix">
           <article class="risk-card"><strong>Regulation</strong><p>Restricted jurisdictions and leveraged markets remain the highest-signal legal risk.</p><div class="risk-meter"><div class="risk-fill high"></div></div></article>
-          <article class="risk-card"><strong>Bridge / validator</strong><p>Deposits, withdrawals, and consensus depend on validator integrity and concentration.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
+          <article class="risk-card"><strong>Oracle quality</strong><p>TradFi-style markets depend on reliable external reference prices and manipulation-resistant settlement design.</p><div class="risk-meter"><div class="risk-fill high"></div></div></article>
+          <article class="risk-card"><strong>Bridge / validator</strong><p>Deposits, withdrawals, consensus, and deployer review depend on validator integrity and concentration.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
           <article class="risk-card"><strong>Audit scope</strong><p>Bridge-side audits do not cover every off-chain operational dependency.</p><div class="risk-meter"><div class="risk-fill med"></div></div></article>
           <article class="risk-card"><strong>Governance</strong><p>Validator-centric governance is workable, but concentration should be monitored.</p><div class="risk-meter"><div class="risk-fill watch"></div></div></article>
         </div>
@@ -990,15 +1024,15 @@
         </div>
         <div class="callout risk">
           <div class="callout-title">Bottom Line</div>
-          <p>Hyperliquid is a platform thesis, not only a token or trading thesis. The upside is a crypto-native financial operating system. The downside is that the same integration creates concentrated technical, governance, and regulatory risk.</p>
+          <p>Hyperliquid is a platform thesis, not only a token or trading thesis. The upside is a crypto-native financial operating system that can support both crypto and traditional-asset synthetic markets. The downside is that the same integration creates concentrated technical, governance, oracle, and regulatory risk.</p>
         </div>
       </section>
 
       <section class="section" id="sources">
-        <div class="sec-header"><span class="sec-num">08</span><h2>Public Source Base</h2></div>
+        <div class="sec-header"><span class="sec-num">09</span><h2>Public Source Base</h2></div>
         <div class="source-list">
           <h3>Referenced source categories</h3>
-          <p>Official Hyperliquid docs, HyperEVM docs, staking docs, fee docs, bridge docs, validator docs, public contracts repository, DefiLlama, Token Terminal, Circle, CoinGecko, Binance launch materials, Presto Research, OTC Markets filing references, Reuters, FIA, BIS, CoinDesk, and Hyperliquid terms. Figures are presented as May 2026 public-source screening snapshots and should be refreshed before any live investment decision.</p>
+          <p>Official Hyperliquid docs, HIP-3 builder-deployed perpetuals docs, HyperEVM docs, staking docs, fee docs, bridge docs, validator docs, aligned quote asset docs, public contracts repository, DefiLlama, Token Terminal, Circle, CoinGecko, Binance launch materials, Presto Research, OTC Markets filing references, Reuters, FIA, BIS, CoinDesk, and Hyperliquid terms. Figures are presented as May 2026 public-source screening snapshots and should be refreshed before any live investment decision.</p>
         </div>
       </section>
     </main>
