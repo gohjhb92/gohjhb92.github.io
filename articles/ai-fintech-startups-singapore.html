@@ -143,6 +143,29 @@
         line-height: 1.5;
       }
 
+      .thesis-box {
+        margin-top: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--scout-rule);
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .thesis-box strong {
+        display: block;
+        margin-bottom: 0.45rem;
+        color: var(--scout-ink);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+      }
+
+      .thesis-box p {
+        margin: 0;
+        color: var(--scout-muted);
+        font-size: 0.93rem;
+        line-height: 1.48;
+      }
+
       .scout-app {
         display: grid;
         grid-template-columns: 330px minmax(0, 1fr);
@@ -640,8 +663,12 @@
         <div>
           <h1 id="page-title">Global VC Startup Scout</h1>
           <p class="scout-deck">
-            Search real startup sources from one practical VC console. The structured results come from live YC company data, while the fund and platform routes open current searches across a16z, Sequoia, Crunchbase, LinkedIn, Product Hunt, Wellfound and Google.
+            Search real startup sources from one practical incubation console. The default thesis is built for a Singapore-based organization supporting early-stage AI startups that can pilot with financial institutions, government agencies, corporates, or SMEs in Southeast Asia.
           </p>
+          <div class="thesis-box">
+            <strong>Incubation mandate</strong>
+            <p>Find AI startups early enough to benefit from incubation, mature enough to pilot, and relevant to Singapore or Southeast Asian partner networks.</p>
+          </div>
         </div>
 
         <aside class="source-card" aria-label="Live data status">
@@ -713,7 +740,9 @@
           <div class="panel-section">
             <p class="panel-title">Signals</p>
             <div class="check-grid">
+              <label class="check-row"><input type="checkbox" id="mandateOnly" checked><span>Singapore incubation thesis fit</span></label>
               <label class="check-row"><input type="checkbox" id="aiOnly" checked><span>AI-related companies only</span></label>
+              <label class="check-row"><input type="checkbox" id="seaOnly"><span>Singapore / Southeast Asia relevance</span></label>
               <label class="check-row"><input type="checkbox" id="hiringOnly"><span>Currently hiring</span></label>
               <label class="check-row"><input type="checkbox" id="topOnly"><span>YC top companies only</span></label>
               <label class="check-row"><input type="checkbox" id="activeOnly" checked><span>Active status only</span></label>
@@ -721,9 +750,21 @@
           </div>
 
           <div class="panel-section">
+            <p class="panel-title">Pilot Partner</p>
+            <select class="select-control" id="pilotSelect" aria-label="Pilot partner">
+              <option value="All">Any pilot partner</option>
+              <option value="Financial institutions">Financial institutions</option>
+              <option value="Government agencies">Government agencies</option>
+              <option value="Corporates">Corporates</option>
+              <option value="SMEs">SMEs</option>
+            </select>
+          </div>
+
+          <div class="panel-section">
             <p class="panel-title">Sort</p>
             <select class="select-control" id="sortSelect" aria-label="Sort results">
-              <option value="relevance">Relevance</option>
+              <option value="mandate">Incubation thesis fit</option>
+              <option value="relevance">General relevance</option>
               <option value="newest">Newest batch first</option>
               <option value="team">Largest team first</option>
               <option value="name">Company A-Z</option>
@@ -803,11 +844,14 @@
         stage: "All",
         industry: "All",
         region: "All",
+        mandateOnly: true,
         aiOnly: true,
+        seaOnly: false,
+        pilot: "All",
         hiringOnly: false,
         topOnly: false,
         activeOnly: true,
-        sort: "relevance",
+        sort: "mandate",
         limit: 30,
         view: "cards",
         saved: new Set(JSON.parse(localStorage.getItem("globalScoutSaved") || "[]")),
@@ -828,7 +872,10 @@
         stageSelect: document.getElementById("stageSelect"),
         industrySelect: document.getElementById("industrySelect"),
         regionSelect: document.getElementById("regionSelect"),
+        mandateOnly: document.getElementById("mandateOnly"),
         aiOnly: document.getElementById("aiOnly"),
+        seaOnly: document.getElementById("seaOnly"),
+        pilotSelect: document.getElementById("pilotSelect"),
         hiringOnly: document.getElementById("hiringOnly"),
         topOnly: document.getElementById("topOnly"),
         activeOnly: document.getElementById("activeOnly"),
@@ -873,6 +920,45 @@
       function isAiCompany(company) {
         const blob = textBlob(company);
         return /\b(ai|artificial intelligence|machine learning|ml|llm|generative|agent|automation|computer vision|nlp)\b/.test(blob);
+      }
+
+      function isEarlyStage(company) {
+        const blob = `${company.stage || ""} ${company.batch || ""}`.toLowerCase();
+        return /idea|pre-seed|seed|early|series a|winter 2024|summer 2024|fall 2024|winter 2025|spring 2025|summer 2025|fall 2025|winter 2026|spring 2026|summer 2026/.test(blob);
+      }
+
+      function hasSeaRelevance(company) {
+        const blob = textBlob(company);
+        return /singapore|southeast asia|south east asia|sea\b|asean|malaysia|indonesia|vietnam|thailand|philippines|brunei|cambodia|laos|myanmar/.test(blob);
+      }
+
+      function pilotTypes(company) {
+        const blob = textBlob(company);
+        const types = [];
+        if (/bank|banking|fintech|finance|financial|insurance|insur|payments|credit|lending|fraud|risk|compliance|aml|wealth|accounting|payroll|invoice|tax/.test(blob)) {
+          types.push("Financial institutions");
+        }
+        if (/government|gov|public sector|civic|defense|defence|education|healthcare|climate|infrastructure|energy|transport|regulatory|compliance|security/.test(blob)) {
+          types.push("Government agencies");
+        }
+        if (/enterprise|b2b|sales|marketing|hr|legal|operations|analytics|developer tools|security|supply chain|logistics|procurement|manufacturing|customer support|productivity/.test(blob)) {
+          types.push("Corporates");
+        }
+        if (/smb|sme|small business|retail|restaurant|merchant|commerce|e-commerce|ecommerce|payments|invoice|accounting|payroll|sales|customer support|productivity/.test(blob)) {
+          types.push("SMEs");
+        }
+        return [...new Set(types)];
+      }
+
+      function mandateScore(company) {
+        let score = 0;
+        if (isAiCompany(company)) score += 30;
+        if (isEarlyStage(company)) score += 20;
+        if (hasSeaRelevance(company)) score += 18;
+        if (pilotTypes(company).length) score += 22;
+        if (company.status === "Active") score += 5;
+        if (company.isHiring || company.top_company) score += 5;
+        return score;
       }
 
       function relevance(company) {
@@ -971,15 +1057,19 @@
           const matchesStage = state.stage === "All" || company.stage === state.stage;
           const matchesIndustry = state.industry === "All" || industries.includes(state.industry);
           const matchesRegion = state.region === "All" || clean(company.regions).includes(state.region);
+          const matchesMandate = !state.mandateOnly || mandateScore(company) >= 50;
           const matchesAi = !state.aiOnly || isAiCompany(company);
+          const matchesSea = !state.seaOnly || hasSeaRelevance(company);
+          const matchesPilot = state.pilot === "All" || pilotTypes(company).includes(state.pilot);
           const matchesHiring = !state.hiringOnly || company.isHiring;
           const matchesTop = !state.topOnly || company.top_company;
           const matchesActive = !state.activeOnly || company.status === "Active";
-          return matchesQuery && matchesStage && matchesIndustry && matchesRegion && matchesAi && matchesHiring && matchesTop && matchesActive;
+          return matchesQuery && matchesStage && matchesIndustry && matchesRegion && matchesMandate && matchesAi && matchesSea && matchesPilot && matchesHiring && matchesTop && matchesActive;
         }).sort((a, b) => {
           if (state.sort === "name") return a.name.localeCompare(b.name);
           if (state.sort === "team") return Number(b.team_size || 0) - Number(a.team_size || 0);
           if (state.sort === "newest") return batchYear(b) - batchYear(a);
+          if (state.sort === "mandate") return mandateScore(b) - mandateScore(a);
           return relevance(b) - relevance(a);
         });
       }
@@ -1004,6 +1094,8 @@
             company.status,
             company.isHiring ? "Hiring" : "",
             company.top_company ? "Top YC" : "",
+            hasSeaRelevance(company) ? "SEA fit" : "",
+            ...pilotTypes(company).slice(0, 2),
             ...(clean(company.industries).slice(0, 2)),
             ...(clean(company.regions).slice(0, 1)),
             ...(clean(company.tags).slice(0, 3))
@@ -1018,8 +1110,8 @@
                   <p>${company.one_liner || company.long_description || "No description available."}</p>
                 </div>
                 <div class="startup-score" aria-label="Sourcing relevance ${relevance(company)}">
-                  ${relevance(company)}
-                  <span>signal</span>
+                  ${mandateScore(company)}
+                  <span>thesis</span>
                 </div>
               </div>
               <div class="tag-row">
@@ -1051,6 +1143,7 @@
                 <th>Region</th>
                 <th>Status</th>
                 <th>Team</th>
+                <th>Thesis</th>
                 <th>Signals</th>
                 <th>Lookup</th>
               </tr>
@@ -1065,6 +1158,7 @@
                   <td>${clean(company.regions).join(", ") || company.all_locations || ""}</td>
                   <td>${company.status || ""}</td>
                   <td>${company.team_size || ""}</td>
+                  <td>${mandateScore(company)} / ${pilotTypes(company).join(", ") || "Needs review"}${hasSeaRelevance(company) ? " / SEA" : ""}</td>
                   <td>${company.isHiring ? "Hiring. " : ""}${company.top_company ? "Top YC. " : ""}${clean(company.tags).slice(0, 6).join(", ")}</td>
                   <td><a href="${company.url}" target="_blank" rel="noreferrer">YC profile</a></td>
                 </tr>
@@ -1097,6 +1191,8 @@
           state.industry !== "All" ? state.industry : "",
           state.stage !== "All" ? state.stage : "",
           state.region !== "All" ? state.region : "",
+          state.pilot !== "All" ? state.pilot : "",
+          state.seaOnly ? "Singapore Southeast Asia" : "Singapore SEA pilot",
           state.hiringOnly ? "hiring" : ""
         ].filter(Boolean);
         return parts.join(" ");
@@ -1142,7 +1238,7 @@
         el.loadingState.classList.add("hidden");
         el.visibleCount.textContent = results.length.toLocaleString();
         el.filterSummary.textContent = sourceLabel;
-        el.resultNarrative.textContent = `${results.length.toLocaleString()} real YC companies match. Showing ${limited.length.toLocaleString()} based on current filters.`;
+        el.resultNarrative.textContent = `${results.length.toLocaleString()} real YC companies match your current incubation filters. Showing ${limited.length.toLocaleString()} ranked for Singapore/SEA pilot fit.`;
 
         renderCards(limited);
         renderTable(limited);
@@ -1162,18 +1258,24 @@
         state.stage = "All";
         state.industry = "All";
         state.region = "All";
+        state.mandateOnly = true;
         state.aiOnly = true;
+        state.seaOnly = false;
+        state.pilot = "All";
         state.hiringOnly = false;
         state.topOnly = false;
         state.activeOnly = true;
-        state.sort = "relevance";
+        state.sort = "mandate";
         state.limit = 30;
         el.searchInput.value = "";
+        el.mandateOnly.checked = true;
         el.aiOnly.checked = true;
+        el.seaOnly.checked = false;
+        el.pilotSelect.value = "All";
         el.hiringOnly.checked = false;
         el.topOnly.checked = false;
         el.activeOnly.checked = true;
-        el.sortSelect.value = "relevance";
+        el.sortSelect.value = "mandate";
         el.limitSelect.value = "30";
         refreshFilterOptions();
         render();
@@ -1210,8 +1312,23 @@
         render();
       });
 
+      el.mandateOnly.addEventListener("change", (event) => {
+        state.mandateOnly = event.target.checked;
+        render();
+      });
+
       el.aiOnly.addEventListener("change", (event) => {
         state.aiOnly = event.target.checked;
+        render();
+      });
+
+      el.seaOnly.addEventListener("change", (event) => {
+        state.seaOnly = event.target.checked;
+        render();
+      });
+
+      el.pilotSelect.addEventListener("change", (event) => {
+        state.pilot = event.target.value;
         render();
       });
 
