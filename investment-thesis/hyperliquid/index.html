@@ -1337,22 +1337,22 @@
         <article class="live-metric">
           <div class="live-metric-label">HYPE price</div>
           <span class="live-metric-value" data-live-metric="hype-price">--</span>
-          <span class="live-metric-source">CoinGecko</span>
+          <span class="live-metric-source" data-live-source="hype-price">CoinGecko</span>
         </article>
         <article class="live-metric">
           <div class="live-metric-label">24h change</div>
           <span class="live-metric-value" data-live-metric="hype-change">--</span>
-          <span class="live-metric-source">CoinGecko</span>
+          <span class="live-metric-source" data-live-source="hype-change">CoinGecko</span>
         </article>
         <article class="live-metric">
           <div class="live-metric-label">Market cap</div>
           <span class="live-metric-value" data-live-metric="hype-market-cap">--</span>
-          <span class="live-metric-source">CoinGecko</span>
+          <span class="live-metric-source" data-live-source="hype-market-cap">CoinGecko</span>
         </article>
         <article class="live-metric">
           <div class="live-metric-label">24h token volume</div>
           <span class="live-metric-value" data-live-metric="hype-volume">--</span>
-          <span class="live-metric-source">CoinGecko</span>
+          <span class="live-metric-source" data-live-source="hype-volume">CoinGecko</span>
         </article>
         <article class="live-metric">
           <div class="live-metric-label">Perp volume</div>
@@ -1766,6 +1766,11 @@
       if (tone) element.classList.add(tone);
     };
 
+    const setSource = (name, value) => {
+      const element = document.querySelector(`[data-live-source="${name}"]`);
+      if (element) element.textContent = value;
+    };
+
     const compactUsd = (value) => {
       if (!Number.isFinite(value)) return '--';
       return new Intl.NumberFormat('en-US', {
@@ -1798,16 +1803,50 @@
       return response.json();
     };
 
-    const loadCoinGecko = async () => {
-      const data = await fetchJson('https://api.coingecko.com/api/v3/simple/price?ids=hyperliquid&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true');
-      const hype = data.hyperliquid;
-      if (!hype) throw new Error('CoinGecko response missing hyperliquid');
+    const loadLlamaPriceFallback = async () => {
+      const now = Math.floor(Date.now() / 1000);
+      const dayAgo = now - 86400;
+      const [current, historical] = await Promise.all([
+        fetchJson('https://coins.llama.fi/prices/current/coingecko:hyperliquid'),
+        fetchJson(`https://coins.llama.fi/prices/historical/${dayAgo}/coingecko:hyperliquid`)
+      ]);
+      const currentCoin = current.coins?.['coingecko:hyperliquid'];
+      const historicalCoin = historical.coins?.['coingecko:hyperliquid'];
+      const currentPrice = Number(currentCoin?.price);
+      const historicalPrice = Number(historicalCoin?.price);
+      const change = Number.isFinite(currentPrice) && Number.isFinite(historicalPrice) && historicalPrice > 0
+        ? ((currentPrice - historicalPrice) / historicalPrice) * 100
+        : NaN;
 
-      setMetric('hype-price', priceUsd(hype.usd));
-      setMetric('hype-change', percent(hype.usd_24h_change), hype.usd_24h_change >= 0 ? 'positive' : 'negative');
-      setMetric('hype-market-cap', compactUsd(hype.usd_market_cap));
-      setMetric('hype-volume', compactUsd(hype.usd_24h_vol));
-      return hype;
+      setMetric('hype-price', priceUsd(currentPrice));
+      setMetric('hype-change', percent(change), change >= 0 ? 'positive' : 'negative');
+      setMetric('hype-market-cap', 'Unavailable');
+      setMetric('hype-volume', 'Unavailable');
+      setSource('hype-price', 'DeFiLlama price fallback');
+      setSource('hype-change', 'DeFiLlama 24h calc');
+      setSource('hype-market-cap', 'CoinGecko unavailable');
+      setSource('hype-volume', 'CoinGecko unavailable');
+      return { partial: true, source: 'defillama-coins' };
+    };
+
+    const loadCoinGecko = async () => {
+      try {
+        const data = await fetchJson('https://api.coingecko.com/api/v3/simple/price?ids=hyperliquid&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true');
+        const hype = data.hyperliquid;
+        if (!hype) throw new Error('CoinGecko response missing hyperliquid');
+
+        setMetric('hype-price', priceUsd(hype.usd));
+        setMetric('hype-change', percent(hype.usd_24h_change), hype.usd_24h_change >= 0 ? 'positive' : 'negative');
+        setMetric('hype-market-cap', compactUsd(hype.usd_market_cap));
+        setMetric('hype-volume', compactUsd(hype.usd_24h_vol));
+        setSource('hype-price', 'CoinGecko');
+        setSource('hype-change', 'CoinGecko');
+        setSource('hype-market-cap', 'CoinGecko');
+        setSource('hype-volume', 'CoinGecko');
+        return { partial: false, source: 'coingecko' };
+      } catch (error) {
+        return loadLlamaPriceFallback();
+      }
     };
 
     const loadHyperliquid = async () => {
@@ -1846,7 +1885,8 @@
 
     const setMonitorRead = (results) => {
       const liveCount = results.filter((result) => result.status === 'fulfilled').length;
-      if (liveCount === 3) {
+      const hasPartialSource = results.some((result) => result.status === 'fulfilled' && result.value?.partial);
+      if (liveCount === 3 && !hasPartialSource) {
         setMetric('monitor-read', 'Live');
         monitorStatus.textContent = 'Live data loaded';
         monitorStatus.classList.remove('is-stale');
