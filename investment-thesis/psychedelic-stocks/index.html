@@ -202,6 +202,133 @@
       padding: 14px 18px;
     }
 
+    .market-monitor {
+      background:
+        linear-gradient(135deg, rgba(184, 156, 255, 0.14), rgba(25, 23, 37, 0.92) 48%),
+        var(--surface);
+      border: 1px solid var(--border2);
+      margin: 30px 0 34px;
+      padding: 22px;
+    }
+
+    .monitor-head {
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+    }
+
+    .monitor-kicker,
+    .monitor-status,
+    .monitor-updated,
+    .stock-symbol,
+    .stock-role,
+    .stock-source {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .monitor-kicker {
+      color: var(--violet);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .monitor-title {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .monitor-meta {
+      display: grid;
+      gap: 7px;
+      justify-items: end;
+      text-align: right;
+    }
+
+    .monitor-status {
+      border: 1px solid rgba(184, 156, 255, 0.48);
+      color: var(--violet);
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+
+    .monitor-status.is-stale {
+      border-color: rgba(241, 199, 107, 0.5);
+      color: var(--amber);
+    }
+
+    .monitor-updated {
+      color: var(--dim);
+      font-size: 10px;
+    }
+
+    .stock-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stock-card {
+      background: rgba(17, 16, 24, 0.66);
+      border: 1px solid var(--border);
+      min-height: 168px;
+      padding: 16px;
+    }
+
+    .stock-symbol {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .stock-price {
+      color: var(--white);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(34px, 6vw, 52px);
+      font-weight: 700;
+      line-height: 0.95;
+    }
+
+    .stock-change {
+      color: var(--dim);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .stock-change.positive { color: var(--green); }
+    .stock-change.negative { color: var(--red); }
+
+    .stock-role,
+    .stock-source {
+      color: var(--dim);
+      display: block;
+      font-size: 10px;
+      margin-top: 10px;
+    }
+
+    .monitor-note {
+      border-left: 3px solid var(--violet);
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 18px;
+      padding-left: 14px;
+    }
+
     .article-body table {
       border-collapse: collapse;
       display: block;
@@ -269,6 +396,16 @@
       .article-body p { font-size: 16px; }
       .article-body table { font-size: 13px; }
       .article-body th, .article-body td { padding: 8px; }
+      .monitor-head,
+      .stock-grid { grid-template-columns: 1fr; }
+      .monitor-head {
+        display: grid;
+        gap: 14px;
+      }
+      .monitor-meta {
+        justify-items: start;
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -285,6 +422,45 @@
       <div class="masthead-sub">DFTX / GHRS / ATAI catalyst framework</div>
       <div class="author-line">Public-source research note &middot; May 2026 &middot; Not financial advice</div>
     </header>
+
+    <section class="market-monitor" aria-labelledby="psychedelic-monitor-title">
+      <div class="monitor-head">
+        <div>
+          <div class="monitor-kicker">Live market context</div>
+          <h2 class="monitor-title" id="psychedelic-monitor-title">Catalyst Basket Monitor</h2>
+        </div>
+        <div class="monitor-meta">
+          <span class="monitor-status" data-monitor-status>Loading snapshot</span>
+          <span class="monitor-updated" data-monitor-updated>Last updated: --</span>
+        </div>
+      </div>
+      <div class="stock-grid" data-stock-grid="psychedelic" aria-label="Live psychedelic stock basket">
+        <article class="stock-card" data-stock-card="ATAI">
+          <div class="stock-symbol">ATAI</div>
+          <span class="stock-price">--</span>
+          <span class="stock-change">--</span>
+          <span class="stock-role">Speculative core</span>
+          <span class="stock-source">Yahoo Finance snapshot</span>
+        </article>
+        <article class="stock-card" data-stock-card="DFTX">
+          <div class="stock-symbol">DFTX</div>
+          <span class="stock-price">--</span>
+          <span class="stock-change">--</span>
+          <span class="stock-role">Catalyst trade</span>
+          <span class="stock-source">Yahoo Finance snapshot</span>
+        </article>
+        <article class="stock-card" data-stock-card="GHRS">
+          <div class="stock-symbol">GHRS</div>
+          <span class="stock-price">--</span>
+          <span class="stock-change">--</span>
+          <span class="stock-role">Quality science</span>
+          <span class="stock-source">Yahoo Finance snapshot</span>
+        </article>
+      </div>
+      <p class="monitor-note">
+        Price is context, not the thesis. For this basket, the higher-signal variables remain clinical catalysts, cash runway, financing overhang, and sector risk appetite.
+      </p>
+    </section>
 
     <aside class="toc" aria-label="Table of contents">
       <div class="toc-label">Sections</div>
@@ -681,6 +857,7 @@
 <li><a href="https://ir.compasspathways.com/News--Events-/news/news-details/2026/Compass-Pathways-Successfully-Achieves-Primary-Endpoint-in-Second-Phase-3-Trial-Evaluating-COMP360-Psilocybin-for-Treatment-Resistant-Depression/default.aspx">Compass Pathways second Phase 3 COMP360 readout</a></li>
 <li><a href="https://ir.compasspathways.com/News--Events-/news/news-details/2026/Compass-Pathways-Announces-First-Quarter-2026-Financial-Results-and-Business-Highlights/">Compass Pathways Q1 2026 results</a></li>
 <li><a href="https://www.helus.com/development-pipeline/">Helus development pipeline</a></li>
+<li>Live basket monitor: same-origin generated snapshot from Yahoo Finance chart data, refreshed by GitHub Actions where available.</li>
 </ul>
 
     </main>
@@ -690,5 +867,60 @@
       <div class="footer-right"><a href="https://gohjhb92.github.io/">&#8592; Back to Portfolio</a></div>
     </footer>
   </div>
+  <script>
+    const formatPrice = (value, currency = 'USD') => {
+      if (!Number.isFinite(value)) return '--';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency,
+        maximumFractionDigits: value < 10 ? 2 : 2
+      }).format(value);
+    };
+
+    const formatMove = (change, changePercent) => {
+      if (!Number.isFinite(change) || !Number.isFinite(changePercent)) return '--';
+      const sign = change >= 0 ? '+' : '';
+      return `${sign}${change.toFixed(2)} / ${sign}${changePercent.toFixed(2)}%`;
+    };
+
+    const formatUpdated = (isoString) => {
+      if (!isoString) return 'Last updated: --';
+      return `Last updated: ${new Intl.DateTimeFormat('en-SG', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Singapore'
+      }).format(new Date(isoString))} SGT`;
+    };
+
+    const applyQuote = (quote) => {
+      const card = document.querySelector(`[data-stock-card="${quote.symbol}"]`);
+      if (!card || quote.error) return false;
+      const move = card.querySelector('.stock-change');
+      card.querySelector('.stock-price').textContent = formatPrice(quote.price, quote.currency || 'USD');
+      move.textContent = formatMove(quote.change, quote.changePercent);
+      move.classList.toggle('positive', quote.change >= 0);
+      move.classList.toggle('negative', quote.change < 0);
+      card.querySelector('.stock-role').textContent = quote.role;
+      return true;
+    };
+
+    fetch('../../market-data/thesis-monitor.json', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error('Market snapshot unavailable');
+        return response.json();
+      })
+      .then((snapshot) => {
+        const loaded = (snapshot.psychedelic || []).filter(applyQuote).length;
+        const status = document.querySelector('[data-monitor-status]');
+        status.textContent = loaded === 3 ? 'Snapshot loaded' : 'Partial snapshot';
+        status.classList.toggle('is-stale', loaded !== 3);
+        document.querySelector('[data-monitor-updated]').textContent = formatUpdated(snapshot.generatedAt);
+      })
+      .catch(() => {
+        const status = document.querySelector('[data-monitor-status]');
+        status.textContent = 'Snapshot unavailable';
+        status.classList.add('is-stale');
+      });
+  </script>
 </body>
 </html>

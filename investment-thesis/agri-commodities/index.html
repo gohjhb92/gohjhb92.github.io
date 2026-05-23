@@ -216,6 +216,134 @@
       padding: 12px 14px;
     }
 
+    .market-monitor {
+      background:
+        linear-gradient(135deg, rgba(132, 185, 79, 0.16), rgba(24, 34, 22, 0.94) 48%),
+        var(--surface);
+      border: 1px solid rgba(240, 201, 90, 0.28);
+      border-radius: 8px;
+      box-shadow: 0 24px 70px rgba(5, 8, 4, 0.28);
+      margin: 34px 0;
+      padding: 22px;
+    }
+
+    .monitor-head {
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+    }
+
+    .monitor-kicker,
+    .monitor-status,
+    .monitor-updated,
+    .basket-symbol,
+    .basket-role,
+    .basket-source {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .monitor-kicker {
+      color: var(--amber);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .monitor-title {
+      color: var(--white);
+      font-family: 'Fraunces', 'Barlow Condensed', serif;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.04;
+    }
+
+    .monitor-meta {
+      display: grid;
+      gap: 7px;
+      justify-items: end;
+      text-align: right;
+    }
+
+    .monitor-status {
+      border: 1px solid rgba(240, 201, 90, 0.48);
+      color: var(--amber);
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+
+    .monitor-status.is-stale {
+      border-color: rgba(232, 107, 85, 0.5);
+      color: var(--red);
+    }
+
+    .monitor-updated {
+      color: var(--dim);
+      font-size: 10px;
+    }
+
+    .basket-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .basket-card {
+      background: rgba(16, 21, 15, 0.68);
+      border: 1px solid var(--border);
+      min-height: 156px;
+      padding: 15px;
+    }
+
+    .basket-symbol {
+      color: var(--amber);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .basket-price {
+      color: var(--white);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(28px, 4.8vw, 44px);
+      font-weight: 700;
+      line-height: 0.95;
+    }
+
+    .basket-change {
+      color: var(--dim);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .basket-change.positive { color: var(--green); }
+    .basket-change.negative { color: var(--red); }
+
+    .basket-role,
+    .basket-source {
+      color: var(--dim);
+      display: block;
+      font-size: 9px;
+      margin-top: 10px;
+    }
+
+    .monitor-note {
+      border-left: 3px solid var(--amber);
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 18px;
+      padding-left: 14px;
+    }
+
     .toc {
       background:
         linear-gradient(180deg, rgba(34, 49, 29, 0.88), rgba(24, 34, 22, 0.98));
@@ -1280,8 +1408,17 @@
       .demo-grid,
       .demo-market,
       .demo-bottom,
-      .trace-grid {
+      .trace-grid,
+      .basket-grid {
         grid-template-columns: 1fr;
+      }
+      .monitor-head {
+        display: grid;
+        gap: 14px;
+      }
+      .monitor-meta {
+        justify-items: start;
+        text-align: left;
       }
       .thesis-point { grid-template-columns: 1fr; }
       .bar-row,
@@ -1329,6 +1466,31 @@
 
     <section class="summary">
       <strong>Thesis in one line:</strong> A Middle East energy and fertilizer shock can transmit into wheat, corn, and sugar with a crop-calendar lag, making CORN, WEAT, and SUGA a portfolio-demo basket for monitoring food inflation risk rather than a guaranteed directional trade.
+    </section>
+
+    <section class="market-monitor" aria-labelledby="agri-monitor-title">
+      <div class="monitor-head">
+        <div>
+          <div class="monitor-kicker">Live market context</div>
+          <h2 class="monitor-title" id="agri-monitor-title">Food / Fuel / Fertilizer Monitor</h2>
+        </div>
+        <div class="monitor-meta">
+          <span class="monitor-status" data-monitor-status>Loading snapshot</span>
+          <span class="monitor-updated" data-monitor-updated>Last updated: --</span>
+        </div>
+      </div>
+      <div class="basket-grid" aria-label="Live agriculture thesis basket">
+        <article class="basket-card" data-basket-card="CORN"><div class="basket-symbol">CORN</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Corn futures proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+        <article class="basket-card" data-basket-card="WEAT"><div class="basket-symbol">WEAT</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Wheat futures proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+        <article class="basket-card" data-basket-card="SUGA.L"><div class="basket-symbol">SUGA.L</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Sugar ETC proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+        <article class="basket-card" data-basket-card="USO"><div class="basket-symbol">USO</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Crude oil proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+        <article class="basket-card" data-basket-card="UNG"><div class="basket-symbol">UNG</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Gas proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+        <article class="basket-card" data-basket-card="MOS"><div class="basket-symbol">MOS</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Fertilizer equity proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+        <article class="basket-card" data-basket-card="NTR"><div class="basket-symbol">NTR</div><span class="basket-price">--</span><span class="basket-change">--</span><span class="basket-role">Fertilizer equity proxy</span><span class="basket-source">Yahoo Finance snapshot</span></article>
+      </div>
+      <p class="monitor-note">
+        This monitor tracks investable proxies, not spot commodities. The thesis still depends on confirmation from energy, fertilizer, crop condition, WASDE, weather, policy, and futures-curve behavior.
+      </p>
     </section>
 
     <section class="visual-brief" aria-label="Investment thesis summary">
@@ -1548,6 +1710,7 @@
           <h3>Referenced source categories</h3>
           <p>USDA WASDE and World Agricultural Outlook Board release materials; USDA NASS crop progress and acreage reports; USDA ERS commodity outlooks; FAO Food Price Index and AMIS Market Monitor; World Bank Commodity Markets Outlook and monthly commodity price data; International Grains Council market reports; ICE and CME futures contract references; issuer materials for CORN, WEAT, and SUGA; public energy and fertilizer price datasets; and major public reporting on Middle East energy and shipping risk. Figures and links should be refreshed before any live investment decision.</p>
           <p>Key public anchors used for this draft include USDA WASDE May 2026 release materials, World Bank Commodity Markets Outlook April 2026, World Bank May 2026 commodity price notes, and FAO/AMIS April 2026 market-monitor context.</p>
+          <p>Live monitor data uses a same-origin generated snapshot from Yahoo Finance chart data, refreshed by GitHub Actions where available. Quotes may be delayed and are for research context only.</p>
         </div>
       </section>
     </main>
@@ -1557,6 +1720,61 @@
       <div class="footer-right"><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Investment Thesis Index</a></div>
     </footer>
   </div>
+  <script>
+    const formatPrice = (value, currency = 'USD') => {
+      if (!Number.isFinite(value)) return '--';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency,
+        maximumFractionDigits: value < 10 ? 3 : 2
+      }).format(value);
+    };
+
+    const formatMove = (change, changePercent) => {
+      if (!Number.isFinite(change) || !Number.isFinite(changePercent)) return '--';
+      const sign = change >= 0 ? '+' : '';
+      return `${sign}${change.toFixed(2)} / ${sign}${changePercent.toFixed(2)}%`;
+    };
+
+    const formatUpdated = (isoString) => {
+      if (!isoString) return 'Last updated: --';
+      return `Last updated: ${new Intl.DateTimeFormat('en-SG', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Singapore'
+      }).format(new Date(isoString))} SGT`;
+    };
+
+    const applyQuote = (quote) => {
+      const card = document.querySelector(`[data-basket-card="${quote.symbol}"]`);
+      if (!card || quote.error) return false;
+      const move = card.querySelector('.basket-change');
+      card.querySelector('.basket-price').textContent = formatPrice(quote.price, quote.currency || 'USD');
+      move.textContent = formatMove(quote.change, quote.changePercent);
+      move.classList.toggle('positive', quote.change >= 0);
+      move.classList.toggle('negative', quote.change < 0);
+      card.querySelector('.basket-role').textContent = quote.role;
+      return true;
+    };
+
+    fetch('../../market-data/thesis-monitor.json', { cache: 'no-store' })
+      .then((response) => {
+        if (!response.ok) throw new Error('Market snapshot unavailable');
+        return response.json();
+      })
+      .then((snapshot) => {
+        const loaded = (snapshot.agri || []).filter(applyQuote).length;
+        const status = document.querySelector('[data-monitor-status]');
+        status.textContent = loaded >= 5 ? 'Snapshot loaded' : 'Partial snapshot';
+        status.classList.toggle('is-stale', loaded < 5);
+        document.querySelector('[data-monitor-updated]').textContent = formatUpdated(snapshot.generatedAt);
+      })
+      .catch(() => {
+        const status = document.querySelector('[data-monitor-status]');
+        status.textContent = 'Snapshot unavailable';
+        status.classList.add('is-stale');
+      });
+  </script>
 </body>
 </html>
 
