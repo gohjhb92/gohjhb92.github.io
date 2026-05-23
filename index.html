@@ -9,7 +9,7 @@
       content="Bryan Goh is an ecosystem builder, programme manager, and partnerships operator based in Singapore."
     >
     <link rel="canonical" href="https://gohjhb92.github.io/">
-    <meta name="theme-color" content="#f4efe4">
+    <meta name="theme-color" content="#f7f7f4">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gohjhb92.github.io/">
     <meta property="og:title" content="Bryan Goh - Ecosystem and Programme Portfolio">
@@ -45,8 +45,29 @@
         <a href="#more-work">More Work</a>
         <a href="#education">Education</a>
       </nav>
+      <button class="command-trigger" type="button" data-command-open aria-haspopup="dialog" aria-controls="command-palette">
+        <span>Search</span>
+        <kbd>Ctrl K</kbd>
+      </button>
       <a class="nav-cta" href="#contact">Let's talk</a>
     </header>
+
+    <div class="command-overlay" id="command-palette" role="dialog" aria-modal="true" aria-labelledby="command-title" hidden>
+      <div class="command-panel">
+        <div class="command-header">
+          <div>
+            <p class="metadata-line">command.center</p>
+            <h2 id="command-title">Navigate Bryan's work</h2>
+          </div>
+          <button class="icon-button" type="button" data-command-close aria-label="Close command palette">Esc</button>
+        </div>
+        <label class="command-search">
+          <span>Search commands</span>
+          <input type="search" id="command-input" placeholder="Try AI tools, TezAsia, contact, GitHub..." autocomplete="off">
+        </label>
+        <div class="command-list" id="command-list" role="listbox" aria-label="Portfolio commands"></div>
+      </div>
+    </div>
 
     <main id="main">
       <section class="hero section-band" id="top" aria-labelledby="hero-title">
@@ -63,31 +84,31 @@
             <div class="hero-actions" aria-label="Primary links">
               <a class="button primary" href="#contact">Get in touch</a>
               <a class="button secondary" href="#work">View ecosystem work</a>
-              <a class="button ghost" href="https://github.com/gohjhb92" target="_blank" rel="noreferrer">GitHub</a>
+              <button class="button ghost" type="button" data-command-open>Open command palette</button>
             </div>
           </div>
 
-          <aside class="terminal-panel" aria-label="Profile status panel">
-            <div class="terminal-topline">
-              <span>portfolio.log</span>
-              <span>2026</span>
+          <aside class="now-panel" aria-label="Current focus panel">
+            <div class="now-topline">
+              <span>Now</span>
+              <span>Live portfolio</span>
             </div>
-            <dl class="status-list">
+            <dl class="now-list">
               <div>
-                <dt>mode</dt>
-                <dd>return-ready</dd>
+                <dt>Status</dt>
+                <dd>Open to ecosystem, programme, partnerships, and innovation operations roles</dd>
               </div>
               <div>
-                <dt>focus</dt>
-                <dd>programmes / partnerships / ops</dd>
+                <dt>Building</dt>
+                <dd>AI tools for startup programme operators and founder support workflows</dd>
               </div>
               <div>
-                <dt>base</dt>
+                <dt>Learning</dt>
+                <dd>Generative AI for business growth, practical automation, and data workflows</dd>
+              </div>
+              <div>
+                <dt>Base</dt>
                 <dd>Singapore</dd>
-              </div>
-              <div>
-                <dt>signal</dt>
-                <dd>5+ years cross-functional execution</dd>
               </div>
             </dl>
           </aside>

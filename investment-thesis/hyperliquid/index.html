@@ -154,6 +154,124 @@
       padding: 12px 14px;
     }
 
+    .thesis-monitor {
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(18, 26, 35, 0.96) 44%),
+        var(--surface);
+      border: 1px solid var(--border2);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
+      margin: 34px 0;
+      padding: 22px;
+    }
+
+    .monitor-head {
+      align-items: start;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+    }
+
+    .monitor-title {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .monitor-kicker,
+    .monitor-source,
+    .monitor-status,
+    .live-metric-label,
+    .live-metric-source {
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .monitor-kicker {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .monitor-meta {
+      display: grid;
+      gap: 6px;
+      justify-items: end;
+      text-align: right;
+    }
+
+    .monitor-status {
+      border: 1px solid rgba(56, 189, 248, 0.38);
+      color: var(--cyan);
+      font-size: 10px;
+      padding: 4px 8px;
+    }
+
+    .monitor-status.is-stale {
+      border-color: rgba(224, 163, 40, 0.42);
+      color: var(--amber);
+    }
+
+    .monitor-source {
+      color: var(--dim);
+      font-size: 10px;
+    }
+
+    .live-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .live-metric {
+      background: rgba(12, 17, 23, 0.56);
+      border: 1px solid var(--border);
+      min-height: 112px;
+      padding: 16px;
+    }
+
+    .live-metric-label {
+      color: var(--dim);
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .live-metric-value {
+      color: var(--white);
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(25px, 4vw, 42px);
+      font-weight: 600;
+      line-height: 0.95;
+    }
+
+    .live-metric-value.positive { color: var(--green); }
+    .live-metric-value.negative { color: var(--red); }
+
+    .live-metric-source {
+      color: var(--dim);
+      display: block;
+      font-size: 9px;
+      margin-top: 12px;
+    }
+
+    .monitor-read {
+      border-left: 3px solid var(--cyan);
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-top: 18px;
+      padding: 0 0 0 14px;
+    }
+
+    .monitor-read strong { color: var(--text); }
+
     .toc {
       background: var(--surface);
       border: 1px solid var(--border2);
@@ -1105,6 +1223,13 @@
       line-height: 1.65;
     }
 
+    .source-list a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .source-list a:hover { color: var(--white); }
+
     .page-footer {
       border-top: 1px solid var(--border2);
       display: flex;
@@ -1143,8 +1268,17 @@
       .demo-grid,
       .demo-market,
       .demo-bottom,
-      .trace-grid {
+      .trace-grid,
+      .live-grid {
         grid-template-columns: 1fr;
+      }
+      .monitor-head {
+        display: grid;
+        gap: 14px;
+      }
+      .monitor-meta {
+        justify-items: start;
+        text-align: left;
       }
       .thesis-point { grid-template-columns: 1fr; }
       .bar-row,
@@ -1186,6 +1320,69 @@
 
     <section class="summary">
       <strong>Thesis in one line:</strong> Hyperliquid is trying to turn the exchange into the chain. If that works, its long-term value is not just perps volume; it is the possibility that liquidity, collateral, applications, and token economics compound around one vertically integrated market infrastructure layer.
+    </section>
+
+    <section class="thesis-monitor" aria-labelledby="thesis-monitor-title">
+      <div class="monitor-head">
+        <div>
+          <div class="monitor-kicker">Live market context</div>
+          <h2 class="monitor-title" id="thesis-monitor-title">Thesis Monitor</h2>
+        </div>
+        <div class="monitor-meta">
+          <span class="monitor-status" id="monitor-status">Loading live data</span>
+          <span class="monitor-source" id="monitor-updated">Last updated: --</span>
+        </div>
+      </div>
+      <div class="live-grid" aria-label="Live Hyperliquid thesis metrics">
+        <article class="live-metric">
+          <div class="live-metric-label">HYPE price</div>
+          <span class="live-metric-value" data-live-metric="hype-price">--</span>
+          <span class="live-metric-source">CoinGecko</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">24h change</div>
+          <span class="live-metric-value" data-live-metric="hype-change">--</span>
+          <span class="live-metric-source">CoinGecko</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">Market cap</div>
+          <span class="live-metric-value" data-live-metric="hype-market-cap">--</span>
+          <span class="live-metric-source">CoinGecko</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">24h token volume</div>
+          <span class="live-metric-value" data-live-metric="hype-volume">--</span>
+          <span class="live-metric-source">CoinGecko</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">Perp volume</div>
+          <span class="live-metric-value" data-live-metric="perp-volume">--</span>
+          <span class="live-metric-source">Hyperliquid API</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">Open interest</div>
+          <span class="live-metric-value" data-live-metric="open-interest">--</span>
+          <span class="live-metric-source">Hyperliquid API</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">24h fees</div>
+          <span class="live-metric-value" data-live-metric="fees-24h">--</span>
+          <span class="live-metric-source">DeFiLlama</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">30d fees</div>
+          <span class="live-metric-value" data-live-metric="fees-30d">--</span>
+          <span class="live-metric-source">DeFiLlama</span>
+        </article>
+        <article class="live-metric">
+          <div class="live-metric-label">Monitor read</div>
+          <span class="live-metric-value" data-live-metric="monitor-read">--</span>
+          <span class="live-metric-source">Derived from live inputs</span>
+        </article>
+      </div>
+      <p class="monitor-read">
+        <strong>How to read this:</strong> price captures market sentiment, but perp volume, open interest, and fee generation are better signals for whether Hyperliquid is becoming durable market infrastructure. Live data can fail or lag; use it as context, not advice.
+      </p>
     </section>
 
     <section class="visual-brief" aria-label="Investment thesis summary">
@@ -1546,6 +1743,7 @@
         <div class="source-list">
           <h3>Referenced source categories</h3>
           <p>Official Hyperliquid docs, HIP-3 builder-deployed perpetuals docs, HyperEVM docs, staking docs, fee docs, bridge docs, validator docs, aligned quote asset docs, public contracts repository, DefiLlama, Token Terminal, Circle, CoinGecko, Binance launch materials, Presto Research, OTC Markets filing references, Reuters, FIA, BIS, CoinDesk, and Hyperliquid terms. Figures are presented as May 2026 public-source screening snapshots and should be refreshed before any live investment decision.</p>
+          <p>Live thesis monitor data is fetched client-side from <a href="https://docs.coingecko.com/reference/endpoint-overview" target="_blank" rel="noreferrer">CoinGecko</a>, <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals" target="_blank" rel="noreferrer">Hyperliquid's public info endpoint</a>, and <a href="https://defillama.com/protocol/hyperliquid" target="_blank" rel="noreferrer">DeFiLlama</a> where browser access is available. If a source rate-limits or blocks a browser request, the monitor marks itself as partial rather than silently substituting stale figures.</p>
         </div>
       </section>
     </main>
@@ -1555,5 +1753,122 @@
       <div class="footer-right"><a href="https://gohjhb92.github.io/investment-thesis/">&#8592; Investment Thesis Index</a></div>
     </footer>
   </div>
+  <script>
+    const metricElements = document.querySelectorAll('[data-live-metric]');
+    const monitorStatus = document.querySelector('#monitor-status');
+    const monitorUpdated = document.querySelector('#monitor-updated');
+
+    const setMetric = (name, value, tone) => {
+      const element = document.querySelector(`[data-live-metric="${name}"]`);
+      if (!element) return;
+      element.textContent = value || '--';
+      element.classList.remove('positive', 'negative');
+      if (tone) element.classList.add(tone);
+    };
+
+    const compactUsd = (value) => {
+      if (!Number.isFinite(value)) return '--';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        notation: 'compact',
+        maximumFractionDigits: value >= 1_000_000_000 ? 1 : 2
+      }).format(value);
+    };
+
+    const priceUsd = (value) => {
+      if (!Number.isFinite(value)) return '--';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value);
+    };
+
+    const percent = (value) => {
+      if (!Number.isFinite(value)) return '--';
+      const sign = value > 0 ? '+' : '';
+      return `${sign}${value.toFixed(2)}%`;
+    };
+
+    const fetchJson = async (url, options) => {
+      const response = await fetch(url, options);
+      if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+      return response.json();
+    };
+
+    const loadCoinGecko = async () => {
+      const data = await fetchJson('https://api.coingecko.com/api/v3/simple/price?ids=hyperliquid&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true');
+      const hype = data.hyperliquid;
+      if (!hype) throw new Error('CoinGecko response missing hyperliquid');
+
+      setMetric('hype-price', priceUsd(hype.usd));
+      setMetric('hype-change', percent(hype.usd_24h_change), hype.usd_24h_change >= 0 ? 'positive' : 'negative');
+      setMetric('hype-market-cap', compactUsd(hype.usd_market_cap));
+      setMetric('hype-volume', compactUsd(hype.usd_24h_vol));
+      return hype;
+    };
+
+    const loadHyperliquid = async () => {
+      const data = await fetchJson('https://api.hyperliquid.xyz/info', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'metaAndAssetCtxs' })
+      });
+      const contexts = Array.isArray(data) ? data[1] : [];
+      if (!Array.isArray(contexts)) throw new Error('Hyperliquid response missing contexts');
+
+      const totals = contexts.reduce((acc, context) => {
+        const volume = Number(context.dayNtlVlm);
+        const openInterest = Number(context.openInterest);
+        const markPx = Number(context.markPx || context.oraclePx || context.midPx);
+        if (Number.isFinite(volume)) acc.volume += volume;
+        if (Number.isFinite(openInterest) && Number.isFinite(markPx)) {
+          acc.openInterest += openInterest * markPx;
+        }
+        return acc;
+      }, { volume: 0, openInterest: 0 });
+
+      setMetric('perp-volume', compactUsd(totals.volume));
+      setMetric('open-interest', compactUsd(totals.openInterest));
+      return totals;
+    };
+
+    const loadDefiLlama = async () => {
+      const data = await fetchJson('https://api.llama.fi/summary/fees/hyperliquid?dataType=dailyFees');
+      const fees24h = Number(data.total24h);
+      const fees30d = Number(data.total30d);
+      setMetric('fees-24h', compactUsd(fees24h));
+      setMetric('fees-30d', compactUsd(fees30d));
+      return { fees24h, fees30d };
+    };
+
+    const setMonitorRead = (results) => {
+      const liveCount = results.filter((result) => result.status === 'fulfilled').length;
+      if (liveCount === 3) {
+        setMetric('monitor-read', 'Live');
+        monitorStatus.textContent = 'Live data loaded';
+        monitorStatus.classList.remove('is-stale');
+      } else if (liveCount > 0) {
+        setMetric('monitor-read', 'Partial');
+        monitorStatus.textContent = 'Partial live data';
+        monitorStatus.classList.add('is-stale');
+      } else {
+        setMetric('monitor-read', 'Offline');
+        monitorStatus.textContent = 'Live data unavailable';
+        monitorStatus.classList.add('is-stale');
+      }
+      monitorUpdated.textContent = `Last updated: ${new Intl.DateTimeFormat('en-SG', {
+        dateStyle: 'medium',
+        timeStyle: 'short',
+        timeZone: 'Asia/Singapore'
+      }).format(new Date())} SGT`;
+    };
+
+    Promise.allSettled([loadCoinGecko(), loadHyperliquid(), loadDefiLlama()])
+      .then(setMonitorRead)
+      .catch(() => setMonitorRead([]));
+  </script>
 </body>
 </html>
