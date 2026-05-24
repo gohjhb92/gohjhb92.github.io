@@ -8,24 +8,31 @@ const commandClosers = document.querySelectorAll("[data-command-close]");
 const navLinks = document.querySelectorAll(".nav-links a");
 
 const projectDetails = {
-  "FinSight Incubator": "Shows the strongest portfolio shift: from programme experience into practical AI-enabled incubation tooling. It gives visitors a live example of how ecosystem judgment can become an operator dashboard.",
-  FounderPathOS: "Frames founder support as a staged operating pathway instead of a loose resource list, useful for accelerators, university innovation teams, and venture builders.",
-  IncubatorOS: "Connects grant readiness, mentor matching, milestone evidence, and KPI tracking into one programme operations surface for education-linked incubation.",
-  GrantsOS: "Turns startup funding navigation into a structured pathway, with founder eligibility and evidence tracking at the center.",
-  PilotMatchOS: "Bridges startups and institutions with readiness scoring, risk review, fit assessment, and validation outcomes.",
-  CommsAI: "A focused AI tool for the communications burden programme teams carry every week: stakeholder updates, founder outreach, and repeatable social copy.",
-  "Startup Social Kit": "A lightweight reusable content system that shows practical programme marketing instincts, not just one-off design work.",
-  TezAsia: "The clearest proof point for multi-country programme delivery, partner coordination, community growth, and operational follow-through.",
-  "NUS Computing x TZ APAC Partnership": "A strong institutional partnership signal: university engagement, education programming, and ecosystem-building around developer talent.",
-  "CoinGecko Learn & Earn": "Shows partner-led education and top-of-funnel ecosystem reach through accessible learning content and incentive mechanics.",
-  "Singapore Fintech Festival Activation": "Demonstrates high-visibility event operations, partner coordination, and on-ground execution in a regional industry setting."
+  TezAsia: "Real programme experience: multi-country programme delivery, partner coordination, communications, community engagement, and operational follow-through.",
+  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "Real programme experience: grants, founder support, ecosystem campaigns, partner coordination, and milestone follow-through.",
+  "NUS Computing x TZ APAC Partnership": "Partnership activation: university engagement, workshops, education programming, and ecosystem-building around developer talent.",
+  "CoinGecko Learn & Earn": "Partnership activation: partner-led education and top-of-funnel ecosystem reach through accessible learning content.",
+  "Singapore Fintech Festival Activation": "Partnership activation: high-visibility event operations, partner coordination, and on-ground execution in a regional fintech setting.",
+  "MAS Payment System Testing": "Client / institutional work: testing, documentation, UAT workflows, issue follow-up, and status reporting in a regulated delivery context.",
+  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "Ecosystem activation: public-facing stakeholder coordination and event logistics in a regional arts and Web3 context.",
+  "NUS Research Engineer": "Research / institutional experience: documentation, research workflow support, coordination, and lab operations.",
+  "FinSight Incubator": "Portfolio prototype: demonstrates startup screening, demo-data scoring, AI-assisted memo generation, and fintech incubation workflow thinking.",
+  FounderPathOS: "Portfolio prototype: frames founder support as a staged operating pathway with evidence tracking, stage diagnosis, and support triage.",
+  IncubatorOS: "Portfolio prototype: connects grant readiness, mentor matching, milestone evidence, founder check-ins, and institutional reporting.",
+  GrantsOS: "Portfolio prototype: turns startup funding navigation into a structured pathway with founder eligibility and evidence tracking.",
+  PilotMatchOS: "Portfolio prototype: models pilot readiness, partner matching, risk review, and validation outcome tracking.",
+  CommsAI: "AI workflow experiment: explores stakeholder emails, outreach planning, and social copy workflows for programme teams.",
+  "Startup Social Kit": "Portfolio prototype: a reusable content system for programme marketing and founder communications.",
+  "AI Workflow Experiments": "AI workflow experiment: explores how programme teams could reduce repetitive operating work with AI-assisted workflows.",
+  "GitHub Pages Experiments": "Build experiment: demonstrates lightweight publishing, static-site workflows, and self-directed portfolio practice."
 };
 
 const commands = [
-  { label: "View selected works", hint: "Jump to project explorer", keywords: "work projects portfolio", action: () => goTo("#work") },
-  { label: "Show AI tools", hint: "Filter project explorer", keywords: "ai tools comms grants dashboard", action: () => applyFilter("tool", true) },
-  { label: "Show ecosystem programmes", hint: "Filter project explorer", keywords: "ecosystem programmes tezasia incubation", action: () => applyFilter("ecosystem", true) },
-  { label: "Show partnerships", hint: "Filter project explorer", keywords: "partners nus coingecko pilot", action: () => applyFilter("partnership", true) },
+  { label: "View real experience", hint: "Jump to real programme and ecosystem work", keywords: "work projects portfolio real experience", action: () => goTo("#experience") },
+  { label: "View portfolio prototypes", hint: "Jump to clearly labelled demo projects", keywords: "ai tools comms grants dashboard prototypes", action: () => goTo("#prototypes") },
+  { label: "Show programmes", hint: "Filter real experience", keywords: "ecosystem programmes tezasia incubation", action: () => applyFilter("programme", true) },
+  { label: "Show partnerships", hint: "Filter real experience", keywords: "partners nus coingecko pilot", action: () => applyFilter("partnership", true) },
+  { label: "Show institutional work", hint: "Filter real experience", keywords: "mas deloitte nus institutional", action: () => applyFilter("institutional", true) },
   { label: "Open CommsAI", hint: "AI communications tool", keywords: "commsai communications stakeholder", action: () => openUrl("./comms-ai/") },
   { label: "Open FinSight Incubator", hint: "AI startup screening dashboard", keywords: "finsight fintech incubator memo", action: () => openUrl("./finsight-incubator/") },
   { label: "Open FounderPathOS", hint: "Founder journey dashboard", keywords: "founder journey os", action: () => openUrl("./founderpathos/") },
@@ -48,7 +55,7 @@ function applyFilter(filter, shouldScroll = false) {
   });
 
   if (shouldScroll) {
-    goTo("#work");
+    goTo("#experience");
   }
 }
 
@@ -172,26 +179,6 @@ document.addEventListener("keydown", (event) => {
     commandList.querySelector(".command-item")?.click();
   }
 });
-
-const moreWorkNavLink = [...navLinks].find((link) => link.getAttribute("href") === "#more-work");
-
-if (moreWorkNavLink) {
-  moreWorkNavLink.textContent = "Writing";
-}
-
-const writingList = document.querySelector("#more-work .compact-list");
-
-if (writingList && !document.querySelector('[href="./articles/ai-fintech-startups-singapore.html"]')) {
-  const articleCard = document.createElement("article");
-  articleCard.className = "featured-writing";
-  articleCard.innerHTML = `
-    <span>Market Research Article</span>
-    <h3>AI FinTech Startups in Singapore</h3>
-    <p>A portfolio research article mapping AI-fintech startup opportunities across regtech, credit underwriting, wealthtech, insurtech, payments, and personal finance.</p>
-    <a href="./articles/ai-fintech-startups-singapore.html">Read Article</a>
-  `;
-  writingList.prepend(articleCard);
-}
 
 const revealTargets = document.querySelectorAll(".section-band, .timeline-row, .work-card, .compact-list article");
 

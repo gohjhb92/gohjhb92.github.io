@@ -355,11 +355,11 @@ p {
 }
 
 h1 {
-  max-width: 11ch;
+  max-width: 14ch;
   margin-bottom: 1.2rem;
-  font-size: clamp(4.7rem, 16vw, 13rem);
+  font-size: clamp(3.2rem, 9vw, 7.4rem);
   font-weight: 800;
-  line-height: 0.82;
+  line-height: 0.92;
   letter-spacing: 0;
 }
 
@@ -533,6 +533,73 @@ h3 {
   gap: clamp(1.5rem, 5vw, 4rem);
   color: var(--muted);
   font-size: clamp(1rem, 1.5vw, 1.14rem);
+}
+
+.section-lede {
+  max-width: 860px;
+  margin-bottom: 1.8rem;
+  color: var(--muted);
+  font-size: clamp(1.02rem, 1.5vw, 1.16rem);
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+}
+
+.role-grid span {
+  min-height: 7.2rem;
+  display: flex;
+  align-items: end;
+  padding: 1rem;
+  background: rgba(255, 250, 240, 0.58);
+  color: var(--ink);
+  font-weight: 750;
+  line-height: 1.22;
+}
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.proof-card {
+  display: flex;
+  min-height: 28rem;
+  flex-direction: column;
+  padding: 1.25rem;
+  border: 1px solid var(--ink);
+  background: rgba(255, 250, 240, 0.58);
+  box-shadow: 8px 8px 0 rgba(47, 111, 115, 0.12);
+}
+
+.proof-card span {
+  margin-bottom: 1.2rem;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.proof-card ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0 0 1.25rem;
+  padding-left: 1.1rem;
+  color: var(--muted);
+}
+
+.proof-card p {
+  margin: auto 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.94rem;
 }
 
 .timeline {
@@ -710,6 +777,20 @@ h3 {
   font-size: 0.68rem;
 }
 
+.disclaimer-panel {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.1rem;
+  border-left: 5px solid var(--cyan);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.prototype-card {
+  box-shadow: 8px 8px 0 rgba(21, 20, 17, 0.08);
+}
+
 .work-card > a,
 .compact-list a,
 .card-links a {
@@ -868,6 +949,32 @@ h3 {
 }
 
 .contact-panel p {
+  color: rgba(255, 250, 240, 0.78);
+}
+
+.contribution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.contribution-grid article {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.contribution-grid h3 {
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.contribution-grid ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1rem;
   color: rgba(255, 250, 240, 0.78);
 }
 
@@ -1234,6 +1341,9 @@ h3 {
   .skill-grid,
   .work-grid,
   .compact-list,
+  .role-grid,
+  .proof-grid,
+  .contribution-grid,
   .article-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1289,7 +1399,7 @@ h3 {
   }
 
   h1 {
-    font-size: clamp(4.2rem, 23vw, 7rem);
+    font-size: clamp(2.8rem, 15vw, 4.6rem);
   }
 
   .hero-actions,
@@ -1305,8 +1415,16 @@ h3 {
   .skill-grid,
   .work-grid,
   .compact-list,
+  .role-grid,
+  .proof-grid,
+  .contribution-grid,
   .article-grid {
     grid-template-columns: 1fr;
+  }
+
+  .role-grid span,
+  .proof-card {
+    min-height: 0;
   }
 
   .compact-list article.featured-writing {
