@@ -1,5 +1,6 @@
 const filterButtons = document.querySelectorAll(".filter-button");
 const workCards = document.querySelectorAll(".work-card");
+const filterCards = document.querySelectorAll("#experience .work-card");
 const commandOverlay = document.querySelector("#command-palette");
 const commandInput = document.querySelector("#command-input");
 const commandList = document.querySelector("#command-list");
@@ -8,34 +9,29 @@ const commandClosers = document.querySelectorAll("[data-command-close]");
 const navLinks = document.querySelectorAll(".nav-links a");
 
 const projectDetails = {
-  TezAsia: "Real programme experience: multi-country programme delivery, partner coordination, communications, community engagement, and operational follow-through.",
-  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "Real programme experience: grants, founder support, ecosystem campaigns, partner coordination, and milestone follow-through.",
-  "NUS Computing x TZ APAC Partnership": "Partnership activation: university engagement, workshops, education programming, and ecosystem-building around developer talent.",
-  "CoinGecko Learn & Earn": "Partnership activation: partner-led education and top-of-funnel ecosystem reach through accessible learning content.",
-  "Singapore Fintech Festival Activation": "Partnership activation: high-visibility event operations, partner coordination, and on-ground execution in a regional fintech setting.",
-  "MAS Payment System Testing": "Client / institutional work: testing, documentation, UAT workflows, issue follow-up, and status reporting in a regulated delivery context.",
-  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "Ecosystem activation: public-facing stakeholder coordination and event logistics in a regional arts and Web3 context.",
-  "NUS Research Engineer": "Research / institutional experience: documentation, research workflow support, coordination, and lab operations.",
-  "FinSight Incubator": "Portfolio prototype: demonstrates startup screening, demo-data scoring, AI-assisted memo generation, and fintech incubation workflow thinking.",
-  FounderPathOS: "Portfolio prototype: frames founder support as a staged operating pathway with evidence tracking, stage diagnosis, and support triage.",
-  IncubatorOS: "Portfolio prototype: connects grant readiness, mentor matching, milestone evidence, founder check-ins, and institutional reporting.",
-  GrantsOS: "Portfolio prototype: turns startup funding navigation into a structured pathway with founder eligibility and evidence tracking.",
-  PilotMatchOS: "Portfolio prototype: models pilot readiness, partner matching, risk review, and validation outcome tracking.",
-  CommsAI: "AI workflow experiment: explores stakeholder emails, outreach planning, and social copy workflows for programme teams.",
-  "Startup Social Kit": "Portfolio prototype: a reusable content system for programme marketing and founder communications.",
-  "AI Workflow Experiments": "AI workflow experiment: explores how programme teams could reduce repetitive operating work with AI-assisted workflows.",
-  "GitHub Pages Experiments": "Build experiment: demonstrates lightweight publishing, static-site workflows, and self-directed portfolio practice."
+  TezAsia: "For ecosystem teams: shows regional programme delivery, partner coordination, communications, judging workflows, and participant operations.",
+  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "For grant and founder-support teams: shows grant coordination, founder follow-up, milestone tracking, and ecosystem campaign delivery.",
+  "NUS Computing x TZ APAC Partnership": "For university innovation teams: shows education programming, partner activation, and founder/developer engagement.",
+  "CoinGecko Learn & Earn": "For ecosystem growth teams: shows partner campaign coordination, learning content, and education-led activation.",
+  "Singapore Fintech Festival Activation": "For fintech partnership teams: shows event activation, stakeholder management, and on-ground execution.",
+  "MAS Payment System Testing": "For regulated delivery teams: shows UAT coordination, documentation, status reporting, and issue follow-up.",
+  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "For ecosystem partnership teams: shows public-facing activation, event logistics, and stakeholder coordination.",
+  "NUS Research Engineer": "For university and research teams: shows documentation, lab workflow support, operational readiness, and data discipline.",
+  IncubatorOS: "Flagship Programme OS: founder intake, cohort tracking, grant readiness, mentor matching, milestone evidence, pilot readiness, founder check-ins, and institutional reporting.",
+  "FinSight Incubator": "For accelerator and VC platform teams: shows fintech intake, screening, regulatory-readiness review, and memo preparation using sample company records.",
+  CommsAI: "For programme and partnerships teams: shows repeatable workflows for stakeholder updates, founder outreach, social posts, and follow-up notes."
 };
 
 const commands = [
-  { label: "View real experience", hint: "Jump to real programme and ecosystem work", keywords: "work projects portfolio real experience", action: () => goTo("#experience") },
-  { label: "View portfolio prototypes", hint: "Jump to clearly labelled demo projects", keywords: "ai tools comms grants dashboard prototypes", action: () => goTo("#prototypes") },
+  { label: "View real experience", hint: "Jump to real programme and ecosystem experience", keywords: "work projects portfolio real experience ecosystem", action: () => goTo("#experience") },
+  { label: "View featured projects", hint: "Jump to self-directed portfolio case studies", keywords: "featured portfolio incubatoros finsight commsai", action: () => goTo("#prototypes") },
+  { label: "View archive", hint: "Jump to supporting modules and smaller studies", keywords: "archive modules founder grants pilot social kit world order", action: () => goTo("#archive") },
   { label: "Show programmes", hint: "Filter real experience", keywords: "ecosystem programmes tezasia incubation", action: () => applyFilter("programme", true) },
   { label: "Show partnerships", hint: "Filter real experience", keywords: "partners nus coingecko pilot", action: () => applyFilter("partnership", true) },
   { label: "Show institutional work", hint: "Filter real experience", keywords: "mas deloitte nus institutional", action: () => applyFilter("institutional", true) },
-  { label: "Open CommsAI", hint: "AI communications tool", keywords: "commsai communications stakeholder", action: () => openUrl("./comms-ai/") },
-  { label: "Open FinSight Incubator", hint: "AI startup screening dashboard", keywords: "finsight fintech incubator memo", action: () => openUrl("./finsight-incubator/") },
-  { label: "Open FounderPathOS", hint: "Founder journey dashboard", keywords: "founder journey os", action: () => openUrl("./founderpathos/") },
+  { label: "Open IncubatorOS", hint: "Flagship programme OS", keywords: "incubatoros incubation programme grant mentor reporting", action: () => openUrl("./incubatoros/") },
+  { label: "Open CommsAI", hint: "Stakeholder communications workflow", keywords: "commsai communications stakeholder", action: () => openUrl("./comms-ai/") },
+  { label: "Open FinSight Incubator", hint: "Fintech screening workflow", keywords: "finsight fintech incubator memo", action: () => openUrl("./finsight-incubator/") },
   { label: "Contact Bryan", hint: "Go to contact section", keywords: "linkedin contact talk", action: () => goTo("#contact") },
   { label: "Open GitHub", hint: "github.com/gohjhb92", keywords: "github code repos", action: () => openUrl("https://github.com/gohjhb92") },
   { label: "Back to top", hint: "Return to intro", keywords: "home top bryan", action: () => goTo("#top") }
@@ -48,7 +44,7 @@ function applyFilter(filter, shouldScroll = false) {
     button.setAttribute("aria-pressed", String(isActive));
   });
 
-  workCards.forEach((card) => {
+  filterCards.forEach((card) => {
     const categories = card.dataset.category.split(" ");
     const shouldShow = filter === "all" || categories.includes(filter);
     card.classList.toggle("is-hidden", !shouldShow);
@@ -133,7 +129,7 @@ function renderCommands(query = "") {
   if (!matches.length) {
     const empty = document.createElement("div");
     empty.className = "command-item";
-    empty.innerHTML = "<span><strong>No command found</strong><span>Try work, AI, partnerships, contact, or GitHub.</span></span>";
+    empty.innerHTML = "<span><strong>No command found</strong><span>Try ecosystem work, partnerships, modules, contact, or GitHub.</span></span>";
     commandList.append(empty);
   }
 }

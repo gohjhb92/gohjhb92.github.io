@@ -124,7 +124,8 @@ button {
 .site-footer a,
 .work-card > a,
 .compact-list a,
-.card-links a {
+.card-links a,
+.archive-card > a {
   border-bottom: 1px solid transparent;
   transition: color 180ms ease, border-color 180ms ease;
 }
@@ -134,7 +135,8 @@ button {
 .site-footer a:hover,
 .work-card > a:hover,
 .compact-list a:hover,
-.card-links a:hover {
+.card-links a:hover,
+.archive-card > a:hover {
   border-color: var(--vermilion);
   color: var(--vermilion-dark);
 }
@@ -701,6 +703,10 @@ h3 {
   gap: 1rem;
 }
 
+.featured-grid {
+  gap: 1.25rem;
+}
+
 .work-card {
   display: flex;
   min-height: 29rem;
@@ -791,9 +797,88 @@ h3 {
   box-shadow: 8px 8px 0 rgba(21, 20, 17, 0.08);
 }
 
+.featured-card {
+  min-height: 26rem;
+  border-width: 2px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 10px 10px 0 rgba(180, 55, 34, 0.16);
+}
+
+.featured-card h3 {
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+}
+
+.featured-card p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.real-ecosystem .work-grid {
+  gap: 1.1rem;
+}
+
+.real-ecosystem .work-card {
+  background: rgba(255, 250, 240, 0.68);
+}
+
+.archive {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.archive .section-lede {
+  max-width: 52rem;
+  color: var(--muted);
+}
+
+.portfolio-lab-note {
+  max-width: 56rem;
+  margin: -0.4rem 0 1.4rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--rule);
+  background: var(--rule);
+}
+
+.archive-card {
+  display: flex;
+  min-height: 13.5rem;
+  flex-direction: column;
+  padding: 1rem;
+  background: rgba(255, 250, 240, 0.62);
+}
+
+.archive-card span {
+  display: block;
+  margin-bottom: 0.85rem;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.archive-card h3 {
+  font-size: 1rem;
+}
+
+.archive-card p {
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
 .work-card > a,
 .compact-list a,
-.card-links a {
+.card-links a,
+.archive-card > a {
   width: fit-content;
   color: var(--vermilion-dark);
   font-family: var(--mono);
@@ -1341,6 +1426,7 @@ h3 {
   .skill-grid,
   .work-grid,
   .compact-list,
+  .archive-grid,
   .role-grid,
   .proof-grid,
   .contribution-grid,
@@ -1415,6 +1501,7 @@ h3 {
   .skill-grid,
   .work-grid,
   .compact-list,
+  .archive-grid,
   .role-grid,
   .proof-grid,
   .contribution-grid,
