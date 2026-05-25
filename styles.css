@@ -922,15 +922,102 @@ h3 {
   line-height: 1.55;
 }
 
+.optional-research {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.optional-research h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.optional-research .disclaimer-panel {
+  max-width: 54rem;
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 1rem;
+  border-left-width: 3px;
+  background: rgba(255, 255, 255, 0.48);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.research-groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.research-group {
+  min-height: 12rem;
+  padding: 0.95rem;
+  border: 1px solid var(--rule);
+  background: rgba(255, 250, 240, 0.48);
+}
+
+.research-group > span {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.research-group h3 {
+  margin-bottom: 0.45rem;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
+
+.research-group p {
+  margin-bottom: 0.75rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.research-primary {
+  grid-column: span 2;
+  padding: 1.1rem;
+  background: rgba(255, 250, 240, 0.72);
+  border-color: rgba(40, 123, 131, 0.45);
+}
+
+.research-primary h3 {
+  max-width: 18ch;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+}
+
+.research-entry + .research-entry {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+}
+
+.research-entry.lower-priority h3,
+.low-emphasis h3 {
+  color: var(--muted);
+}
+
+.low-emphasis {
+  background: rgba(255, 250, 240, 0.34);
+}
+
 .work-card > a,
 .compact-list a,
 .card-links a,
-.archive-card > a {
+.archive-card > a,
+.research-group > a {
   width: fit-content;
   color: var(--vermilion-dark);
   font-family: var(--mono);
   font-size: 0.78rem;
   font-weight: 800;
+}
+
+.research-group > a {
+  display: inline-flex;
+  margin-top: 0.25rem;
 }
 
 .card-links {
@@ -1508,6 +1595,7 @@ h3 {
   .work-grid,
   .compact-list,
   .archive-grid,
+  .research-groups,
   .role-grid,
   .proof-grid,
   .contribution-grid,
@@ -1583,6 +1671,7 @@ h3 {
   .work-grid,
   .compact-list,
   .archive-grid,
+  .research-groups,
   .role-grid,
   .proof-grid,
   .contribution-grid,
@@ -1596,6 +1685,10 @@ h3 {
   }
 
   .compact-list article.featured-writing {
+    grid-column: auto;
+  }
+
+  .research-primary {
     grid-column: auto;
   }
 
