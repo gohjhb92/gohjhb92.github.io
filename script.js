@@ -9,17 +9,17 @@ const commandClosers = document.querySelectorAll("[data-command-close]");
 const navLinks = document.querySelectorAll(".nav-links a");
 
 const projectDetails = {
-  TezAsia: "Demonstrates regional programme delivery, partner coordination, communications, judging workflows, and participant operations.",
-  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "Demonstrates grant coordination, founder follow-up, milestone tracking, and ecosystem campaign delivery.",
+  TezAsia: "Regional programme delivery involving partner coordination, communications, judging workflows, and participant operations.",
+  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "Grant coordination, founder follow-up, milestone tracking, and ecosystem campaign delivery across Asia-Pacific.",
   "NUS Computing x TZ APAC Partnership": "Connects education programming and partnership activation with founder and developer engagement.",
   "CoinGecko Learn & Earn": "Shows how partner-led learning content can support accessible ecosystem activation.",
-  "Singapore Fintech Festival Activation": "Demonstrates event activation, stakeholder management, and on-ground execution in a fintech setting.",
+  "Singapore Fintech Festival Activation": "Event activation, stakeholder management, and on-ground execution in a major fintech setting.",
   "MAS Payment System Testing": "Shows UAT coordination, documentation, status reporting, and issue follow-up in regulated delivery.",
-  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "Demonstrates public-facing activation, event logistics, and stakeholder coordination.",
+  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "Public-facing activation involving event logistics and stakeholder coordination.",
   "NUS Research Engineer": "Shows documentation, lab workflow support, operational readiness, and data discipline in an institutional setting.",
   IncubatorOS: "Flagship Programme OS: founder intake, cohort tracking, grant readiness, mentor matching, milestone evidence, pilot readiness, founder check-ins, and institutional reporting.",
-  "FinSight Incubator": "Demonstrates fintech intake, screening, regulatory-readiness review, and memo preparation using sample company records.",
-  CommsAI: "Demonstrates repeatable workflows for stakeholder updates, founder outreach, social posts, and follow-up notes."
+  "FinSight Incubator": "Fintech intake, screening, regulatory-readiness review, and memo preparation using sample company records.",
+  CommsAI: "Repeatable workflows for stakeholder updates, founder outreach, social posts, and follow-up notes."
 };
 
 const commands = [
