@@ -12,7 +12,7 @@ const projectDetails = {
   TezAsia: "Regional programme delivery involving partner coordination, communications, judging workflows, and participant operations.",
   "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "Grant coordination, founder follow-up, milestone tracking, and ecosystem campaign delivery across Asia-Pacific.",
   "NUS Computing x TZ APAC Partnership": "Connects education programming and partnership activation with founder and developer engagement.",
-  "CoinGecko Learn & Earn": "Shows how partner-led learning content can support accessible ecosystem activation.",
+  "CoinGecko Learn & Earn": "Shows partner-led learning content translated into accessible ecosystem activation.",
   "Singapore Fintech Festival Activation": "Event activation, stakeholder management, and on-ground execution in a major fintech setting.",
   "MAS Payment System Testing": "Shows UAT coordination, documentation, status reporting, and issue follow-up in regulated delivery.",
   "S.E.A. Focus 2022 - Tezos NFT Exhibition": "Public-facing activation involving event logistics and stakeholder coordination.",
