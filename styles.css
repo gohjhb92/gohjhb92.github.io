@@ -10,6 +10,8 @@
   --terminal: #0d2b26;
   --terminal-green: #5db79c;
   --cyan: #2f6f73;
+  --focus: #136d73;
+  --focus-on-dark: #8ed8c6;
   --white: #ffffff;
   --shadow: 0 20px 60px rgba(27, 33, 36, 0.1);
   --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -40,6 +42,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
 }
 
 img,
@@ -339,6 +346,10 @@ kbd {
   border-bottom: 1px solid var(--rule);
 }
 
+main > section[id] {
+  scroll-margin-top: 5.75rem;
+}
+
 .hero {
   min-height: calc(100vh - 73px);
   display: flex;
@@ -591,6 +602,12 @@ h3 {
   margin-bottom: clamp(2rem, 5vw, 4rem);
 }
 
+.section-heading h2 {
+  max-width: 18ch;
+  font-size: clamp(2.1rem, 5vw, 4.6rem);
+  line-height: 1.02;
+}
+
 .two-column {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -600,10 +617,11 @@ h3 {
 }
 
 .section-lede {
-  max-width: 860px;
+  max-width: 68ch;
   margin-bottom: 1.8rem;
   color: var(--muted);
   font-size: clamp(1.02rem, 1.5vw, 1.16rem);
+  line-height: 1.7;
 }
 
 .role-grid {
@@ -750,6 +768,7 @@ h3 {
 
 .filter-button {
   min-height: 2.4rem;
+  padding: 0.55rem 0.9rem;
   border: 1px solid var(--rule);
   background: rgba(255, 250, 240, 0.45);
   color: var(--muted);
@@ -780,7 +799,7 @@ h3 {
   display: flex;
   min-height: 29rem;
   flex-direction: column;
-  padding: 1rem;
+  padding: clamp(1rem, 2vw, 1.25rem);
   border: 1px solid var(--ink);
   background: rgba(255, 250, 240, 0.52);
   box-shadow: 8px 8px 0 rgba(180, 55, 34, 0.12);
@@ -808,6 +827,11 @@ h3 {
 
 .work-card p {
   color: var(--muted);
+  line-height: 1.62;
+}
+
+.work-card h3 {
+  line-height: 1.2;
 }
 
 .work-card dl {
@@ -1022,6 +1046,9 @@ h3 {
 .card-links a,
 .archive-card > a,
 .research-group > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
   width: fit-content;
   color: var(--vermilion-dark);
   font-family: var(--mono);
@@ -1183,6 +1210,10 @@ h3 {
 
 .contact-panel p {
   color: rgba(255, 250, 240, 0.78);
+}
+
+.contact-panel :where(a, button):focus-visible {
+  outline-color: var(--focus-on-dark);
 }
 
 .contribution-grid {
@@ -1639,8 +1670,10 @@ h3 {
   }
 
   .site-header {
-    position: static;
+    position: sticky;
     gap: 0.8rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
   }
 
   .brand-text {
@@ -1648,7 +1681,19 @@ h3 {
   }
 
   .nav-links {
-    display: none;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.35rem 0.9rem;
+    overflow-x: auto;
+    padding: 0.2rem 0 0.1rem;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    display: inline-flex;
+    min-height: 2.35rem;
+    align-items: center;
+    white-space: nowrap;
   }
 
   .nav-cta {
@@ -1674,6 +1719,7 @@ h3 {
 
   .hero {
     min-height: auto;
+    padding-top: 2.5rem;
   }
 
   h1 {
@@ -1746,6 +1792,10 @@ h3 {
 
   .work-card {
     min-height: 0;
+  }
+
+  main > section[id] {
+    scroll-margin-top: 8.5rem;
   }
 }
 

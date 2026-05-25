@@ -7,6 +7,7 @@ const commandList = document.querySelector("#command-list");
 const commandOpeners = document.querySelectorAll("[data-command-open]");
 const commandClosers = document.querySelectorAll("[data-command-close]");
 const navLinks = document.querySelectorAll(".nav-links a");
+let commandReturnFocus = null;
 
 const projectDetails = {
   TezAsia: "Regional programme delivery involving partner coordination, communications, judging workflows, and participant operations.",
@@ -120,7 +121,6 @@ function renderCommands(query = "") {
     const item = document.createElement("button");
     item.type = "button";
     item.className = `command-item${index === 0 ? " is-selected" : ""}`;
-    item.setAttribute("role", "option");
     item.innerHTML = `<span><strong>${command.label}</strong><span>${command.hint}</span></span><em>Enter</em>`;
     item.addEventListener("click", command.action);
     commandList.append(item);
@@ -135,15 +135,17 @@ function renderCommands(query = "") {
 }
 
 function openCommandPalette() {
+  commandReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   commandOverlay.hidden = false;
   renderCommands();
   window.setTimeout(() => commandInput.focus(), 0);
 }
 
 function closeCommandPalette() {
-  if (commandOverlay) {
+  if (commandOverlay && !commandOverlay.hidden) {
     commandOverlay.hidden = true;
     commandInput.value = "";
+    commandReturnFocus?.focus();
   }
 }
 
@@ -157,6 +159,28 @@ commandOverlay?.addEventListener("click", (event) => {
 });
 
 commandInput?.addEventListener("input", () => renderCommands(commandInput.value));
+
+commandOverlay?.addEventListener("keydown", (event) => {
+  if (event.key !== "Tab") {
+    return;
+  }
+
+  const focusable = [...commandOverlay.querySelectorAll("button:not([disabled]), input:not([disabled])")];
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (!first || !last) {
+    return;
+  }
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
 
 document.addEventListener("keydown", (event) => {
   const isCommandShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k";
@@ -206,7 +230,13 @@ function updateActiveNavigation() {
   ), sections[0]);
 
   navLinks.forEach((link) => {
-    link.classList.toggle("is-active", link.getAttribute("href") === `#${activeSection.id}`);
+    const isCurrent = link.getAttribute("href") === `#${activeSection.id}`;
+    link.classList.toggle("is-active", isCurrent);
+    if (isCurrent) {
+      link.setAttribute("aria-current", "location");
+    } else {
+      link.removeAttribute("aria-current");
+    }
   });
 }
 

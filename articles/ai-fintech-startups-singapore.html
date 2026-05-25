@@ -1120,7 +1120,7 @@
               <p>${company.all_locations || "Location not listed"}${company.team_size ? ` / Team size ${company.team_size}` : ""}</p>
               <div class="action-row">
                 <button type="button" class="${saved ? "is-saved" : ""}" data-save="${company.name}">${saved ? "Saved" : "Shortlist"}</button>
-                ${companyLinks(company).map(([label, href]) => `<a href="${href}" target="_blank" rel="noreferrer">${label}</a>`).join("")}
+                ${companyLinks(company).map(([label, href]) => `<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`).join("")}
               </div>
             </article>
           `;
@@ -1160,7 +1160,7 @@
                   <td>${company.team_size || ""}</td>
                   <td>${mandateScore(company)} / ${pilotTypes(company).join(", ") || "Needs review"}${hasSeaRelevance(company) ? " / SEA" : ""}</td>
                   <td>${company.isHiring ? "Hiring. " : ""}${company.top_company ? "Top YC. " : ""}${clean(company.tags).slice(0, 6).join(", ")}</td>
-                  <td><a href="${company.url}" target="_blank" rel="noreferrer">YC profile</a></td>
+                  <td><a href="${company.url}" target="_blank" rel="noopener noreferrer">YC profile</a></td>
                 </tr>
               `).join("")}
             </tbody>
@@ -1216,7 +1216,7 @@
         ];
 
         el.launcherGrid.innerHTML = launchers.map(([title, href, label]) => `
-          <a href="${href}" target="_blank" rel="noreferrer">
+          <a href="${href}" target="_blank" rel="noopener noreferrer">
             <strong>${title}</strong>
             <span>${label}</span>
           </a>
