@@ -121,6 +121,7 @@ button {
 
 .nav-links a,
 .nav-cta,
+.nav-cv,
 .site-footer a,
 .work-card > a,
 .compact-list a,
@@ -132,6 +133,7 @@ button {
 
 .nav-links a:hover,
 .nav-cta:hover,
+.nav-cv:hover,
 .site-footer a:hover,
 .work-card > a:hover,
 .compact-list a:hover,
@@ -141,12 +143,24 @@ button {
   color: var(--vermilion-dark);
 }
 
-.nav-cta {
+.nav-actions {
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-cta,
+.nav-cv {
   color: var(--vermilion-dark);
   font-family: var(--mono);
   font-size: 0.78rem;
   font-weight: 700;
+}
+
+.nav-cv {
+  padding: 0.48rem 0.65rem;
+  border: 1px solid var(--vermilion);
 }
 
 .command-trigger {
@@ -1160,7 +1174,7 @@ h3 {
 }
 
 .contact-panel {
-  max-width: 850px;
+  max-width: 1080px;
   padding: clamp(1.2rem, 3vw, 2rem);
   border-left: 5px solid var(--vermilion);
   background: var(--ink);
@@ -1173,7 +1187,7 @@ h3 {
 
 .contribution-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1px;
   margin-top: 1.5rem;
   background: rgba(255, 255, 255, 0.2);
@@ -1189,12 +1203,11 @@ h3 {
   font-size: 1rem;
 }
 
-.contribution-grid ul {
-  display: grid;
-  gap: 0.45rem;
+.contribution-grid p {
   margin: 0;
-  padding-left: 1rem;
   color: rgba(255, 250, 240, 0.78);
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 .privacy-note {
@@ -1627,6 +1640,7 @@ h3 {
 
   .site-header {
     position: static;
+    gap: 0.8rem;
   }
 
   .brand-text {
@@ -1635,6 +1649,15 @@ h3 {
 
   .nav-links {
     display: none;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .nav-cv {
+    padding: 0.38rem 0.48rem;
+    font-size: 0.7rem;
   }
 
   .command-trigger span {
