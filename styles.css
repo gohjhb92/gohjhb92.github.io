@@ -1165,6 +1165,12 @@ h3 {
   line-height: 0.86;
 }
 
+.case-study-hero h1 {
+  max-width: 17ch;
+  font-size: clamp(2.7rem, 6.4vw, 5.5rem);
+  line-height: 0.94;
+}
+
 .article-deck {
   max-width: 700px;
   color: var(--muted);
@@ -1374,6 +1380,34 @@ h3 {
 
 .article-card p {
   margin-bottom: 0;
+}
+
+.article-card .article-source {
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.article-source a {
+  color: var(--vermilion-dark);
+}
+
+.article-source a:hover {
+  color: var(--cyan);
+}
+
+.evidence-callout strong {
+  color: var(--white);
+}
+
+.related-projects {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.related-projects .article-card h3 {
+  margin-top: 0;
 }
 
 .article-table-wrap {
