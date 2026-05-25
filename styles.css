@@ -830,14 +830,6 @@ h3 {
   color: var(--muted);
 }
 
-.portfolio-lab-note {
-  max-width: 56rem;
-  margin: -0.4rem 0 1.4rem;
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
 .archive-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

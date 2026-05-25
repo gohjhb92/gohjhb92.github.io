@@ -9,17 +9,17 @@ const commandClosers = document.querySelectorAll("[data-command-close]");
 const navLinks = document.querySelectorAll(".nav-links a");
 
 const projectDetails = {
-  TezAsia: "For ecosystem teams: shows regional programme delivery, partner coordination, communications, judging workflows, and participant operations.",
-  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "For grant and founder-support teams: shows grant coordination, founder follow-up, milestone tracking, and ecosystem campaign delivery.",
-  "NUS Computing x TZ APAC Partnership": "For university innovation teams: shows education programming, partner activation, and founder/developer engagement.",
-  "CoinGecko Learn & Earn": "For ecosystem growth teams: shows partner campaign coordination, learning content, and education-led activation.",
-  "Singapore Fintech Festival Activation": "For fintech partnership teams: shows event activation, stakeholder management, and on-ground execution.",
-  "MAS Payment System Testing": "For regulated delivery teams: shows UAT coordination, documentation, status reporting, and issue follow-up.",
-  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "For ecosystem partnership teams: shows public-facing activation, event logistics, and stakeholder coordination.",
-  "NUS Research Engineer": "For university and research teams: shows documentation, lab workflow support, operational readiness, and data discipline.",
+  TezAsia: "Demonstrates regional programme delivery, partner coordination, communications, judging workflows, and participant operations.",
+  "TZ APAC / Tezos Startup Grant & Ecosystem Programmes": "Demonstrates grant coordination, founder follow-up, milestone tracking, and ecosystem campaign delivery.",
+  "NUS Computing x TZ APAC Partnership": "Connects education programming and partnership activation with founder and developer engagement.",
+  "CoinGecko Learn & Earn": "Shows how partner-led learning content can support accessible ecosystem activation.",
+  "Singapore Fintech Festival Activation": "Demonstrates event activation, stakeholder management, and on-ground execution in a fintech setting.",
+  "MAS Payment System Testing": "Shows UAT coordination, documentation, status reporting, and issue follow-up in regulated delivery.",
+  "S.E.A. Focus 2022 - Tezos NFT Exhibition": "Demonstrates public-facing activation, event logistics, and stakeholder coordination.",
+  "NUS Research Engineer": "Shows documentation, lab workflow support, operational readiness, and data discipline in an institutional setting.",
   IncubatorOS: "Flagship Programme OS: founder intake, cohort tracking, grant readiness, mentor matching, milestone evidence, pilot readiness, founder check-ins, and institutional reporting.",
-  "FinSight Incubator": "For accelerator and VC platform teams: shows fintech intake, screening, regulatory-readiness review, and memo preparation using sample company records.",
-  CommsAI: "For programme and partnerships teams: shows repeatable workflows for stakeholder updates, founder outreach, social posts, and follow-up notes."
+  "FinSight Incubator": "Demonstrates fintech intake, screening, regulatory-readiness review, and memo preparation using sample company records.",
+  CommsAI: "Demonstrates repeatable workflows for stakeholder updates, founder outreach, social posts, and follow-up notes."
 };
 
 const commands = [
