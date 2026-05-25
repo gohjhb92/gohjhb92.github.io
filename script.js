@@ -202,14 +202,16 @@ const sections = [...document.querySelectorAll("main > section[id]")];
 
 const sectionObserver = new IntersectionObserver(
   (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        return;
-      }
+    if (!entries.some((entry) => entry.isIntersecting)) {
+      return;
+    }
 
-      navLinks.forEach((link) => {
-        link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
-      });
+    const activeSection = sections.reduce((current, section) => (
+      section.getBoundingClientRect().top <= window.innerHeight * 0.4 ? section : current
+    ), sections[0]);
+
+    navLinks.forEach((link) => {
+      link.classList.toggle("is-active", link.getAttribute("href") === `#${activeSection.id}`);
     });
   },
   { rootMargin: "-35% 0px -55% 0px" }
