@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IncubatorOS &mdash; Singapore Startup Grant &amp; Institutional Venture Support Dashboard</title>
-  <meta name="description" content="IncubatorOS is the flagship self-directed portfolio prototype for Singapore founder intake, startup grant readiness, pilot matching, mentor matching, milestone evidence, and programme KPIs.">
+  <title>IncubatorOS &mdash; Flagship Incubation Programme Operations Case Study</title>
+  <meta name="description" content="IncubatorOS is Bryan Goh's flagship self-directed case study for founder intake, grant readiness, mentor matching, milestone evidence, pilot readiness, and stakeholder reporting.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -164,6 +164,19 @@
     }
     .hero-metric strong { display: block; font-size: 24px; color: var(--accent-dark); line-height: 1.1; }
     .hero-metric span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .hero-capabilities { display: grid; gap: 10px; margin-top: 24px; }
+    .hero-capabilities span {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 11px 14px;
+      border: 1px solid rgba(200, 176, 155, .5);
+      border-radius: 14px;
+      background: rgba(255, 253, 248, .72);
+      color: #51443b;
+      font-size: 13px;
+      font-weight: 700;
+    }
 
     .section { padding: 31px; margin-top: 24px; }
     .section-head {
@@ -189,10 +202,45 @@
     }
     .flow-step strong { display: block; color: var(--accent-dark); font-size: 13px; margin-bottom: 5px; }
     .flow-step span { display: block; color: #55463d; font-size: 13px; }
+    .journey-map {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 22px;
+    }
+    .journey-step {
+      position: relative;
+      min-height: 102px;
+      padding: 14px 12px;
+      border: 1px solid rgba(200, 176, 155, .55);
+      border-radius: 16px;
+      background: rgba(255, 253, 248, .78);
+    }
+    .journey-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -9px;
+      top: 50%;
+      width: 9px;
+      height: 1px;
+      background: var(--line-strong);
+    }
+    .journey-step span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .journey-step strong { display: block; font-size: 13px; line-height: 1.35; }
 
     .card { padding: 22px; box-shadow: none; }
     .card h3 { font-size: 26px; line-height: 1.05; margin-bottom: 8px; }
     .card p { color: var(--muted); font-size: 14px; }
+    .compact-grid .card { min-height: 168px; }
+    .compact-grid .card h3 { font-size: 24px; }
     .card-index {
       display: inline-flex;
       align-items: center;
@@ -406,7 +454,7 @@
 
     @media (max-width: 980px) {
       .hero, .relevance { grid-template-columns: 1fr; }
-      .grid-3, .grid-2, .timeline, .pathway-grid, .operating-flow, .score-bands { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid-3, .grid-2, .timeline, .pathway-grid, .operating-flow, .score-bands, .journey-map { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .report-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section-head { align-items: start; flex-direction: column; }
@@ -418,7 +466,8 @@
       .nav-actions, .hero-actions { width: 100%; justify-content: flex-start; }
       .pill-link { flex: 1 1 calc(50% - 10px); min-width: 0; text-align: center; }
       .hero-copy, .hero-panel, .section, .notice { padding: 24px 20px; border-radius: 22px; }
-      .grid-3, .grid-2, .timeline, .hero-metrics, .pathway-grid, .kpis, .report-grid, .operating-flow, .score-bands { grid-template-columns: 1fr; }
+      .grid-3, .grid-2, .timeline, .hero-metrics, .pathway-grid, .kpis, .report-grid, .operating-flow, .score-bands, .journey-map { grid-template-columns: 1fr; }
+      .journey-step:not(:last-child)::after { display: none; }
       h1 { font-size: clamp(42px, 15vw, 58px); }
       .subtitle { font-size: clamp(24px, 8vw, 27px); }
       .lead { font-size: 16px; }
@@ -439,8 +488,10 @@
       <nav class="project-nav">
         <a href="../index.html">Portfolio</a>
         <a href="#top" aria-current="page">Overview</a>
+        <a href="#problem">Problem</a>
+        <a href="#modules">Modules</a>
         <a href="#dashboard">Dashboard</a>
-        <a href="#framework">Details</a>
+        <a href="#proof">Proof</a>
         <a href="../index.html#contact">Contact</a>
       </nav>
     </div>
@@ -460,34 +511,34 @@
       </a>
       <nav class="nav-actions" aria-label="Project navigation">
         <a class="pill-link" href="../index.html#prototypes">Back to portfolio</a>
-        <a class="pill-link" href="#dashboard">Grant Dashboard</a>
-        <a class="pill-link" href="#pathways">Institution Pathways</a>
+        <a class="pill-link" href="#workflow">Workflow Map</a>
+        <a class="pill-link" href="#dashboard">Demo View</a>
       </nav>
     </header>
 
     <main>
       <section class="hero" id="top">
         <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-dot"></span>Singapore Startup Support OS</div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span>Flagship Programme OS</div>
           <h1>Incubator<span>OS</span></h1>
-          <p class="subtitle">Singapore Startup Grant &amp; Institutional Venture Support Dashboard</p>
-          <p class="lead">IncubatorOS is a mock programme operations dashboard designed for Singapore-based startup support teams. It helps institutions track founder applications, startup grant readiness, research-commercialisation pathways, mentor matching, milestone evidence, pilot opportunities, and cohort-level outcomes.</p>
-          <p class="lead">IncubatorOS is the flagship portfolio prototype. Founder journey mapping, grant readiness, and pilot matching are treated as modules inside the broader incubation operating system, rather than separate standalone products.</p>
+          <p class="subtitle">Incubation Programme Operations Case Study</p>
+          <p class="lead">A self-directed programme operations concept for university incubators, accelerators, and public-sector innovation teams: structuring founder intake, grant readiness, mentor matching, milestone evidence, pilot readiness, and stakeholder reporting.</p>
+          <p class="lead">Founder journey, grant readiness, and pilot matching are modules within one broader incubation operating system, not separate products.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#dashboard">View Grant Readiness Dashboard</a>
-            <a class="btn-secondary" href="#pathways">Explore Institution Pathways</a>
+            <a class="btn-primary" href="#workflow">View Founder Workflow</a>
+            <a class="btn-secondary" href="#dashboard">Explore Sample Demo</a>
           </div>
         </div>
         <aside class="hero-panel" aria-label="Project summary">
           <div>
-            <h2>Built for education-linked venture operations.</h2>
-            <p>A portfolio prototype for universities, polytechnics, research institutes, incubators, accelerators, venture studios, and government-linked startup support programmes.</p>
+            <h2>Designed for programme teams.</h2>
+            <p>For institutions supporting founders across intake, funding preparation, mentoring, pilots, and accountable reporting.</p>
           </div>
-          <div class="hero-metrics">
-            <div class="hero-metric"><strong>31</strong><span>sample readiness reviews</span></div>
-            <div class="hero-metric"><strong>10</strong><span>institution pathways</span></div>
-            <div class="hero-metric"><strong>36</strong><span>sample mentor matches</span></div>
-            <div class="hero-metric"><strong>78%</strong><span>sample readiness signal</span></div>
+          <div class="hero-capabilities" aria-label="Core operating coverage">
+            <span>Founder intake and triage</span>
+            <span>Grant and milestone readiness</span>
+            <span>Mentor and pilot coordination</span>
+            <span>Institutional reporting cadence</span>
           </div>
         </aside>
       </section>
@@ -499,58 +550,80 @@
             <h2>Why this exists</h2>
           </div>
         </div>
-        <p class="section-intro">IncubatorOS exists to model how an education-linked incubation team could keep founder intake, founder journey mapping, grant readiness, mentor coordination, milestone evidence, pilot readiness, pilot matching, and reporting in one operating view.</p>
+        <p class="section-intro">IncubatorOS models how an education-linked incubation team could coordinate founder progress from intake through funding readiness, partner support, pilot preparation, and reporting in one operating view.</p>
         <div class="grid-3" style="margin-top:22px">
-          <article class="card"><h3>Who it is for</h3><p>Incubation managers, university venture teams, research commercialisation teams, public-sector innovation teams, accelerator operators, and founder support teams.</p></article>
-          <article class="card"><h3>What it demonstrates</h3><p>Intake design, cohort operations, startup screening, scoring logic, grant readiness, founder evidence tracking, mentor matching, milestone tracking, and stakeholder reporting.</p></article>
-          <article class="card"><h3>What is real vs demo</h3><p>This is a self-directed portfolio prototype. Metrics, startup records, founder profiles, and scoring outputs shown are sample data unless otherwise stated.</p></article>
-        </div>
-        <div class="grid-2" style="margin-top:16px">
-          <article class="card"><h3>How this relates to my target roles</h3><p>The project shows how I would structure programme rhythm for an incubator, university venture office, grant support team, or public innovation programme that needs clearer operating visibility.</p></article>
-          <article class="card"><h3>Next version</h3><ul><li>Real database and authenticated admin dashboard</li><li>CSV import/export for application records</li><li>Airtable or Notion integration</li><li>Founder milestone tracking</li><li>Reporting export for leadership and grant stakeholders</li></ul></article>
+          <article class="card"><h3>Audience</h3><p>University incubators, accelerators, grant support teams, and public-sector innovation programmes.</p></article>
+          <article class="card"><h3>Operating question</h3><p>How can a programme team see readiness, support needs, evidence, and reporting status without rebuilding records each cycle?</p></article>
+          <article class="card"><h3>Demo boundary</h3><p>This is a self-directed portfolio prototype using sample data. It is not a live production system.</p></article>
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="problem">
         <div class="section-head">
           <div>
             <div class="eyebrow"><span class="eyebrow-dot"></span>Problem</div>
-            <h2>Singapore startup support teams manage many founder pathways at once.</h2>
+            <h2>Programme visibility breaks down across the founder journey.</h2>
           </div>
         </div>
-        <p class="section-intro">Institutional teams often support student founders, alumni startups, research teams, early-stage founders, grant applicants, incubation cohorts, mentors, advisors, and corporate or institutional pilot partners across overlapping workflows.</p>
-        <div class="grid-3" style="margin-top:22px">
-          <article class="card"><span class="card-index">01</span><h3>Scattered founder and grant data</h3><p>Founder and grant data are often spread across forms, spreadsheets, emails, mentor notes, interview records, and programme trackers.</p></article>
-          <article class="card"><span class="card-index">02</span><h3>Limited readiness visibility</h3><p>Institutions need clearer visibility into eligibility, milestones, evidence quality, funding readiness, and pathway fit.</p></article>
-          <article class="card"><span class="card-index">03</span><h3>Reporting takes extra effort</h3><p>Programme teams need better reporting for grants, leadership, partners, and ecosystem outcomes without rebuilding dashboards every cycle.</p></article>
+        <p class="section-intro">Incubation teams support founders, mentors, funding pathways, pilot partners, and institutional stakeholders at once. Without a shared operating record, decisions and follow-up become harder to manage.</p>
+        <div class="grid-3 compact-grid" style="margin-top:22px">
+          <article class="card"><span class="card-index">01</span><h3>Intake is scattered</h3><p>Founder applications and support requests sit across forms, emails, notes, and spreadsheets.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Grant readiness is hard to track</h3><p>Eligibility, validation, budgets, evidence, and next actions are not visible in one review flow.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Mentor matching is informal</h3><p>Introductions can rely on memory instead of clearly recorded founder needs and capability gaps.</p></article>
+          <article class="card"><span class="card-index">04</span><h3>Evidence is inconsistent</h3><p>Milestone proof, check-in records, and validation signals vary across teams and programme stages.</p></article>
+          <article class="card"><span class="card-index">05</span><h3>Pilot readiness is unclear</h3><p>Teams may lack a shared view of scope, technical readiness, institutional fit, and partner needs.</p></article>
+          <article class="card"><span class="card-index">06</span><h3>Reporting becomes manual</h3><p>Programme staff must assemble status updates for leadership, partners, and funders by hand.</p></article>
         </div>
       </section>
 
-      <section class="section" id="framework">
+      <section class="section" id="personas">
         <div class="section-head">
           <div>
-            <div class="eyebrow"><span class="eyebrow-dot"></span>Solution</div>
-            <h2>Grant readiness, founder support, venture workflows, and KPIs in one dashboard.</h2>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>User Personas</div>
+            <h2>Four users, one coordinated programme record.</h2>
           </div>
         </div>
-        <p class="section-intro">IncubatorOS gives programme managers a structured view of founder pipelines, grant pathway fit, milestone evidence, mentor matching, pilot readiness, and stakeholder reporting.</p>
-        <div class="grid-3" style="margin-top:22px">
-          <article class="card"><span class="card-index">01</span><h3>Founder Pipeline Tracker</h3><p>Track student, alumni, research, first-time founder, and spin-off teams from intake to programme support.</p></article>
-          <article class="card"><span class="card-index">02</span><h3>Grant Readiness Scoring</h3><p>Score founder eligibility, validation, use of funds, milestones, team capability, and ecosystem fit.</p></article>
-          <article class="card"><span class="card-index">03</span><h3>Institution Pathway Recommender</h3><p>Suggest suitable Singapore startup grant, university, research-commercialisation, or incubation pathways.</p></article>
-          <article class="card"><span class="card-index">04</span><h3>Mentor Matching Tracker</h3><p>Match teams with mentors based on technology, market, grant, pilot, go-to-market, and fundraising needs.</p></article>
-          <article class="card"><span class="card-index">05</span><h3>Grant Milestone &amp; Evidence Tracker</h3><p>Monitor evidence submitted, use-of-funds plans, milestone completion, and readiness for next support steps.</p></article>
-          <article class="card"><span class="card-index">06</span><h3>Pilot Readiness Tracker</h3><p>Assess customer discovery, pilot scope, technical readiness, institutional fit, and partner introduction needs.</p></article>
-          <article class="card"><span class="card-index">07</span><h3>Demo Day Timeline</h3><p>Coordinate pitch reviews, demo rehearsals, founder updates, partner invitations, and investor Q&amp;A preparation.</p></article>
-          <article class="card"><span class="card-index">08</span><h3>Founder Check-in Template</h3><p>Use a repeatable support cadence for progress, blockers, evidence, mentor needs, and next measurable actions.</p></article>
-          <article class="card"><span class="card-index">09</span><h3>KPI &amp; Stakeholder Reporting Dashboard</h3><p>Summarise applications, teams supported, grant reviews, milestones, mentors, pilots, and demo day outcomes.</p></article>
+        <div class="grid-2 compact-grid">
+          <article class="card"><h3>Incubation Programme Manager</h3><p>Needs a reliable view of cohort progress, funding readiness, interventions, mentor coverage, and reporting obligations.</p></article>
+          <article class="card"><h3>Founder / Startup Team</h3><p>Needs clear next steps, evidence requirements, mentor support, pilot preparation, and milestone expectations.</p></article>
+          <article class="card"><h3>Mentor / Industry Partner</h3><p>Needs context on the startup challenge, requested support, engagement status, and potential pilot fit.</p></article>
+          <article class="card"><h3>University or Government Stakeholder</h3><p>Needs credible visibility into programme activity, milestone evidence, support delivery, and reporting cadence.</p></article>
         </div>
-        <div class="operating-flow" aria-label="Incubation operating workflow">
-          <div class="flow-step"><strong>1. Intake</strong><span>Capture founder profile, institution link, startup stage, sector, and support need.</span></div>
-          <div class="flow-step"><strong>2. Pathway review</strong><span>Compare grant, university, research-commercialisation, and incubator fit.</span></div>
-          <div class="flow-step"><strong>3. Evidence plan</strong><span>Define milestone proof, use-of-funds logic, prototype needs, and validation gaps.</span></div>
-          <div class="flow-step"><strong>4. Support matching</strong><span>Assign mentors, partner introductions, pilot preparation, and founder check-ins.</span></div>
-          <div class="flow-step"><strong>5. Reporting</strong><span>Track outcomes for leadership, grant administrators, partners, and ecosystem stakeholders.</span></div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Workflow Map</div>
+            <h2>A founder journey with visible decisions and evidence.</h2>
+          </div>
+        </div>
+        <p class="section-intro">The operating model links each founder-facing step to a programme review point, making support needs and stakeholder reporting easier to follow.</p>
+        <div class="journey-map" aria-label="Founder journey from intake to reporting">
+          <div class="journey-step"><span>01</span><strong>Intake</strong></div>
+          <div class="journey-step"><span>02</span><strong>Triage</strong></div>
+          <div class="journey-step"><span>03</span><strong>Grant Readiness</strong></div>
+          <div class="journey-step"><span>04</span><strong>Mentor Match</strong></div>
+          <div class="journey-step"><span>05</span><strong>Milestone Evidence</strong></div>
+          <div class="journey-step"><span>06</span><strong>Pilot Readiness</strong></div>
+          <div class="journey-step"><span>07</span><strong>Reporting</strong></div>
+        </div>
+      </section>
+
+      <section class="section" id="modules">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Modules</div>
+            <h2>Six operating modules for one incubation workflow.</h2>
+          </div>
+        </div>
+        <div class="grid-3 compact-grid" style="margin-top:22px">
+          <article class="card"><span class="card-index">01</span><h3>Founder Intake</h3><p>Capture founder profile, institution affiliation, venture stage, sector, support need, and review owner.</p></article>
+          <article class="card"><span class="card-index">02</span><h3>Grant Readiness</h3><p>Structure pathway fit, eligibility considerations, validation signals, funding use, and next review steps.</p></article>
+          <article class="card"><span class="card-index">03</span><h3>Mentor Matching</h3><p>Match founder needs to mentor expertise, introductions, engagement notes, and follow-up actions.</p></article>
+          <article class="card"><span class="card-index">04</span><h3>Milestone Evidence</h3><p>Record expected evidence, submission status, validation progress, blockers, and review cadence.</p></article>
+          <article class="card"><span class="card-index">05</span><h3>Pilot Readiness</h3><p>Assess scope, customer discovery, technical preparation, partner fit, and introduction needs.</p></article>
+          <article class="card"><span class="card-index">06</span><h3>Stakeholder Reporting</h3><p>Summarise cohort status, support activity, readiness signals, milestone records, and reporting follow-up.</p></article>
         </div>
       </section>
 
@@ -783,24 +856,21 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="proof">
         <div class="section-head">
           <div>
-            <div class="eyebrow"><span class="eyebrow-dot"></span>Skills Demonstrated</div>
-            <h2>Designed to show Singapore startup ecosystem operating readiness.</h2>
+            <div class="eyebrow"><span class="eyebrow-dot"></span>Hiring Relevance</div>
+            <h2>What this proves</h2>
           </div>
         </div>
-        <div class="tag-cloud">
-          <span class="tag">Startup grant readiness tracking</span>
-          <span class="tag">University entrepreneurship programme design</span>
-          <span class="tag">Founder pipeline management</span>
-          <span class="tag">Research commercialisation support</span>
-          <span class="tag">Institutional stakeholder reporting</span>
-          <span class="tag">Mentor and partner coordination</span>
-          <span class="tag">Milestone and evidence tracking</span>
-          <span class="tag">Pilot readiness assessment</span>
-          <span class="tag">Programme KPI dashboarding</span>
-          <span class="tag">Singapore startup ecosystem familiarity</span>
+        <p class="section-intro">The concept demonstrates how I approach programme operations problems for incubation, accelerator, university innovation, and public-sector innovation settings.</p>
+        <div class="grid-3 compact-grid" style="margin-top:22px">
+          <article class="card"><h3>Programme design</h3><p>Translating a founder journey into stages, review points, responsibilities, and visible next actions.</p></article>
+          <article class="card"><h3>Founder support</h3><p>Structuring check-ins, mentor needs, blockers, validation evidence, and pilot preparation around founder progress.</p></article>
+          <article class="card"><h3>Grant operations</h3><p>Organising readiness review, pathway fit, required evidence, milestone follow-up, and accountable records.</p></article>
+          <article class="card"><h3>Stakeholder reporting</h3><p>Designing programme visibility for leadership, grant administrators, partners, and institutional stakeholders.</p></article>
+          <article class="card"><h3>Workflow automation</h3><p>Identifying repeatable coordination tasks that can move from scattered handling to structured operating flows.</p></article>
+          <article class="card"><h3>AI-assisted operations thinking</h3><p>Considering where assisted review or drafting could support staff judgment without replacing programme accountability.</p></article>
         </div>
       </section>
 
@@ -823,13 +893,13 @@
       </section>
 
       <section class="notice">
-        <h2>Portfolio Demonstration Notice</h2>
-        <p>This project is a mock portfolio case study and is not an official grant application tool. Grant names, eligibility criteria, appointed partners, application windows, claim conditions, and funding amounts should always be verified against the latest official programme pages before use.</p>
+        <h2>Demo Disclaimer</h2>
+        <p><strong>This is a self-directed portfolio prototype using sample data. It is not a live production system.</strong> Grant names, eligibility criteria, application windows, claim conditions, and funding amounts should be verified against official programme pages before any real use.</p>
       </section>
 
       <section class="section final">
         <div class="eyebrow"><span class="eyebrow-dot"></span>Closing Statement</div>
-        <h2>IncubatorOS was designed as a practical portfolio project to demonstrate how structured programme operations can improve founder experience, grant readiness, institutional visibility, and venture-building outcomes.</h2>
+        <h2>IncubatorOS demonstrates how I would structure founder support, grant readiness, partner coordination, and reporting within an incubation programme.</h2>
         <a class="btn-primary" href="../index.html#contact">Discuss programme work</a>
       </section>
     </main>
