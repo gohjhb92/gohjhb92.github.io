@@ -573,14 +573,14 @@ h1{
     </div>
     <p class="section-intro">CommsAI exists to explore how programme teams can reduce repetitive communications work while keeping tone, stakeholder context, and next actions clear. It is a workflow experiment for founder outreach, partner engagement, programme updates, and campaign planning.</p>
     <div class="mode-strip" style="margin-top:22px">
-      <article class="mode-card"><h2>Who it is for</h2><p>Incubation managers, university venture teams, public-sector innovation teams, accelerator operators, founder support teams, and ecosystem partnership teams.</p></article>
-      <article class="mode-card"><h2>What it demonstrates</h2><p>AI-assisted workflow design, intake prompts, stakeholder email drafting, outreach planning, social copy generation, programme communications, and repeatable operating templates.</p></article>
-      <article class="mode-card"><h2>Demo disclaimer</h2><p>This is a self-directed portfolio prototype using sample inputs. It is not a live communications system or a record of employer programme communications.</p></article>
+      <article class="mode-card"><h2>Who It Is For</h2><p>Incubation managers, university venture teams, public-sector innovation teams, accelerator operators, founder support teams, and ecosystem partnership teams.</p></article>
+      <article class="mode-card"><h2>What It Demonstrates</h2><p>AI-assisted workflow design, intake prompts, stakeholder email drafting, outreach planning, social copy generation, programme communications, and repeatable operating templates.</p></article>
+      <article class="mode-card"><h2>Demo Disclaimer</h2><p>This is a self-directed portfolio prototype using sample inputs. It is not a live communications system or a record of employer programme communications.</p></article>
     </div>
     <div class="mode-strip" style="margin-top:16px">
       <article class="mode-card"><h2>Hiring Relevance: Programme Communications</h2><p>The project demonstrates communications judgment, stakeholder follow-up, reusable operating templates, and AI-assisted workflow design for incubation and innovation programme teams.</p></article>
-      <article class="mode-card"><h2>Next version</h2><p>LLM-assisted memo drafting, reusable programme templates, saved organisation profiles, Airtable or Notion integration, and stakeholder reporting export.</p></article>
-      <article class="mode-card"><h2>Important note</h2><p>The page uses the visitor's own API key in the browser. It should be treated as a portfolio workflow experiment, not a production communications platform.</p></article>
+      <article class="mode-card"><h2>Next Version</h2><p>LLM-assisted memo drafting, reusable programme templates, saved organisation profiles, Airtable or Notion integration, and stakeholder reporting export.</p></article>
+      <article class="mode-card"><h2>Important Note</h2><p>The page uses the visitor's own API key in the browser. It should be treated as a portfolio workflow experiment, not a production communications platform.</p></article>
     </div>
   </section>
 
@@ -608,7 +608,7 @@ h1{
       <p class="side-copy">The studio keeps the workflow simple: set your organisation context once, choose a writing mode, add the specifics that matter, then refine from a strong first draft.</p>
 
       <div class="side-block">
-        <h3>Best results</h3>
+        <h3>Best Results</h3>
         <ul>
           <li>Add a clear programme name, dates, and audience before generating.</li>
           <li>Use the detail field for deadlines, partner names, and event specifics.</li>
@@ -617,7 +617,7 @@ h1{
       </div>
 
       <div class="side-block" id="privacy">
-        <h3>Privacy setup</h3>
+        <h3>Privacy Setup</h3>
         <ul>
           <li>Your Anthropic key is used directly in the browser.</li>
           <li>No extra server is involved in this page's generation flow.</li>
@@ -895,7 +895,7 @@ function renderOut(outId,result,type){
   const main=parts[0].trim();
   const notes=parts[1]?.trim()||'';
   const lbl={email:'email draft',plan:'outreach plan',social:'social post'}[type];
-  el.innerHTML=`<div class="out-wrap"><div class="out-head"><div class="out-label"><span>${lbl}</span><span class="tag">AI generated</span></div><button class="btn-copy" onclick="cp(this,'${outId}-main')">Copy</button></div><div class="out-body" id="${outId}-main">${esc(main)}</div>${notes?`<div class="notes"><div class="notes-lbl">Writing notes</div><div class="notes-body">${esc(notes)}</div></div>`:''}</div>`;
+  el.innerHTML=`<div class="out-wrap"><div class="out-head"><div class="out-label"><span>${lbl}</span><span class="tag">AI Generated</span></div><button class="btn-copy" onclick="cp(this,'${outId}-main')">Copy</button></div><div class="out-body" id="${outId}-main">${esc(main)}</div>${notes?`<div class="notes"><div class="notes-lbl">Writing notes</div><div class="notes-body">${esc(notes)}</div></div>`:''}</div>`;
   el.style.display='block';
 }
 

@@ -24,18 +24,18 @@ const projectDetails = {
 };
 
 const commands = [
-  { label: "View real experience", hint: "Jump to real programme and ecosystem experience", keywords: "work projects portfolio real experience ecosystem", action: () => goTo("#experience") },
-  { label: "View featured projects", hint: "Jump to self-directed portfolio case studies", keywords: "featured portfolio incubatoros finsight commsai", action: () => goTo("#prototypes") },
-  { label: "View archive", hint: "Jump to supporting modules and smaller studies", keywords: "archive modules founder grants pilot social kit world order", action: () => goTo("#archive") },
-  { label: "Show programmes", hint: "Filter real experience", keywords: "ecosystem programmes tezasia incubation", action: () => applyFilter("programme", true) },
-  { label: "Show partnerships", hint: "Filter real experience", keywords: "partners nus coingecko pilot", action: () => applyFilter("partnership", true) },
-  { label: "Show institutional work", hint: "Filter real experience", keywords: "mas deloitte nus institutional", action: () => applyFilter("institutional", true) },
+  { label: "View Real Experience", hint: "Jump to real programme and ecosystem experience", keywords: "work projects portfolio real experience ecosystem", action: () => goTo("#experience") },
+  { label: "View Featured Projects", hint: "Jump to self-directed portfolio case studies", keywords: "featured portfolio incubatoros finsight commsai", action: () => goTo("#prototypes") },
+  { label: "View Archive", hint: "Jump to supporting modules and smaller studies", keywords: "archive modules founder grants pilot social kit world order", action: () => goTo("#archive") },
+  { label: "Show Programmes", hint: "Filter real experience", keywords: "ecosystem programmes tezasia incubation", action: () => applyFilter("programme", true) },
+  { label: "Show Partnerships", hint: "Filter real experience", keywords: "partners nus coingecko pilot", action: () => applyFilter("partnership", true) },
+  { label: "Show Institutional Work", hint: "Filter real experience", keywords: "mas deloitte nus institutional", action: () => applyFilter("institutional", true) },
   { label: "Open IncubatorOS", hint: "Flagship programme OS", keywords: "incubatoros incubation programme grant mentor reporting", action: () => openUrl("./incubatoros/") },
   { label: "Open CommsAI", hint: "Stakeholder communications workflow", keywords: "commsai communications stakeholder", action: () => openUrl("./comms-ai/") },
   { label: "Open FinSight Incubator", hint: "Fintech screening workflow", keywords: "finsight fintech incubator memo", action: () => openUrl("./finsight-incubator/") },
   { label: "Contact Bryan", hint: "Go to contact section", keywords: "linkedin contact talk", action: () => goTo("#contact") },
   { label: "Open GitHub", hint: "github.com/gohjhb92", keywords: "github code repos", action: () => openUrl("https://github.com/gohjhb92") },
-  { label: "Back to top", hint: "Return to intro", keywords: "home top bryan", action: () => goTo("#top") }
+  { label: "Back To Top", hint: "Return to intro", keywords: "home top bryan", action: () => goTo("#top") }
 ];
 
 function applyFilter(filter, shouldScroll = false) {

@@ -780,8 +780,8 @@
           <section class="results-panel" aria-label="Startup results">
             <div class="results-toolbar">
               <div class="results-heading">
-                <h2>Live startup results</h2>
-                <span class="pill green" id="filterSummary">YC directory</span>
+                <h2>Live Startup Results</h2>
+                <span class="pill green" id="filterSummary">YC Directory</span>
                 <p id="resultNarrative">Loading public startup data.</p>
               </div>
               <select class="select-control" id="limitSelect" aria-label="Result limit">
@@ -807,14 +807,14 @@
 
           <section class="workflow-panel" aria-label="Sourcing workflow">
             <div class="workflow-main">
-              <p class="results-title">Live fund and platform searches</p>
+              <p class="results-title">Live Fund And Platform Searches</p>
               <p class="scout-deck">
                 These links use your current query and filters to open real searches. Use them for a16z, Sequoia and other platforms that do not expose a clean public browser API.
               </p>
               <div class="launcher-grid" id="launcherGrid"></div>
             </div>
             <div class="workflow-side">
-              <p class="results-title">Shortlist and notes</p>
+              <p class="results-title">Shortlist And Notes</p>
               <textarea class="notes-input" id="notesInput" rows="5" placeholder="Example: Find seed-stage AI infrastructure companies in Europe, then verify with Crunchbase and LinkedIn."></textarea>
               <div class="shortlist-items" id="shortlistItems"></div>
             </div>
@@ -1172,7 +1172,7 @@
         const savedNames = [...state.saved];
         el.savedCount.textContent = savedNames.length;
         if (savedNames.length === 0) {
-          el.shortlistItems.innerHTML = `<span class="pill">No saved leads yet</span>`;
+          el.shortlistItems.innerHTML = `<span class="pill">No Saved Leads Yet</span>`;
           return;
         }
 
