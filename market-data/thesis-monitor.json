@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-03T01:47:25.929Z",
+  "generatedAt": "2026-06-03T07:13:20.285Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -96,12 +96,12 @@
       "currency": "USD",
       "exchange": "LSE",
       "price": 9.66,
-      "previousClose": 9.485,
-      "change": 0.1750000000000007,
-      "changePercent": 1.8450184501845095,
+      "previousClose": 9.78,
+      "change": -0.11999999999999922,
+      "changePercent": -1.2269938650306669,
       "dayHigh": 0,
       "dayLow": 0,
-      "volume": 3,
+      "volume": 0,
       "marketTime": "2026-06-02T15:26:15.000Z",
       "source": "Yahoo Finance chart API"
     },
