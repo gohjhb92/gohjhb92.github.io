@@ -1,20 +1,26 @@
 /* =============================================================================
- * geocode.mjs — OneMap batch geocoder (optional, offline tooling)
+ * geocode.mjs — OneMap coordinate verifier (offline tooling)
  * -----------------------------------------------------------------------------
- * Resolves the coordinates of every site flagged coordPrecision:"estimated"
- * against Singapore's official OneMap search API, then writes an upgraded copy
- * to data/data.geocoded.js (gitignored — review, then fold back into data.js).
+ * Resolves each site's coordinates against Singapore's official OneMap search
+ * API, then writes an upgraded copy to data/data.geocoded.js (gitignored —
+ * review the diff, then fold good changes back into data.js by hand).
  *
- * This is the ONLY part of the project that uses Node. The site itself ships no
- * dependencies and runs straight from file://. Nothing here runs in the browser.
+ * This is deliberately conservative, because naive name→geocode is noisy:
+ *   - OneMap rate-limits bursts, so we pace + retry.
+ *   - The first result is sometimes the wrong entity (a hotel "at Raffles
+ *     Place", a sub-institute 12km from the main campus), so we REJECT any
+ *     match that jumps further than MAX_KM from the existing coordinate and
+ *     flag it for manual review instead of silently trusting it.
+ *   - Informal / brand-new names (Punggol Digital District, Tengah) aren't in
+ *     the gazetteer; those stay flagged "estimated" honestly.
+ *
+ * The site itself ships zero dependencies and runs from file://. This is the
+ * only Node in the project and never runs in the browser.
  *
  * Usage:
- *   node scripts/geocode.mjs            # dry run, prints proposed changes
- *   node scripts/geocode.mjs --write    # writes data/data.geocoded.js
- *
- * OneMap search API is free and needs no key for the search endpoint:
- *   https://www.onemap.gov.sg/apidocs/  (search returns lat/long for a query)
- * Be polite: this throttles to a few requests/second.
+ *   node scripts/geocode.mjs            # dry run, prints a report
+ *   node scripts/geocode.mjs --write    # also writes data/data.geocoded.js
+ * Needs Node 18+ (global fetch).
  * ========================================================================== */
 
 import { readFile, writeFile } from "node:fs/promises";
@@ -26,13 +32,16 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
 const WRITE = process.argv.includes("--write");
 
-const ONEMAP_SEARCH =
-  "https://www.onemap.gov.sg/api/common/elastic/search?returnGeom=Y&getAddrDetails=N&pageNum=1&searchVal=";
+const SEARCH =
+  "https://www.onemap.gov.sg/api/common/elastic/search" +
+  "?returnGeom=Y&getAddrDetails=Y&pageNum=1&searchVal=";
+const PACE_MS = 900;   // be gentle: OneMap blocks bursts
+const RETRIES = 3;
+const MAX_KM = 2.0;    // reject matches that jump further than this
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-/** Load data.js (a classic browser script) by giving it a fake global. */
-function loadSites() {
+function loadAtlas() {
   const require = createRequire(import.meta.url);
   const sandbox = {};
   global.window = sandbox;
@@ -42,77 +51,94 @@ function loadSites() {
   return sandbox.ATLAS;
 }
 
-/** Query OneMap and return {lat, lng} for the first result, or null. */
-async function geocode(query) {
-  const res = await fetch(ONEMAP_SEARCH + encodeURIComponent(query));
-  if (!res.ok) throw new Error(`OneMap ${res.status} for "${query}"`);
-  const json = await res.json();
-  const hit = json?.results?.[0];
-  if (!hit) return null;
-  return { lat: parseFloat(hit.LATITUDE), lng: parseFloat(hit.LONGITUDE) };
-}
-
-function dist(a, b) {
-  // rough metres between two lat/lng (good enough to flag big corrections)
-  const R = 6371000, toRad = (d) => (d * Math.PI) / 180;
+function km(a, b) {
+  const R = 6371, toRad = (d) => (d * Math.PI) / 180;
   const dLat = toRad(b.lat - a.lat), dLng = toRad(b.lng - a.lng);
   const s =
     Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
-  return Math.round(2 * R * Math.asin(Math.sqrt(s)));
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+/** Build progressively looser query variants from a site's display name. */
+function queryVariants(name) {
+  const variants = new Set();
+  variants.add(name);
+  const beforeSep = name.split(/[—–\-@(]/)[0].trim(); // strip suffixes/brackets
+  if (beforeSep && beforeSep !== name) variants.add(beforeSep);
+  return Array.from(variants).filter(Boolean);
+}
+
+async function searchOnce(q) {
+  for (let attempt = 1; attempt <= RETRIES; attempt++) {
+    try {
+      const res = await fetch(SEARCH + encodeURIComponent(q));
+      const text = await res.text();
+      if (text.trim().startsWith("<")) throw new Error("rate-limited (HTML)");
+      const json = JSON.parse(text);
+      const hit = (json.results || [])[0];
+      if (!hit || !hit.LATITUDE) return null;
+      return { lat: +hit.LATITUDE, lng: +hit.LONGITUDE, label: hit.SEARCHVAL };
+    } catch (err) {
+      if (attempt === RETRIES) return { error: err.message };
+      await sleep(PACE_MS * attempt); // backoff
+    }
+  }
+}
+
+/** Try each variant; accept the first hit within MAX_KM of the current point. */
+async function resolve_(site) {
+  for (const q of queryVariants(site.name)) {
+    const hit = await searchOnce(q);
+    await sleep(PACE_MS);
+    if (!hit) continue;
+    if (hit.error) return { status: "error", detail: hit.error };
+    const moved = km(site, hit);
+    if (moved <= MAX_KM) {
+      return { status: "ok", lat: hit.lat, lng: hit.lng, label: hit.label, moved, query: q };
+    }
+    // matched something, but implausibly far — note it, keep trying variants
+    site._farMatch = { label: hit.label, moved };
+  }
+  if (site._farMatch) {
+    return { status: "review", detail: `nearest match ${site._farMatch.label} +${site._farMatch.moved.toFixed(1)}km` };
+  }
+  return { status: "nomatch", detail: "not in OneMap gazetteer" };
 }
 
 async function main() {
-  const ATLAS = loadSites();
-  const targets = ATLAS.SITES.filter((s) => s.coordPrecision === "estimated");
+  const ATLAS = loadAtlas();
+  console.log(`Geocoding ${ATLAS.SITES.length} sites against OneMap (≤${MAX_KM}km sanity gate)\n`);
+
+  const results = [];
+  for (const site of ATLAS.SITES) {
+    const r = await resolve_(site);
+    results.push({ id: site.id, name: site.name, ...r });
+    const tag = { ok: "✓", review: "?", nomatch: "·", error: "!" }[r.status];
+    const extra =
+      r.status === "ok" ? `→ ${r.lat.toFixed(5)},${r.lng.toFixed(5)} (${r.moved.toFixed(2)}km, "${r.label}")`
+      : r.detail;
+    console.log(`  ${tag} ${site.id.padEnd(22)} ${extra}`);
+  }
+
+  const ok = results.filter((r) => r.status === "ok");
   console.log(
-    `${ATLAS.SITES.length} sites total · ${targets.length} flagged "estimated" to geocode\n`
+    `\n${ok.length} verified · ${results.filter(r=>r.status==="review").length} need review · ` +
+    `${results.filter(r=>r.status==="nomatch").length} not in gazetteer · ` +
+    `${results.filter(r=>r.status==="error").length} errored`
   );
 
-  const updated = new Map();
-  for (const site of targets) {
-    try {
-      const hit = await geocode(site.name);
-      if (!hit) {
-        console.log(`  ?  ${site.name} — no OneMap match, left as-is`);
-      } else {
-        const moved = dist(site, hit);
-        console.log(
-          `  ✓  ${site.name} → ${hit.lat.toFixed(4)},${hit.lng.toFixed(4)} (moved ~${moved}m)`
-        );
-        updated.set(site.id, hit);
-      }
-    } catch (err) {
-      console.log(`  !  ${site.name} — ${err.message}`);
-    }
-    await sleep(350); // be kind to the API
-  }
+  await writeFile(resolve(ROOT, "scripts/_geocode_report.json"), JSON.stringify(results, null, 2));
 
-  if (!WRITE) {
-    console.log(`\nDry run. Re-run with --write to emit data/data.geocoded.js`);
-    return;
-  }
+  if (!WRITE) { console.log(`\nDry run. Re-run with --write to emit data/data.geocoded.js`); return; }
 
-  // Re-emit data.js verbatim but with upgraded coordinates for matched sites.
-  const src = await readFile(resolve(ROOT, "data/data.js"), "utf8");
-  let out = src;
-  for (const [id, hit] of updated) {
-    const site = ATLAS.SITES.find((s) => s.id === id);
-    // Replace this record's lat/lng/precision in the source text, scoped by id.
-    const block = new RegExp(`(id:\\s*"${id}"[\\s\\S]*?)lat:\\s*[-0-9.]+,\\s*lng:\\s*[-0-9.]+,\\s*coordPrecision:\\s*"estimated"`);
-    out = out.replace(
-      block,
-      `$1lat: ${hit.lat.toFixed(4)}, lng: ${hit.lng.toFixed(4)}, coordPrecision: "onemap"`
-    );
+  let src = await readFile(resolve(ROOT, "data/data.js"), "utf8");
+  for (const r of ok) {
+    const block = new RegExp(`(id:\\s*"${r.id}"[\\s\\S]*?)lat:\\s*[-0-9.]+,\\s*lng:\\s*[-0-9.]+,\\s*coordPrecision:\\s*"[a-z]+"`);
+    src = src.replace(block, `$1lat: ${r.lat.toFixed(5)}, lng: ${r.lng.toFixed(5)}, coordPrecision: "onemap"`);
   }
-  await writeFile(resolve(ROOT, "data/data.geocoded.js"), out, "utf8");
-  console.log(
-    `\nWrote data/data.geocoded.js (${updated.size} coordinates upgraded). ` +
-    `Review the diff, then fold good changes back into data/data.js.`
-  );
+  await writeFile(resolve(ROOT, "data/data.geocoded.js"), src, "utf8");
+  console.log(`\nWrote data/data.geocoded.js (${ok.length} coordinates upgraded to OneMap). Review the diff.`);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+main().catch((e) => { console.error(e); process.exit(1); });

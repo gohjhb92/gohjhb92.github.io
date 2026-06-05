@@ -19,11 +19,15 @@
  *   sectors:["digital-ict","cybersecurity"]. None of the three axes is
  *   derivable from the others — that's the point.
  *
- * HONESTY ON COORDINATES
- *   coordPrecision:"verified"  — landmark coordinate I'm confident in.
- *   coordPrecision:"estimated" — hand-placed from memory, good to ~100–300m,
- *                                pending OneMap geocoding (see scripts/geocode.mjs).
- *   Nothing here is invented. Where I'm unsure, it says so.
+ * PROVENANCE ON COORDINATES (two honest tiers, no "trust me" tier)
+ *   coordPrecision:"onemap"    — confirmed against Singapore's official OneMap
+ *                                search API (scripts/geocode.mjs), within a 2km
+ *                                sanity gate. The real, sourced coordinate.
+ *   coordPrecision:"estimated" — hand-placed; the site isn't resolvable in the
+ *                                OneMap gazetteer by name (informal or brand-new,
+ *                                e.g. BLOCK71, Punggol Digital District, Tengah).
+ *                                Good to ~100–300m, and flagged as such in the UI.
+ *   Nothing here is invented. Where a coordinate isn't sourced, it says so.
  * ========================================================================== */
 
 (function (global) {
@@ -89,19 +93,19 @@
     /* ---------------- one-north ---------------- */
     { id: "block71", name: "BLOCK71 @ JTC LaunchPad", category: "startup", type: "hub",
       sectors: ["deeptech", "digital-ict"], cluster: "one-north",
-      lat: 1.2966, lng: 103.7872, coordPrecision: "verified",
+      lat: 1.2966, lng: 103.7872, coordPrecision: "estimated",
       note: "The dense startup cluster that anchored one-north as Singapore's deep-tech front door." },
     { id: "biopolis", name: "Biopolis", category: "research", type: "institute",
       sectors: ["biomedtech"], cluster: "one-north",
-      lat: 1.3000, lng: 103.7869, coordPrecision: "verified",
+      lat: 1.30331, lng: 103.79258, coordPrecision: "onemap",
       note: "A*STAR's biomedical research city — wet labs, institutes and pharma R&D in one campus." },
     { id: "fusionopolis", name: "Fusionopolis", category: "research", type: "institute",
       sectors: ["deeptech", "digital-ict"], cluster: "one-north",
-      lat: 1.2995, lng: 103.7877, coordPrecision: "verified",
+      lat: 1.30005, lng: 103.78820, coordPrecision: "onemap",
       note: "The physical-sciences and infocomm counterpart to Biopolis across the road." },
     { id: "mediapolis", name: "Mediapolis", category: "research", type: "district",
       sectors: ["media-creative", "digital-ict"], cluster: "one-north",
-      lat: 1.2958, lng: 103.7896, coordPrecision: "estimated",
+      lat: 1.29419, lng: 103.79387, coordPrecision: "onemap",
       note: "one-north's media-production and digital-content quarter." },
     { id: "insead", name: "INSEAD Asia Campus", category: "education", type: "university",
       sectors: ["deeptech"], cluster: "one-north",
@@ -109,43 +113,43 @@
       note: "A global business school planting its Asia hub inside the research belt." },
     { id: "astar-hq", name: "A*STAR (HQ, Connexis)", category: "research", type: "agency",
       sectors: ["deeptech", "biomedtech"], cluster: "one-north",
-      lat: 1.2988, lng: 103.7884, coordPrecision: "estimated",
+      lat: 1.29852, lng: 103.78865, coordPrecision: "onemap",
       note: "The agency that steers most of Singapore's public R&D spending." },
     { id: "govtech-mbc", name: "GovTech @ Mapletree Business City", category: "civic", type: "agency",
       sectors: ["digital-ict", "cybersecurity"], cluster: "one-north",
-      lat: 1.2743, lng: 103.7905, coordPrecision: "estimated",
+      lat: 1.27492, lng: 103.79914, coordPrecision: "onemap",
       note: "The state's in-house digital build team, sitting next to the research belt rather than in the CBD." },
     { id: "imda", name: "IMDA (Infocomm Media Dev. Authority)", category: "civic", type: "agency",
       sectors: ["digital-ict", "media-creative"], cluster: "one-north",
-      lat: 1.2761, lng: 103.7963, coordPrecision: "estimated",
+      lat: 1.27475, lng: 103.79963, coordPrecision: "onemap",
       note: "Regulator-cum-developer for Singapore's infocomm and media sectors." },
     { id: "gillman", name: "Gillman Barracks", category: "culture", type: "venue",
       sectors: ["media-creative"], cluster: "one-north",
-      lat: 1.2789, lng: 103.8022, coordPrecision: "estimated",
+      lat: 1.27608, lng: 103.80443, coordPrecision: "onemap",
       note: "Former barracks turned contemporary-art enclave on the edge of the research belt." },
 
     /* ---------------- Kent Ridge ---------------- */
     { id: "nus", name: "National University of Singapore (Kent Ridge)", category: "education", type: "university",
       sectors: ["deeptech", "biomedtech", "digital-ict"], cluster: "kent-ridge",
-      lat: 1.2966, lng: 103.7764, coordPrecision: "verified",
+      lat: 1.29379, lng: 103.77262, coordPrecision: "onemap",
       note: "Singapore's flagship research university and a primary feeder of founders into one-north." },
     { id: "nuh", name: "National University Hospital", category: "health", type: "hospital",
       sectors: ["biomedtech"], cluster: "kent-ridge",
-      lat: 1.2939, lng: 103.7836, coordPrecision: "estimated",
+      lat: 1.29484, lng: 103.78373, coordPrecision: "onemap",
       note: "Teaching hospital paired with NUS, closing the bench-to-bedside loop on the ridge." },
 
     /* ---------------- CBD financial core ---------------- */
     { id: "mas", name: "Monetary Authority of Singapore", category: "civic", type: "agency",
       sectors: ["fintech"], cluster: "cbd",
-      lat: 1.2776, lng: 103.8470, coordPrecision: "verified",
+      lat: 1.27472, lng: 103.84650, coordPrecision: "onemap",
       note: "Central bank and the regulator whose sandbox shaped Singapore's fintech rise." },
     { id: "mbfc", name: "Marina Bay Financial Centre", category: "financial", type: "district",
       sectors: ["fintech"], cluster: "cbd",
-      lat: 1.2799, lng: 103.8547, coordPrecision: "verified",
+      lat: 1.27911, lng: 103.85441, coordPrecision: "onemap",
       note: "The newer face of the financial core, anchoring banks and trading floors at Marina Bay." },
     { id: "raffles-place", name: "Raffles Place", category: "financial", type: "district",
       sectors: ["fintech"], cluster: "cbd",
-      lat: 1.2840, lng: 103.8510, coordPrecision: "verified",
+      lat: 1.28208, lng: 103.85156, coordPrecision: "onemap",
       note: "The historic heart of the CBD and the original centre of gravity for SG finance." },
     { id: "80rr", name: "80RR Fintech Hub @ Robinson Road", category: "startup", type: "hub",
       sectors: ["fintech"], cluster: "cbd",
@@ -153,35 +157,35 @@
       note: "A fintech-focused co-working hub embedded inside the financial district itself." },
     { id: "ura", name: "URA Centre", category: "civic", type: "agency",
       sectors: ["sustainability"], cluster: "cbd",
-      lat: 1.2790, lng: 103.8420, coordPrecision: "estimated",
+      lat: 1.27958, lng: 103.84531, coordPrecision: "onemap",
       note: "The Urban Redevelopment Authority — the hand behind the Master Plan that zones all of this." },
 
     /* ---------------- Civic & Marina district ---------------- */
     { id: "smu", name: "Singapore Management University", category: "education", type: "university",
       sectors: ["fintech", "digital-ict"], cluster: "civic-dist",
-      lat: 1.2975, lng: 103.8497, coordPrecision: "verified",
+      lat: 1.29685, lng: 103.85221, coordPrecision: "onemap",
       note: "A city-campus university wired into the business and finance districts beside it." },
     { id: "national-gallery", name: "National Gallery Singapore", category: "culture", type: "venue",
       sectors: ["media-creative"], cluster: "civic-dist",
-      lat: 1.2903, lng: 103.8516, coordPrecision: "verified",
+      lat: 1.29066, lng: 103.85171, coordPrecision: "onemap",
       note: "Southeast Asia's largest public art collection, in the former Supreme Court and City Hall." },
     { id: "esplanade", name: "Esplanade — Theatres on the Bay", category: "culture", type: "venue",
       sectors: ["media-creative"], cluster: "civic-dist",
-      lat: 1.2899, lng: 103.8557, coordPrecision: "verified",
+      lat: 1.29021, lng: 103.85557, coordPrecision: "onemap",
       note: "The national performing-arts centre on the Marina Bay waterfront." },
     { id: "artscience", name: "ArtScience Museum", category: "culture", type: "venue",
       sectors: ["media-creative", "deeptech"], cluster: "civic-dist",
-      lat: 1.2863, lng: 103.8593, coordPrecision: "verified",
+      lat: 1.28622, lng: 103.85927, coordPrecision: "onemap",
       note: "Where Singapore stages the art-meets-technology narrative for visitors." },
     { id: "ndc", name: "National Design Centre", category: "culture", type: "venue",
       sectors: ["media-creative"], cluster: "civic-dist",
-      lat: 1.2998, lng: 103.8556, coordPrecision: "estimated",
+      lat: 1.29848, lng: 103.85350, coordPrecision: "onemap",
       note: "DesignSingapore's home base in the Bras Basah.Bugis arts district." },
 
     /* ---------------- Novena health city ---------------- */
     { id: "ttsh", name: "Tan Tock Seng Hospital", category: "health", type: "hospital",
       sectors: ["biomedtech"], cluster: "novena",
-      lat: 1.3216, lng: 103.8456, coordPrecision: "verified",
+      lat: 1.31967, lng: 103.84794, coordPrecision: "onemap",
       note: "The acute-care anchor of HealthCity Novena." },
     { id: "lkc-medicine", name: "LKC School of Medicine (NTU)", category: "education", type: "university",
       sectors: ["biomedtech"], cluster: "novena",
@@ -195,15 +199,15 @@
     /* ---------------- Outram health city ---------------- */
     { id: "sgh", name: "Singapore General Hospital", category: "health", type: "hospital",
       sectors: ["biomedtech"], cluster: "outram",
-      lat: 1.2790, lng: 103.8350, coordPrecision: "verified",
+      lat: 1.27933, lng: 103.83525, coordPrecision: "onemap",
       note: "Singapore's oldest and largest hospital, core of the Outram health campus." },
     { id: "duke-nus", name: "Duke-NUS Medical School", category: "education", type: "university",
       sectors: ["biomedtech"], cluster: "outram",
-      lat: 1.2795, lng: 103.8345, coordPrecision: "estimated",
+      lat: 1.28122, lng: 103.83414, coordPrecision: "onemap",
       note: "A graduate medical school built for clinician-scientists, sitting on the SGH campus." },
     { id: "ncc", name: "National Cancer Centre Singapore", category: "health", type: "hospital",
       sectors: ["biomedtech"], cluster: "outram",
-      lat: 1.2785, lng: 103.8355, coordPrecision: "estimated",
+      lat: 1.28117, lng: 103.83783, coordPrecision: "onemap",
       note: "National specialist centre concentrating oncology research and care." },
 
     /* ---------------- Punggol Digital District ---------------- */
@@ -213,35 +217,35 @@
       note: "Singapore's first district master-planned around the digital economy — built ground-up, still maturing." },
     { id: "sit-punggol", name: "Singapore Institute of Technology (Punggol)", category: "education", type: "university",
       sectors: ["digital-ict", "adv-mfg"], cluster: "punggol",
-      lat: 1.4120, lng: 103.9130, coordPrecision: "estimated",
+      lat: 1.41331, lng: 103.91296, coordPrecision: "onemap",
       note: "SIT's new campus, deliberately woven into the digital district rather than walled off from it." },
     { id: "punggol-coast", name: "Punggol Coast (housing)", category: "living", type: "estate",
       sectors: ["digital-ict", "sustainability"], cluster: "punggol",
-      lat: 1.4180, lng: 103.9120, coordPrecision: "estimated",
+      lat: 1.40378, lng: 103.90576, coordPrecision: "onemap",
       note: "The residential edge of the district — talent housing next to where the work is meant to be." },
 
     /* ---------------- Jurong Innovation District ---------------- */
     { id: "jid", name: "Jurong Innovation District", category: "digital-infra", type: "district",
       sectors: ["adv-mfg", "sustainability"], cluster: "jid",
-      lat: 1.3400, lng: 103.6900, coordPrecision: "estimated",
+      lat: 1.35430, lng: 103.69235, coordPrecision: "onemap",
       note: "An advanced-manufacturing district pulling research, makers and factories of the future together." },
     { id: "ntu", name: "Nanyang Technological University", category: "education", type: "university",
       sectors: ["deeptech", "adv-mfg", "sustainability"], cluster: "jid",
-      lat: 1.3483, lng: 103.6831, coordPrecision: "verified",
+      lat: 1.3483, lng: 103.6831, coordPrecision: "estimated",
       note: "Engineering-heavy research university anchoring the western innovation belt." },
     { id: "cleantech", name: "CleanTech Park", category: "research", type: "district",
       sectors: ["sustainability", "adv-mfg"], cluster: "jid",
-      lat: 1.3440, lng: 103.6840, coordPrecision: "estimated",
+      lat: 1.35275, lng: 103.69271, coordPrecision: "onemap",
       note: "A testbed business park for clean-tech and sustainability ventures beside NTU." },
 
     /* ---------------- Island-wide / distributed ---------------- */
     { id: "sutd", name: "Singapore University of Technology & Design", category: "education", type: "university",
       sectors: ["deeptech", "digital-ict"], cluster: "distributed",
-      lat: 1.3413, lng: 103.9637, coordPrecision: "verified",
+      lat: 1.3413, lng: 103.9637, coordPrecision: "estimated",
       note: "A design-and-technology university seeded with MIT in the east at Upper Changi." },
     { id: "suss", name: "Singapore University of Social Sciences", category: "education", type: "university",
       sectors: ["digital-ict"], cluster: "distributed",
-      lat: 1.3300, lng: 103.7760, coordPrecision: "estimated",
+      lat: 1.32833, lng: 103.77581, coordPrecision: "onemap",
       note: "Applied, work-relevant degrees with a social-science centre of gravity." },
     { id: "equinix-sg3", name: "Equinix SG3 (Tai Seng)", category: "digital-infra", type: "data-centre",
       sectors: ["digital-ict"], cluster: "distributed",

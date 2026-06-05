@@ -143,7 +143,7 @@
       "cluster": "one-north",
       "lat": 1.2966,
       "lng": 103.7872,
-      "coordPrecision": "verified",
+      "coordPrecision": "estimated",
       "note": "The dense startup cluster that anchored one-north as Singapore's deep-tech front door."
     },
     {
@@ -155,9 +155,9 @@
         "biomedtech"
       ],
       "cluster": "one-north",
-      "lat": 1.3,
-      "lng": 103.7869,
-      "coordPrecision": "verified",
+      "lat": 1.30331,
+      "lng": 103.79258,
+      "coordPrecision": "onemap",
       "note": "A*STAR's biomedical research city — wet labs, institutes and pharma R&D in one campus."
     },
     {
@@ -170,9 +170,9 @@
         "digital-ict"
       ],
       "cluster": "one-north",
-      "lat": 1.2995,
-      "lng": 103.7877,
-      "coordPrecision": "verified",
+      "lat": 1.30005,
+      "lng": 103.7882,
+      "coordPrecision": "onemap",
       "note": "The physical-sciences and infocomm counterpart to Biopolis across the road."
     },
     {
@@ -185,9 +185,9 @@
         "digital-ict"
       ],
       "cluster": "one-north",
-      "lat": 1.2958,
-      "lng": 103.7896,
-      "coordPrecision": "estimated",
+      "lat": 1.29419,
+      "lng": 103.79387,
+      "coordPrecision": "onemap",
       "note": "one-north's media-production and digital-content quarter."
     },
     {
@@ -214,9 +214,9 @@
         "biomedtech"
       ],
       "cluster": "one-north",
-      "lat": 1.2988,
-      "lng": 103.7884,
-      "coordPrecision": "estimated",
+      "lat": 1.29852,
+      "lng": 103.78865,
+      "coordPrecision": "onemap",
       "note": "The agency that steers most of Singapore's public R&D spending."
     },
     {
@@ -229,9 +229,9 @@
         "cybersecurity"
       ],
       "cluster": "one-north",
-      "lat": 1.2743,
-      "lng": 103.7905,
-      "coordPrecision": "estimated",
+      "lat": 1.27492,
+      "lng": 103.79914,
+      "coordPrecision": "onemap",
       "note": "The state's in-house digital build team, sitting next to the research belt rather than in the CBD."
     },
     {
@@ -244,9 +244,9 @@
         "media-creative"
       ],
       "cluster": "one-north",
-      "lat": 1.2761,
-      "lng": 103.7963,
-      "coordPrecision": "estimated",
+      "lat": 1.27475,
+      "lng": 103.79963,
+      "coordPrecision": "onemap",
       "note": "Regulator-cum-developer for Singapore's infocomm and media sectors."
     },
     {
@@ -258,9 +258,9 @@
         "media-creative"
       ],
       "cluster": "one-north",
-      "lat": 1.2789,
-      "lng": 103.8022,
-      "coordPrecision": "estimated",
+      "lat": 1.27608,
+      "lng": 103.80443,
+      "coordPrecision": "onemap",
       "note": "Former barracks turned contemporary-art enclave on the edge of the research belt."
     },
     {
@@ -274,9 +274,9 @@
         "digital-ict"
       ],
       "cluster": "kent-ridge",
-      "lat": 1.2966,
-      "lng": 103.7764,
-      "coordPrecision": "verified",
+      "lat": 1.29379,
+      "lng": 103.77262,
+      "coordPrecision": "onemap",
       "note": "Singapore's flagship research university and a primary feeder of founders into one-north."
     },
     {
@@ -288,9 +288,9 @@
         "biomedtech"
       ],
       "cluster": "kent-ridge",
-      "lat": 1.2939,
-      "lng": 103.7836,
-      "coordPrecision": "estimated",
+      "lat": 1.29484,
+      "lng": 103.78373,
+      "coordPrecision": "onemap",
       "note": "Teaching hospital paired with NUS, closing the bench-to-bedside loop on the ridge."
     },
     {
@@ -302,9 +302,9 @@
         "fintech"
       ],
       "cluster": "cbd",
-      "lat": 1.2776,
-      "lng": 103.847,
-      "coordPrecision": "verified",
+      "lat": 1.27472,
+      "lng": 103.8465,
+      "coordPrecision": "onemap",
       "note": "Central bank and the regulator whose sandbox shaped Singapore's fintech rise."
     },
     {
@@ -316,9 +316,9 @@
         "fintech"
       ],
       "cluster": "cbd",
-      "lat": 1.2799,
-      "lng": 103.8547,
-      "coordPrecision": "verified",
+      "lat": 1.27911,
+      "lng": 103.85441,
+      "coordPrecision": "onemap",
       "note": "The newer face of the financial core, anchoring banks and trading floors at Marina Bay."
     },
     {
@@ -330,9 +330,9 @@
         "fintech"
       ],
       "cluster": "cbd",
-      "lat": 1.284,
-      "lng": 103.851,
-      "coordPrecision": "verified",
+      "lat": 1.28208,
+      "lng": 103.85156,
+      "coordPrecision": "onemap",
       "note": "The historic heart of the CBD and the original centre of gravity for SG finance."
     },
     {
@@ -358,9 +358,9 @@
         "sustainability"
       ],
       "cluster": "cbd",
-      "lat": 1.279,
-      "lng": 103.842,
-      "coordPrecision": "estimated",
+      "lat": 1.27958,
+      "lng": 103.84531,
+      "coordPrecision": "onemap",
       "note": "The Urban Redevelopment Authority — the hand behind the Master Plan that zones all of this."
     },
     {
@@ -373,9 +373,9 @@
         "digital-ict"
       ],
       "cluster": "civic-dist",
-      "lat": 1.2975,
-      "lng": 103.8497,
-      "coordPrecision": "verified",
+      "lat": 1.29685,
+      "lng": 103.85221,
+      "coordPrecision": "onemap",
       "note": "A city-campus university wired into the business and finance districts beside it."
     },
     {
@@ -387,9 +387,9 @@
         "media-creative"
       ],
       "cluster": "civic-dist",
-      "lat": 1.2903,
-      "lng": 103.8516,
-      "coordPrecision": "verified",
+      "lat": 1.29066,
+      "lng": 103.85171,
+      "coordPrecision": "onemap",
       "note": "Southeast Asia's largest public art collection, in the former Supreme Court and City Hall."
     },
     {
@@ -401,9 +401,9 @@
         "media-creative"
       ],
       "cluster": "civic-dist",
-      "lat": 1.2899,
-      "lng": 103.8557,
-      "coordPrecision": "verified",
+      "lat": 1.29021,
+      "lng": 103.85557,
+      "coordPrecision": "onemap",
       "note": "The national performing-arts centre on the Marina Bay waterfront."
     },
     {
@@ -416,9 +416,9 @@
         "deeptech"
       ],
       "cluster": "civic-dist",
-      "lat": 1.2863,
-      "lng": 103.8593,
-      "coordPrecision": "verified",
+      "lat": 1.28622,
+      "lng": 103.85927,
+      "coordPrecision": "onemap",
       "note": "Where Singapore stages the art-meets-technology narrative for visitors."
     },
     {
@@ -430,9 +430,9 @@
         "media-creative"
       ],
       "cluster": "civic-dist",
-      "lat": 1.2998,
-      "lng": 103.8556,
-      "coordPrecision": "estimated",
+      "lat": 1.29848,
+      "lng": 103.8535,
+      "coordPrecision": "onemap",
       "note": "DesignSingapore's home base in the Bras Basah.Bugis arts district."
     },
     {
@@ -444,9 +444,9 @@
         "biomedtech"
       ],
       "cluster": "novena",
-      "lat": 1.3216,
-      "lng": 103.8456,
-      "coordPrecision": "verified",
+      "lat": 1.31967,
+      "lng": 103.84794,
+      "coordPrecision": "onemap",
       "note": "The acute-care anchor of HealthCity Novena."
     },
     {
@@ -486,9 +486,9 @@
         "biomedtech"
       ],
       "cluster": "outram",
-      "lat": 1.279,
-      "lng": 103.835,
-      "coordPrecision": "verified",
+      "lat": 1.27933,
+      "lng": 103.83525,
+      "coordPrecision": "onemap",
       "note": "Singapore's oldest and largest hospital, core of the Outram health campus."
     },
     {
@@ -500,9 +500,9 @@
         "biomedtech"
       ],
       "cluster": "outram",
-      "lat": 1.2795,
-      "lng": 103.8345,
-      "coordPrecision": "estimated",
+      "lat": 1.28122,
+      "lng": 103.83414,
+      "coordPrecision": "onemap",
       "note": "A graduate medical school built for clinician-scientists, sitting on the SGH campus."
     },
     {
@@ -514,9 +514,9 @@
         "biomedtech"
       ],
       "cluster": "outram",
-      "lat": 1.2785,
-      "lng": 103.8355,
-      "coordPrecision": "estimated",
+      "lat": 1.28117,
+      "lng": 103.83783,
+      "coordPrecision": "onemap",
       "note": "National specialist centre concentrating oncology research and care."
     },
     {
@@ -544,9 +544,9 @@
         "adv-mfg"
       ],
       "cluster": "punggol",
-      "lat": 1.412,
-      "lng": 103.913,
-      "coordPrecision": "estimated",
+      "lat": 1.41331,
+      "lng": 103.91296,
+      "coordPrecision": "onemap",
       "note": "SIT's new campus, deliberately woven into the digital district rather than walled off from it."
     },
     {
@@ -559,9 +559,9 @@
         "sustainability"
       ],
       "cluster": "punggol",
-      "lat": 1.418,
-      "lng": 103.912,
-      "coordPrecision": "estimated",
+      "lat": 1.40378,
+      "lng": 103.90576,
+      "coordPrecision": "onemap",
       "note": "The residential edge of the district — talent housing next to where the work is meant to be."
     },
     {
@@ -574,9 +574,9 @@
         "sustainability"
       ],
       "cluster": "jid",
-      "lat": 1.34,
-      "lng": 103.69,
-      "coordPrecision": "estimated",
+      "lat": 1.3543,
+      "lng": 103.69235,
+      "coordPrecision": "onemap",
       "note": "An advanced-manufacturing district pulling research, makers and factories of the future together."
     },
     {
@@ -592,7 +592,7 @@
       "cluster": "jid",
       "lat": 1.3483,
       "lng": 103.6831,
-      "coordPrecision": "verified",
+      "coordPrecision": "estimated",
       "note": "Engineering-heavy research university anchoring the western innovation belt."
     },
     {
@@ -605,9 +605,9 @@
         "adv-mfg"
       ],
       "cluster": "jid",
-      "lat": 1.344,
-      "lng": 103.684,
-      "coordPrecision": "estimated",
+      "lat": 1.35275,
+      "lng": 103.69271,
+      "coordPrecision": "onemap",
       "note": "A testbed business park for clean-tech and sustainability ventures beside NTU."
     },
     {
@@ -622,7 +622,7 @@
       "cluster": "distributed",
       "lat": 1.3413,
       "lng": 103.9637,
-      "coordPrecision": "verified",
+      "coordPrecision": "estimated",
       "note": "A design-and-technology university seeded with MIT in the east at Upper Changi."
     },
     {
@@ -634,9 +634,9 @@
         "digital-ict"
       ],
       "cluster": "distributed",
-      "lat": 1.33,
-      "lng": 103.776,
-      "coordPrecision": "estimated",
+      "lat": 1.32833,
+      "lng": 103.77581,
+      "coordPrecision": "onemap",
       "note": "Applied, work-relevant degrees with a social-science centre of gravity."
     },
     {
