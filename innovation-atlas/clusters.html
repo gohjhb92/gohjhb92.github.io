@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Clusters — Singapore Innovation Atlas</title>
+  <meta name="description" content="How Singapore's innovation actually clusters: an editorial read on one-north, the CBD, Punggol, the Novena & Outram health cities, Jurong, and Kent Ridge — with live stats from the dataset." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23e8590c'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/atlas.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html">Map</a>
+    <a href="clusters.html" class="active">Clusters</a>
+    <a href="methodology.html">Method</a>
+  </nav>
+
+  <main class="page">
+    <p class="page-eyebrow">Singapore Innovation Atlas · analysis</p>
+    <h1 id="thesisHead">The clusters</h1>
+    <p class="lede" id="thesisLede"></p>
+    <p id="thesisBody"></p>
+
+    <h2>By the numbers</h2>
+    <div class="stat-grid" id="stats"></div>
+
+    <h3 class="muted" style="margin:26px 0 6px; font:600 12px Inter; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint)">Sites by category</h3>
+    <div class="bars" id="catBars"></div>
+
+    <h2>The clusters, one by one</h2>
+    <p class="muted">Each cluster is drawn on the map as the real URA subzone that contains its anchor institution. Click any site to open it on the map.</p>
+    <div id="clusters"></div>
+  </main>
+
+  <footer class="page-footer">
+    Coordinates via OneMap · boundaries via URA / data.gov.sg · see <a href="methodology.html">Method</a>.
+  </footer>
+
+  <script src="data/data.js"></script>
+  <script src="data/boundaries.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/page-clusters.js"></script>
+</body>
+</html>

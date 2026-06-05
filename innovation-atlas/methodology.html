@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data & Method — Singapore Innovation Atlas</title>
+  <meta name="description" content="How the Singapore Innovation Atlas is sourced: OneMap-verified coordinates, real URA Master Plan boundaries from data.gov.sg, and an honest account of what's still estimated." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23e8590c'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/atlas.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html">Map</a>
+    <a href="clusters.html">Clusters</a>
+    <a href="methodology.html" class="active">Method</a>
+  </nav>
+
+  <main class="page">
+    <p class="page-eyebrow">Singapore Innovation Atlas · method</p>
+    <h1>Data &amp; method, <em>honestly</em>.</h1>
+    <p class="lede">
+      A map is only as trustworthy as its sources. Here is exactly where every
+      coordinate and boundary comes from — and, just as important, what is still
+      an estimate.
+    </p>
+
+    <h2>Coordinates</h2>
+    <p id="coordSummary"></p>
+    <div class="stat-grid" id="coordStats"></div>
+    <p class="muted">
+      Verification uses Singapore's official
+      <a href="https://www.onemap.gov.sg/" target="_blank" rel="noopener">OneMap</a>
+      search API, reconciled by <code>scripts/geocode.mjs</code> with a 2&nbsp;km sanity
+      gate that rejects wrong-entity matches (a hotel "at Raffles Place", a building
+      12&nbsp;km from the right campus). The two tiers are deliberate — there is no
+      "trust me" tier:
+    </p>
+    <p>
+      <span class="tier onemap">onemap</span> a real coordinate confirmed against OneMap.<br />
+      <span class="tier estimated">estimated</span> hand-placed, because the site isn't
+      resolvable in the OneMap gazetteer by name (informal or brand-new — e.g.
+      BLOCK71, Punggol Digital District, Tengah). Flagged in its map popup, and listed here:
+    </p>
+    <p id="estimatedList" class="muted"></p>
+
+    <h2>District boundaries</h2>
+    <p>
+      The shaded cluster outlines are <b>real boundaries</b>, not hand-drawn shapes:
+      the
+      <a href="https://data.gov.sg/datasets/d_8594ae9ff96d0c708bc2af633048edfb/view" target="_blank" rel="noopener">URA
+      Master Plan 2019 Subzone Boundary (No&nbsp;Sea)</a> dataset, published on
+      data.gov.sg. <code>scripts/extract-boundaries.mjs</code> takes each cluster's
+      anchor institution and finds the URA subzone polygon that actually contains it
+      (point-in-polygon), then bakes those real polygons into the page.
+    </p>
+    <p>
+      One honesty note: a subzone is <em>not</em> the same thing as the informal
+      "district". Each outline is therefore labelled by its true URA name — and the
+      data sometimes corrects a popular assumption (NTU and CleanTech Park sit in the
+      <b>Western Water Catchment</b> planning area, not "Jurong"). Where the official
+      map agrees with the cluster, it agrees strongly — there is literally a subzone
+      named "Singapore General Hospital".
+    </p>
+
+    <h2>Sources</h2>
+    <ul class="sources-list">
+      <li><b>Coordinates</b> — <a href="https://www.onemap.gov.sg/" target="_blank" rel="noopener">OneMap</a>, Singapore Land Authority. Free search API, no key required for search.</li>
+      <li><b>District boundaries</b> — <a href="https://data.gov.sg/datasets/d_8594ae9ff96d0c708bc2af633048edfb/view" target="_blank" rel="noopener">URA Master Plan 2019 Subzone Boundary (No Sea)</a>, via data.gov.sg.</li>
+      <li><b>Base map</b> — <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a> Positron tiles on <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> data.</li>
+      <li><b>Site selection &amp; the cluster narratives</b> — my own curation and analysis. These are editorial judgement, not sourced fact, and are kept in a separate file (<code>js/content.js</code>) from the dataset for exactly that reason.</li>
+    </ul>
+
+    <h2>What this is not (yet)</h2>
+    <p id="limits"></p>
+
+    <h2>Reproducible</h2>
+    <p>
+      Nothing here is a black box. The dataset is plain
+      <a href="data/data.js" target="_blank" rel="noopener">data.js</a> (also mirrored
+      as <a href="data/data.json" target="_blank" rel="noopener">data.json</a>); the two
+      tooling scripts re-run from the command line:
+    </p>
+    <p class="muted">
+      <code>node scripts/geocode.mjs</code> — re-verify coordinates against OneMap<br />
+      <code>node scripts/extract-boundaries.mjs</code> — re-pull boundaries from data.gov.sg
+    </p>
+  </main>
+
+  <footer class="page-footer">
+    Singapore Innovation Atlas · <a href="index.html">back to the map</a>
+  </footer>
+
+  <script src="data/data.js"></script>
+  <script src="data/boundaries.js"></script>
+  <script src="js/page-methodology.js"></script>
+</body>
+</html>
