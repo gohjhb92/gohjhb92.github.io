@@ -43,29 +43,41 @@
     return map;
   };
 
-  // Honest placeholder district rectangles (NOT real boundaries — see data.js).
-  A.drawDistricts = function () {
-    var layer = L.layerGroup().addTo(A.map);
-    (window.ATLAS.DISTRICTS || []).forEach(function (d) {
-      var rect = L.rectangle(d.bounds, {
-        className: "atlas-district",
-        color: "#868e96",
-        weight: 1.2,
-        fillColor: "#868e96"
-      }).addTo(layer);
+  // Real cluster outlines: URA Master Plan 2019 subzone boundaries (data.gov.sg),
+  // baked into window.ATLAS_BOUNDARIES by scripts/extract-boundaries.mjs.
+  A.drawBoundaries = function () {
+    var fc = window.ATLAS_BOUNDARIES;
+    if (!fc) return;
+    var layer = L.geoJSON(fc, {
+      style: {
+        className: "atlas-boundary",
+        color: "#5f6b7a",
+        weight: 1.3,
+        opacity: 0.7,
+        fillColor: "#5f6b7a",
+        fillOpacity: 0.045
+      }
+    }).addTo(A.map);
 
-      L.marker(rect.getBounds().getNorthWest(), {
+    // A small label at each subzone's centre, naming the REAL subzone it is.
+    layer.eachLayer(function (l) {
+      var p = l.feature.properties;
+      var c = l.getBounds().getCenter();
+      L.marker(c, {
         interactive: false,
         icon: L.divIcon({
           className: "",
           html:
-            '<div class="district-label">' +
-            d.label +
-            ' <small>· approx.</small></div>',
+            '<div class="district-label">' + p.clusterLabel +
+            ' <small>· ' + titleCase(p.subzone) + ' subzone, URA</small></div>',
           iconSize: null
         })
       }).addTo(layer);
     });
-    A.districtLayer = layer;
+    A.boundaryLayer = layer;
   };
+
+  function titleCase(s) {
+    return String(s).toLowerCase().replace(/\b\w/g, function (m) { return m.toUpperCase(); });
+  }
 })();

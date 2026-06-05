@@ -1,0 +1,125 @@
+/* =============================================================================
+ * extract-boundaries.mjs — real cluster boundaries from URA Master Plan data
+ * -----------------------------------------------------------------------------
+ * Source: Master Plan 2019 Subzone Boundary (No Sea), URA, via data.gov.sg
+ *   dataset d_8594ae9ff96d0c708bc2af633048edfb (GeoJSON, WGS84).
+ *
+ * For each named cluster we take an anchor site's coordinate and find the URA
+ * *subzone polygon that actually contains it* (point-in-polygon). That subzone's
+ * real boundary becomes the cluster outline — so "one-north" is drawn as URA's
+ * ONE NORTH subzone, not a hand-drawn rectangle. Honest: each feature is
+ * labelled with the official SUBZONE_N / PLN_AREA_N it came from.
+ *
+ * Output:
+ *   data/boundaries.geojson  — the extracted features (a real GeoJSON file)
+ *   data/boundaries.js       — same data as a classic script (window.ATLAS_BOUNDARIES)
+ *                              so the map can use it from file:// without fetch().
+ *
+ * Re-fetch + regenerate:  node scripts/extract-boundaries.mjs
+ * (Re-downloads the 3MB source to scripts/_subzones_raw.geojson if missing.)
+ * ========================================================================== */
+
+import { readFile, writeFile, access } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+import { createRequire } from "node:module";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(__dirname, "..");
+const RAW = resolve(ROOT, "scripts/_subzones_raw.geojson");
+const DATASET = "d_8594ae9ff96d0c708bc2af633048edfb";
+const SOURCE = "URA Master Plan 2019 Subzone Boundary (No Sea), via data.gov.sg";
+
+// One representative anchor coordinate [lng, lat] per cluster. Pulled from the
+// OneMap-sourced sites so the point genuinely sits inside the right subzone.
+const ANCHORS = {
+  "one-north":  [103.79258, 1.30331], // Biopolis
+  "cbd":        [103.84650, 1.27472], // MAS
+  "punggol":    [103.91296, 1.41331], // SIT/DigiPen Punggol
+  "novena":     [103.84794, 1.31967], // Tan Tock Seng Hospital
+  "outram":     [103.83525, 1.27933], // Singapore General Hospital
+  "jid":        [103.68310, 1.34830], // NTU
+  "kent-ridge": [103.77262, 1.29379], // NUS
+  "civic-dist": [103.85171, 1.29066]  // National Gallery
+};
+
+async function ensureRaw() {
+  try { await access(RAW); return; } catch {}
+  const poll = await fetch(
+    `https://api-open.data.gov.sg/v1/public/api/datasets/${DATASET}/poll-download`
+  ).then((r) => r.json());
+  const buf = await fetch(poll.data.url).then((r) => r.arrayBuffer());
+  await writeFile(RAW, Buffer.from(buf));
+}
+
+// Ray-casting point-in-polygon for one linear ring of [lng,lat] pairs.
+function inRing(pt, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const xi = ring[i][0], yi = ring[i][1], xj = ring[j][0], yj = ring[j][1];
+    const hit = yi > pt[1] !== yj > pt[1] &&
+      pt[0] < ((xj - xi) * (pt[1] - yi)) / (yj - yi) + xi;
+    if (hit) inside = !inside;
+  }
+  return inside;
+}
+
+// A feature contains pt if pt is in any outer ring (ring[0]) of its polygons.
+function featureContains(feature, pt) {
+  const g = feature.geometry;
+  const polys = g.type === "Polygon" ? [g.coordinates] : g.coordinates; // MultiPolygon
+  return polys.some((poly) => inRing(pt, poly[0]));
+}
+
+// Round coordinates to ~1m to keep the embedded file small.
+function round(geom) {
+  const r = (n) => Math.round(n * 1e5) / 1e5;
+  const ring = (rg) => rg.map(([x, y]) => [r(x), r(y)]);
+  const poly = (p) => p.map(ring);
+  if (geom.type === "Polygon") return { type: "Polygon", coordinates: poly(geom.coordinates) };
+  return { type: "MultiPolygon", coordinates: geom.coordinates.map(poly) };
+}
+
+async function main() {
+  await ensureRaw();
+  const src = JSON.parse(await readFile(RAW, "utf8"));
+
+  const require = createRequire(import.meta.url);
+  const sandbox = {}; global.window = sandbox;
+  require(resolve(ROOT, "data/data.js"));
+  const CLUSTERS = sandbox.ATLAS.CLUSTERS;
+
+  const out = { type: "FeatureCollection", source: SOURCE, dataset: DATASET, features: [] };
+
+  for (const [cluster, pt] of Object.entries(ANCHORS)) {
+    const match = src.features.find((f) => featureContains(f, pt));
+    if (!match) { console.log(`  ✗ ${cluster}: no containing subzone`); continue; }
+    const P = match.properties;
+    out.features.push({
+      type: "Feature",
+      properties: {
+        cluster,
+        clusterLabel: CLUSTERS[cluster] || cluster,
+        subzone: P.SUBZONE_N,
+        planningArea: P.PLN_AREA_N,
+        region: P.REGION_N,
+        source: SOURCE
+      },
+      geometry: round(match.geometry)
+    });
+    console.log(`  ✓ ${cluster.padEnd(12)} → ${P.SUBZONE_N} subzone (${P.PLN_AREA_N})`);
+  }
+
+  await writeFile(resolve(ROOT, "data/boundaries.geojson"), JSON.stringify(out));
+  const js =
+    "/* Generated by scripts/extract-boundaries.mjs — do not edit by hand.\n" +
+    " * Real URA Master Plan 2019 subzone boundaries (No Sea), via data.gov.sg.\n" +
+    " * Classic script so the map can read it from file:// without fetch(). */\n" +
+    "window.ATLAS_BOUNDARIES = " + JSON.stringify(out) + ";\n";
+  await writeFile(resolve(ROOT, "data/boundaries.js"), js);
+
+  const bytes = Buffer.byteLength(js);
+  console.log(`\nWrote ${out.features.length} real boundaries → data/boundaries.{geojson,js} (${(bytes/1024).toFixed(0)}KB)`);
+}
+
+main().catch((e) => { console.error(e); process.exit(1); });

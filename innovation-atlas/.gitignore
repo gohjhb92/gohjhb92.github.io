@@ -12,3 +12,7 @@ Thumbs.db
 # secrets
 .env
 .env.*
+
+# large source data (re-downloadable via scripts/extract-boundaries.mjs)
+scripts/_subzones_raw.geojson
+scripts/_geocode_report.json

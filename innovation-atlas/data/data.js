@@ -269,17 +269,9 @@
       note: "A dense new housing estate testing walkable, transit-first town design near the centre." }
   ];
 
-  /* ---- Placeholder district shapes ---------------------------------------
-   * HONEST PLACEHOLDERS. These are hand-drawn rectangles approximating the
-   * footprint of each named cluster, NOT real boundaries. They are here to
-   * communicate "this is a district, not a dot" and will be replaced with
-   * real URA Master Plan GeoJSON (data.gov.sg). Drawn as [[south,west],[north,east]].
-   * ------------------------------------------------------------------------ */
-  const DISTRICTS = [
-    { cluster: "one-north", label: "one-north", bounds: [[1.2930, 103.7840], [1.3030, 103.7930]] },
-    { cluster: "punggol",   label: "Punggol Digital District", bounds: [[1.4060, 103.9060], [1.4210, 103.9170]] },
-    { cluster: "jid",       label: "Jurong Innovation District", bounds: [[1.3350, 103.6780], [1.3520, 103.6960]] }
-  ];
+  /* Cluster outlines are no longer hand-drawn rectangles — they are real URA
+   * Master Plan 2019 subzone boundaries, generated into data/boundaries.js by
+   * scripts/extract-boundaries.mjs and loaded separately. */
 
   global.ATLAS = {
     CATEGORIES: CATEGORIES,
@@ -287,11 +279,11 @@
     SECTORS: SECTORS,
     CLUSTERS: CLUSTERS,
     SITES: SITES,
-    DISTRICTS: DISTRICTS,
     meta: {
       count: SITES.length,
       lastReviewed: "2026-06-05",
-      coordCaveat: "Sites flagged coordPrecision:'estimated' are hand-placed and pending OneMap geocoding."
+      coordCaveat: "Sites flagged coordPrecision:'estimated' are hand-placed (not in the OneMap gazetteer); 'onemap' coordinates are source-verified.",
+      boundarySource: "URA Master Plan 2019 Subzone Boundary (No Sea), via data.gov.sg"
     }
   };
 })(typeof window !== "undefined" ? window : this);

@@ -2,7 +2,8 @@
   "meta": {
     "count": 40,
     "lastReviewed": "2026-06-05",
-    "coordCaveat": "Sites flagged coordPrecision:'estimated' are hand-placed and pending OneMap geocoding."
+    "coordCaveat": "Sites flagged coordPrecision:'estimated' are hand-placed (not in the OneMap gazetteer); 'onemap' coordinates are source-verified.",
+    "boundarySource": "URA Master Plan 2019 Subzone Boundary (No Sea), via data.gov.sg"
   },
   "taxonomy": {
     "categories": {
@@ -86,50 +87,10 @@
       "distributed": "Island-wide"
     }
   },
-  "districts": [
-    {
-      "cluster": "one-north",
-      "label": "one-north",
-      "bounds": [
-        [
-          1.293,
-          103.784
-        ],
-        [
-          1.303,
-          103.793
-        ]
-      ]
-    },
-    {
-      "cluster": "punggol",
-      "label": "Punggol Digital District",
-      "bounds": [
-        [
-          1.406,
-          103.906
-        ],
-        [
-          1.421,
-          103.917
-        ]
-      ]
-    },
-    {
-      "cluster": "jid",
-      "label": "Jurong Innovation District",
-      "bounds": [
-        [
-          1.335,
-          103.678
-        ],
-        [
-          1.352,
-          103.696
-        ]
-      ]
-    }
-  ],
+  "boundaries": {
+    "source": "URA Master Plan 2019 Subzone Boundary (No Sea), via data.gov.sg",
+    "count": 8
+  },
   "sites": [
     {
       "id": "block71",

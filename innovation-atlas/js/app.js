@@ -43,7 +43,7 @@
 
   function start() {
     A.initMap();
-    A.drawDistricts();
+    A.drawBoundaries();
     A.buildDock();
     buildLegend();
 
