@@ -36,17 +36,27 @@ the island is actually zoned.
 - **Shareable views** — any filtered view encodes into the URL, so a link reopens the
   exact same map state. Try
   [the health-tech view](https://gohjhb92.github.io/innovation-atlas/?cat=health&sector=biomedtech).
+- **Real district boundaries** — cluster outlines are the actual
+  [URA Master Plan 2019 subzones](https://data.gov.sg/datasets/d_8594ae9ff96d0c708bc2af633048edfb/view)
+  from data.gov.sg, not hand-drawn shapes.
+- **Cluster analysis** — a [Clusters](clusters.html) page with an editorial read on each
+  cluster plus live stats computed from the dataset.
+- **Honest methodology** — a [Method](methodology.html) page documenting every source and
+  exactly what is still estimated.
 - **Editorial cartography** — muted Positron base map, one accent colour per category,
   a designed legend rather than a field of identical pins.
 - **Fully static** — no framework, no bundler, no backend. Opens from `file://`.
 
 ## Tech
 
-Vanilla JavaScript + [Leaflet](https://leafletjs.com/) on CartoDB Positron tiles.
-Data is fully separated from presentation in [`data/data.js`](data/data.js); the UI is
-split into small classic-script modules (`map`, `markers`, `filters`, `search`,
-`share`) that share one state object. **Deliberately no framework and no build step** —
-the entire value here is that it's legible static files anyone can open and read.
+Vanilla JavaScript + [Leaflet](https://leafletjs.com/) on CartoDB Positron tiles, across
+three static pages (Map / Clusters / Method). Data is fully separated from presentation in
+[`data/data.js`](data/data.js), with editorial prose kept apart again in
+[`js/content.js`](js/content.js); the UI is split into small classic-script modules
+(`map`, `markers`, `filters`, `search`, `share`) that share one state object. Two Node
+scripts handle the sourcing offline — `geocode.mjs` (OneMap) and `extract-boundaries.mjs`
+(data.gov.sg). **Deliberately no framework and no build step** — the entire value here is
+that it's legible static files anyone can open and read.
 
 ## Data model
 
@@ -68,23 +78,24 @@ what makes the filters meaningful rather than redundant.
 
 Honest about where this is:
 
-**Current** — ~40 hand-curated, real Singapore sites across the nine categories,
-grouped by their true cluster.
+**Current** — 40 curated, real Singapore sites across the nine categories, grouped by
+their true cluster. **27 of 40 coordinates (68%) are verified against OneMap**; the other
+13 are honestly flagged `coordPrecision: "estimated"` (informal or brand-new names not in
+the OneMap gazetteer). District outlines are **real URA subzone boundaries**. Full
+provenance is on the [Method](methodology.html) page.
 
 **Known work-in-progress**
-- **District shapes are placeholder rectangles.** The shaded districts (one-north,
-  Punggol, Jurong) are hand-drawn bounding boxes labelled *"approx."*, not real
-  boundaries — pending real URA Master Plan GeoJSON from
-  [data.gov.sg](https://data.gov.sg/).
-- **Some coordinates are hand-estimated.** Sites are flagged
-  `coordPrecision: "estimated"` where the point was placed from memory (good to
-  ~100–300m). [`scripts/geocode.mjs`](scripts/geocode.mjs) resolves these against the
-  official OneMap API when you're ready to harden them.
+- **The dataset is a starting set, not a census.** 40 anchor institutions — there are many
+  more labs, accelerators and firms to add.
+- **13 coordinates remain hand-estimated** (~100–300m), because those sites aren't
+  resolvable in OneMap by name. Re-runnable via [`scripts/geocode.mjs`](scripts/geocode.mjs).
+- **Cluster outlines are URA subzones**, which approximate — but don't perfectly trace —
+  the informal districts.
 
 **Next**
-- Real district boundaries from URA Master Plan data.
 - A density / weighting layer (where clusters are *dense*, not just present).
-- Expand the dataset beyond the initial ~40 anchor sites.
+- Expand the dataset well beyond the initial 40 anchor sites.
+- Time dimension — when each district was planned vs. built out.
 
 ## Run locally
 
@@ -98,11 +109,11 @@ start index.html       # Windows
 It works straight from `file://` because data loads via a `<script>` tag, not `fetch()`.
 (Map tiles and the Leaflet library load from CDNs, so you'll want to be online.)
 
-To re-geocode the estimated coordinates (optional, needs Node 18+ for `fetch`):
+To re-pull the source data (optional, needs Node 18+ for `fetch`):
 
 ```
-node scripts/geocode.mjs            # dry run — prints proposed changes
-node scripts/geocode.mjs --write    # writes data/data.geocoded.js for review
+node scripts/geocode.mjs            # re-verify coordinates against OneMap
+node scripts/extract-boundaries.mjs # re-pull URA subzone boundaries from data.gov.sg
 ```
 
 ## License
