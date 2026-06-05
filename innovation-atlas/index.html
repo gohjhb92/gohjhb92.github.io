@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2" />
+  <title>Singapore Innovation Atlas — where the ecosystem actually concentrates</title>
+  <meta name="description" content="An interactive map of where Singapore's innovation actually concentrates — one-north, the CBD fintech core, Punggol Digital District, the Novena & Outram health cities, and the Jurong Innovation District — across 9 categories of institution." />
+
+  <!-- Social cards. Replace YOUR-DOMAIN-HERE after the first deploy. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Singapore Innovation Atlas" />
+  <meta property="og:description" content="Where Singapore's innovation actually concentrates — 9 categories of institution, filterable and shareable." />
+  <meta property="og:url" content="https://YOUR-DOMAIN-HERE/innovation-atlas/" />
+  <meta property="og:image" content="https://YOUR-DOMAIN-HERE/innovation-atlas/assets/share-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Singapore Innovation Atlas" />
+  <meta name="twitter:description" content="Where Singapore's innovation actually concentrates — filterable, shareable map." />
+  <meta name="twitter:image" content="https://YOUR-DOMAIN-HERE/innovation-atlas/assets/share-card.png" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='12' r='10' fill='%23e8590c'/></svg>" />
+
+  <!-- Leaflet (CDN, no build step) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/atlas.css" />
+</head>
+<body>
+
+  <!-- The map fills the viewport; everything else floats over it -->
+  <div id="map"></div>
+
+  <!-- Cinematic first frame -->
+  <div id="intro">
+    <div class="intro-card">
+      <p class="eyebrow">Singapore · innovation geography</p>
+      <h1>Where the ecosystem <em>actually</em> concentrates.</h1>
+      <p>
+        Innovation in Singapore isn't spread evenly — it clusters. one-north's deep-tech belt,
+        the CBD fintech core, the new Punggol Digital District, the Novena and Outram health
+        cities, and the Jurong Innovation District. This maps ~40 of those sites across nine
+        categories of institution.
+      </p>
+      <button class="intro-enter" id="introEnter" type="button">Explore the map →</button>
+    </div>
+  </div>
+
+  <!-- Masthead -->
+  <div class="masthead">
+    <h2>Singapore Innovation Atlas</h2>
+    <p>Startups · research · health · finance · digital · culture · civic</p>
+  </div>
+
+  <!-- Share -->
+  <button class="share-btn" id="share" type="button" title="Copy a link to this exact view">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
+    <span>Share view</span>
+  </button>
+
+  <!-- The dock -->
+  <aside class="dock" id="dock">
+    <button class="dock-toggle" id="dockToggle" type="button" title="Collapse / expand filters" aria-label="Toggle filters">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+    </button>
+    <div class="dock-head">
+      <div class="search-wrap">
+        <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        <input type="search" id="search" placeholder="Search a site or area…" autocomplete="off" spellcheck="false" />
+      </div>
+      <div class="dock-count" id="count"></div>
+    </div>
+    <div class="dock-body" id="dockBody"></div>
+  </aside>
+
+  <!-- Legend -->
+  <div class="legend">
+    <h4>Categories</h4>
+    <ul id="legendList"></ul>
+  </div>
+
+  <!-- Leaflet lib -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Data, then modules, then bootstrap — classic scripts, file:// friendly -->
+  <script src="data/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/markers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/share.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
