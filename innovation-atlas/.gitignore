@@ -1,0 +1,14 @@
+# dependencies (none ship with the app — this is for the geocode script only)
+node_modules/
+
+# geocode output: generated, not committed
+data/data.geocoded.js
+
+# os / editor noise
+.DS_Store
+Thumbs.db
+*.log
+
+# secrets
+.env
+.env.*
