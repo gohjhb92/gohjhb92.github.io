@@ -1,0 +1,394 @@
+/* =============================================================================
+ * Singapore Innovation Atlas — styles
+ * Editorial cartography: muted base map, one accent per category, lots of air.
+ * No CSS framework. Custom properties so the palette stays in one place.
+ * ========================================================================== */
+
+:root {
+  --ink:        #1a1c1e;
+  --ink-soft:   #495057;
+  --ink-faint:  #868e96;
+  --paper:      #f6f4ef;       /* warm off-white, not stark */
+  --panel:      #ffffff;
+  --line:       #e4e0d8;
+  --shadow:     0 6px 28px rgba(26, 28, 30, 0.14);
+  --shadow-sm:  0 2px 10px rgba(26, 28, 30, 0.10);
+  --radius:     12px;
+  --dock-w:     312px;
+  --serif:      "Newsreader", Georgia, "Times New Roman", serif;
+  --sans:       "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+#map {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--paper);
+}
+
+/* Tone the default Leaflet chrome down to match the editorial look ---------- */
+.leaflet-container { font-family: var(--sans); background: var(--paper); }
+.leaflet-control-zoom a {
+  color: var(--ink-soft);
+  border-color: var(--line) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.78) !important;
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+
+/* -----------------------------------------------------------------------------
+ * Cinematic first frame — the masthead that greets you before you touch anything
+ * -------------------------------------------------------------------------- */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(246,244,239,0.42), rgba(246,244,239,0.92) 70%),
+    rgba(246, 244, 239, 0.55);
+  backdrop-filter: blur(2px);
+  transition: opacity 900ms ease;
+}
+#intro.dismissed { opacity: 0; pointer-events: none; }
+
+#intro .intro-card { max-width: 640px; }
+#intro .eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 18px;
+}
+#intro h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(34px, 6vw, 60px);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0 0 18px;
+}
+#intro h1 em { font-style: italic; color: var(--ink-soft); }
+#intro p {
+  font-size: clamp(15px, 2.2vw, 18px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 auto 30px;
+  max-width: 520px;
+}
+.intro-enter {
+  appearance: none;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font: 600 14px/1 var(--sans);
+  letter-spacing: 0.02em;
+  padding: 14px 26px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 140ms ease, background 140ms ease;
+}
+.intro-enter:hover { transform: translateY(-1px); background: #000; }
+
+/* -----------------------------------------------------------------------------
+ * Masthead (stays after intro, top-left)
+ * -------------------------------------------------------------------------- */
+.masthead {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 800;
+  max-width: calc(var(--dock-w) - 0px);
+  pointer-events: none;
+}
+.masthead h2 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--ink);
+}
+.masthead p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+/* -----------------------------------------------------------------------------
+ * The dock — slim, collapsible filter panel
+ * -------------------------------------------------------------------------- */
+.dock {
+  position: fixed;
+  top: 70px;
+  left: 18px;
+  bottom: 18px;
+  width: var(--dock-w);
+  z-index: 700;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dock.collapsed { transform: translateX(calc(-1 * (var(--dock-w) + 26px))); }
+
+.dock-toggle {
+  position: absolute;
+  top: 14px;
+  right: -38px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.dock-toggle:hover { color: var(--ink); }
+
+.dock-head {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.dock-head .search-wrap { position: relative; }
+.dock-head input[type="search"] {
+  width: 100%;
+  font: 400 14px var(--sans);
+  color: var(--ink);
+  padding: 10px 12px 10px 34px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  outline: none;
+}
+.dock-head input[type="search"]:focus { border-color: var(--ink-faint); }
+.dock-head .search-icon {
+  position: absolute;
+  left: 11px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-faint);
+  pointer-events: none;
+}
+.dock-count {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+.dock-count b { color: var(--ink); font-weight: 600; }
+
+.dock-body {
+  padding: 6px 18px 18px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.filter-group { margin-top: 16px; }
+.filter-group > h3 {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.filter-group > h3 button {
+  font: 500 10px var(--sans);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.filter-group > h3 button:hover { color: var(--ink); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 12px var(--sans);
+  color: var(--ink-soft);
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 120ms ease, background 120ms ease, color 120ms ease;
+}
+.chip:hover { border-color: var(--ink-faint); }
+.chip .dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+.chip.active {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.chip.cat.active { box-shadow: none; }
+
+/* -----------------------------------------------------------------------------
+ * Markers — category visual language
+ * -------------------------------------------------------------------------- */
+.atlas-pin {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.28);
+  transition: transform 120ms ease;
+}
+.atlas-pin svg { transform: rotate(45deg); width: 12px; height: 12px; fill: #fff; }
+.leaflet-marker-icon:hover .atlas-pin { transform: rotate(-45deg) scale(1.14); }
+
+.atlas-district {
+  stroke-dasharray: 5 5;
+  fill-opacity: 0.05;
+}
+.district-label {
+  background: rgba(255,255,255,0.82);
+  border: 1px dashed var(--ink-faint);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font: 600 10px var(--sans);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.district-label small { font-weight: 400; color: var(--ink-faint); }
+
+/* -----------------------------------------------------------------------------
+ * Popups
+ * -------------------------------------------------------------------------- */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--line);
+}
+.leaflet-popup-content { margin: 14px 16px; width: 248px !important; }
+.pop-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 600 10px var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pop-cat .dot { width: 8px; height: 8px; border-radius: 50%; }
+.pop h4 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.2;
+  margin: 7px 0 6px;
+}
+.pop .note { font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin: 0 0 10px; }
+.pop .meta { font-size: 11px; color: var(--ink-faint); }
+.pop .sectors { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 9px; }
+.pop .sectors span {
+  font-size: 10px;
+  padding: 2px 7px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+}
+.pop .est {
+  margin-top: 9px;
+  font-size: 10px;
+  color: #b08900;
+}
+
+/* -----------------------------------------------------------------------------
+ * Legend (bottom-right) + share button
+ * -------------------------------------------------------------------------- */
+.legend {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 700;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 12px 14px;
+  max-width: 200px;
+}
+.legend h4 {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 0 0 8px;
+}
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.legend li { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--ink-soft); }
+.legend .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+.share-btn {
+  position: fixed;
+  right: 18px;
+  top: 18px;
+  z-index: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font: 600 12px var(--sans);
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 9px 15px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.share-btn:hover { border-color: var(--ink-faint); }
+.share-btn.copied { color: #2f9e44; border-color: #2f9e44; }
+
+/* -----------------------------------------------------------------------------
+ * Responsive — dock becomes a bottom sheet on narrow screens
+ * -------------------------------------------------------------------------- */
+@media (max-width: 680px) {
+  :root { --dock-w: auto; }
+  .masthead { max-width: 60vw; }
+  .dock {
+    left: 10px; right: 10px;
+    top: auto; bottom: 10px;
+    width: auto;
+    max-height: 46vh;
+  }
+  .dock.collapsed { transform: translateY(calc(100% + 20px)); }
+  .dock-toggle { top: -38px; right: 12px; border-radius: 10px 10px 0 0; border: 1px solid var(--line); border-bottom: none; }
+  .legend { display: none; }
+}
