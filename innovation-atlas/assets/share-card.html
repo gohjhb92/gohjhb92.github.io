@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Innovation Atlas — share card</title>
+  <!--
+    Open-Graph / Twitter card source. 1200×630.
+    To export: open this file, screenshot the .card element at exactly 1200×630
+    (or use a headless shot), and save as assets/share-card.png.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;1,500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { background: #33363b; display: grid; place-items: center; min-height: 100vh; font-family: "Inter", system-ui, sans-serif; }
+    .card {
+      width: 1200px; height: 630px;
+      background: #f6f4ef;
+      position: relative; overflow: hidden;
+      padding: 72px 80px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .eyebrow { font-size: 18px; letter-spacing: 0.24em; text-transform: uppercase; color: #868e96; }
+    h1 { font-family: "Newsreader", Georgia, serif; font-weight: 500; font-size: 78px; line-height: 1.04; letter-spacing: -0.015em; color: #1a1c1e; max-width: 900px; margin-top: 26px; }
+    h1 em { font-style: italic; color: #495057; }
+    .sub { font-size: 25px; line-height: 1.5; color: #495057; max-width: 760px; margin-top: 26px; }
+    .foot { display: flex; align-items: center; gap: 18px; }
+    .dots { display: flex; gap: 9px; }
+    .dots span { width: 18px; height: 18px; border-radius: 50%; }
+    .by { font-size: 19px; color: #868e96; }
+    .by b { color: #1a1c1e; font-weight: 600; }
+    /* faint cluster-pin motif, top-right */
+    .motif { position: absolute; top: -40px; right: -40px; width: 360px; height: 360px; opacity: 0.12; }
+    .motif span { position: absolute; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 3px solid #f6f4ef; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="motif">
+      <span style="width:54px;height:54px;background:#e8590c;top:120px;left:90px"></span>
+      <span style="width:42px;height:42px;background:#7048e8;top:80px;left:180px"></span>
+      <span style="width:46px;height:46px;background:#1c7ed6;top:170px;left:200px"></span>
+      <span style="width:38px;height:38px;background:#2f9e44;top:200px;left:120px"></span>
+      <span style="width:40px;height:40px;background:#0c8599;top:110px;left:260px"></span>
+    </div>
+
+    <div>
+      <p class="eyebrow">Singapore · innovation geography</p>
+      <h1>Where the ecosystem <em>actually</em> concentrates.</h1>
+      <p class="sub">An interactive map of ~40 sites across nine categories — startups, research, health, finance, digital, culture, civic — grouped by their real clusters.</p>
+    </div>
+
+    <div class="foot">
+      <div class="dots">
+        <span style="background:#e8590c"></span>
+        <span style="background:#7048e8"></span>
+        <span style="background:#1c7ed6"></span>
+        <span style="background:#2f9e44"></span>
+        <span style="background:#0c8599"></span>
+        <span style="background:#f08c00"></span>
+        <span style="background:#c2255c"></span>
+        <span style="background:#5c940d"></span>
+        <span style="background:#495057"></span>
+      </div>
+      <div class="by">Singapore Innovation Atlas · <b>Bryan Goh</b></div>
+    </div>
+  </div>
+</body>
+</html>

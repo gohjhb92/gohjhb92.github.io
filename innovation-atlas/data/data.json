@@ -1,0 +1,714 @@
+{
+  "meta": {
+    "count": 40,
+    "lastReviewed": "2026-06-05",
+    "coordCaveat": "Sites flagged coordPrecision:'estimated' are hand-placed and pending OneMap geocoding."
+  },
+  "taxonomy": {
+    "categories": {
+      "startup": {
+        "label": "Startup & Incubation",
+        "color": "#e8590c",
+        "glyph": "rocket"
+      },
+      "research": {
+        "label": "Research & R&D",
+        "color": "#7048e8",
+        "glyph": "flask"
+      },
+      "education": {
+        "label": "Education (IHL)",
+        "color": "#1c7ed6",
+        "glyph": "cap"
+      },
+      "health": {
+        "label": "Health & Biomedical",
+        "color": "#2f9e44",
+        "glyph": "cross"
+      },
+      "digital-infra": {
+        "label": "Digital Infrastructure",
+        "color": "#0c8599",
+        "glyph": "server"
+      },
+      "financial": {
+        "label": "Financial Core",
+        "color": "#f08c00",
+        "glyph": "coin"
+      },
+      "culture": {
+        "label": "Arts & Culture",
+        "color": "#c2255c",
+        "glyph": "art"
+      },
+      "living": {
+        "label": "Living & Housing",
+        "color": "#5c940d",
+        "glyph": "home"
+      },
+      "civic": {
+        "label": "Civic & Government",
+        "color": "#495057",
+        "glyph": "pillar"
+      }
+    },
+    "types": {
+      "hub": "Hub / incubator",
+      "institute": "Research institute",
+      "university": "University campus",
+      "hospital": "Hospital",
+      "data-centre": "Data centre",
+      "district": "Innovation district",
+      "venue": "Cultural venue",
+      "estate": "Residential estate",
+      "agency": "Government agency"
+    },
+    "sectors": {
+      "deeptech": "Deep tech",
+      "fintech": "Fintech",
+      "biomedtech": "Biomed & health tech",
+      "adv-mfg": "Advanced manufacturing",
+      "sustainability": "Sustainability & green",
+      "digital-ict": "Digital & ICT",
+      "cybersecurity": "Cybersecurity",
+      "media-creative": "Media & creative",
+      "agritech-food": "Agritech & food"
+    },
+    "clusters": {
+      "one-north": "one-north",
+      "cbd": "CBD financial core",
+      "punggol": "Punggol Digital District",
+      "novena": "Novena health city",
+      "outram": "Outram health city",
+      "jid": "Jurong Innovation District",
+      "kent-ridge": "Kent Ridge",
+      "civic-dist": "Civic & Marina district",
+      "distributed": "Island-wide"
+    }
+  },
+  "districts": [
+    {
+      "cluster": "one-north",
+      "label": "one-north",
+      "bounds": [
+        [
+          1.293,
+          103.784
+        ],
+        [
+          1.303,
+          103.793
+        ]
+      ]
+    },
+    {
+      "cluster": "punggol",
+      "label": "Punggol Digital District",
+      "bounds": [
+        [
+          1.406,
+          103.906
+        ],
+        [
+          1.421,
+          103.917
+        ]
+      ]
+    },
+    {
+      "cluster": "jid",
+      "label": "Jurong Innovation District",
+      "bounds": [
+        [
+          1.335,
+          103.678
+        ],
+        [
+          1.352,
+          103.696
+        ]
+      ]
+    }
+  ],
+  "sites": [
+    {
+      "id": "block71",
+      "name": "BLOCK71 @ JTC LaunchPad",
+      "category": "startup",
+      "type": "hub",
+      "sectors": [
+        "deeptech",
+        "digital-ict"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2966,
+      "lng": 103.7872,
+      "coordPrecision": "verified",
+      "note": "The dense startup cluster that anchored one-north as Singapore's deep-tech front door."
+    },
+    {
+      "id": "biopolis",
+      "name": "Biopolis",
+      "category": "research",
+      "type": "institute",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "one-north",
+      "lat": 1.3,
+      "lng": 103.7869,
+      "coordPrecision": "verified",
+      "note": "A*STAR's biomedical research city — wet labs, institutes and pharma R&D in one campus."
+    },
+    {
+      "id": "fusionopolis",
+      "name": "Fusionopolis",
+      "category": "research",
+      "type": "institute",
+      "sectors": [
+        "deeptech",
+        "digital-ict"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2995,
+      "lng": 103.7877,
+      "coordPrecision": "verified",
+      "note": "The physical-sciences and infocomm counterpart to Biopolis across the road."
+    },
+    {
+      "id": "mediapolis",
+      "name": "Mediapolis",
+      "category": "research",
+      "type": "district",
+      "sectors": [
+        "media-creative",
+        "digital-ict"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2958,
+      "lng": 103.7896,
+      "coordPrecision": "estimated",
+      "note": "one-north's media-production and digital-content quarter."
+    },
+    {
+      "id": "insead",
+      "name": "INSEAD Asia Campus",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "deeptech"
+      ],
+      "cluster": "one-north",
+      "lat": 1.3013,
+      "lng": 103.7901,
+      "coordPrecision": "estimated",
+      "note": "A global business school planting its Asia hub inside the research belt."
+    },
+    {
+      "id": "astar-hq",
+      "name": "A*STAR (HQ, Connexis)",
+      "category": "research",
+      "type": "agency",
+      "sectors": [
+        "deeptech",
+        "biomedtech"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2988,
+      "lng": 103.7884,
+      "coordPrecision": "estimated",
+      "note": "The agency that steers most of Singapore's public R&D spending."
+    },
+    {
+      "id": "govtech-mbc",
+      "name": "GovTech @ Mapletree Business City",
+      "category": "civic",
+      "type": "agency",
+      "sectors": [
+        "digital-ict",
+        "cybersecurity"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2743,
+      "lng": 103.7905,
+      "coordPrecision": "estimated",
+      "note": "The state's in-house digital build team, sitting next to the research belt rather than in the CBD."
+    },
+    {
+      "id": "imda",
+      "name": "IMDA (Infocomm Media Dev. Authority)",
+      "category": "civic",
+      "type": "agency",
+      "sectors": [
+        "digital-ict",
+        "media-creative"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2761,
+      "lng": 103.7963,
+      "coordPrecision": "estimated",
+      "note": "Regulator-cum-developer for Singapore's infocomm and media sectors."
+    },
+    {
+      "id": "gillman",
+      "name": "Gillman Barracks",
+      "category": "culture",
+      "type": "venue",
+      "sectors": [
+        "media-creative"
+      ],
+      "cluster": "one-north",
+      "lat": 1.2789,
+      "lng": 103.8022,
+      "coordPrecision": "estimated",
+      "note": "Former barracks turned contemporary-art enclave on the edge of the research belt."
+    },
+    {
+      "id": "nus",
+      "name": "National University of Singapore (Kent Ridge)",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "deeptech",
+        "biomedtech",
+        "digital-ict"
+      ],
+      "cluster": "kent-ridge",
+      "lat": 1.2966,
+      "lng": 103.7764,
+      "coordPrecision": "verified",
+      "note": "Singapore's flagship research university and a primary feeder of founders into one-north."
+    },
+    {
+      "id": "nuh",
+      "name": "National University Hospital",
+      "category": "health",
+      "type": "hospital",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "kent-ridge",
+      "lat": 1.2939,
+      "lng": 103.7836,
+      "coordPrecision": "estimated",
+      "note": "Teaching hospital paired with NUS, closing the bench-to-bedside loop on the ridge."
+    },
+    {
+      "id": "mas",
+      "name": "Monetary Authority of Singapore",
+      "category": "civic",
+      "type": "agency",
+      "sectors": [
+        "fintech"
+      ],
+      "cluster": "cbd",
+      "lat": 1.2776,
+      "lng": 103.847,
+      "coordPrecision": "verified",
+      "note": "Central bank and the regulator whose sandbox shaped Singapore's fintech rise."
+    },
+    {
+      "id": "mbfc",
+      "name": "Marina Bay Financial Centre",
+      "category": "financial",
+      "type": "district",
+      "sectors": [
+        "fintech"
+      ],
+      "cluster": "cbd",
+      "lat": 1.2799,
+      "lng": 103.8547,
+      "coordPrecision": "verified",
+      "note": "The newer face of the financial core, anchoring banks and trading floors at Marina Bay."
+    },
+    {
+      "id": "raffles-place",
+      "name": "Raffles Place",
+      "category": "financial",
+      "type": "district",
+      "sectors": [
+        "fintech"
+      ],
+      "cluster": "cbd",
+      "lat": 1.284,
+      "lng": 103.851,
+      "coordPrecision": "verified",
+      "note": "The historic heart of the CBD and the original centre of gravity for SG finance."
+    },
+    {
+      "id": "80rr",
+      "name": "80RR Fintech Hub @ Robinson Road",
+      "category": "startup",
+      "type": "hub",
+      "sectors": [
+        "fintech"
+      ],
+      "cluster": "cbd",
+      "lat": 1.2787,
+      "lng": 103.8487,
+      "coordPrecision": "estimated",
+      "note": "A fintech-focused co-working hub embedded inside the financial district itself."
+    },
+    {
+      "id": "ura",
+      "name": "URA Centre",
+      "category": "civic",
+      "type": "agency",
+      "sectors": [
+        "sustainability"
+      ],
+      "cluster": "cbd",
+      "lat": 1.279,
+      "lng": 103.842,
+      "coordPrecision": "estimated",
+      "note": "The Urban Redevelopment Authority — the hand behind the Master Plan that zones all of this."
+    },
+    {
+      "id": "smu",
+      "name": "Singapore Management University",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "fintech",
+        "digital-ict"
+      ],
+      "cluster": "civic-dist",
+      "lat": 1.2975,
+      "lng": 103.8497,
+      "coordPrecision": "verified",
+      "note": "A city-campus university wired into the business and finance districts beside it."
+    },
+    {
+      "id": "national-gallery",
+      "name": "National Gallery Singapore",
+      "category": "culture",
+      "type": "venue",
+      "sectors": [
+        "media-creative"
+      ],
+      "cluster": "civic-dist",
+      "lat": 1.2903,
+      "lng": 103.8516,
+      "coordPrecision": "verified",
+      "note": "Southeast Asia's largest public art collection, in the former Supreme Court and City Hall."
+    },
+    {
+      "id": "esplanade",
+      "name": "Esplanade — Theatres on the Bay",
+      "category": "culture",
+      "type": "venue",
+      "sectors": [
+        "media-creative"
+      ],
+      "cluster": "civic-dist",
+      "lat": 1.2899,
+      "lng": 103.8557,
+      "coordPrecision": "verified",
+      "note": "The national performing-arts centre on the Marina Bay waterfront."
+    },
+    {
+      "id": "artscience",
+      "name": "ArtScience Museum",
+      "category": "culture",
+      "type": "venue",
+      "sectors": [
+        "media-creative",
+        "deeptech"
+      ],
+      "cluster": "civic-dist",
+      "lat": 1.2863,
+      "lng": 103.8593,
+      "coordPrecision": "verified",
+      "note": "Where Singapore stages the art-meets-technology narrative for visitors."
+    },
+    {
+      "id": "ndc",
+      "name": "National Design Centre",
+      "category": "culture",
+      "type": "venue",
+      "sectors": [
+        "media-creative"
+      ],
+      "cluster": "civic-dist",
+      "lat": 1.2998,
+      "lng": 103.8556,
+      "coordPrecision": "estimated",
+      "note": "DesignSingapore's home base in the Bras Basah.Bugis arts district."
+    },
+    {
+      "id": "ttsh",
+      "name": "Tan Tock Seng Hospital",
+      "category": "health",
+      "type": "hospital",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "novena",
+      "lat": 1.3216,
+      "lng": 103.8456,
+      "coordPrecision": "verified",
+      "note": "The acute-care anchor of HealthCity Novena."
+    },
+    {
+      "id": "lkc-medicine",
+      "name": "LKC School of Medicine (NTU)",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "novena",
+      "lat": 1.3225,
+      "lng": 103.845,
+      "coordPrecision": "estimated",
+      "note": "NTU's medical school, co-located with TTSH to pair training and care."
+    },
+    {
+      "id": "novena-health",
+      "name": "HealthCity Novena",
+      "category": "health",
+      "type": "district",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "novena",
+      "lat": 1.321,
+      "lng": 103.844,
+      "coordPrecision": "estimated",
+      "note": "A planned medical precinct consolidating hospitals, research and teaching in one node."
+    },
+    {
+      "id": "sgh",
+      "name": "Singapore General Hospital",
+      "category": "health",
+      "type": "hospital",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "outram",
+      "lat": 1.279,
+      "lng": 103.835,
+      "coordPrecision": "verified",
+      "note": "Singapore's oldest and largest hospital, core of the Outram health campus."
+    },
+    {
+      "id": "duke-nus",
+      "name": "Duke-NUS Medical School",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "outram",
+      "lat": 1.2795,
+      "lng": 103.8345,
+      "coordPrecision": "estimated",
+      "note": "A graduate medical school built for clinician-scientists, sitting on the SGH campus."
+    },
+    {
+      "id": "ncc",
+      "name": "National Cancer Centre Singapore",
+      "category": "health",
+      "type": "hospital",
+      "sectors": [
+        "biomedtech"
+      ],
+      "cluster": "outram",
+      "lat": 1.2785,
+      "lng": 103.8355,
+      "coordPrecision": "estimated",
+      "note": "National specialist centre concentrating oncology research and care."
+    },
+    {
+      "id": "pdd",
+      "name": "Punggol Digital District",
+      "category": "digital-infra",
+      "type": "district",
+      "sectors": [
+        "digital-ict",
+        "cybersecurity"
+      ],
+      "cluster": "punggol",
+      "lat": 1.41,
+      "lng": 103.91,
+      "coordPrecision": "estimated",
+      "note": "Singapore's first district master-planned around the digital economy — built ground-up, still maturing."
+    },
+    {
+      "id": "sit-punggol",
+      "name": "Singapore Institute of Technology (Punggol)",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "digital-ict",
+        "adv-mfg"
+      ],
+      "cluster": "punggol",
+      "lat": 1.412,
+      "lng": 103.913,
+      "coordPrecision": "estimated",
+      "note": "SIT's new campus, deliberately woven into the digital district rather than walled off from it."
+    },
+    {
+      "id": "punggol-coast",
+      "name": "Punggol Coast (housing)",
+      "category": "living",
+      "type": "estate",
+      "sectors": [
+        "digital-ict",
+        "sustainability"
+      ],
+      "cluster": "punggol",
+      "lat": 1.418,
+      "lng": 103.912,
+      "coordPrecision": "estimated",
+      "note": "The residential edge of the district — talent housing next to where the work is meant to be."
+    },
+    {
+      "id": "jid",
+      "name": "Jurong Innovation District",
+      "category": "digital-infra",
+      "type": "district",
+      "sectors": [
+        "adv-mfg",
+        "sustainability"
+      ],
+      "cluster": "jid",
+      "lat": 1.34,
+      "lng": 103.69,
+      "coordPrecision": "estimated",
+      "note": "An advanced-manufacturing district pulling research, makers and factories of the future together."
+    },
+    {
+      "id": "ntu",
+      "name": "Nanyang Technological University",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "deeptech",
+        "adv-mfg",
+        "sustainability"
+      ],
+      "cluster": "jid",
+      "lat": 1.3483,
+      "lng": 103.6831,
+      "coordPrecision": "verified",
+      "note": "Engineering-heavy research university anchoring the western innovation belt."
+    },
+    {
+      "id": "cleantech",
+      "name": "CleanTech Park",
+      "category": "research",
+      "type": "district",
+      "sectors": [
+        "sustainability",
+        "adv-mfg"
+      ],
+      "cluster": "jid",
+      "lat": 1.344,
+      "lng": 103.684,
+      "coordPrecision": "estimated",
+      "note": "A testbed business park for clean-tech and sustainability ventures beside NTU."
+    },
+    {
+      "id": "sutd",
+      "name": "Singapore University of Technology & Design",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "deeptech",
+        "digital-ict"
+      ],
+      "cluster": "distributed",
+      "lat": 1.3413,
+      "lng": 103.9637,
+      "coordPrecision": "verified",
+      "note": "A design-and-technology university seeded with MIT in the east at Upper Changi."
+    },
+    {
+      "id": "suss",
+      "name": "Singapore University of Social Sciences",
+      "category": "education",
+      "type": "university",
+      "sectors": [
+        "digital-ict"
+      ],
+      "cluster": "distributed",
+      "lat": 1.33,
+      "lng": 103.776,
+      "coordPrecision": "estimated",
+      "note": "Applied, work-relevant degrees with a social-science centre of gravity."
+    },
+    {
+      "id": "equinix-sg3",
+      "name": "Equinix SG3 (Tai Seng)",
+      "category": "digital-infra",
+      "type": "data-centre",
+      "sectors": [
+        "digital-ict"
+      ],
+      "cluster": "distributed",
+      "lat": 1.335,
+      "lng": 103.887,
+      "coordPrecision": "estimated",
+      "note": "One node of the carrier-dense data-centre cluster that makes SG a regional interconnect hub."
+    },
+    {
+      "id": "digital-realty-loyang",
+      "name": "Digital Realty (Loyang)",
+      "category": "digital-infra",
+      "type": "data-centre",
+      "sectors": [
+        "digital-ict"
+      ],
+      "cluster": "distributed",
+      "lat": 1.37,
+      "lng": 103.97,
+      "coordPrecision": "estimated",
+      "note": "Eastern data-centre capacity serving cloud and content providers."
+    },
+    {
+      "id": "google-dc",
+      "name": "Google Data Centre (Jurong West)",
+      "category": "digital-infra",
+      "type": "data-centre",
+      "sectors": [
+        "digital-ict",
+        "sustainability"
+      ],
+      "cluster": "distributed",
+      "lat": 1.33,
+      "lng": 103.67,
+      "coordPrecision": "estimated",
+      "note": "Hyperscale capacity in the west — part of why latency-sensitive workloads sit in SG."
+    },
+    {
+      "id": "tengah",
+      "name": "Tengah — “Forest Town”",
+      "category": "living",
+      "type": "estate",
+      "sectors": [
+        "sustainability"
+      ],
+      "cluster": "distributed",
+      "lat": 1.355,
+      "lng": 103.72,
+      "coordPrecision": "estimated",
+      "note": "Singapore's first town planned around car-lite, smart and green-living ideas from scratch."
+    },
+    {
+      "id": "bidadari",
+      "name": "Bidadari Estate",
+      "category": "living",
+      "type": "estate",
+      "sectors": [
+        "sustainability"
+      ],
+      "cluster": "distributed",
+      "lat": 1.338,
+      "lng": 103.872,
+      "coordPrecision": "estimated",
+      "note": "A dense new housing estate testing walkable, transit-first town design near the centre."
+    }
+  ]
+}
