@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T06:42:18.327Z",
+  "generatedAt": "2026-06-10T11:04:07.434Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -11,16 +11,7 @@
       "symbol": "ATAI",
       "label": "AtaiBeckley",
       "role": "Speculative core",
-      "currency": "USD",
-      "exchange": "NasdaqGM",
-      "price": 3.89,
-      "previousClose": 3.95,
-      "change": -0.06000000000000005,
-      "changePercent": -1.5189873417721533,
-      "dayHigh": 4.005,
-      "dayLow": 3.76,
-      "volume": 5312923,
-      "marketTime": "2026-06-09T20:00:01.000Z",
+      "error": "ATAI returned 429",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -95,14 +86,14 @@
       "role": "Sugar ETC proxy",
       "currency": "USD",
       "exchange": "LSE",
-      "price": 9.4,
-      "previousClose": 9.5825,
-      "change": -0.18249999999999922,
-      "changePercent": -1.9045134359509441,
-      "dayHigh": 0,
-      "dayLow": 0,
-      "volume": 131346,
-      "marketTime": "2026-06-09T15:35:24.000Z",
+      "price": 9.315,
+      "previousClose": 9.534,
+      "change": -0.2190000000000012,
+      "changePercent": -2.297042164883587,
+      "dayHigh": 9.575,
+      "dayLow": 9.315,
+      "volume": 242,
+      "marketTime": "2026-06-10T10:08:49.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
