@@ -141,6 +141,7 @@
   .ladder{display:flex; flex-direction:column; gap:4px;}
   .ladder .lrow{display:flex; align-items:center; gap:8px; font-size:13px;}
   .ladder .lcond{flex:1; color:var(--ink-dim);}
+  .die{font-size:17px; color:var(--gold); line-height:1; vertical-align:middle;}
   .ladder .lres{
     font-family:var(--font-mono); font-weight:700; font-size:11px; padding:3px 8px; border-radius:6px; white-space:nowrap;
   }
@@ -377,8 +378,8 @@
       <div class="seqstep">
         <div class="seq-title"><span class="num">1</span>Hit Roll <span class="dim" style="font-weight:400;font-size:12px;">— roll 1D6 per attack</span></div>
         <div class="ladder">
-          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
-          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Hit</span></div>
+          <div class="lrow"><span class="lcond"><span class="die">⚀</span> Nat 1</span><span class="lres fail">Fails</span></div>
+          <div class="lrow"><span class="lcond"><span class="die">⚅</span> Nat 6</span><span class="lres crit">Critical Hit</span></div>
           <div class="lrow"><span class="lcond">≥ weapon's BS / WS</span><span class="lres ok">Hit</span></div>
           <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Fails</span></div>
         </div>
@@ -387,8 +388,8 @@
       <div class="seqstep">
         <div class="seq-title"><span class="num">2</span>Wound Roll <span class="dim" style="font-weight:400;font-size:12px;">— 1D6 per hit, Strength vs Toughness</span></div>
         <div class="ladder">
-          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
-          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Wound</span></div>
+          <div class="lrow"><span class="lcond"><span class="die">⚀</span> Nat 1</span><span class="lres fail">Fails</span></div>
+          <div class="lrow"><span class="lcond"><span class="die">⚅</span> Nat 6</span><span class="lres crit">Critical Wound</span></div>
         </div>
         <div class="woundgrid">
           <div class="wrow"><span>S is <b>2×</b> T or more</span><span class="wneed">2+</span></div>
@@ -403,7 +404,7 @@
         <div class="seq-title"><span class="num">3</span>Save Roll <span class="dim" style="font-weight:400;font-size:12px;">— defender rolls 1D6 per wound</span></div>
         <p style="margin-top:0;">Group the target unit: one group per <span class="kw">CHARACTER</span>, one group per shared W/Sv/InSv block. Order: any wounded non-Character group goes first → no Character group before a non-Character group → wounded Character groups before unwounded ones.</p>
         <div class="ladder">
-          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Always inflicts dmg</span></div>
+          <div class="lrow"><span class="lcond"><span class="die">⚀</span> Nat 1</span><span class="lres fail">Always inflicts dmg</span></div>
           <div class="lrow"><span class="lcond">Has InSv & roll ≥ InSv</span><span class="lres ok">Saved</span></div>
           <div class="lrow"><span class="lcond">Roll (after AP) ≥ Sv</span><span class="lres ok">Saved</span></div>
           <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Inflicts dmg</span></div>
