@@ -197,6 +197,7 @@
     <a href="#sec-round">Battle Round</a>
     <a href="#sec-strat">Stratagems</a>
     <a href="#sec-prebattle">Pre-Battle</a>
+    <a href="#sec-command">Command</a>
     <a href="#sec-obj">Objectives</a>
     <a href="#sec-actions">Actions</a>
     <a href="#sec-cheat">Attack Seq</a>
@@ -436,6 +437,54 @@
       <p><b>Mortal wounds</b> skip straight to damage, one at a time: hit a wounded non-Character model first if one exists, else any non-Character model, else a wounded Character, else any Character. 1 wound lost per mortal wound.</p>
       <p>If an attack causes both normal damage and mortal wounds, resolve all the normal damage first, then the mortal wounds.</p>
       <p><b>Hazard roll</b> (Desperate Escape, <span class="kw">[HAZARDOUS]</span> weapons, overheating, etc.): roll 1D6 per model — on a <span class="kw">1-2</span>, the unit suffers 1 mortal wound (<b>3</b> instead if every model in the unit is Monster/Vehicle).</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== COMMAND PHASE ===================== -->
+<section id="sec-command">
+  <h2><span class="secnum">08</span>Command Phase</h2>
+
+  <details class="block" open>
+    <summary><span>Command Phase sequence<span class="sub">CP gain → Battle-shock → abilities</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">1. Gain CP</span></div>
+          <div class="rc-body"><b>Both players</b> gain +1 Command Point (Core CP) — every turn, not just your own. This happens simultaneously at the start of the Command phase.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">2. Battle-shock Checks</span></div>
+          <div class="rc-body">The active player must make a Battle-shock roll for every friendly unit that is <b>already Battle-shocked</b> OR <b>at or below half-strength</b>. Half-strength = half the starting number of models (or half starting wounds for a single-model Vehicle/Monster unit).</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">3. Command Phase Abilities</span></div>
+          <div class="rc-body">Resolve any abilities that trigger in the Command phase — auras, faction rules, detachment abilities, enhancements, etc. Active player resolves theirs first, then the opponent resolves theirs.</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Battle-shock effects<span class="sub">What it means to be Battle-shocked</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Battle-shocked unit</span></div>
+          <div class="rc-body">
+            <ul style="margin:0; padding-left:18px;">
+              <li>OC drops to <b>'-'</b> (counts as 0 — cannot help control objectives)</li>
+              <li>Cannot be targeted by <b>your own stratagems</b></li>
+              <li>Cannot <b>start or complete actions</b></li>
+              <li>On a Fall Back, must use <b>Desperate Escape</b> (hazard roll per model)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Recovering</span></div>
+          <div class="rc-body">At the start of your next Command phase, make another Battle-shock roll — succeed and the unit recovers. The <b>Insane Bravery</b> stratagem (1CP) auto-passes one roll before it's made, once per battle.</div>
+        </div>
+      </div>
     </div>
   </details>
 </section>
