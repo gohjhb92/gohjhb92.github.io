@@ -200,6 +200,7 @@
     <a href="#sec-command">Command</a>
     <a href="#sec-obj">Objectives</a>
     <a href="#sec-actions">Actions</a>
+    <a href="#sec-hidden">Hidden/GtG</a>
     <a href="#sec-cheat">Attack Seq</a>
     <a href="#sec-move">Movement</a>
     <a href="#sec-shooting">Shooting</a>
@@ -364,6 +365,59 @@
     <div class="inner">
       <p>A unit <b>can't</b> start an action if it's off the battlefield, an Aircraft/Fortification, battle-shocked, has OC 0 or '-', engaged (unless Titanic), or already Advanced/Fell Back/started another action this turn.</p>
       <p>Once started, that unit can't shoot (unless Titanic) or charge for the rest of the turn. If it makes any move other than pile-in/consolidate, or leaves the battlefield, the action fails to complete — no effect.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== HIDDEN & GONE TO GROUND ===================== -->
+<section id="sec-hidden">
+  <h2><span class="secnum">13.09–13.11</span>Hidden & Gone to Ground</h2>
+
+  <details class="block" open>
+    <summary><span>Hidden<span class="sub">Invisible beyond detection range</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">How to be Hidden</span></div>
+          <div class="rc-body">A model is hidden while <b>all</b> of the following apply:
+            <ul style="margin:6px 0 0; padding-left:18px;">
+              <li>Has the <span class="kw">INFANTRY</span> / <span class="kw">BEASTS</span> / <span class="kw">SWARM</span> keyword</li>
+              <li>Is within a terrain area containing one or more <b>light or dense</b> terrain features</li>
+              <li>Its unit did <b>not</b> make any ranged attacks this turn <i>or</i> the previous turn</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Effect — Detection Range</span><span class="rc-dist">15" default</span></div>
+          <div class="rc-body">A hidden model can only be <b>visible</b> to enemy models within its detection range (15" unless otherwise stated). Outside that range, it counts as not visible regardless of actual line of sight.<br><br>
+          Note: detection range cannot be modified to better than <b>9"</b> or worse than <b>30"</b>. Some models (e.g. <span class="kw">TOWERING</span>) cannot benefit from Hidden at all.</div>
+        </div>
+      </div>
+      <div class="calloutbox">Hidden applies <b>per model</b>, not per unit. If any non-hidden model in the unit is visible and in range, Hidden offers no protection — the unit can still be targeted through that model.</div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Gone to Ground<span class="sub">–3" to detection range behind solid terrain</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">How to have Gone to Ground</span></div>
+          <div class="rc-body">A model has gone to ground while <b>all</b> of the following apply:
+            <ul style="margin:6px 0 0; padding-left:18px;">
+              <li>It is <b>Hidden</b></li>
+              <li>It is <b>not fully visible</b> to the attacking model due to one or more intervening <b>solid</b> terrain features</li>
+              <li>Its unit did <b>not</b> make any ranged attacks this turn or the previous turn</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Effect</span><span class="rc-dist">−3" detection range</span></div>
+          <div class="rc-body">Subtract <b>3"</b> from that model's detection range. At the default 15", this reduces detection range to <b>12"</b> against that attacking model.<br><br>
+          Unlike Hidden, Gone to Ground is <b>not a fixed state</b> — it depends on the specific attacking model's perspective and which solid terrain features intervene. A model may have it against one attacker but not another.</div>
+        </div>
+      </div>
+      <div class="calloutbox"><b>Light terrain only?</b> Light terrain features are not Solid, so they cannot grant Gone to Ground — even though they do allow Hidden. Gone to Ground only applies when <b>Solid</b> terrain blocks the attacker's line of sight.</div>
     </div>
   </details>
 </section>
