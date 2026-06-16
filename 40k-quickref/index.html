@@ -192,11 +192,12 @@
   </div>
 
   <nav class="jumpnav">
-    <a href="#sec-cheat">Attack Seq</a>
     <a href="#sec-core">Core</a>
     <a href="#sec-round">Battle Round</a>
     <a href="#sec-prebattle">Pre-Battle</a>
-    <a href="#sec-move">Move Types</a>
+    <a href="#sec-cheat">Attack Seq</a>
+    <a href="#sec-move">Movement</a>
+    <a href="#sec-shooting">Shooting</a>
     <a href="#sec-chargefight">Charge/Fight</a>
     <a href="#sec-emergency">Emergency</a>
     <a href="#sec-terrain">Terrain</a>
@@ -209,79 +210,6 @@
 </header>
 
 <main>
-
-<!-- ===================== ATTACK SEQUENCE CHEAT CARD ===================== -->
-<section id="sec-cheat">
-  <h2><span class="secnum">05</span>Attack Sequence — Cheat Card</h2>
-
-  <details class="block" open>
-    <summary><span>Hit → Wound → Save → Damage<span class="sub">The four rolls behind every attack</span></span><span class="chev">▸</span></summary>
-    <div class="inner">
-
-      <div class="seqstep">
-        <div class="seq-title"><span class="num">1</span>Hit Roll <span class="dim" style="font-weight:400;font-size:12px;">— roll 1D6 per attack</span></div>
-        <div class="ladder">
-          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
-          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Hit</span></div>
-          <div class="lrow"><span class="lcond">≥ weapon's BS / WS</span><span class="lres ok">Hit</span></div>
-          <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Fails</span></div>
-        </div>
-      </div>
-
-      <div class="seqstep">
-        <div class="seq-title"><span class="num">2</span>Wound Roll <span class="dim" style="font-weight:400;font-size:12px;">— 1D6 per hit, Strength vs Toughness</span></div>
-        <div class="ladder">
-          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
-          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Wound</span></div>
-        </div>
-        <div class="woundgrid">
-          <div class="wrow"><span>S is <b>2×</b> T or more</span><span class="wneed">2+</span></div>
-          <div class="wrow"><span>S is <b>greater</b> than T</span><span class="wneed">3+</span></div>
-          <div class="wrow"><span>S <b>equals</b> T</span><span class="wneed">4+</span></div>
-          <div class="wrow"><span>S is <b>less</b> than T</span><span class="wneed">5+</span></div>
-          <div class="wrow"><span>S is <b>half</b> T or less</span><span class="wneed">6+</span></div>
-        </div>
-      </div>
-
-      <div class="seqstep">
-        <div class="seq-title"><span class="num">3</span>Save Roll <span class="dim" style="font-weight:400;font-size:12px;">— defender rolls 1D6 per wound</span></div>
-        <p style="margin-top:0;">Group the target unit: one group per <span class="kw">CHARACTER</span>, one group per shared W/Sv/InSv block. Order: any wounded non-Character group goes first → no Character group before a non-Character group → wounded Character groups before unwounded ones.</p>
-        <div class="ladder">
-          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Always inflicts dmg</span></div>
-          <div class="lrow"><span class="lcond">Has InSv & roll ≥ InSv</span><span class="lres ok">Saved</span></div>
-          <div class="lrow"><span class="lcond">Roll (after AP) ≥ Sv</span><span class="lres ok">Saved</span></div>
-          <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Inflicts dmg</span></div>
-        </div>
-        <div class="calloutbox"><b>Invuln vs AP:</b> Invulnerable saves ignore AP entirely and use the unmodified roll. Always check if InSv beats a modified Sv before using it.</div>
-      </div>
-
-      <div class="seqstep">
-        <div class="seq-title"><span class="num">4</span>Inflict Damage <span class="dim" style="font-weight:400;font-size:12px;">— lowest result first</span></div>
-        <p style="margin-top:0;">Resolve failed saves from <b>lowest roll to highest</b>. Selected model loses W equal to the weapon's D. 0 or fewer wounds remaining = destroyed. Once a whole allocation group is dead, move to the next group in order.</p>
-      </div>
-
-    </div>
-  </details>
-
-  <details class="block">
-    <summary><span>Making Attacks — the 3 steps before all that<span class="sub">Select weapons → targets → resolve</span></span><span class="chev">▸</span></summary>
-    <div class="inner">
-      <p><b>1. Select Weapons</b> — shooting: pick any number of ranged weapons. Fighting: pick exactly one melee weapon per model.</p>
-      <p><b>2. Select Targets</b> — shooting: one target per weapon, must be visible, in range, unengaged. Fighting: one or more engaged enemy units; melee weapons targeting 2+ units must split their attacks across them (declare how many attacks go where).</p>
-      <p><b>3. Resolve Attacks</b> — pick an enemy unit, gather attack dice from one weapon (plus any other weapons making <i>identical</i> attacks against the same unit), resolve the full Hit→Wound→Save→Damage sequence, repeat until every weapon's attacks are resolved.</p>
-      <div class="calloutbox"><b>Identical attacks</b> share BS/WS, S, AP and D and the same abilities — bundle their dice together to save time.</div>
-    </div>
-  </details>
-
-  <details class="block">
-    <summary><span>Mortal Wounds & Hazard Rolls<span class="sub">Bypass the normal sequence entirely</span></span><span class="chev">▸</span></summary>
-    <div class="inner">
-      <p><b>Mortal wounds</b> skip straight to damage, one at a time: hit a wounded non-Character model first if one exists, else any non-Character model, else a wounded Character, else any Character. 1 wound lost per mortal wound.</p>
-      <p>If an attack causes both normal damage and mortal wounds, resolve all the normal damage first, then the mortal wounds.</p>
-      <p><b>Hazard roll</b> (Desperate Escape, <span class="kw">[HAZARDOUS]</span> weapons, overheating, etc.): roll 1D6 per model — on a <span class="kw">1-2</span>, the unit suffers 1 mortal wound (<b>3</b> instead if every model in the unit is Monster/Vehicle).</p>
-    </div>
-  </details>
-</section>
 
 <!-- ===================== CORE CONCEPTS ===================== -->
 <section id="sec-core">
@@ -397,9 +325,82 @@
   </details>
 </section>
 
+<!-- ===================== ATTACK SEQUENCE ===================== -->
+<section id="sec-cheat">
+  <h2><span class="secnum">05</span>Attack Sequence</h2>
+
+  <details class="block" open>
+    <summary><span>Hit → Wound → Save → Damage<span class="sub">The four rolls behind every attack</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">1</span>Hit Roll <span class="dim" style="font-weight:400;font-size:12px;">— roll 1D6 per attack</span></div>
+        <div class="ladder">
+          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
+          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Hit</span></div>
+          <div class="lrow"><span class="lcond">≥ weapon's BS / WS</span><span class="lres ok">Hit</span></div>
+          <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Fails</span></div>
+        </div>
+      </div>
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">2</span>Wound Roll <span class="dim" style="font-weight:400;font-size:12px;">— 1D6 per hit, Strength vs Toughness</span></div>
+        <div class="ladder">
+          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
+          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Wound</span></div>
+        </div>
+        <div class="woundgrid">
+          <div class="wrow"><span>S is <b>2×</b> T or more</span><span class="wneed">2+</span></div>
+          <div class="wrow"><span>S is <b>greater</b> than T</span><span class="wneed">3+</span></div>
+          <div class="wrow"><span>S <b>equals</b> T</span><span class="wneed">4+</span></div>
+          <div class="wrow"><span>S is <b>less</b> than T</span><span class="wneed">5+</span></div>
+          <div class="wrow"><span>S is <b>half</b> T or less</span><span class="wneed">6+</span></div>
+        </div>
+      </div>
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">3</span>Save Roll <span class="dim" style="font-weight:400;font-size:12px;">— defender rolls 1D6 per wound</span></div>
+        <p style="margin-top:0;">Group the target unit: one group per <span class="kw">CHARACTER</span>, one group per shared W/Sv/InSv block. Order: any wounded non-Character group goes first → no Character group before a non-Character group → wounded Character groups before unwounded ones.</p>
+        <div class="ladder">
+          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Always inflicts dmg</span></div>
+          <div class="lrow"><span class="lcond">Has InSv & roll ≥ InSv</span><span class="lres ok">Saved</span></div>
+          <div class="lrow"><span class="lcond">Roll (after AP) ≥ Sv</span><span class="lres ok">Saved</span></div>
+          <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Inflicts dmg</span></div>
+        </div>
+        <div class="calloutbox"><b>Invuln vs AP:</b> Invulnerable saves ignore AP entirely and use the unmodified roll. Always check if InSv beats a modified Sv before using it.</div>
+      </div>
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">4</span>Inflict Damage <span class="dim" style="font-weight:400;font-size:12px;">— lowest result first</span></div>
+        <p style="margin-top:0;">Resolve failed saves from <b>lowest roll to highest</b>. Selected model loses W equal to the weapon's D. 0 or fewer wounds remaining = destroyed. Once a whole allocation group is dead, move to the next group in order.</p>
+      </div>
+
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Making Attacks — the 3 steps before all that<span class="sub">Select weapons → targets → resolve</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>1. Select Weapons</b> — shooting: pick any number of ranged weapons. Fighting: pick exactly one melee weapon per model.</p>
+      <p><b>2. Select Targets</b> — shooting: one target per weapon, must be visible, in range, unengaged. Fighting: one or more engaged enemy units; melee weapons targeting 2+ units must split their attacks across them (declare how many attacks go where).</p>
+      <p><b>3. Resolve Attacks</b> — pick an enemy unit, gather attack dice from one weapon (plus any other weapons making <i>identical</i> attacks against the same unit), resolve the full Hit→Wound→Save→Damage sequence, repeat until every weapon's attacks are resolved.</p>
+      <div class="calloutbox"><b>Identical attacks</b> share BS/WS, S, AP and D and the same abilities — bundle their dice together to save time.</div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Mortal Wounds & Hazard Rolls<span class="sub">Bypass the normal sequence entirely</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Mortal wounds</b> skip straight to damage, one at a time: hit a wounded non-Character model first if one exists, else any non-Character model, else a wounded Character, else any Character. 1 wound lost per mortal wound.</p>
+      <p>If an attack causes both normal damage and mortal wounds, resolve all the normal damage first, then the mortal wounds.</p>
+      <p><b>Hazard roll</b> (Desperate Escape, <span class="kw">[HAZARDOUS]</span> weapons, overheating, etc.): roll 1D6 per model — on a <span class="kw">1-2</span>, the unit suffers 1 mortal wound (<b>3</b> instead if every model in the unit is Monster/Vehicle).</p>
+    </div>
+  </details>
+</section>
+
 <!-- ===================== MOVE TYPES ===================== -->
 <section id="sec-move">
-  <h2><span class="secnum">09–21</span>Move Types — Quick Table</h2>
+  <h2><span class="secnum">09–21</span>Movement Phase</h2>
   <details class="block" open>
     <summary><span>Movement Phase<span class="sub">Max distance & key conditions</span></span><span class="chev">▸</span></summary>
     <div class="inner">
@@ -414,6 +415,71 @@
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Rapid Disembark</span><span class="rc-dist">3"</span></div><div class="rc-body">Transport made a <b>Normal Move or Ingress</b> this phase. Set up wholly within 3" (or within 1" if model's base &gt;3"). <b>Can't Charge</b> this turn. After an Ingress, unit inherits all the same set-up restrictions the Transport had (e.g. 8"+ from enemies).</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Tactical Disembark</span><span class="rc-dist">3" + move</span></div><div class="rc-body">Before the Transport is selected to move, <i>or</i> Transport <b>Remained Stationary</b>. Set up wholly within 3" (or 1" for large bases), then <b>immediately make a Normal or Advance Move</b> — the Transport is still in its original position, so can't occupy the space it's vacating.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Combat Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Only when neither above applies (usually enemy Engagement Range blocks a 3" set-up). Set up wholly within 6"; may end in Engagement Range of enemies Engaged with the Transport. Whole unit makes <b>Hazard Rolls</b> + takes a <b>Battle-shock test</b>.</div></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== SHOOTING PHASE ===================== -->
+<section id="sec-shooting">
+  <h2><span class="secnum">10</span>Shooting Phase</h2>
+
+  <details class="block" open>
+    <summary><span>Eligibility & Target Selection<span class="sub">Who can shoot and what they can shoot at</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Eligible to Shoot</span></div>
+          <div class="rc-body">A unit can shoot if it is on the battlefield and has not Fallen Back this turn. Engaged units can only shoot if they have a <span class="kw">[CLOSE-QUARTERS]</span> weapon or are a Monster/Vehicle (Close-Quarters Shooting). Units that Advanced can only fire <span class="kw">[ASSAULT]</span> weapons.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Select Targets</span></div>
+          <div class="rc-body">Each ranged weapon targets one enemy unit. The target must be <b>visible</b> to the firing model and <b>within range</b> of the weapon. Engaged enemy units cannot be targeted unless firing via Close-Quarters Shooting. <span class="kw">[BLAST]</span> weapons can never target engaged units.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Snap Shooting</span></div>
+          <div class="rc-body">Some effects (e.g. Fire Overwatch stratagem) force Snap Shooting: hits only on an <b>unmodified 6</b>, no re-rolls to hit allowed. Other modifiers to the hit roll still apply after the 6 threshold is met.</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="block" open>
+    <summary><span>Shooting Types<span class="sub">Normal / Assault / Close-Quarters / Indirect</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Normal Shooting</span></div>
+          <div class="rc-body">Unit is unengaged and did not Advance this turn. Pick any ranged weapons — use Making Attacks sequence.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Assault Shooting</span></div>
+          <div class="rc-body">Unit is unengaged and <b>did Advance</b> this turn. Can only fire <span class="kw">[ASSAULT]</span> weapons. No other ranged weapons allowed this phase.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Close-Quarters Shooting</span></div>
+          <div class="rc-body">Unit is <b>Engaged</b>, did not Advance, has a <span class="kw">[CLOSE-QUARTERS]</span> weapon or is a Monster/Vehicle. Can only target units it is Engaged with. Monster/Vehicle models take <b>−1 to hit</b> unless the weapon is <span class="kw">[CLOSE-QUARTERS]</span>. <span class="kw">[BLAST]</span> weapons still cannot target engaged units.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Indirect Fire</span></div>
+          <div class="rc-body">Unit is unengaged and did not Advance. Has an <span class="kw">[INDIRECT FIRE]</span> weapon. Can target units it <b>cannot see</b>. Target always gets Benefit of Cover. No re-rolls to hit. Unmodified hit rolls of <b>1–5 always fail</b> (reduced to 1–3 only if the firer Remained Stationary and a friendly unit has line of sight to the target).</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Key Shooting Stratagems<span class="sub">Fire Overwatch & Smokescreen</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Fire Overwatch</span><span class="rc-dist">1CP</span></div>
+          <div class="rc-body">End of opponent's Movement phase. One unengaged, non-Titanic unit shoots via Snap Shooting at one visible enemy within <b>24"</b>. Hits on unmodified 6 only; no re-rolls.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Smokescreen</span><span class="rc-dist">1CP</span></div>
+          <div class="rc-body">Start of opponent's Shooting phase. One friendly <span class="kw">SMOKE</span> unit (and anything it obscures) gains <b>Benefit of Cover</b> for the entire phase.</div>
+        </div>
       </div>
     </div>
   </details>
