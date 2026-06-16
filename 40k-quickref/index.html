@@ -196,6 +196,7 @@
     <a href="#sec-core">Core</a>
     <a href="#sec-round">Battle Round</a>
     <a href="#sec-move">Move Types</a>
+    <a href="#sec-chargefight">Charge/Fight</a>
     <a href="#sec-terrain">Terrain</a>
     <a href="#sec-obj">Objectives</a>
     <a href="#sec-strat">Stratagems</a>
@@ -385,22 +386,93 @@
 <section id="sec-move">
   <h2><span class="secnum">09–21</span>Move Types — Quick Table</h2>
   <details class="block" open>
-    <summary><span>Every move type at a glance<span class="sub">Max distance & key conditions</span></span><span class="chev">▸</span></summary>
+    <summary><span>Movement Phase<span class="sub">Max distance & key conditions</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Scout Move</span><span class="rc-dist">Scouts X"</span></div><div class="rc-body">Pre-battle only. Unit must be wholly in your own deployment zone. Must end 8"+ from all enemies.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Remain Stationary</span><span class="rc-dist">0"</span></div><div class="rc-body">No rules triggered by starting/ending a move.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Normal Move</span><span class="rc-dist">M</span></div><div class="rc-body">Unengaged only. Must end unengaged.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Advance Move</span><span class="rc-dist">M + 1D6</span></div><div class="rc-body">Roll first. Can't charge or start an action this turn afterwards.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Fall Back</span><span class="rc-dist">M</span></div><div class="rc-body">Must be engaged to start. <b>Ordered Retreat</b> (not shocked) or <b>Desperate Escape</b> (shocked, or chosen anyway — hazard roll per model, can move through enemies). Can't shoot, charge or fight after.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Charge Move</span><span class="rc-dist">2D6</span></div><div class="rc-body">Must end engaged with every declared target, nothing else. Grants Fights First.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Pile-in / Consolidate</span><span class="rc-dist">3"</span></div><div class="rc-body">Fight phase only — see Fight Phase above.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Surge Move</span><span class="rc-dist">Rule-defined</span></div><div class="rc-body">Triggered move toward the closest enemy (the "surge target"). Unengaged, unshocked, hasn't moved this phase. Can't engage anyone else.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Ingress (Reserves)</span><span class="rc-dist">6" set-up</span></div><div class="rc-body">From battle round 2+ (or via a rule like <span class="kw">DEEP STRIKE</span>/Rapid Ingress). Must be 8"+ from all enemies; can't be in opponent's zone before round 3 unless a rule says otherwise.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Rapid Disembark</span><span class="rc-dist">3"</span></div><div class="rc-body">Transport made a <b>Normal Move or Ingress</b> this phase. Set up wholly within 3" (or within 1" if model's base &gt;3"). <b>Can't Charge</b> this turn. After an Ingress, unit inherits all the same set-up restrictions the Transport had (e.g. 8"+ from enemies).</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Tactical Disembark</span><span class="rc-dist">3" + move</span></div><div class="rc-body">Before the Transport is selected to move, <i>or</i> Transport <b>Remained Stationary</b>. Set up wholly within 3" (or 1" for large bases), then <b>immediately make a Normal or Advance Move</b> — the Transport is still in its original position, so can't occupy the space it's vacating.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Combat Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Only when neither above applies (usually enemy Engagement Range blocks a 3" set-up). Set up wholly within 6"; may end in Engagement Range of enemies Engaged with the Transport. Whole unit makes <b>Hazard Rolls</b> + takes a <b>Battle-shock test</b>.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Emergency Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Transport just destroyed. Hazard roll first; models that can't fit are destroyed; unit ends battle-shocked, can't charge.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Ingress (Reserves)</span><span class="rc-dist">6" set-up</span></div><div class="rc-body">From battle round 2+ (or via a rule like <span class="kw">DEEP STRIKE</span>/Rapid Ingress). Must be 8"+ from all enemies; can't be in opponent's zone before round 3 unless a rule says otherwise.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Scout Move</span><span class="rc-dist">Scouts X"</span></div><div class="rc-body">Pre-battle only, unit wholly in your own zone. Must end 8"+ from all enemies.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Surge Move</span><span class="rc-dist">Rule-defined</span></div><div class="rc-body">Triggered move toward the closest enemy (the "surge target"). Unengaged, unshocked, hasn't moved this phase. Can't engage anyone else.</div></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== CHARGE / FIGHT PHASE ===================== -->
+<section id="sec-chargefight">
+  <h2><span class="secnum">11–12</span>Charge / Fight Phase</h2>
+
+  <details class="block" open>
+    <summary><span>Charge Phase<span class="sub">Declare → Roll → Move</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Declare a Charge</span><span class="rc-dist">within 12"</span></div>
+          <div class="rc-body">Pick one or more enemy units within 12" as targets. You <b>cannot</b> declare if your unit is Engaged, has Advanced or Fallen Back this turn, or has no eligible targets. Roll <b>2D6</b> — this is your max charge distance.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Charge Move</span><span class="rc-dist">2D6"</span></div>
+          <div class="rc-body">Move each model up to the rolled distance. The charge <b>succeeds</b> only if every model ends in Engagement Range of all declared targets and no undeclared enemies. A roll of <b>2 always fails</b> — you can never reach Engagement Range starting outside it. Successful charge grants <span class="kw">FIGHTS FIRST</span> for the rest of the turn.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Heroic Intervention</span><span class="rc-dist">Stratagem</span></div>
+          <div class="rc-body">End of opponent's Charge phase: unengaged unit within 12" of an enemy makes a charge (1CP). <b>Leap to Defend</b> — must target units that already charged this phase. <b>Into the Fray</b> (+1CP) — cap the roll at 6, can target any enemy within 6".</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="block" open>
+    <summary><span>Fight Phase — Order of Play<span class="sub">Fights First → everyone else, players alternate</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Step 1 — Pile In</span><span class="rc-dist">3"</span></div>
+          <div class="rc-body">Every eligible unit (Engaged, or charged this turn) may move up to 3" closer to its engaged/charge targets before fighting. Models already in base contact cannot move.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Step 2 — Fight</span></div>
+          <div class="rc-body"><b>Fights First units go first</b> — active player picks one, then opponent picks one, alternating until all Fights First units have fought. Then all remaining eligible units fight the same way (alternate). A unit is eligible if it is Engaged, was Engaged at the start of this step, or charged this turn.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Overrun Fight</span></div>
+          <div class="rc-body">If a unit was Engaged at the start of the Fight step but its enemies were all destroyed before its turn to fight — it gets an extra Pile In move (3"), which can pull in new enemy units. Those newly-engaged enemies then become eligible to fight in the current step.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Step 3 — Consolidate</span><span class="rc-dist">3"</span></div>
+          <div class="rc-body">After fighting, pick one mode: <b>Ongoing</b> — still Engaged, close the gap with an Engaged enemy. <b>Engaging</b> — within 3" of an enemy not yet Engaged, move to Engage (can pull in units that haven't fought yet). <b>Objective</b> — within 3" of an objective with no nearby enemy, move onto it.</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Fight Phase — Key Restrictions<span class="sub">What you can and can't do</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Fights First</span></div>
+          <div class="rc-body">Granted by a successful Charge, or by certain abilities (e.g. <span class="kw">FIGHTS FIRST</span> keyword). Both players' Fights First units resolve before any others. If only one side has Fights First units left, the active player picks one of theirs, then the opponent picks one, and so on.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Weapon Selection (Melee)</span></div>
+          <div class="rc-body">Pick <b>exactly one melee weapon</b> per model. <span class="kw">[EXTRA ATTACKS]</span> weapons fight alongside one other chosen weapon. If attacking 2+ enemy units, declare how many of the model's attacks go at each target before rolling.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Fallen Back / Advanced</span></div>
+          <div class="rc-body">A unit that Fell Back or Advanced this turn <b>cannot fight</b> in the Fight phase.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Counteroffensive</span><span class="rc-dist">2CP</span></div>
+          <div class="rc-body">Opponent's Fight phase, right after an enemy unit resolves attacks: your eligible unit gains <span class="kw">FIGHTS FIRST</span> and must be the very next unit you pick to fight.</div>
+        </div>
       </div>
     </div>
   </details>
