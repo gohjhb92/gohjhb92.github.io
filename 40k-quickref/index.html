@@ -334,7 +334,7 @@
 <!-- ===================== PRE-BATTLEROUND ===================== -->
 <section id="sec-prebattle">
   <h2><span class="secnum">04</span>Pre-Battleround</h2>
-  <details class="block" open>
+  <details class="block">
     <summary><span>Pre-battle moves & set-up<span class="sub">Happens before Battle Round 1</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -373,7 +373,7 @@
 <section id="sec-hidden">
   <h2><span class="secnum">08</span>Hidden & Gone to Ground</h2>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Hidden<span class="sub">Invisible beyond detection range</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -426,7 +426,7 @@
 <section id="sec-cheat">
   <h2><span class="secnum">09</span>Attack Sequence</h2>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Hit → Wound → Save → Damage<span class="sub">The four rolls behind every attack</span></span><span class="chev">▸</span></summary>
     <div class="inner">
 
@@ -499,7 +499,7 @@
 <section id="sec-command">
   <h2><span class="secnum">05</span>Command Phase</h2>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Command Phase sequence<span class="sub">CP gain → Battle-shock → abilities</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -546,7 +546,7 @@
 <!-- ===================== MOVE TYPES ===================== -->
 <section id="sec-move">
   <h2><span class="secnum">10</span>Movement Phase</h2>
-  <details class="block" open>
+  <details class="block">
     <summary><span>Movement Phase<span class="sub">Max distance & key conditions</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -569,7 +569,7 @@
 <section id="sec-shooting">
   <h2><span class="secnum">11</span>Shooting Phase</h2>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Eligibility & Target Selection<span class="sub">Who can shoot and what they can shoot at</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -589,7 +589,7 @@
     </div>
   </details>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Shooting Types<span class="sub">Normal / Assault / Close-Quarters / Indirect</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -619,7 +619,7 @@
 <section id="sec-chargefight">
   <h2><span class="secnum">12</span>Charge / Fight Phase</h2>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Charge Phase<span class="sub">Declare → Roll → Move</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -639,7 +639,7 @@
     </div>
   </details>
 
-  <details class="block" open>
+  <details class="block">
     <summary><span>Fight Phase — Order of Play<span class="sub">Fights First → everyone else, players alternate</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -691,7 +691,7 @@
 <!-- ===================== EMERGENCY DISEMBARK ===================== -->
 <section id="sec-emergency">
   <h2><span class="secnum">13</span>Emergency Disembark</h2>
-  <details class="block" open>
+  <details class="block">
     <summary><span>Transport destroyed while carrying passengers<span class="sub">Triggered immediately when the transport is destroyed</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
@@ -911,21 +911,53 @@
     var q = searchInput.value.trim().toLowerCase();
     searchbox.classList.toggle('has-text', q.length > 0);
 
-    [ {list: stratList, nomatch: stratNoMatch}, {list: glossList, nomatch: glossNoMatch} ].forEach(function(group){
-      var cards = group.list.querySelectorAll('.gcard');
-      var visibleCount = 0;
-      cards.forEach(function(card){
-        var show = !q || card.getAttribute('data-search').indexOf(q) !== -1;
-        card.classList.toggle('hidden', !show);
-        if (show) visibleCount++;
-      });
-      group.nomatch.style.display = (visibleCount === 0) ? 'block' : 'none';
+    if (!q) {
+      // Reset — show all sections, collapse all details, show all cards
+      document.querySelectorAll('section').forEach(function(s){ s.style.display = ''; });
+      document.querySelectorAll('details.block').forEach(function(d){ d.open = false; });
+      document.querySelectorAll('.gcard').forEach(function(c){ c.classList.remove('hidden'); });
+      stratNoMatch.style.display = 'none';
+      glossNoMatch.style.display = 'none';
+      return;
+    }
 
-      // auto-expand parent <details> if there's a query and matches exist within its section
-      if (q) {
-        var details = group.list.closest('section').querySelectorAll('details.block');
-        details.forEach(function(d){ d.open = true; });
+    document.querySelectorAll('section').forEach(function(sec){
+      var hasMatch = false;
+
+      if (sec.id === 'sec-strat') {
+        var count = 0;
+        sec.querySelectorAll('.gcard').forEach(function(card){
+          var show = card.getAttribute('data-search').indexOf(q) !== -1;
+          card.classList.toggle('hidden', !show);
+          if (show) count++;
+        });
+        stratNoMatch.style.display = count === 0 ? 'block' : 'none';
+        hasMatch = count > 0;
+      } else if (sec.id === 'sec-glossary') {
+        var count = 0;
+        sec.querySelectorAll('.gcard').forEach(function(card){
+          var show = card.getAttribute('data-search').indexOf(q) !== -1;
+          card.classList.toggle('hidden', !show);
+          if (show) count++;
+        });
+        glossNoMatch.style.display = count === 0 ? 'block' : 'none';
+        hasMatch = count > 0;
+      } else {
+        // Search each details block by full text content
+        sec.querySelectorAll('details.block').forEach(function(d){
+          var match = d.textContent.toLowerCase().indexOf(q) !== -1;
+          d.open = match;
+          if (match) hasMatch = true;
+        });
+        // Also match on section heading
+        var h2 = sec.querySelector('h2');
+        if (h2 && h2.textContent.toLowerCase().indexOf(q) !== -1) {
+          hasMatch = true;
+          sec.querySelectorAll('details.block').forEach(function(d){ d.open = true; });
+        }
       }
+
+      sec.style.display = hasMatch ? '' : 'none';
     });
   }
 
