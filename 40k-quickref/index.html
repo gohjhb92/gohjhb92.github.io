@@ -620,20 +620,20 @@
   <h2><span class="secnum">12</span>Charge / Fight Phase</h2>
 
   <details class="block">
-    <summary><span>Charge Phase<span class="sub">Declare → Roll → Move</span></span><span class="chev">▸</span></summary>
+    <summary><span>Charge Phase<span class="sub">Roll → Pick Targets → Move</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
         <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Declare a Charge</span><span class="rc-dist">within 12"</span></div>
-          <div class="rc-body">Pick one or more enemy units within 12" as targets. You <b>cannot</b> declare if your unit is Engaged, has Advanced or Fallen Back this turn, or has no eligible targets. Roll <b>2D6</b> — this is your max charge distance.</div>
+          <div class="rc-head"><span class="rc-name">Declare a Charge</span><span class="rc-dist">2D6" range</span></div>
+          <div class="rc-body">Roll <b>2D6 first</b> — this is your max charge distance. Then pick one or more enemy units within that distance as targets. You <b>cannot</b> attempt a charge if your unit is Engaged, has Advanced or Fallen Back this turn. You may choose not to execute the move after rolling.</div>
         </div>
         <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Charge Move</span><span class="rc-dist">2D6"</span></div>
-          <div class="rc-body">Move each model up to the rolled distance. The charge <b>succeeds</b> only if every model ends in Engagement Range of all declared targets and no undeclared enemies. A roll of <b>2 always fails</b> — you can never reach Engagement Range starting outside it. Successful charge grants <span class="kw">FIGHTS FIRST</span> for the rest of the turn.</div>
+          <div class="rc-head"><span class="rc-name">Charge Move</span><span class="rc-dist">up to 2D6"</span></div>
+          <div class="rc-body">Move each model up to the rolled distance. Each model must end <b>closer</b> to a charge target, within <b>1"</b> of a target if possible (or at least within Engagement Range if 1" is not achievable). Cannot end Engaged with any unit <i>not</i> picked as a target. A roll of <b>2 auto-fails</b>. Successful charge grants <span class="kw">FIGHTS FIRST</span> for the rest of the turn.</div>
         </div>
         <div class="rulecard">
           <div class="rc-head"><span class="rc-name">Heroic Intervention</span><span class="rc-dist">Stratagem</span></div>
-          <div class="rc-body">End of opponent's Charge phase: unengaged unit within 12" of an enemy makes a charge (1CP). <b>Leap to Defend</b> — must target units that already charged this phase. <b>Into the Fray</b> (+1CP) — cap the roll at 6, can target any enemy within 6".</div>
+          <div class="rc-body">End of opponent's Charge phase: unengaged unit within 12" of an enemy makes a charge (1CP). <b>Leap to Defend</b> — must target units that already charged this phase. <b>Into the Fray</b> (+1CP) — can target <i>any</i> enemy unit, but charge roll is capped at 6.</div>
         </div>
       </div>
     </div>
@@ -645,7 +645,7 @@
       <div class="ruletable">
         <div class="rulecard">
           <div class="rc-head"><span class="rc-name">Step 1 — Pile In</span><span class="rc-dist">3"</span></div>
-          <div class="rc-body">Every eligible unit (Engaged, or charged this turn) may move up to 3" closer to its engaged/charge targets before fighting. Models already in base contact cannot move.</div>
+          <div class="rc-body"><b>Active Player moves all eligible units first, then Opposing Player.</b> Each eligible unit (Engaged, or charged this turn) may move each model up to 3". If already Engaged, you must pick all currently Engaged units as targets; if not yet Engaged, pick one or more units within 5". Each model must end closer to and (if possible) Engaged with the nearest selected target. Models already in base contact cannot move.</div>
         </div>
         <div class="rulecard">
           <div class="rc-head"><span class="rc-name">Step 2 — Fight</span></div>
@@ -657,7 +657,7 @@
         </div>
         <div class="rulecard">
           <div class="rc-head"><span class="rc-name">Step 3 — Consolidate</span><span class="rc-dist">3"</span></div>
-          <div class="rc-body">After fighting, pick one mode: <b>Ongoing</b> — still Engaged, close the gap with an Engaged enemy. <b>Engaging</b> — within 3" of an enemy not yet Engaged, move to Engage (can pull in units that haven't fought yet). <b>Objective</b> — within 3" of an objective with no nearby enemy, move onto it.</div>
+          <div class="rc-body"><b>Active Player consolidates all units first, then Opposing Player.</b> Each unit eligible to fight this phase consolidates using one mode: <b>Ongoing</b> — currently Engaged, move up to 3" closer to an Engaged enemy. <b>Engaging</b> — not Engaged but within 3" of an enemy, move to Engage (units pulled in become eligible to fight via Overrun Fight). <b>Objective</b> — neither above applies, but within 3" of an objective; move up to 3" within or toward it.</div>
         </div>
       </div>
     </div>
