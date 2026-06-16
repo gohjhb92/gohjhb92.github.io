@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="40K Rules">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0b0d">
+<meta name="description" content="Compressed mobile quick-reference for the Warhammer 40,000 Core Rules — Thousand Sons, Space Marines, Deathwatch, Chaos Knights.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png">
+<title>Core Rules — Quick Reference</title>
+<style>
+  :root{
+    --bg:#0a0b0d;
+    --bg-card:#15171c;
+    --bg-card-2:#1c1f26;
+    --bg-card-3:#20242c;
+    --line:#2a2e36;
+    --line-soft:#1f222a;
+    --ink:#eae7e0;
+    --ink-dim:#9aa1ad;
+    --ink-faint:#6b7280;
+    --gold:#caa23f;
+    --crimson:#c0392b;
+    --crimson-soft:rgba(192,57,43,0.18);
+    --green:#3f9b6e;
+    --green-soft:rgba(63,155,110,0.16);
+    --radius:12px;
+    --font-display: ui-serif, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Menlo", "Cascadia Mono", monospace;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:15.5px; line-height:1.45; -webkit-font-smoothing:antialiased;}
+  body{padding-bottom:60px;}
+  a{color:var(--gold); text-decoration:none;}
+  .hairline{height:1px; background:var(--line); border:none; margin:14px 0;}
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,11,13,0.92);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    padding-top:calc(10px + env(safe-area-inset-top));
+    border-bottom:1px solid var(--line);
+  }
+  .titlebar{display:flex; align-items:baseline; justify-content:space-between; padding:0 14px 8px;}
+  .titlebar h1{
+    font-family:var(--font-display); font-weight:700; letter-spacing:0.06em;
+    text-transform:uppercase; font-size:18px; margin:0; color:var(--ink);
+  }
+  .titlebar .eyebrow{display:block; font-family:var(--font-body); font-size:10px; letter-spacing:0.12em; color:var(--gold); text-transform:uppercase; margin-bottom:2px;}
+  .titlebar .build-tag{font-family:var(--font-mono); font-size:10px; color:var(--ink-faint);}
+
+  .searchwrap{padding:0 14px 10px;}
+  .searchbox{
+    display:flex; align-items:center; gap:8px;
+    background:var(--bg-card); border:1px solid var(--line); border-radius:10px;
+    padding:9px 12px;
+  }
+  .searchbox svg{flex:none; opacity:0.55;}
+  .searchbox input{
+    flex:1; background:none; border:none; outline:none; color:var(--ink);
+    font-family:var(--font-body); font-size:15px;
+  }
+  .searchbox input::placeholder{color:var(--ink-faint);}
+  .searchbox .clear-btn{
+    display:none; background:var(--line); color:var(--ink-dim); border:none; border-radius:50%;
+    width:20px; height:20px; font-size:13px; line-height:20px; text-align:center; cursor:pointer; padding:0;
+  }
+  .searchbox.has-text .clear-btn{display:block;}
+
+  /* nav pills */
+  nav.jumpnav{
+    display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    padding:0 14px 10px; border-top:1px solid var(--line-soft);
+  }
+  nav.jumpnav::-webkit-scrollbar{display:none;}
+  nav.jumpnav a{
+    flex:none; font-size:12px; font-weight:600; letter-spacing:0.02em;
+    color:var(--ink-dim); background:var(--bg-card); border:1px solid var(--line);
+    padding:7px 12px; border-radius:8px; white-space:nowrap;
+  }
+  nav.jumpnav a:active{background:var(--bg-card-2);}
+
+  /* ---------- Layout ---------- */
+  main{padding:14px 12px 8px; max-width:720px; margin:0 auto;}
+  section{margin-bottom:18px;}
+  section > h2{
+    font-family:var(--font-display); text-transform:uppercase; letter-spacing:0.05em;
+    font-size:13px; color:var(--gold); margin:0 0 8px 2px; display:flex; align-items:center; gap:8px;
+  }
+  section > h2 .secnum{font-family:var(--font-mono); color:var(--ink-faint); font-size:11px;}
+
+  details.block{
+    background:var(--bg-card); border:1px solid var(--line); border-radius:var(--radius);
+    margin-bottom:8px; overflow:hidden;
+  }
+  details.block > summary{
+    list-style:none; cursor:pointer; padding:13px 14px; display:flex; align-items:center;
+    justify-content:space-between; font-weight:600; font-size:15px; color:var(--ink);
+  }
+  details.block > summary::-webkit-details-marker{display:none;}
+  details.block > summary .chev{transition:transform .2s ease; color:var(--ink-faint); font-size:13px;}
+  details.block[open] > summary .chev{transform:rotate(90deg);}
+  details.block > summary .sub{display:block; font-weight:400; font-size:12px; color:var(--ink-faint); margin-top:2px;}
+  details.block .inner{padding:0 14px 16px;}
+  details.block .inner > p:first-child{margin-top:0;}
+
+  p{margin:8px 0;}
+  ul{margin:8px 0; padding-left:20px;}
+  li{margin:4px 0;}
+  strong{color:var(--ink); font-weight:600;}
+  .dim{color:var(--ink-dim);}
+  code, .kw{font-family:var(--font-mono); font-size:13px; background:var(--bg-card-2); padding:1px 5px; border-radius:5px; color:var(--gold);}
+
+  /* generic rule-cards (move types, shooting types, fight types) */
+  .ruletable{display:flex; flex-direction:column; gap:8px;}
+  .rulecard{background:var(--bg-card-2); border:1px solid var(--line-soft); border-radius:9px; padding:10px 12px;}
+  .rulecard .rc-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 8px; margin-bottom:4px;}
+  .rulecard .rc-name{font-weight:700; font-size:14.5px;}
+  .rulecard .rc-dist{font-family:var(--font-mono); font-size:12.5px; color:var(--gold); white-space:nowrap; margin-left:auto;}
+  .rulecard .rc-body{font-size:13.5px; color:var(--ink-dim);}
+  .rulecard .rc-body b{color:var(--ink);}
+  .rulecard .rc-row{margin-top:4px;}
+  .rulecard .rc-row .lbl{color:var(--ink-faint); font-size:11px; text-transform:uppercase; letter-spacing:0.04em; margin-right:5px;}
+
+  /* attack sequence cheat */
+  .seqstep{background:var(--bg-card-2); border:1px solid var(--line-soft); border-radius:9px; padding:11px 13px; margin-bottom:8px;}
+  .seqstep .seq-title{font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; margin-bottom:6px;}
+  .seqstep .seq-title .num{
+    display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%;
+    background:var(--gold); color:#1a1407; font-size:11px; font-weight:800; font-family:var(--font-mono); flex:none;
+  }
+  .ladder{display:flex; flex-direction:column; gap:4px;}
+  .ladder .lrow{display:flex; align-items:center; gap:8px; font-size:13px;}
+  .ladder .lcond{flex:1; color:var(--ink-dim);}
+  .ladder .lres{
+    font-family:var(--font-mono); font-weight:700; font-size:11px; padding:3px 8px; border-radius:6px; white-space:nowrap;
+  }
+  .lres.fail{background:var(--crimson-soft); color:#e07a6f;}
+  .lres.ok{background:var(--green-soft); color:#6fc79a;}
+  .lres.crit{background:var(--green); color:#06120c;}
+
+  .woundgrid{display:flex; flex-direction:column; gap:5px; margin-top:6px;}
+  .wrow{display:flex; justify-content:space-between; align-items:center; background:var(--bg-card-3); border-radius:7px; padding:7px 10px; font-size:13px;}
+  .wrow .wneed{font-family:var(--font-mono); font-weight:800; color:var(--gold); font-size:14px;}
+
+  .calloutbox{background:rgba(202,162,63,0.08); border:1px solid rgba(202,162,63,0.35); border-radius:9px; padding:10px 12px; font-size:13px; color:var(--ink-dim); margin-top:8px;}
+  .calloutbox b{color:var(--gold);}
+
+  /* stratagem & glossary cards */
+  .cardgrid{display:flex; flex-direction:column; gap:8px;}
+  .gcard{background:var(--bg-card-2); border:1px solid var(--line-soft); border-radius:9px; padding:11px 13px;}
+  .gcard .g-head{display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;}
+  .gcard .g-name{font-family:var(--font-mono); font-weight:700; font-size:14px; color:var(--ink);}
+  .gcard .g-cp{font-family:var(--font-mono); font-size:11px; font-weight:800; background:var(--crimson); color:#fff; padding:3px 8px; border-radius:6px; white-space:nowrap;}
+  .gcard .g-when{font-size:11.5px; color:var(--ink-faint); margin-top:3px;}
+  .gcard .g-body{font-size:13.5px; color:var(--ink-dim); margin-top:5px;}
+  .gcard.hidden{display:none;}
+  .nomatch{padding:18px; text-align:center; color:var(--ink-faint); font-size:13.5px; display:none;}
+
+  footer{padding:24px 18px 10px; text-align:center; color:var(--ink-faint); font-size:11.5px; line-height:1.6;}
+  footer a{color:var(--ink-faint); text-decoration:underline;}
+
+  ::selection{background:rgba(202,162,63,0.35);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="titlebar">
+    <div>
+      <span class="eyebrow">Tactical Dataslate</span>
+      <h1>Core Rules · Quick Ref</h1>
+    </div>
+    <span class="build-tag">v1.0</span>
+  </div>
+
+  <div class="searchwrap">
+    <div class="searchbox" id="searchbox">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search" type="text" placeholder="Search abilities & stratagems… e.g. devastating wounds" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="clear-btn" id="clearSearch">✕</button>
+    </div>
+  </div>
+
+  <nav class="jumpnav">
+    <a href="#sec-cheat">Attack Seq</a>
+    <a href="#sec-core">Core</a>
+    <a href="#sec-round">Battle Round</a>
+    <a href="#sec-move">Move Types</a>
+    <a href="#sec-terrain">Terrain</a>
+    <a href="#sec-obj">Objectives</a>
+    <a href="#sec-strat">Stratagems</a>
+    <a href="#sec-actions">Actions</a>
+    <a href="#sec-vehicles">Vehicles & Co.</a>
+    <a href="#sec-glossary">Glossary</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ===================== ATTACK SEQUENCE CHEAT CARD ===================== -->
+<section id="sec-cheat">
+  <h2><span class="secnum">05</span>Attack Sequence — Cheat Card</h2>
+
+  <details class="block" open>
+    <summary><span>Hit → Wound → Save → Damage<span class="sub">The four rolls behind every attack</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">1</span>Hit Roll <span class="dim" style="font-weight:400;font-size:12px;">— roll 1D6 per attack</span></div>
+        <div class="ladder">
+          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
+          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Hit</span></div>
+          <div class="lrow"><span class="lcond">≥ weapon's BS / WS</span><span class="lres ok">Hit</span></div>
+          <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Fails</span></div>
+        </div>
+      </div>
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">2</span>Wound Roll <span class="dim" style="font-weight:400;font-size:12px;">— 1D6 per hit, Strength vs Toughness</span></div>
+        <div class="ladder">
+          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Fails</span></div>
+          <div class="lrow"><span class="lcond">Unmodified 6</span><span class="lres crit">Critical Wound</span></div>
+        </div>
+        <div class="woundgrid">
+          <div class="wrow"><span>S is <b>2×</b> T or more</span><span class="wneed">2+</span></div>
+          <div class="wrow"><span>S is <b>greater</b> than T</span><span class="wneed">3+</span></div>
+          <div class="wrow"><span>S <b>equals</b> T</span><span class="wneed">4+</span></div>
+          <div class="wrow"><span>S is <b>less</b> than T</span><span class="wneed">5+</span></div>
+          <div class="wrow"><span>S is <b>half</b> T or less</span><span class="wneed">6+</span></div>
+        </div>
+      </div>
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">3</span>Save Roll <span class="dim" style="font-weight:400;font-size:12px;">— defender rolls 1D6 per wound</span></div>
+        <p style="margin-top:0;">Group the target unit: one group per <span class="kw">CHARACTER</span>, one group per shared W/Sv/InSv block. Order: any wounded non-Character group goes first → no Character group before a non-Character group → wounded Character groups before unwounded ones.</p>
+        <div class="ladder">
+          <div class="lrow"><span class="lcond">Unmodified 1</span><span class="lres fail">Always inflicts dmg</span></div>
+          <div class="lrow"><span class="lcond">Has InSv & roll ≥ InSv</span><span class="lres ok">Saved</span></div>
+          <div class="lrow"><span class="lcond">Roll (after AP) ≥ Sv</span><span class="lres ok">Saved</span></div>
+          <div class="lrow"><span class="lcond">Anything else</span><span class="lres fail">Inflicts dmg</span></div>
+        </div>
+        <div class="calloutbox"><b>Invuln vs AP:</b> Invulnerable saves ignore AP entirely and use the unmodified roll. Always check if InSv beats a modified Sv before using it.</div>
+      </div>
+
+      <div class="seqstep">
+        <div class="seq-title"><span class="num">4</span>Inflict Damage <span class="dim" style="font-weight:400;font-size:12px;">— lowest result first</span></div>
+        <p style="margin-top:0;">Resolve failed saves from <b>lowest roll to highest</b>. Selected model loses W equal to the weapon's D. 0 or fewer wounds remaining = destroyed. Once a whole allocation group is dead, move to the next group in order.</p>
+      </div>
+
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Making Attacks — the 3 steps before all that<span class="sub">Select weapons → targets → resolve</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>1. Select Weapons</b> — shooting: pick any number of ranged weapons. Fighting: pick exactly one melee weapon per model.</p>
+      <p><b>2. Select Targets</b> — shooting: one target per weapon, must be visible, in range, unengaged. Fighting: one or more engaged enemy units; melee weapons targeting 2+ units must split their attacks across them (declare how many attacks go where).</p>
+      <p><b>3. Resolve Attacks</b> — pick an enemy unit, gather attack dice from one weapon (plus any other weapons making <i>identical</i> attacks against the same unit), resolve the full Hit→Wound→Save→Damage sequence, repeat until every weapon's attacks are resolved.</p>
+      <div class="calloutbox"><b>Identical attacks</b> share BS/WS, S, AP and D and the same abilities — bundle their dice together to save time.</div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Mortal Wounds & Hazard Rolls<span class="sub">Bypass the normal sequence entirely</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Mortal wounds</b> skip straight to damage, one at a time: hit a wounded non-Character model first if one exists, else any non-Character model, else a wounded Character, else any Character. 1 wound lost per mortal wound.</p>
+      <p>If an attack causes both normal damage and mortal wounds, resolve all the normal damage first, then the mortal wounds.</p>
+      <p><b>Hazard roll</b> (Desperate Escape, <span class="kw">[HAZARDOUS]</span> weapons, overheating, etc.): roll 1D6 per model — on a <span class="kw">1-2</span>, the unit suffers 1 mortal wound (<b>3</b> instead if every model in the unit is Monster/Vehicle).</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== CORE CONCEPTS ===================== -->
+<section id="sec-core">
+  <h2><span class="secnum">01–03</span>Core Concepts</h2>
+
+  <details class="block">
+    <summary><span>Coherency & Engagement<span class="sub">The two distances that govern everything</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Coherency</span><span class="rc-dist">2" / 9"</span></div>
+          <div class="rc-body">Every model must be within <b>2"</b> (horizontal, 5" vertical) of at least one other model in its unit, and within <b>9"</b> (5" vertical) of <i>every</i> other model in the unit. Checked on set-up and at the end of any move. Out of coherency at end of turn = forced model removal until fixed (they count as destroyed, no death triggers).</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Engagement range</span><span class="rc-dist">2" / 5"</span></div>
+          <div class="rc-body">A model's engagement range is 2" horizontally / 5" vertically around it. Any friendly model within an enemy's engagement range makes <i>both units</i> engaged. No engaged models in a unit = that unit is unengaged.</div>
+        </div>
+      </div>
+      <div class="calloutbox">Always measure to/from the <b>closest point</b> of a model's base (or its closest point if it's a basesless <span class="kw">FRAME</span> model — common on big Monsters/Vehicles like Knights).</div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Dice, Leadership & Battle-shock<span class="sub">2D6 rolls and what failing them does</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Leadership roll:</b> roll 2D6 — succeeds if the result ≥ the unit's Ld characteristic.</p>
+      <p><b>Battle-shock roll</b> = a Leadership roll. Fail it and every model in the unit becomes <b>battle-shocked</b>: OC drops to '-', the unit can't be targeted by your own stratagems, and it can't start (or finish) actions.</p>
+      <p><b>Dice shorthand:</b> <code>2+/3+</code> = that result or higher · <code>1-3</code> = any result in that range · <code>2D6</code> = roll & add · <code>D3</code> = 1D6 halved, rounded up · <code>D6+1</code> = roll then add the flat number.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Visibility<span class="sub">Visible vs Fully Visible</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Line of sight = an unobstructed straight line from any part of the observer to any part of the target, ignoring other models in either unit.</p>
+      <p><b>Visible:</b> any part of the model can be seen. <b>Fully visible:</b> every part facing the observer can be seen (only that model itself may block its own parts). A unit is visible if 1+ model in it is visible; fully visible only if every model in it is fully visible.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== BATTLE ROUND ===================== -->
+<section id="sec-round">
+  <h2><span class="secnum">07–12</span>The Battle Round</h2>
+
+  <details class="block">
+    <summary><span>Turn structure<span class="sub">Start → 5 phases → End, then opponent's turn</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Each battle round: both players take one full turn (Start of Turn → Command → Movement → Shooting → Charge → Fight → End of Turn). The same player always goes first in every round of a given mission.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Command Phase<span class="sub">Gain CP, then check morale</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>1.</b> Both players gain <b>+1 CP</b> (Core CP) — every turn, not just your own.</p>
+      <p><b>2. Battle-shock check:</b> the active player must make a battle-shock roll for every one of their units that is <i>already</i> battle-shocked <b>or</b> at/below half-strength (by models, or by remaining wounds for a 1-model Vehicle/Monster unit).</p>
+      <p><b>3.</b> Resolve any Command-phase abilities (auras, faction rules, etc.).</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Shooting Types<span class="sub">Normal / Assault / Close-Quarters / Indirect</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Normal Shooting</span></div>
+          <div class="rc-body">Unengaged, didn't Advance this turn. Standard shoot — use Making Attacks.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Assault Shooting</span></div>
+          <div class="rc-body">Unengaged <b>and</b> Advanced this turn, has a <span class="kw">[ASSAULT]</span> weapon. Can only fire <span class="kw">[ASSAULT]</span> weapons this phase.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Close-Quarters Shooting</span></div>
+          <div class="rc-body">Engaged, didn't Advance, has a <span class="kw">[CLOSE-QUARTERS]</span> weapon or is a Monster/Vehicle. Can target units you're engaged with. Monster/Vehicle models take -1 to hit unless firing a <span class="kw">[CLOSE-QUARTERS]</span> weapon at an engaged target; <span class="kw">[BLAST]</span> still can't target engaged units.</div>
+        </div>
+        <div class="rulecard">
+          <div class="rc-head"><span class="rc-name">Indirect Shooting</span></div>
+          <div class="rc-body">Unengaged, didn't Advance, has an <span class="kw">[INDIRECT FIRE]</span> weapon. Can target units it can't see. Target always gets cover; no hit re-rolls; unmodified 1-5 always fails (1-3 only if you stayed stationary <i>and</i> a friendly unit can see the target).</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Charge Phase<span class="sub">2D6 charge roll, 12" declare range</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Declare a charge against one or more enemy units within <b>12"</b>. Roll <b>2D6</b> for the max charge distance. To succeed, every model must end up engaged with all declared targets and engaged with nothing else. Can't declare if engaged, if you Advanced/Fell Back this turn, or if no enemy is within 12".</p>
+      <p>A successful charge grants <b>Fights First</b> for the rest of the turn — and remember, a roll of <span class="kw">2</span> can never complete a charge (you can't end within engagement range starting outside it on a roll that low).</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Fight Phase<span class="sub">Pile in → Fight → Consolidate</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>1. Pile In (3")</b> — every engaged unit (or one that charged, or made an overrun fight) can move 3" closer to its engaged/charge targets. Models already in base contact can't move.</p>
+      <p><b>2. Fight</b> — <b>Fights First</b> units go first (players alternate picking one each), then everyone else (players alternate again). A unit fights if it's engaged, was engaged at the start of the step, or charged this turn. An <b>Overrun fight</b> (unengaged units that were engaged at step-start, or just became engaged) gets an extra pile-in move before fighting — this can drag in fresh enemy units, who then become eligible to fight too.</p>
+      <p><b>3. Consolidate (3")</b> — pick a mode: <b>Ongoing</b> (still engaged — close the gap with someone you're engaged with), <b>Engaging</b> (within 3" of an enemy not yet engaged — move to engage; can pull in enemies who haven't fought yet), or <b>Objective</b> (within 3" of an objective and no enemy nearby — move onto it).</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== MOVE TYPES ===================== -->
+<section id="sec-move">
+  <h2><span class="secnum">09–21</span>Move Types — Quick Table</h2>
+  <details class="block" open>
+    <summary><span>Every move type at a glance<span class="sub">Max distance & key conditions</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Remain Stationary</span><span class="rc-dist">0"</span></div><div class="rc-body">No rules triggered by starting/ending a move.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Normal Move</span><span class="rc-dist">M</span></div><div class="rc-body">Unengaged only. Must end unengaged.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Advance Move</span><span class="rc-dist">M + 1D6</span></div><div class="rc-body">Roll first. Can't charge or start an action this turn afterwards.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Fall Back</span><span class="rc-dist">M</span></div><div class="rc-body">Must be engaged to start. <b>Ordered Retreat</b> (not shocked) or <b>Desperate Escape</b> (shocked, or chosen anyway — hazard roll per model, can move through enemies). Can't shoot, charge or fight after.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Charge Move</span><span class="rc-dist">2D6</span></div><div class="rc-body">Must end engaged with every declared target, nothing else. Grants Fights First.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Pile-in / Consolidate</span><span class="rc-dist">3"</span></div><div class="rc-body">Fight phase only — see Fight Phase above.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Disembark</span><span class="rc-dist">3" / 6"</span></div><div class="rc-body"><b>Rapid</b> (3", transport moved normal/ingress) · <b>Tactical</b> (3", transport stationary — unit can then still move/advance) · <b>Combat</b> (6", transport otherwise moved — hazard roll, unit ends battle-shocked, can't charge).</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Emergency Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Transport just destroyed. Hazard roll first; models that can't fit are destroyed; unit ends battle-shocked, can't charge.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Ingress (Reserves)</span><span class="rc-dist">6" set-up</span></div><div class="rc-body">From battle round 2+ (or via a rule like <span class="kw">DEEP STRIKE</span>/Rapid Ingress). Must be 8"+ from all enemies; can't be in opponent's zone before round 3 unless a rule says otherwise.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Scout Move</span><span class="rc-dist">Scouts X"</span></div><div class="rc-body">Pre-battle only, unit wholly in your own zone. Must end 8"+ from all enemies.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Surge Move</span><span class="rc-dist">Rule-defined</span></div><div class="rc-body">Triggered move toward the closest enemy (the "surge target"). Unengaged, unshocked, hasn't moved this phase. Can't engage anyone else.</div></div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== TERRAIN ===================== -->
+<section id="sec-terrain">
+  <h2><span class="secnum">13</span>Terrain & Cover</h2>
+
+  <details class="block">
+    <summary><span>Terrain categories & movement<span class="sub">Exposed / Light / Dense</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Exposed/Light</b> — every model moves through freely, horizontally and vertically.</p>
+      <p><b>Dense</b> — Infantry/Beasts/Swarm/Mobile move through it horizontally freely; Infantry/Beasts/Swarm also vertically. Everything else can only pass horizontally through sections 2" or less tall (otherwise must climb up/over) and can't pass through floors/ceilings.</p>
+      <p>Big Vehicles/Monsters without Mobile generally have to go <b>around</b> dense terrain over 2" tall, or climb it section by section — plan large model movement around table clutter.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Cover, Hidden, Obscuring, Solid<span class="sub">The four visibility rules that matter most</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Benefit of Cover (-1 to the attack's BS):</b> applies if every model in the target unit is either (a) Infantry/Beasts/Swarm and inside a terrain area, or (b) not fully visible to the shooter because of intervening terrain.</p>
+      <p><b>Hidden:</b> Infantry/Beasts/Swarm models inside a terrain area containing dense terrain, whose unit hasn't shot this turn or last turn, are only visible within 15" (their "detection range") unless stated otherwise.</p>
+      <p><b>Obscuring:</b> a terrain area with light or dense features blocks visibility entirely between any two models whose line of sight crosses it (unless one of them is inside that same area).</p>
+      <p><b>Solid:</b> dense terrain blocks line of sight through any enclosed gap (doors, windows) that's 3" or less off the ground — no peeking through ground-floor windows.</p>
+      <div class="calloutbox"><span class="kw">STEALTH</span> and <span class="kw">[IGNORES COVER]</span> directly fight over this -1 BS — see Glossary.</div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== OBJECTIVES ===================== -->
+<section id="sec-obj">
+  <h2><span class="secnum">14</span>Objectives</h2>
+  <details class="block">
+    <summary><span>Control & Secured<span class="sub">It's just OC math</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Sum the <span class="kw">OC</span> characteristic of every model you have within range of an objective (within its terrain area). Highest total controls it; a tie means nobody controls it <i>unless</i> it's already secured.</p>
+      <p><b>Secured:</b> some rules let your army keep control of an objective even after you leave it — until the opponent's level of control becomes higher than yours at the end of a phase.</p>
+      <p>Battle-shocked models count their OC as <b>'-'</b> (zero, can't help control anything).</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== STRATAGEMS ===================== -->
+<section id="sec-strat">
+  <h2><span class="secnum">15</span>Core Stratagems</h2>
+  <p class="dim" style="margin:0 0 10px 2px; font-size:12.5px;">Available to <i>every</i> army, regardless of faction. Your codex/app adds more on top of these. Search box above filters this list.</p>
+  <div class="cardgrid" id="stratList"></div>
+  <div class="nomatch" id="stratNoMatch">No stratagems match your search.</div>
+</section>
+
+<!-- ===================== ACTIONS ===================== -->
+<section id="sec-actions">
+  <h2><span class="secnum">16</span>Actions</h2>
+  <details class="block">
+    <summary><span>Starting & completing<span class="sub">Mission/codex actions follow this pattern</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>A unit <b>can't</b> start an action if it's off the battlefield, an Aircraft/Fortification, battle-shocked, has OC 0 or '-', engaged (unless Titanic), or already Advanced/Fell Back/started another action this turn.</p>
+      <p>Once started, that unit can't shoot (unless Titanic) or charge for the rest of the turn. If it makes any move other than pile-in/consolidate, or leaves the battlefield, the action fails to complete — no effect.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== VEHICLES, TRANSPORTS, ATTACHED, RESERVES, FLYING, AIRCRAFT ===================== -->
+<section id="sec-vehicles">
+  <h2><span class="secnum">17–23</span>Vehicles, Transports & Advanced Rules</h2>
+
+  <details class="block">
+    <summary><span>Monsters & Vehicles<span class="sub">Big models play by different rules</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>On a Normal/Advance move, your Monster/Vehicle models can move through any model except other Monster/Vehicle models.</p>
+      <p><span class="kw">FRAME</span> models (most baseless Monsters/Vehicles) measure from their closest point rather than a base, and rotate around their central axis.</p>
+      <p><b>Shooting an engaged Monster/Vehicle:</b> it can be targeted by ranged attacks even while engaged — but subtract 1 from the hit roll, unless the attack uses <span class="kw">[CLOSE-QUARTERS]</span> from a unit it's engaged with.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Transports<span class="sub">Embark, ride, disembark</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Embark:</b> after a normal/advance/fall-back move, within 3" of a friendly Transport with room, unit wasn't set up this turn → it's removed from the table, "inside" the Transport.</p>
+      <p><b>Disembark</b> (your Movement phase) — see the Move Types table above for the three modes (Rapid/Tactical/Combat). If the Transport is destroyed, units inside must immediately make an <b>Emergency Disembark</b> (hazard roll, 6", battle-shocked after).</p>
+      <div class="calloutbox"><b>Firing Deck X</b> lets up to X embarked models each fire one weapon through the Transport when it shoots — but then those models' own units can't shoot this turn.</div>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Attached Units (Leader / Support)<span class="sub">Characters joining a squad</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>A <span class="kw">LEADER</span> or <span class="kw">SUPPORT</span> unit can join one eligible bodyguard unit before the battle, forming a single attached unit for all rules purposes.</p>
+      <p><b>Targeting it:</b> use the highest Toughness among the bodyguard models (or among the leader/support models if no bodyguards remain) for the whole attack — even if a different model in the unit gets the actual wounds.</p>
+      <p><b>Keywords:</b> the attached unit has every keyword from every component unit — but individual models don't gain keywords they didn't already have.</p>
+      <p><b>Ability duration:</b> a buff from the leader lasts only until the last leader model is destroyed; a buff from the bodyguard's own ability lasts until the last bodyguard model dies; wargear/enhancement abilities die with their specific bearer.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Strategic Reserves & Deep Strike<span class="sub">Holding units back, then dropping them in</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Up to <b>50%</b> of your points can sit in strategic reserves before the battle (including anything embarked in a reserved Transport). They arrive via an <b>Ingress move</b> from round 2 onward — 6" from a battlefield edge, more than 8" from every enemy, and not in your opponent's zone before round 3 (unless a rule overrides this, like <span class="kw">DEEP STRIKE</span>, which skips the edge and zone restrictions entirely).</p>
+      <p>Anything still in reserves after round 3 ends is destroyed — except units embarked in a Transport that itself already arrived, or "repositioned" units that left the table mid-battle via a specific rule.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Flying & Surging<span class="sub">FLY keyword interactions</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>A <span class="kw">FLY</span> unit can declare "taking to the skies" on a normal/advance/fall-back/charge move: <b>-2" max distance</b> (unless it also has <span class="kw">HOVER</span>, which cancels that penalty), but it can then ignore vertical distance entirely and pass through any model or terrain, including enemies and other Vehicles/Monsters.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Other Rules — Aura, Faction, Psychic, Wargear, Plunging Fire<span class="sub">Auras, factions, psychic, wargear, height bonuses</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p><b>Aura</b> abilities affect everything within range, including the bearer's own unit; stacking the same aura from two sources on one unit doesn't double it.</p>
+      <p><b>Faction abilities</b> only work if your chosen army faction matches a faction keyword on that datasheet.</p>
+      <p><b>Psychic abilities</b> — wounds they cause count as from a "psychic attack" for other rules that care.</p>
+      <p><b>Wargear abilities</b> apply to the whole unit if the unit has the item, or just to the carrying model ("the bearer") if it's a personal item — until that bearer dies.</p>
+      <p><b>Plunging Fire (+1 BS):</b> shooting a ground-level target from 3"+ up a terrain feature, or from a <span class="kw">TOWERING</span> model within 12" of the target.</p>
+    </div>
+  </details>
+
+  <details class="block">
+    <summary><span>Aircraft<span class="sub">Rare for ground-heavy lists, included for completeness</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Must start in strategic reserves; can only ever arrive via Ingress moves and get pulled back into reserves at the end of every opponent's turn. Can't be charged except by Fly units, and can't charge at all except to engage Fly units. Plunging Fire never applies to or from them.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== GLOSSARY ===================== -->
+<section id="sec-glossary">
+  <h2><span class="secnum">24</span>Core Abilities Glossary</h2>
+  <p class="dim" style="margin:0 0 10px 2px; font-size:12.5px;">Every universal weapon/unit ability from the rulebook, A→Z. Search box above filters this list.</p>
+  <div class="cardgrid" id="glossList"></div>
+  <div class="nomatch" id="glossNoMatch">No abilities match your search / filter.</div>
+</section>
+
+</main>
+
+<footer>
+  Compressed &amp; rewritten quick-reference based on the Warhammer 40,000 Core Rules.<br>
+  Not a substitute for your codex, the Warhammer 40,000 app, or official FAQs — check those for faction-specific stratagems, enhancements and detachment rules.
+</footer>
+
+<script>
+(function(){
+  // ---------------- DATA: CORE STRATAGEMS ----------------
+  // Usable by every army, regardless of faction.
+  var stratagems = [
+    {name:"Command Re-roll", cp:"1CP", when:"Any phase, right after a friendly Advance/Charge/Damage/Hazard/Hit/Save/Wound roll, or an attacks-generated roll.", body:"Re-roll that roll (pick one die if it was multiple — except charge rolls, which re-roll in full)."},
+    {name:"Epic Challenge", cp:"1CP", when:"Fight phase, right after a friendly CHARACTER unit is picked to fight.", body:"One Character model's melee weapons gain [PRECISION] until end of phase."},
+    {name:"Insane Bravery", cp:"1CP", when:"Command phase, before a battle-shock roll for a friendly unit.", body:"That roll auto-succeeds. Once per battle only."},
+    {name:"Explosives", cp:"1CP", when:"Your Shooting phase.", body:"One friendly unengaged EXPLOSIVES/GRENADES model that hasn't Advanced targets an unengaged enemy unit within 8\" & visible: roll 6D6, each 4+ deals 1 mortal wound."},
+    {name:"Crushing Impact", cp:"1CP", when:"Charge phase, right after a friendly Monster/Vehicle ends a charge move.", body:"Pick an engaged enemy unit + one engaged model of yours. Roll D6 = that model's Toughness: each 1 deals you a mortal wound, each 5+ deals them one (max 6 each way)."},
+    {name:"Rapid Ingress", cp:"1CP", when:"End of opponent's Movement phase.", body:"One friendly reserves unit (not Aircraft) makes an Ingress move. Not usable in battle round 1."},
+    {name:"Fire Overwatch", cp:"1CP", when:"End of opponent's Movement phase.", body:"One unengaged unit (not Titanic) shoots via Snap Shooting: one visible enemy within 24\", hits only on unmodified 6, no re-rolls."},
+    {name:"Smokescreen", cp:"1CP", when:"Start of opponent's Shooting phase.", body:"One friendly SMOKE unit (and anything obscured by it) gets the benefit of cover for the whole phase."},
+    {name:"Heroic Intervention", cp:"1CP (+1CP optional)", when:"End of opponent's Charge phase.", body:"One unengaged unit within 12\" of an enemy (a Vehicle must be Character/Walker) makes a charge. Pick a mode: Leap to Defend (only target units that already charged this phase) or +1CP Into the Fray (cap roll at 6, can target anything within 6\")."},
+    {name:"Counteroffensive", cp:"2CP", when:"Opponent's Fight phase, right after an enemy unit resolves its attacks.", body:"Your eligible unit gains Fights First and must be the very next unit you pick to fight."}
+  ];
+
+  // ---------------- DATA: CORE ABILITIES GLOSSARY ----------------
+  var glossary = [
+    {name:"Duplicated Abilities", body:"Stacking two copies of the same named ability (core or weapon) never adds up — you pick which single instance applies. For Scouts specifically, use the smallest distance shared by every model in the unit."},
+    {name:"[ANTI-X Y+]", body:"Against units with keyword X, an unmodified wound roll of Y+ is a critical wound — even if it wouldn't normally crit."},
+    {name:"[ASSAULT]", body:"Lets a unit fire this weapon even after making an Advance move (via Assault shooting)."},
+    {name:"[BLAST] / [BLAST X]", body:"Add 1 attack die (or X) per 5 models (rounded down) in a target unit of 5+ models. Can't target an engaged unit unless via close-quarters shooting."},
+    {name:"[CLEAVE X]", body:"Single-target melee attacks vs a unit of 5+ models: add X attack dice per 5 models (rounded down) in that unit."},
+    {name:"[CLOSE-QUARTERS]", body:"Usable even while engaged (close-quarters shooting). When using another shooting type, each model picks either its [CLOSE-QUARTERS] weapons or its other ranged weapons — not both."},
+    {name:"Deadly Demise X", body:"When a model in this unit is destroyed (after any embarked passengers emergency-disembark), roll 1D6 — on a 6, every unit within 6\" suffers X mortal wounds."},
+    {name:"DEEP STRIKE", body:"On an Ingress move, if every model in the unit has this, it can set up anywhere more than 8\" from all enemy units — including inside the opponent's deployment zone."},
+    {name:"[DEVASTATING WOUNDS]", body:"A critical wound from this weapon skips the save entirely: the target unit takes mortal wounds equal to the weapon's D instead (one model max per crit wound; spillover is lost)."},
+    {name:"[EXTRA ATTACKS]", body:"These melee weapons fight alongside (not instead of) one other melee weapon the model also picks."},
+    {name:"Feel No Pain X+", body:"Each time the model would lose a wound, roll 1D6 — on X+, that wound is ignored entirely."},
+    {name:"FIGHTS FIRST", body:"If every model in a unit has this (e.g. from a successful charge), that unit fights before any non-Fights-First unit in the Fight phase."},
+    {name:"Firing Deck X", body:"While this Transport shoots, up to X embarked models can each fire one ranged weapon through it. Their own units then can't shoot this turn."},
+    {name:"[HAZARDOUS]", body:"After the unit finishes its attacks, make one hazard roll per [HAZARDOUS] weapon it used."},
+    {name:"[HEAVY]", body:"+1 to hit if the firing unit is unengaged, wasn't set up this turn, and moved 3\" or less this turn."},
+    {name:"HOVER", body:"When this unit takes to the skies (FLY), it does not suffer the usual -2\" move penalty."},
+    {name:"[IGNORES COVER]", body:"The target never gets benefit of cover against this attack — overrides Stealth and similar cover-granting rules too."},
+    {name:"[INDIRECT FIRE]", body:"Can target units it can't see. Target always gets cover; no re-rolling hits; unmodified hit rolls of 1-5 always fail (1-3 only if the firer stayed stationary and a friendly unit can see the target)."},
+    {name:"INFILTRATORS", body:"If every model in the unit has this, deploy it more than 8\" from the enemy deployment zone and all enemy units — even in normally-neutral ground."},
+    {name:"[LANCE]", body:"+1 to the wound roll if the attacking model's unit made a charge move this turn."},
+    {name:"LEADER", body:"A character with this can attach to a specific bodyguard unit before the battle, forming one combined attached unit (see Attached Units)."},
+    {name:"[LETHAL HITS]", body:"A critical hit can be converted into an automatic wound (skipping the wound roll) — but doing so means it can't also trigger crit-wound effects like Devastating Wounds."},
+    {name:"LONE OPERATIVE", body:"Unless attached to a unit, invisible to enemies beyond 12\" (or stated X\"), and immune to Indirect Fire from outside that range. Mostly an assassin/specialist rule rather than a rank-and-file one."},
+    {name:"[MELTA X]", body:"If the target was within half range, add X to this weapon's Damage characteristic for that attack."},
+    {name:"[ONE SHOT]", body:"That specific weapon can only be selected to make attacks once per battle, full stop."},
+    {name:"[PISTOL]", body:"Functionally identical to [CLOSE-QUARTERS] — an older name being phased out."},
+    {name:"[PRECISION]", body:"Attacks can be allocated straight to a visible enemy CHARACTER inside a mixed/attached unit, bypassing the normal allocation order."},
+    {name:"[PSYCHIC]", body:"Ignore any modifiers to BS/WS and to the hit roll for this attack. Counts as a 'psychic attack' for other rules that key off that."},
+    {name:"[RAPID FIRE X]", body:"Add X attack dice if the target was within half range of the weapon."},
+    {name:"SCOUTS X\"", body:"Before the battle, a fully-Scouts unit can redeploy wholly within your own zone, make a Scout move of X\" (ending 8\"+ from enemies), or its Dedicated Transport can move the same way if everyone aboard also has Scouts."},
+    {name:"STEALTH", body:"If every model in the unit has this, the whole unit gets benefit of cover against ranged attacks regardless of actual terrain."},
+    {name:"SUPPORT", body:"Same mechanism as Leader, for support-type characters joining a bodyguard unit (see Attached Units)."},
+    {name:"SUPER-HEAVY WALKER", body:"While moving normally/advancing/falling back, can walk through other models (even Monsters/Vehicles, never Titanic) and terrain sections 4\" or less tall. Optionally gains MOBILE for that move (full terrain phasing) at a 1-in-6 risk of becoming battle-shocked afterward."},
+    {name:"[SUSTAINED HITS X]", body:"A critical hit scores X extra automatic hits on top of itself."},
+    {name:"[TORRENT]", body:"Automatically hits — no hit roll needed at all."},
+    {name:"[TWIN-LINKED]", body:"Re-roll the wound roll for this attack."}
+  ];
+
+  // ---------------- RENDER CARDS ----------------
+  var stratList = document.getElementById('stratList');
+  var stratNoMatch = document.getElementById('stratNoMatch');
+  stratagems.forEach(function(s){
+    var el = document.createElement('div');
+    el.className = 'gcard';
+    el.setAttribute('data-search', (s.name + ' ' + s.when + ' ' + s.body).toLowerCase());
+    el.innerHTML =
+      '<div class="g-head"><span class="g-name">'+s.name+'</span><span class="g-cp">'+s.cp+'</span></div>'+
+      '<div class="g-when">'+s.when+'</div>'+
+      '<div class="g-body">'+s.body+'</div>';
+    stratList.appendChild(el);
+  });
+
+  var glossList = document.getElementById('glossList');
+  var glossNoMatch = document.getElementById('glossNoMatch');
+  glossary.forEach(function(g){
+    var el = document.createElement('div');
+    el.className = 'gcard';
+    el.setAttribute('data-search', (g.name + ' ' + g.body).toLowerCase());
+    el.innerHTML =
+      '<div class="g-head"><span class="g-name">'+g.name+'</span></div>'+
+      '<div class="g-body">'+g.body+'</div>';
+    glossList.appendChild(el);
+  });
+
+  // ---------------- SEARCH ----------------
+  var searchInput = document.getElementById('search');
+  var searchbox = document.getElementById('searchbox');
+  var clearBtn = document.getElementById('clearSearch');
+
+  function applyFilter(){
+    var q = searchInput.value.trim().toLowerCase();
+    searchbox.classList.toggle('has-text', q.length > 0);
+
+    [ {list: stratList, nomatch: stratNoMatch}, {list: glossList, nomatch: glossNoMatch} ].forEach(function(group){
+      var cards = group.list.querySelectorAll('.gcard');
+      var visibleCount = 0;
+      cards.forEach(function(card){
+        var show = !q || card.getAttribute('data-search').indexOf(q) !== -1;
+        card.classList.toggle('hidden', !show);
+        if (show) visibleCount++;
+      });
+      group.nomatch.style.display = (visibleCount === 0) ? 'block' : 'none';
+
+      // auto-expand parent <details> if there's a query and matches exist within its section
+      if (q) {
+        var details = group.list.closest('section').querySelectorAll('details.block');
+        details.forEach(function(d){ d.open = true; });
+      }
+    });
+  }
+
+  searchInput.addEventListener('input', applyFilter);
+  clearBtn.addEventListener('click', function(){
+    searchInput.value = '';
+    applyFilter();
+    searchInput.focus();
+  });
+
+  applyFilter();
+})();
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {
+        // Offline caching just won't be available this session — the page
+        // still works fine online, so fail silently rather than alarm anyone.
+      });
+    });
+  }
+</script>
+
+</body>
+</html>

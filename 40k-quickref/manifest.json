@@ -1,0 +1,16 @@
+{
+  "name": "Core Rules — Quick Reference",
+  "short_name": "40K Rules",
+  "description": "Compressed mobile quick-reference for the Warhammer 40,000 Core Rules — works for any army.",
+  "start_url": "/40k-quickref/index.html",
+  "scope": "/40k-quickref/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0b0d",
+  "theme_color": "#0a0b0d",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
