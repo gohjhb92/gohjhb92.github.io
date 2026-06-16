@@ -195,8 +195,10 @@
     <a href="#sec-cheat">Attack Seq</a>
     <a href="#sec-core">Core</a>
     <a href="#sec-round">Battle Round</a>
+    <a href="#sec-prebattle">Pre-Battle</a>
     <a href="#sec-move">Move Types</a>
     <a href="#sec-chargefight">Charge/Fight</a>
+    <a href="#sec-emergency">Emergency</a>
     <a href="#sec-terrain">Terrain</a>
     <a href="#sec-obj">Objectives</a>
     <a href="#sec-strat">Stratagems</a>
@@ -382,6 +384,19 @@
   </details>
 </section>
 
+<!-- ===================== PRE-BATTLEROUND ===================== -->
+<section id="sec-prebattle">
+  <h2><span class="secnum">Pre-Battle</span>Pre-Battleround</h2>
+  <details class="block" open>
+    <summary><span>Pre-battle moves & set-up<span class="sub">Happens before Battle Round 1</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Scout Move</span><span class="rc-dist">Scouts X"</span></div><div class="rc-body">Pre-battle only. Unit must be wholly in your own deployment zone. Must end 8"+ from all enemies.</div></div>
+      </div>
+    </div>
+  </details>
+</section>
+
 <!-- ===================== MOVE TYPES ===================== -->
 <section id="sec-move">
   <h2><span class="secnum">09–21</span>Move Types — Quick Table</h2>
@@ -389,17 +404,16 @@
     <summary><span>Movement Phase<span class="sub">Max distance & key conditions</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Scout Move</span><span class="rc-dist">Scouts X"</span></div><div class="rc-body">Pre-battle only. Unit must be wholly in your own deployment zone. Must end 8"+ from all enemies.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Remain Stationary</span><span class="rc-dist">0"</span></div><div class="rc-body">No rules triggered by starting/ending a move.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Normal Move</span><span class="rc-dist">M</span></div><div class="rc-body">Unengaged only. Must end unengaged.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Advance Move</span><span class="rc-dist">M + 1D6</span></div><div class="rc-body">Roll first. Can't charge or start an action this turn afterwards.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Fall Back</span><span class="rc-dist">M</span></div><div class="rc-body">Must be engaged to start. <b>Ordered Retreat</b> (not shocked) or <b>Desperate Escape</b> (shocked, or chosen anyway — hazard roll per model, can move through enemies). Can't shoot, charge or fight after.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Surge Move</span><span class="rc-dist">Rule-defined</span></div><div class="rc-body">Triggered move toward the closest enemy (the "surge target"). Unengaged, unshocked, hasn't moved this phase. Can't engage anyone else.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Ingress (Reserves)</span><span class="rc-dist">6" set-up</span></div><div class="rc-body">From battle round 2+ (or via a rule like <span class="kw">DEEP STRIKE</span>/Rapid Ingress). Must be 8"+ from all enemies; can't be in opponent's zone before round 3 unless a rule says otherwise.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Deep Strike</span><span class="rc-dist">8"+ from enemies</span></div><div class="rc-body">Unit keyword. On an Ingress move, if every model has <span class="kw">DEEP STRIKE</span>, the unit can set up <b>anywhere</b> more than 8" from all enemy units — including inside the opponent's deployment zone. Skips the battlefield-edge and deployment-zone restrictions of a normal Ingress.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Rapid Disembark</span><span class="rc-dist">3"</span></div><div class="rc-body">Transport made a <b>Normal Move or Ingress</b> this phase. Set up wholly within 3" (or within 1" if model's base &gt;3"). <b>Can't Charge</b> this turn. After an Ingress, unit inherits all the same set-up restrictions the Transport had (e.g. 8"+ from enemies).</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Tactical Disembark</span><span class="rc-dist">3" + move</span></div><div class="rc-body">Before the Transport is selected to move, <i>or</i> Transport <b>Remained Stationary</b>. Set up wholly within 3" (or 1" for large bases), then <b>immediately make a Normal or Advance Move</b> — the Transport is still in its original position, so can't occupy the space it's vacating.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Combat Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Only when neither above applies (usually enemy Engagement Range blocks a 3" set-up). Set up wholly within 6"; may end in Engagement Range of enemies Engaged with the Transport. Whole unit makes <b>Hazard Rolls</b> + takes a <b>Battle-shock test</b>.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Emergency Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Transport just destroyed. Hazard roll first; models that can't fit are destroyed; unit ends battle-shocked, can't charge.</div></div>
       </div>
     </div>
   </details>
@@ -473,6 +487,19 @@
           <div class="rc-head"><span class="rc-name">Counteroffensive</span><span class="rc-dist">2CP</span></div>
           <div class="rc-body">Opponent's Fight phase, right after an enemy unit resolves attacks: your eligible unit gains <span class="kw">FIGHTS FIRST</span> and must be the very next unit you pick to fight.</div>
         </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== EMERGENCY DISEMBARK ===================== -->
+<section id="sec-emergency">
+  <h2><span class="secnum">Transport</span>Emergency Disembark</h2>
+  <details class="block" open>
+    <summary><span>Transport destroyed while carrying passengers<span class="sub">Triggered immediately when the transport is destroyed</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="ruletable">
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Emergency Disembark</span><span class="rc-dist">6"</span></div><div class="rc-body">Transport just destroyed. Each model makes a <b>Hazard Roll</b> first; models that can't fit a legal position within 6" are destroyed. Unit ends <b>Battle-shocked</b> and <b>cannot Charge</b> this turn.</div></div>
       </div>
     </div>
   </details>
