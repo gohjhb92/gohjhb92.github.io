@@ -553,7 +553,7 @@
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Remain Stationary</span><span class="rc-dist">0"</span></div><div class="rc-body">No rules triggered by starting/ending a move.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Normal Move</span><span class="rc-dist">M</span></div><div class="rc-body">Unengaged only. Must end unengaged.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Advance Move</span><span class="rc-dist">M + 1D6</span></div><div class="rc-body">Roll first. Can't charge or start an action this turn afterwards.</div></div>
-        <div class="rulecard"><div class="rc-head"><span class="rc-name">Fall Back</span><span class="rc-dist">M</span></div><div class="rc-body">Must be engaged to start. <b>Ordered Retreat</b> (not shocked) or <b>Desperate Escape</b> (shocked, or chosen anyway — hazard roll per model, can move through enemies). Can't shoot, charge or fight after.</div></div>
+        <div class="rulecard"><div class="rc-head"><span class="rc-name">Fall Back</span><span class="rc-dist">M</span></div><div class="rc-body">Must be engaged to start. <b>Ordered Retreat</b> (not shocked) or <b>Desperate Escape</b> (shocked, or chosen anyway — hazard roll per model, can move through enemies). If using Desperate Escape while <i>not</i> battle-shocked, must make a battle-shock roll after. Can't shoot, charge or fight after.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Surge Move</span><span class="rc-dist">Rule-defined</span></div><div class="rc-body">Triggered move toward the closest enemy (the "surge target"). Unengaged, unshocked, hasn't moved this phase. Can't engage anyone else.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Ingress (Reserves)</span><span class="rc-dist">6" set-up</span></div><div class="rc-body">From battle round 2+ (or via a rule like <span class="kw">DEEP STRIKE</span>/Rapid Ingress). Must be 8"+ from all enemies; can't be in opponent's zone before round 3 unless a rule says otherwise.</div></div>
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Deep Strike</span><span class="rc-dist">8"+ from enemies</span></div><div class="rc-body">Unit keyword. On an Ingress move, if every model has <span class="kw">DEEP STRIKE</span>, the unit can set up <b>anywhere</b> more than 8" from all enemy units — including inside the opponent's deployment zone. Skips the battlefield-edge and deployment-zone restrictions of a normal Ingress.</div></div>
@@ -633,7 +633,7 @@
         </div>
         <div class="rulecard">
           <div class="rc-head"><span class="rc-name">Heroic Intervention</span><span class="rc-dist">Stratagem</span></div>
-          <div class="rc-body">End of opponent's Charge phase: unengaged unit within 12" of an enemy makes a charge (1CP). <b>Leap to Defend</b> — must target units that already charged this phase. <b>Into the Fray</b> (+1CP) — can target <i>any</i> enemy unit, but charge roll is capped at 6.</div>
+          <div class="rc-body">End of opponent's Charge phase: unengaged unit within 12" of an enemy makes a charge (1CP). <b>Leap to Defend</b> — must target units that already charged this phase. <b>Into the Fray</b> (+1CP) — can target any enemy units within <b>6"</b>, but charge roll is capped at 6.</div>
         </div>
       </div>
     </div>
@@ -718,7 +718,7 @@
     <summary><span>Cover, Hidden, Obscuring, Solid<span class="sub">The four visibility rules that matter most</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <p><b>Benefit of Cover (-1 to the attack's BS):</b> applies if every model in the target unit is either (a) Infantry/Beasts/Swarm and inside a terrain area, or (b) not fully visible to the shooter because of intervening terrain.</p>
-      <p><b>Hidden:</b> Infantry/Beasts/Swarm models inside a terrain area containing dense terrain, whose unit hasn't shot this turn or last turn, are only visible within 15" (their "detection range") unless stated otherwise.</p>
+      <p><b>Hidden:</b> Infantry/Beasts/Swarm models inside a terrain area containing one or more light or dense terrain features, whose unit hasn't shot this turn or last turn, are only visible within 15" (their "detection range") unless stated otherwise. (Rules Commentary update — printed rules say dense only.)</p>
       <p><b>Obscuring:</b> a terrain area with light or dense features blocks visibility entirely between any two models whose line of sight crosses it (unless one of them is inside that same area).</p>
       <p><b>Solid:</b> dense terrain blocks line of sight through any enclosed gap (doors, windows) that's 3" or less off the ground — no peeking through ground-floor windows.</p>
       <div class="calloutbox"><span class="kw">STEALTH</span> and <span class="kw">[IGNORES COVER]</span> directly fight over this -1 BS — see Glossary.</div>
@@ -858,7 +858,7 @@
     {name:"[LETHAL HITS]", body:"A critical hit can be converted into an automatic wound (skipping the wound roll) — but doing so means it can't also trigger crit-wound effects like Devastating Wounds."},
     {name:"LONE OPERATIVE", body:"Unless attached to a unit, invisible to enemies beyond 12\" (or stated X\"), and immune to Indirect Fire from outside that range. Mostly an assassin/specialist rule rather than a rank-and-file one."},
     {name:"[MELTA X]", body:"If the target was within half range, add X to this weapon's Damage characteristic for that attack."},
-    {name:"MOBILE", body:"The unit moves through Dense terrain freely in all directions — horizontal and vertical — with no height or flooring restrictions. Relevant to disembark positioning and any unit explicitly given this keyword."},
+    {name:"MOBILE", body:"The unit can move <b>horizontally</b> through dense terrain features freely (no height restriction). Does <i>not</i> grant vertical movement through dense terrain — vertical movement through dense terrain still requires the INFANTRY/BEASTS/SWARM keyword. Relevant to disembark positioning and any unit explicitly given this keyword."},
     {name:"[ONE SHOT]", body:"That specific weapon can only be selected to make attacks once per battle, full stop."},
     {name:"[PISTOL]", body:"Functionally identical to [CLOSE-QUARTERS] — an older name being phased out."},
     {name:"[PRECISION]", body:"Attacks can be allocated straight to a visible enemy CHARACTER inside a mixed/attached unit, bypassing the normal allocation order."},
