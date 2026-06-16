@@ -194,16 +194,16 @@
   <nav class="jumpnav">
     <a href="#sec-core">Core</a>
     <a href="#sec-round">Battle Round</a>
+    <a href="#sec-strat">Stratagems</a>
     <a href="#sec-prebattle">Pre-Battle</a>
+    <a href="#sec-obj">Objectives</a>
+    <a href="#sec-actions">Actions</a>
     <a href="#sec-cheat">Attack Seq</a>
     <a href="#sec-move">Movement</a>
     <a href="#sec-shooting">Shooting</a>
     <a href="#sec-chargefight">Charge/Fight</a>
     <a href="#sec-emergency">Emergency</a>
     <a href="#sec-terrain">Terrain</a>
-    <a href="#sec-obj">Objectives</a>
-    <a href="#sec-strat">Stratagems</a>
-    <a href="#sec-actions">Actions</a>
     <a href="#sec-vehicles">Vehicles & Co.</a>
     <a href="#sec-glossary">Glossary</a>
   </nav>
@@ -312,6 +312,14 @@
   </details>
 </section>
 
+<!-- ===================== STRATAGEMS ===================== -->
+<section id="sec-strat">
+  <h2><span class="secnum">15</span>Core Stratagems</h2>
+  <p class="dim" style="margin:0 0 10px 2px; font-size:12.5px;">Available to <i>every</i> army, regardless of faction. Your codex/app adds more on top of these. Search box above filters this list.</p>
+  <div class="cardgrid" id="stratList"></div>
+  <div class="nomatch" id="stratNoMatch">No stratagems match your search.</div>
+</section>
+
 <!-- ===================== PRE-BATTLEROUND ===================== -->
 <section id="sec-prebattle">
   <h2><span class="secnum">Pre-Battle</span>Pre-Battleround</h2>
@@ -321,6 +329,31 @@
       <div class="ruletable">
         <div class="rulecard"><div class="rc-head"><span class="rc-name">Scout Move</span><span class="rc-dist">Scouts X"</span></div><div class="rc-body">Pre-battle only. Unit must be wholly in your own deployment zone. Must end 8"+ from all enemies.</div></div>
       </div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== OBJECTIVES ===================== -->
+<section id="sec-obj">
+  <h2><span class="secnum">14</span>Objectives</h2>
+  <details class="block">
+    <summary><span>Control & Secured<span class="sub">It's just OC math</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>Sum the <span class="kw">OC</span> characteristic of every model you have within range of an objective (within its terrain area). Highest total controls it; a tie means nobody controls it <i>unless</i> it's already secured.</p>
+      <p><b>Secured:</b> some rules let your army keep control of an objective even after you leave it — until the opponent's level of control becomes higher than yours at the end of a phase.</p>
+      <p>Battle-shocked models count their OC as <b>'-'</b> (zero, can't help control anything).</p>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== ACTIONS ===================== -->
+<section id="sec-actions">
+  <h2><span class="secnum">16</span>Actions</h2>
+  <details class="block">
+    <summary><span>Starting & completing<span class="sub">Mission/codex actions follow this pattern</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <p>A unit <b>can't</b> start an action if it's off the battlefield, an Aircraft/Fortification, battle-shocked, has OC 0 or '-', engaged (unless Titanic), or already Advanced/Fell Back/started another action this turn.</p>
+      <p>Once started, that unit can't shoot (unless Titanic) or charge for the rest of the turn. If it makes any move other than pile-in/consolidate, or leaves the battlefield, the action fails to complete — no effect.</p>
     </div>
   </details>
 </section>
@@ -468,21 +501,6 @@
     </div>
   </details>
 
-  <details class="block">
-    <summary><span>Key Shooting Stratagems<span class="sub">Fire Overwatch & Smokescreen</span></span><span class="chev">▸</span></summary>
-    <div class="inner">
-      <div class="ruletable">
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Fire Overwatch</span><span class="rc-dist">1CP</span></div>
-          <div class="rc-body">End of opponent's Movement phase. One unengaged, non-Titanic unit shoots via Snap Shooting at one visible enemy within <b>24"</b>. Hits on unmodified 6 only; no re-rolls.</div>
-        </div>
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Smokescreen</span><span class="rc-dist">1CP</span></div>
-          <div class="rc-body">Start of opponent's Shooting phase. One friendly <span class="kw">SMOKE</span> unit (and anything it obscures) gains <b>Benefit of Cover</b> for the entire phase.</div>
-        </div>
-      </div>
-    </div>
-  </details>
 </section>
 
 <!-- ===================== CHARGE / FIGHT PHASE ===================== -->
@@ -592,39 +610,6 @@
       <p><b>Obscuring:</b> a terrain area with light or dense features blocks visibility entirely between any two models whose line of sight crosses it (unless one of them is inside that same area).</p>
       <p><b>Solid:</b> dense terrain blocks line of sight through any enclosed gap (doors, windows) that's 3" or less off the ground — no peeking through ground-floor windows.</p>
       <div class="calloutbox"><span class="kw">STEALTH</span> and <span class="kw">[IGNORES COVER]</span> directly fight over this -1 BS — see Glossary.</div>
-    </div>
-  </details>
-</section>
-
-<!-- ===================== OBJECTIVES ===================== -->
-<section id="sec-obj">
-  <h2><span class="secnum">14</span>Objectives</h2>
-  <details class="block">
-    <summary><span>Control & Secured<span class="sub">It's just OC math</span></span><span class="chev">▸</span></summary>
-    <div class="inner">
-      <p>Sum the <span class="kw">OC</span> characteristic of every model you have within range of an objective (within its terrain area). Highest total controls it; a tie means nobody controls it <i>unless</i> it's already secured.</p>
-      <p><b>Secured:</b> some rules let your army keep control of an objective even after you leave it — until the opponent's level of control becomes higher than yours at the end of a phase.</p>
-      <p>Battle-shocked models count their OC as <b>'-'</b> (zero, can't help control anything).</p>
-    </div>
-  </details>
-</section>
-
-<!-- ===================== STRATAGEMS ===================== -->
-<section id="sec-strat">
-  <h2><span class="secnum">15</span>Core Stratagems</h2>
-  <p class="dim" style="margin:0 0 10px 2px; font-size:12.5px;">Available to <i>every</i> army, regardless of faction. Your codex/app adds more on top of these. Search box above filters this list.</p>
-  <div class="cardgrid" id="stratList"></div>
-  <div class="nomatch" id="stratNoMatch">No stratagems match your search.</div>
-</section>
-
-<!-- ===================== ACTIONS ===================== -->
-<section id="sec-actions">
-  <h2><span class="secnum">16</span>Actions</h2>
-  <details class="block">
-    <summary><span>Starting & completing<span class="sub">Mission/codex actions follow this pattern</span></span><span class="chev">▸</span></summary>
-    <div class="inner">
-      <p>A unit <b>can't</b> start an action if it's off the battlefield, an Aircraft/Fortification, battle-shocked, has OC 0 or '-', engaged (unless Titanic), or already Advanced/Fell Back/started another action this turn.</p>
-      <p>Once started, that unit can't shoot (unless Titanic) or charge for the rest of the turn. If it makes any move other than pile-in/consolidate, or leaves the battlefield, the action fails to complete — no effect.</p>
     </div>
   </details>
 </section>
