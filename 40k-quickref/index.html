@@ -171,6 +171,16 @@
   footer a{color:var(--ink-faint); text-decoration:underline;}
 
   ::selection{background:rgba(202,162,63,0.35);}
+
+  /* ---------- Layout viewer ---------- */
+  .layout-tabs{display:flex; gap:6px; margin-bottom:10px;}
+  .ltab{
+    flex:1; padding:8px 4px; background:var(--bg-card-3); border:1px solid var(--line);
+    border-radius:8px; color:var(--ink-dim); font-size:13px; font-weight:600; cursor:pointer;
+  }
+  .ltab.active{background:var(--gold); color:#1a1407; border-color:var(--gold);}
+  .layout-map{width:100%; height:auto; border-radius:8px; display:block;}
+  .layout-placeholder{width:100%; aspect-ratio:893/1263; background:var(--bg-card-3); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:13px;}
 </style>
 </head>
 <body>
@@ -220,90 +230,218 @@
   <h2><span class="secnum">00</span>Battle Layouts</h2>
 
   <details class="block">
-    <summary><span>Layouts Key<span class="sub">Symbols used in the Event Companion battlefield maps</span></span><span class="chev">▸</span></summary>
+    <summary><span>Layouts Key<span class="sub">Symbols used on the battlefield maps</span></span><span class="chev">▸</span></summary>
     <div class="inner">
       <div class="ruletable">
         <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Terrain Types</span></div>
-          <div class="rc-body">
-            <b>Dense Terrain</b> (green) — blocks line of sight; INFANTRY/BEASTS/SWARM inside can become Hidden or Gone to Ground.<br>
-            <b>Light Terrain</b> (yellow) — does not block LoS; INFANTRY/BEASTS/SWARM inside can still become Hidden.<br>
-            Labels <b>AB, CD, EF, GH</b> match component markings on the <em>Battlefields: Armageddon</em> terrain set. Terrain areas may be Single (one contiguous area) or Separate (distinct areas with their own rules).
-          </div>
+          <div class="rc-head"><span class="rc-name">Terrain</span></div>
+          <div class="rc-body"><b>Dense</b> (green) — blocks LoS; eligible units can become Hidden or Gone to Ground. <b>Light</b> (yellow) — open LoS; eligible units can still become Hidden. Labels <b>AB, CD, EF, GH</b> match the <em>Battlefields: Armageddon</em> terrain set.</div>
         </div>
         <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Deployment Zones &amp; Territory</span></div>
-          <div class="rc-body">
-            <b>Attacker's DZ</b> (red) / <b>Defender's DZ</b> (blue) — each player deploys wholly within their zone.<br>
-            <b>No Man's Land</b> — the battlefield not within either deployment zone.<br>
-            <b>Attacker's Territory</b> — the half of the battlefield containing the Attacker's DZ (including No Man's Land on that side).<br>
-            <b>Defender's Territory</b> — the half containing the Defender's DZ.
-          </div>
+          <div class="rc-head"><span class="rc-name">Zones</span></div>
+          <div class="rc-body"><b>Red</b> = Attacker's DZ · <b>Blue</b> = Defender's DZ · <b>Grey</b> = No Man's Land. Each player's <em>Territory</em> is the full half of the board containing their DZ.</div>
         </div>
         <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Objective Types</span></div>
-          <div class="rc-body">
-            <b>Home Objective</b> (castle icon) — located within your own deployment zone.<br>
-            <b>Central Objective</b> (skull icon) — located on or near the centreline of the battlefield.<br>
-            <b>Expansion Objective</b> (diamond skull icon) — located in the opponent's territory.
-          </div>
+          <div class="rc-head"><span class="rc-name">Objectives</span></div>
+          <div class="rc-body"><b>Castle icon</b> = Home (in your DZ) · <b>Skull</b> = Central (centreline) · <b>Diamond skull</b> = Expansion (opponent's territory).</div>
         </div>
       </div>
-      <p style="font-size:12px;color:var(--ink-faint);margin-top:10px;">Each Force Disposition matchup has three pre-set layouts (A, B, C) from the Warhammer Event Companion. Deployment zones are typically 12" deep. Refer to the Event Companion PDF for full map visuals.</p>
     </div>
   </details>
 
-  <details class="block">
-    <summary><span>Mission Matchups<span class="sub">15 combinations · each has 3 layouts (A, B, C)</span></span><span class="chev">▸</span></summary>
+  <!-- 15 matchup layout viewers -->
+  <details class="block layout-block" data-matchup="tah-tah">
+    <summary><span>Take and Hold vs Take and Hold<span class="sub">Battlefield Dominance</span></span><span class="chev">▸</span></summary>
     <div class="inner">
-      <div class="ruletable">
-
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Take and Hold</span></div>
-          <div class="rc-body">
-            <div class="rc-row"><span class="lbl">vs Take and Hold</span> <b>Battlefield Dominance</b> (both)</div>
-            <div class="rc-row"><span class="lbl">vs Purge the Foe</span> <b>Immovable Object</b> / <b>Unstoppable Force</b></div>
-            <div class="rc-row"><span class="lbl">vs Disruption</span> <b>Determined Acquisition</b> / <b>Death Trap</b></div>
-            <div class="rc-row"><span class="lbl">vs Reconnaissance</span> <b>Purge and Secure</b> / <b>Reconnaissance Sweep</b></div>
-            <div class="rc-row"><span class="lbl">vs Priority Assets</span> <b>Inescapable Dominion</b> / <b>Secure Asset</b></div>
-          </div>
-        </div>
-
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Purge the Foe</span></div>
-          <div class="rc-body">
-            <div class="rc-row"><span class="lbl">vs Purge the Foe</span> <b>Meatgrinder</b> (both)</div>
-            <div class="rc-row"><span class="lbl">vs Disruption</span> <b>Punishment</b> / <b>Delaying Action</b></div>
-            <div class="rc-row"><span class="lbl">vs Reconnaissance</span> <b>Consecrate</b> / <b>Triangulation</b></div>
-            <div class="rc-row"><span class="lbl">vs Priority Assets</span> <b>Destroyer's Wrath</b> / <b>Vital Link</b></div>
-          </div>
-        </div>
-
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Disruption</span></div>
-          <div class="rc-body">
-            <div class="rc-row"><span class="lbl">vs Disruption</span> <b>Outmanoeuvre</b> (both)</div>
-            <div class="rc-row"><span class="lbl">vs Reconnaissance</span> <b>Smoke and Mirrors</b> / <b>Surveil the Foe</b></div>
-            <div class="rc-row"><span class="lbl">vs Priority Assets</span> <b>Locate and Deny</b> / <b>Extract Relic</b></div>
-          </div>
-        </div>
-
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Reconnaissance</span></div>
-          <div class="rc-body">
-            <div class="rc-row"><span class="lbl">vs Reconnaissance</span> <b>Gather Intel</b> (both)</div>
-            <div class="rc-row"><span class="lbl">vs Priority Assets</span> <b>Search and Scour</b> / <b>Vanguard Operation</b></div>
-          </div>
-        </div>
-
-        <div class="rulecard">
-          <div class="rc-head"><span class="rc-name">Priority Assets</span></div>
-          <div class="rc-body">
-            <div class="rc-row"><span class="lbl">vs Priority Assets</span> <b>Sabotage</b> (both)</div>
-          </div>
-        </div>
-
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
       </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="tah-ptf">
+    <summary><span>Take and Hold vs Purge the Foe<span class="sub">Immovable Object / Unstoppable Force</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="tah-dis">
+    <summary><span>Take and Hold vs Disruption<span class="sub">Determined Acquisition / Death Trap</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="tah-rec">
+    <summary><span>Take and Hold vs Reconnaissance<span class="sub">Purge and Secure / Reconnaissance Sweep</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="tah-pa">
+    <summary><span>Take and Hold vs Priority Assets<span class="sub">Inescapable Dominion / Secure Asset</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="ptf-ptf">
+    <summary><span>Purge the Foe vs Purge the Foe<span class="sub">Meatgrinder</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="ptf-dis">
+    <summary><span>Purge the Foe vs Disruption<span class="sub">Punishment / Delaying Action</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="ptf-rec">
+    <summary><span>Purge the Foe vs Reconnaissance<span class="sub">Consecrate / Triangulation</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="ptf-pa">
+    <summary><span>Purge the Foe vs Priority Assets<span class="sub">Destroyer's Wrath / Vital Link</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="dis-dis">
+    <summary><span>Disruption vs Disruption<span class="sub">Outmanoeuvre</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="dis-rec">
+    <summary><span>Disruption vs Reconnaissance<span class="sub">Smoke and Mirrors / Surveil the Foe</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="dis-pa">
+    <summary><span>Disruption vs Priority Assets<span class="sub">Locate and Deny / Extract Relic</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="rec-rec">
+    <summary><span>Reconnaissance vs Reconnaissance<span class="sub">Gather Intel</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="rec-pa">
+    <summary><span>Reconnaissance vs Priority Assets<span class="sub">Search and Scour / Vanguard Operation</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
+    </div>
+  </details>
+
+  <details class="block layout-block" data-matchup="pa-pa">
+    <summary><span>Priority Assets vs Priority Assets<span class="sub">Sabotage</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+      <div class="layout-tabs">
+        <button class="ltab active" data-letter="a">Layout A</button>
+        <button class="ltab" data-letter="b">Layout B</button>
+        <button class="ltab" data-letter="c">Layout C</button>
+      </div>
+      <div class="layout-placeholder">Tap to load map</div>
+      <img class="layout-map" style="display:none" alt="Layout map">
     </div>
   </details>
 
@@ -1065,6 +1203,41 @@
 
   applyFilter();
 })();
+</script>
+
+<script>
+  // ---------------- LAYOUT VIEWERS ----------------
+  document.querySelectorAll('.layout-block').forEach(function(block) {
+    var matchup = block.dataset.matchup;
+    var img = block.querySelector('.layout-map');
+    var placeholder = block.querySelector('.layout-placeholder');
+    var loaded = false;
+
+    function loadImage(letter) {
+      img.src = 'layouts/layout-' + matchup + '-' + letter + '.jpg';
+      if (!loaded) {
+        img.style.display = '';
+        placeholder.style.display = 'none';
+        loaded = true;
+      }
+    }
+
+    block.addEventListener('toggle', function() {
+      if (block.open && !loaded) {
+        var activeLetter = (block.querySelector('.ltab.active') || {}).dataset && block.querySelector('.ltab.active').dataset.letter || 'a';
+        loadImage(activeLetter);
+      }
+    });
+
+    block.querySelectorAll('.ltab').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        block.querySelectorAll('.ltab').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        loadImage(btn.dataset.letter);
+      });
+    });
+  });
 </script>
 
 <script>
