@@ -1048,15 +1048,21 @@
   // ---------------- DATA: CORE STRATAGEMS ----------------
   // Usable by every army, regardless of faction.
   var stratagems = [
+    // Any Phase
     {name:"Command Re-roll", cp:"1CP", when:"Any phase, right after a friendly Advance/Charge/Damage/Hazard/Hit/Save/Wound roll, or an attacks-generated roll.", body:"Re-roll that roll (pick one die if it was multiple — except charge rolls, which re-roll in full)."},
-    {name:"Epic Challenge", cp:"1CP", when:"Fight phase, right after a friendly CHARACTER unit is picked to fight.", body:"One Character model's melee weapons gain [PRECISION] until end of phase."},
+    // Command Phase
     {name:"Insane Bravery", cp:"1CP", when:"Command phase, before a battle-shock roll for a friendly unit.", body:"That roll auto-succeeds. Once per battle only."},
-    {name:"Explosives", cp:"1CP", when:"Your Shooting phase.", body:"One friendly unengaged EXPLOSIVES/GRENADES model that hasn't Advanced targets an unengaged enemy unit within 8\" & visible: roll 6D6, each 4+ deals 1 mortal wound."},
-    {name:"Crushing Impact", cp:"1CP", when:"Charge phase, right after a friendly Monster/Vehicle ends a charge move.", body:"Pick an engaged enemy unit + one engaged model of yours. Roll D6 = that model's Toughness: each 1 deals you a mortal wound, each 5+ deals them one (max 6 each way)."},
+    // Movement Phase
     {name:"Rapid Ingress", cp:"1CP", when:"End of opponent's Movement phase.", body:"One friendly reserves unit (not Aircraft) makes an Ingress move. Not usable in battle round 1."},
     {name:"Fire Overwatch", cp:"1CP", when:"End of opponent's Movement phase.", body:"One unengaged unit (not Titanic) shoots via Snap Shooting: one visible enemy within 24\", hits only on unmodified 6, no re-rolls."},
+    // Shooting Phase
+    {name:"Explosives", cp:"1CP", when:"Your Shooting phase.", body:"One friendly unengaged EXPLOSIVES/GRENADES model that hasn't Advanced targets an unengaged enemy unit within 8\" & visible: roll 6D6, each 4+ deals 1 mortal wound."},
     {name:"Smokescreen", cp:"1CP", when:"Start of opponent's Shooting phase.", body:"One friendly SMOKE unit (and anything obscured by it) gets the benefit of cover for the whole phase."},
+    // Charge Phase
+    {name:"Crushing Impact", cp:"1CP", when:"Charge phase, right after a friendly Monster/Vehicle ends a charge move.", body:"Pick an engaged enemy unit + one engaged model of yours. Roll D6 = that model's Toughness: each 1 deals you a mortal wound, each 5+ deals them one (max 6 each way)."},
     {name:"Heroic Intervention", cp:"1CP (+1CP optional)", when:"End of opponent's Charge phase.", body:"One unengaged unit within 12\" of an enemy (a Vehicle must be Character/Walker) makes a charge. Pick a mode: Leap to Defend (only target units that already charged this phase) or +1CP Into the Fray (cap roll at 6, can target anything within 6\")."},
+    // Fight Phase
+    {name:"Epic Challenge", cp:"1CP", when:"Fight phase, right after a friendly CHARACTER unit is picked to fight.", body:"One Character model's melee weapons gain [PRECISION] until end of phase."},
     {name:"Counteroffensive", cp:"2CP", when:"Opponent's Fight phase, right after an enemy unit resolves its attacks.", body:"Your eligible unit gains Fights First and must be the very next unit you pick to fight."}
   ];
 
