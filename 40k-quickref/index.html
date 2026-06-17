@@ -181,6 +181,10 @@
   .ltab.active{background:var(--gold); color:#1a1407; border-color:var(--gold);}
   .layout-map{width:100%; height:auto; border-radius:8px; display:block;}
   .layout-placeholder{width:100%; aspect-ratio:893/1263; background:var(--bg-card-3); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--ink-faint); font-size:13px;}
+  /* nested matchup cards sit inside a group's .inner */
+  .layout-group > .inner{padding-bottom:8px;}
+  .layout-group > .inner > .layout-block{background:var(--bg-card-2); border-color:var(--line-soft); margin-bottom:6px;}
+  .layout-group > .inner > .layout-block > summary{font-size:14px;}
 </style>
 </head>
 <body>
@@ -246,6 +250,171 @@
           <div class="rc-body"><b>Castle icon</b> = Home (in your DZ) · <b>Skull</b> = Central (centreline) · <b>Diamond skull</b> = Expansion (opponent's territory).</div>
         </div>
       </div>
+    </div>
+  </details>
+
+  <!-- ── GROUP: TAKE AND HOLD ── -->
+  <details class="block layout-group">
+    <summary><span>Take and Hold<span class="sub">5 matchups · tap to pick opponent</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <details class="block layout-block" data-matchup="tah-tah">
+        <summary><span>vs Take and Hold<span class="sub">Battlefield Dominance</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="tah-ptf">
+        <summary><span>vs Purge the Foe<span class="sub">Immovable Object / Unstoppable Force</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="tah-dis">
+        <summary><span>vs Disruption<span class="sub">Determined Acquisition / Death Trap</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="tah-rec">
+        <summary><span>vs Reconnaissance<span class="sub">Purge and Secure / Reconnaissance Sweep</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="tah-pa">
+        <summary><span>vs Priority Assets<span class="sub">Inescapable Dominion / Secure Asset</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ── GROUP: PURGE THE FOE ── -->
+  <details class="block layout-group">
+    <summary><span>Purge the Foe<span class="sub">5 matchups · tap to pick opponent</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <details class="block layout-block" data-matchup="tah-ptf">
+        <summary><span>vs Take and Hold<span class="sub">Unstoppable Force / Immovable Object</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-ptf">
+        <summary><span>vs Purge the Foe<span class="sub">Meatgrinder</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-dis">
+        <summary><span>vs Disruption<span class="sub">Punishment / Delaying Action</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-rec">
+        <summary><span>vs Reconnaissance<span class="sub">Consecrate / Triangulation</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-pa">
+        <summary><span>vs Priority Assets<span class="sub">Destroyer's Wrath / Vital Link</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ── GROUP: DISRUPTION ── -->
+  <details class="block layout-group">
+    <summary><span>Disruption<span class="sub">5 matchups · tap to pick opponent</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <details class="block layout-block" data-matchup="tah-dis">
+        <summary><span>vs Take and Hold<span class="sub">Death Trap / Determined Acquisition</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-dis">
+        <summary><span>vs Purge the Foe<span class="sub">Delaying Action / Punishment</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="dis-dis">
+        <summary><span>vs Disruption<span class="sub">Outmanoeuvre</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="dis-rec">
+        <summary><span>vs Reconnaissance<span class="sub">Smoke and Mirrors / Surveil the Foe</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="dis-pa">
+        <summary><span>vs Priority Assets<span class="sub">Locate and Deny / Extract Relic</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ── GROUP: RECONNAISSANCE ── -->
+  <details class="block layout-group">
+    <summary><span>Reconnaissance<span class="sub">5 matchups · tap to pick opponent</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <details class="block layout-block" data-matchup="tah-rec">
+        <summary><span>vs Take and Hold<span class="sub">Reconnaissance Sweep / Purge and Secure</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-rec">
+        <summary><span>vs Purge the Foe<span class="sub">Triangulation / Consecrate</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="dis-rec">
+        <summary><span>vs Disruption<span class="sub">Surveil the Foe / Smoke and Mirrors</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="rec-rec">
+        <summary><span>vs Reconnaissance<span class="sub">Gather Intel</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="rec-pa">
+        <summary><span>vs Priority Assets<span class="sub">Search and Scour / Vanguard Operation</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+    </div>
+  </details>
+
+  <!-- ── GROUP: PRIORITY ASSETS ── -->
+  <details class="block layout-group">
+    <summary><span>Priority Assets<span class="sub">5 matchups · tap to pick opponent</span></span><span class="chev">▸</span></summary>
+    <div class="inner">
+
+      <details class="block layout-block" data-matchup="tah-pa">
+        <summary><span>vs Take and Hold<span class="sub">Secure Asset / Inescapable Dominion</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="ptf-pa">
+        <summary><span>vs Purge the Foe<span class="sub">Vital Link / Destroyer's Wrath</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="dis-pa">
+        <summary><span>vs Disruption<span class="sub">Extract Relic / Locate and Deny</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="rec-pa">
+        <summary><span>vs Reconnaissance<span class="sub">Vanguard Operation / Search and Scour</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
+      <details class="block layout-block" data-matchup="pa-pa">
+        <summary><span>vs Priority Assets<span class="sub">Sabotage</span></span><span class="chev">▸</span></summary>
+        <div class="inner"><div class="layout-tabs"><button class="ltab active" data-letter="a">Layout A</button><button class="ltab" data-letter="b">Layout B</button><button class="ltab" data-letter="c">Layout C</button></div><div class="layout-placeholder">Tap to load map</div><img class="layout-map" style="display:none" alt="Layout map"></div>
+      </details>
+
     </div>
   </details>
 
