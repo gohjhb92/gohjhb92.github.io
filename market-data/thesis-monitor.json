@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-30T20:20:34.924Z",
+  "generatedAt": "2026-06-30T22:39:59.510Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -35,7 +35,7 @@
       "changePercent": 4.649610678531693,
       "dayHigh": 49.2,
       "dayLow": 46.05,
-      "volume": 4278163,
+      "volume": 4317938,
       "marketTime": "2026-06-30T20:00:01.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -51,7 +51,7 @@
       "changePercent": -4.7484053862508855,
       "dayHigh": 28.59,
       "dayLow": 26.77,
-      "volume": 212678,
+      "volume": 212786,
       "marketTime": "2026-06-30T20:00:01.000Z",
       "source": "Yahoo Finance chart API"
     }
@@ -117,7 +117,7 @@
       "changePercent": 0.9101251422070475,
       "dayHigh": 108.1,
       "dayLow": 105.13,
-      "volume": 3419288,
+      "volume": 3719308,
       "marketTime": "2026-06-30T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -133,7 +133,7 @@
       "changePercent": -1.2636899747261887,
       "dayHigh": 11.975,
       "dayLow": 11.665,
-      "volume": 6056157,
+      "volume": 6067380,
       "marketTime": "2026-06-30T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -143,14 +143,14 @@
       "role": "Fertilizer equity proxy",
       "currency": "USD",
       "exchange": "NYSE",
-      "price": 21.2,
+      "price": 21.19,
       "previousClose": 22.38,
-      "change": -1.1799999999999997,
-      "changePercent": -5.272564789991063,
+      "change": -1.1899999999999977,
+      "changePercent": -5.317247542448604,
       "dayHigh": 21.78,
       "dayLow": 20.845,
       "volume": 13641841,
-      "marketTime": "2026-06-30T19:59:59.000Z",
+      "marketTime": "2026-06-30T20:06:15.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -165,7 +165,7 @@
       "changePercent": 3.2305673991472714,
       "dayHigh": 63.53,
       "dayLow": 62.32,
-      "volume": 5494368,
+      "volume": 5856479,
       "marketTime": "2026-06-30T20:00:03.000Z",
       "source": "Yahoo Finance chart API"
     }
