@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T20:11:58.663Z",
+  "generatedAt": "2026-07-16T21:16:00.036Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -19,7 +19,7 @@
       "changePercent": 26.102292768959444,
       "dayHigh": 7.22,
       "dayLow": 7.02,
-      "volume": 164872374,
+      "volume": 165656796,
       "marketTime": "2026-07-16T20:00:01.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -35,7 +35,7 @@
       "changePercent": -4.088734232274892,
       "dayHigh": 48.5,
       "dayLow": 42.95,
-      "volume": 3443122,
+      "volume": 3457995,
       "marketTime": "2026-07-16T20:00:01.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -51,7 +51,7 @@
       "changePercent": 8.815838625326856,
       "dayHigh": 31,
       "dayLow": 28.076,
-      "volume": 1476350,
+      "volume": 1483361,
       "marketTime": "2026-07-16T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     }
@@ -63,14 +63,14 @@
       "role": "Corn futures proxy",
       "currency": "USD",
       "exchange": "NYSEArca",
-      "price": 17.6,
+      "price": 17.62,
       "previousClose": 17.49,
-      "change": 0.11000000000000298,
-      "changePercent": 0.62893081761008,
+      "change": 0.13000000000000256,
+      "changePercent": 0.7432818753573618,
       "dayHigh": 17.83,
       "dayLow": 17.59,
-      "volume": 295479,
-      "marketTime": "2026-07-16T19:59:59.000Z",
+      "volume": 304296,
+      "marketTime": "2026-07-16T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -79,14 +79,14 @@
       "role": "Wheat futures proxy",
       "currency": "USD",
       "exchange": "NYSEArca",
-      "price": 24.94,
+      "price": 24.92,
       "previousClose": 23.91,
-      "change": 1.0300000000000011,
-      "changePercent": 4.307820995399419,
+      "change": 1.0100000000000016,
+      "changePercent": 4.224173985780015,
       "dayHigh": 25.2,
       "dayLow": 24.83,
       "volume": 513777,
-      "marketTime": "2026-07-16T19:59:49.000Z",
+      "marketTime": "2026-07-16T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -101,7 +101,7 @@
       "changePercent": -2.4617776626069,
       "dayHigh": 9.735,
       "dayLow": 9.3775,
-      "volume": 13972,
+      "volume": 14006,
       "marketTime": "2026-07-16T15:35:24.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -111,14 +111,14 @@
       "role": "Crude oil proxy",
       "currency": "USD",
       "exchange": "NYSEArca",
-      "price": 119.27,
+      "price": 119.3,
       "previousClose": 120.17,
-      "change": -0.9000000000000057,
-      "changePercent": -0.7489390030789762,
+      "change": -0.8700000000000045,
+      "changePercent": -0.7239743696430095,
       "dayHigh": 121.41,
       "dayLow": 118.709,
-      "volume": 3838557,
-      "marketTime": "2026-07-16T19:59:59.000Z",
+      "volume": 3930499,
+      "marketTime": "2026-07-16T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -133,8 +133,8 @@
       "changePercent": -0.9505703422053199,
       "dayHigh": 10.685,
       "dayLow": 10.181,
-      "volume": 11679556,
-      "marketTime": "2026-07-16T19:59:59.000Z",
+      "volume": 11714728,
+      "marketTime": "2026-07-16T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -143,14 +143,14 @@
       "role": "Fertilizer equity proxy",
       "currency": "USD",
       "exchange": "NYSE",
-      "price": 22.54,
+      "price": 22.53,
       "previousClose": 22.94,
-      "change": -0.40000000000000213,
-      "changePercent": -1.743679163034011,
+      "change": -0.41000000000000014,
+      "changePercent": -1.7872711421098524,
       "dayHigh": 23.395,
       "dayLow": 22.38,
       "volume": 4796755,
-      "marketTime": "2026-07-16T20:00:00.000Z",
+      "marketTime": "2026-07-16T20:03:51.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -159,14 +159,14 @@
       "role": "Fertilizer equity proxy",
       "currency": "USD",
       "exchange": "NYSE",
-      "price": 67.095,
+      "price": 67.1,
       "previousClose": 68.64,
-      "change": -1.5450000000000017,
-      "changePercent": -2.2508741258741285,
+      "change": -1.5400000000000063,
+      "changePercent": -2.2435897435897525,
       "dayHigh": 67.72,
       "dayLow": 66.55,
       "volume": 1698302,
-      "marketTime": "2026-07-16T19:59:55.000Z",
+      "marketTime": "2026-07-16T20:00:03.000Z",
       "source": "Yahoo Finance chart API"
     }
   ]
