@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T09:39:39.157Z",
+  "generatedAt": "2026-07-21T12:00:00.802Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -61,16 +61,7 @@
       "symbol": "CORN",
       "label": "Teucrium Corn Fund",
       "role": "Corn futures proxy",
-      "currency": "USD",
-      "exchange": "NYSEArca",
-      "price": 17.91,
-      "previousClose": 17.62,
-      "change": 0.28999999999999915,
-      "changePercent": 1.6458569807037409,
-      "dayHigh": 18.03,
-      "dayLow": 17.87,
-      "volume": 337588,
-      "marketTime": "2026-07-20T20:00:00.000Z",
+      "error": "CORN returned 400",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -95,14 +86,14 @@
       "role": "Sugar ETC proxy",
       "currency": "USD",
       "exchange": "LSE",
-      "price": 9.717,
+      "price": 9.665,
       "previousClose": 9.69,
-      "change": 0.027000000000001023,
-      "changePercent": 0.27863777089784336,
+      "change": -0.025000000000000355,
+      "changePercent": -0.25799793601651555,
       "dayHigh": 9.717,
       "dayLow": 9.6,
-      "volume": 10879,
-      "marketTime": "2026-07-21T09:03:17.000Z",
+      "volume": 10215,
+      "marketTime": "2026-07-21T11:17:59.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
