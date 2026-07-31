@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-31T20:35:59.404Z",
+  "generatedAt": "2026-07-31T22:15:18.281Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -27,16 +27,7 @@
       "symbol": "DFTX",
       "label": "Definium Therapeutics",
       "role": "Catalyst trade",
-      "currency": "USD",
-      "exchange": "NasdaqGS",
-      "price": 43.52,
-      "previousClose": 42.16,
-      "change": 1.3600000000000065,
-      "changePercent": 3.225806451612919,
-      "dayHigh": 45,
-      "dayLow": 42.84,
-      "volume": 1959758,
-      "marketTime": "2026-07-31T20:00:01.000Z",
+      "error": "DFTX returned 429",
       "source": "Yahoo Finance chart API"
     },
     {
@@ -149,7 +140,7 @@
       "changePercent": -2.210433244916003,
       "dayHigh": 22.98,
       "dayLow": 22.07,
-      "volume": 5160957,
+      "volume": 10779231,
       "marketTime": "2026-07-31T20:04:12.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -165,7 +156,7 @@
       "changePercent": -2.153279501345814,
       "dayHigh": 70.78,
       "dayLow": 68.96,
-      "volume": 1651890,
+      "volume": 1927342,
       "marketTime": "2026-07-31T20:00:03.000Z",
       "source": "Yahoo Finance chart API"
     }
