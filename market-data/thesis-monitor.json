@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-09T21:47:33.288Z",
+  "generatedAt": "2026-08-09T22:49:29.314Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -11,7 +11,16 @@
       "symbol": "ATAI",
       "label": "AtaiBeckley",
       "role": "Speculative core",
-      "error": "ATAI returned 429",
+      "currency": "USD",
+      "exchange": "NasdaqGM",
+      "price": 7.25,
+      "previousClose": 7.22,
+      "change": 0.03000000000000025,
+      "changePercent": 0.4155124653739647,
+      "dayHigh": 7.25,
+      "dayLow": 7.2,
+      "volume": 6408593,
+      "marketTime": "2026-08-07T20:00:01.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
