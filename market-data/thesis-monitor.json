@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T22:02:17.921Z",
+  "generatedAt": "2026-08-12T23:00:55.235Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -43,16 +43,7 @@
       "symbol": "GHRS",
       "label": "GH Research",
       "role": "Quality science",
-      "currency": "USD",
-      "exchange": "NasdaqGM",
-      "price": 30.24,
-      "previousClose": 29.53,
-      "change": 0.7099999999999973,
-      "changePercent": 2.404334575008457,
-      "dayHigh": 30.68,
-      "dayLow": 29.25,
-      "volume": 1127856,
-      "marketTime": "2026-08-12T20:00:01.000Z",
+      "error": "GHRS returned 429",
       "source": "Yahoo Finance chart API"
     }
   ],
