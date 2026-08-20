@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T05:46:01.433Z",
+  "generatedAt": "2026-08-20T07:05:32.819Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -96,9 +96,9 @@
       "currency": "USD",
       "exchange": "LSE",
       "price": 11.47,
-      "previousClose": 11.023,
-      "change": 0.44700000000000095,
-      "changePercent": 4.055157398167477,
+      "previousClose": 11.35,
+      "change": 0.120000000000001,
+      "changePercent": 1.0572687224669692,
       "dayHigh": 0,
       "dayLow": 0,
       "volume": 388,
