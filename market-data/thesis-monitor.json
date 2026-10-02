@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T02:15:44.934Z",
+  "generatedAt": "2026-10-02T08:36:49.375Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -95,14 +95,14 @@
       "role": "Sugar ETC proxy",
       "currency": "USD",
       "exchange": "LSE",
-      "price": 11.775,
-      "previousClose": 11.775,
-      "change": 0,
-      "changePercent": 0,
-      "dayHigh": 0,
-      "dayLow": 0,
-      "volume": 1,
-      "marketTime": "2026-10-01T15:27:43.000Z",
+      "price": 11.96,
+      "previousClose": 11.64,
+      "change": 0.3200000000000003,
+      "changePercent": 2.7491408934707926,
+      "dayHigh": 11.96,
+      "dayLow": 11.675,
+      "volume": 5629,
+      "marketTime": "2026-10-02T07:57:53.000Z",
       "source": "Yahoo Finance chart API"
     },
     {
