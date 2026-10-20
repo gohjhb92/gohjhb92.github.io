@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T20:35:00.614Z",
+  "generatedAt": "2026-10-20T23:52:32.121Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -35,7 +35,7 @@
       "changePercent": 9.314641744548293,
       "dayHigh": 35.576,
       "dayLow": 32.775,
-      "volume": 1745483,
+      "volume": 1745538,
       "marketTime": "2026-10-20T20:00:01.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -69,7 +69,7 @@
       "changePercent": -1.8141836173721928,
       "dayHigh": 18.08,
       "dayLow": 17.83,
-      "volume": 184476,
+      "volume": 184582,
       "marketTime": "2026-10-20T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -85,7 +85,7 @@
       "changePercent": -1.8749999999999971,
       "dayHigh": 24.01,
       "dayLow": 23.52,
-      "volume": 312235,
+      "volume": 313126,
       "marketTime": "2026-10-20T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -99,9 +99,9 @@
       "previousClose": 12.845,
       "change": -0.08000000000000007,
       "changePercent": -0.6228104320747377,
-      "dayHigh": 12.91,
-      "dayLow": 12.72,
-      "volume": 59246,
+      "dayHigh": 0,
+      "dayLow": 0,
+      "volume": 0,
       "marketTime": "2026-10-20T15:35:23.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -117,7 +117,7 @@
       "changePercent": -0.7109297725024588,
       "dayHigh": 162.77,
       "dayLow": 155.76,
-      "volume": 7505667,
+      "volume": 7535307,
       "marketTime": "2026-10-20T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -133,7 +133,7 @@
       "changePercent": -1.5009380863039414,
       "dayHigh": 10.52,
       "dayLow": 10.3,
-      "volume": 20633642,
+      "volume": 20741363,
       "marketTime": "2026-10-20T20:00:00.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -149,7 +149,7 @@
       "changePercent": -5.100956429330504,
       "dayHigh": 18.07,
       "dayLow": 17.75,
-      "volume": 9525250,
+      "volume": 9531104,
       "marketTime": "2026-10-20T20:00:02.000Z",
       "source": "Yahoo Finance chart API"
     },
