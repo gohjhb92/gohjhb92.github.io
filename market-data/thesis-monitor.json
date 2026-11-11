@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T23:22:00.540Z",
+  "generatedAt": "2026-11-11T06:20:10.633Z",
   "timezone": "Asia/Singapore",
   "source": "Yahoo Finance chart API",
   "notes": [
@@ -35,7 +35,7 @@
       "changePercent": 4.117823865344146,
       "dayHigh": 35.97,
       "dayLow": 33.78,
-      "volume": 1295052,
+      "volume": 1295257,
       "marketTime": "2026-11-10T21:00:01.000Z",
       "source": "Yahoo Finance chart API"
     },
@@ -51,7 +51,7 @@
       "changePercent": 5.104782375067164,
       "dayHigh": 19.85,
       "dayLow": 18.83,
-      "volume": 108738,
+      "volume": 108739,
       "marketTime": "2026-11-10T21:00:01.000Z",
       "source": "Yahoo Finance chart API"
     }
